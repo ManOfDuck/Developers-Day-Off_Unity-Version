@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{554EC058-A63E-520D-095B-FE20CBF051E4}</ProjectGuid>
+    <ProjectGuid>{BD39B7B0-A9D0-2D9A-A2F7-9050E75FBBCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,8 +56,8 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\LaraMovement.cs" />
+    <Compile Include="Assets\Scripts\FollowCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AssetSourceList.txt" />
