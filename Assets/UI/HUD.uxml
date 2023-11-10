@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="height: 479px; align-items: flex-start; flex-direction: row;">
+        <ui:VisualElement name="lives-stuff" style="align-items: flex-start; flex-direction: row; width: 50%;">
+            <ui:Label text="             " display-tooltip-when-elided="true" name="lives" style="align-items: flex-start; font-size: 22px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; flex-direction: row;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="timer-stuff" style="align-items: flex-start; flex-direction: row; font-size: 22px; width: 50%; justify-content: flex-end;">
+            <ui:Label text="Time:" display-tooltip-when-elided="true" name="timer-label" style="flex-direction: row; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+            <ui:Label text="placeholder" display-tooltip-when-elided="true" name="time-left" style="flex-direction: row; padding-left: 0; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

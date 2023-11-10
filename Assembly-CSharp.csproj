@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BD39B7B0-A9D0-2D9A-A2F7-9050E75FBBCD}</ProjectGuid>
+    <ProjectGuid>{554EC058-A63E-520D-095B-FE20CBF051E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,11 +56,29 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\LaraMovement.cs" />
+    <Compile Include="Assets\Scripts\Goo.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
+    <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\StartMenuController.cs" />
+    <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
+    <Compile Include="Assets\Scripts\LaraMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyPatrol2.cs" />
+    <Compile Include="Assets\Scripts\TimerLog.cs" />
+    <Compile Include="Assets\Scripts\WinItem.cs" />
+    <Compile Include="Assets\Scripts\EnemyTrigger.cs" />
+    <Compile Include="Assets\Scripts\HUDController.cs" />
+    <Compile Include="Assets\Scripts\PauseMenuController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\UI\gameOverHUD.uxml" />
+    <None Include="Assets\UI\menuButtonStyles.uss" />
+    <None Include="Assets\UI\HUD.uxml" />
+    <None Include="Assets\UI\PauseHUD.uxml" />
+    <None Include="Assets\UI\WinHUD.uxml" />
+    <None Include="Assets\UI\buttonStyles.uss" />
     <None Include="Assets\AssetSourceList.txt" />
+    <None Include="Assets\UI\StartHUD.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

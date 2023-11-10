@@ -1,0 +1,13 @@
+.menu-buttons {
+    margin-left: 100px;
+    font-size: 50px;
+    width: 500px;
+    height: 150px;
+    padding-bottom: 0;
+}
+
+.menu-buttons:hover {
+    transition-duration: 0.02s;
+    rotate: 5deg;
+    scale: 1.25 1.5;
+}

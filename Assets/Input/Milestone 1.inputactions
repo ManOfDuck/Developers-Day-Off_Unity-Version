@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Open/Close Pause Menu",
+                    "type": "Button",
+                    "id": "35080463-143f-4285-8c6f-31088f062d49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "9470b45e-5d21-4c1a-9704-3d306724feb5",
@@ -273,6 +282,17 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69f49ff1-0841-4627-8b55-238f95d60932",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open/Close Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -366,6 +386,15 @@
                     "type": "PassThrough",
                     "id": "5cb32b35-127b-4d25-95bb-948bd402edc6",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Open/Close Pause Menu",
+                    "type": "Button",
+                    "id": "db58d80e-fd08-488e-9a14-472d6eb8b23a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -787,6 +816,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40946cb9-a395-460b-9c69-b7e65c2b5a1f",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open/Close Pause Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

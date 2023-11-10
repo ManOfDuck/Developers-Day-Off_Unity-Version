@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="height: 1080px; background-color: rgba(0, 0, 0, 0.51); margin-left: 100px; margin-right: 100px; margin-top: 100px; margin-bottom: 100px;">
+        <ui:Label text="Game Over! - You Died " display-tooltip-when-elided="true" style="-unity-font: url(&apos;project://database/Assets/Fonts/Quick%20Note.ttf?fileID=12800000&amp;guid=7ef068c6e7e400b42b132f0a2edc0406&amp;type=3#Quick Note&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Quick%20Note%20SDF.asset?fileID=11400000&amp;guid=2ac547efa505adc479c29a4fa2dbd3c1&amp;type=2#Quick Note SDF&apos;); font-size: 200px; -unity-text-align: upper-center; padding-top: 20%; color: rgba(255, 255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

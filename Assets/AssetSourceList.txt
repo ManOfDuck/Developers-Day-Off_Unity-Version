@@ -3,7 +3,10 @@ Remember, it's important to keep track of where you sourced your assets so you c
 Lara Croft Character Sprite Sheet - https://www.spriters-resource.com/custom_edited/tombraidercustoms/sheet/138941/
 Crate Sprite - https://www.spriters-resource.com/game_boy_advance/cvcom/sheet/70665/
 Platformer Pack Industrial - https://www.kenney.nl/assets/platformer-pack-industrial
-UI Main Menu Background - https://www.vecteezy.com/vector-art/1102791-soft-blurred-pastel-holographic-design
-UI Main Menu Logo - https://textcraft.net/
-Background Music - https://incompetech.com/music/royalty-free/music.html
+Bird Sprite - https://www.seekpng.com/ipng/u2w7o0e6y3w7e6u2_robin-sprite-sheet-bird-sprite-sheet-png/
+Background Music - https://opengameart.org/content/difference
+Oof Sound - https://freesound.org/people/fotoshop/sounds/47356/
+Squawk Sound - https://freesound.org/people/JackWilDesign/sounds/607902/
 Victory and Defeat SFX - https://gamesounds.xyz/
+
+All other sprites and assets are by Fiona Bolen.

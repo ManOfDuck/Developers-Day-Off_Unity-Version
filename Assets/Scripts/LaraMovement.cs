@@ -113,10 +113,10 @@ public class LaraMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("One");
+            
             if (isGrounded)
             {
-                Debug.Log("Jump");
+                
                 playerRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
                 animator.SetTrigger("Jump");
@@ -124,7 +124,7 @@ public class LaraMovement : MonoBehaviour
         }
         else if (context.canceled)
         {
-            Debug.Log("Jump Cancelled");
+            
 
             if (playerRigidBody.velocity.y > 0)
             {
