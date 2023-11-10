@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/buttonStyles.uss?fileID=7433441132597879392&amp;guid=fd678d5c298d0da4d9d3a4d6b2620efd&amp;type=3#buttonStyles" />
-    <ui:VisualElement style="height: 896px; width: 1314px; align-items: center; margin-left: 100px; margin-right: 100px; margin-top: 100px; margin-bottom: 100px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgba(0, 0, 0, 0.56); color: rgb(255, 255, 255);">
-        <ui:Label text="Game Paused!" display-tooltip-when-elided="true" style="padding-top: 200px; font-size: 144px; -unity-font: url(&apos;project://database/Assets/Quick%20Note.ttf?fileID=12800000&amp;guid=7ef068c6e7e400b42b132f0a2edc0406&amp;type=3#Quick Note&apos;); -unity-font-definition: url(&apos;project://database/Assets/Quick%20Note%20SDF.asset?fileID=11400000&amp;guid=2ac547efa505adc479c29a4fa2dbd3c1&amp;type=2#Quick Note SDF&apos;);" />
-        <ui:VisualElement name="Buttons">
-            <ui:Button text="Resume!" display-tooltip-when-elided="true" name="ResumeButton" class="generic-buttons" style="padding-top: 6px; margin-top: 6px; -unity-text-outline-color: rgba(255, 255, 255, 0); background-color: rgb(255, 255, 255); color: rgba(0, 0, 0, 0.87); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; font-size: 75px; -unity-font-definition: url(&apos;project://database/Assets/Quick%20Note%20SDF.asset?fileID=11400000&amp;guid=2ac547efa505adc479c29a4fa2dbd3c1&amp;type=2#Quick Note SDF&apos;); padding-left: 15px; padding-right: 15px; padding-bottom: 6px;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-</ui:UXML>

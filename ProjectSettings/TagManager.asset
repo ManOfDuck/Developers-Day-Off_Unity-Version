@@ -4,12 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
+  - Ground
+  - Rootable
+  - UnRootable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - ground
   - Water
   - UI
   - 
