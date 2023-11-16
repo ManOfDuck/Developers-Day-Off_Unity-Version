@@ -37,8 +37,14 @@ public class SimulatedObject : MonoBehaviour
         setComponentEnabledStatus(component, !getComponentEnabledStatus(component));
     }
 
+
     public void setScriptEnabledStatus(SimulatedScript script, bool enabled)
     {
         script.enabled = enabled;
+    }
+
+    public void toggleScript(SimulatedScript script)
+    {
+        setScriptEnabledStatus(script, !script.enabled);
     }
 }
