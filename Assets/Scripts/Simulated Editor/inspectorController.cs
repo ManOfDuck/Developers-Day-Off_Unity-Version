@@ -21,7 +21,7 @@ public class inspectorController : MonoBehaviour
 
         SRTog = root.Q<Toggle>("SR_toggle");
 
-        //IMGTog = root.Q<Toggle>("IMG_toggle");
+        IMGTog = root.Q<Toggle>("IMG_toggle");
 
         BC2DTog = root.Q<Toggle>("RB2D_toggle");
 
@@ -36,7 +36,7 @@ public class inspectorController : MonoBehaviour
 
     void Start()
     {
-        
+        root.visible = false;
     }
 
     void Update()
@@ -44,19 +44,38 @@ public class inspectorController : MonoBehaviour
         
     }
 
-    public void DisplayObject(SimulatedObject obj)
+    public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
+        root.visible = true;
 
         //SET TOGGLES
         if (obj.getComponentEnabledStatus(obj.components[1]) == true) //check if Sprite Renderer = true
         {
-            SRTog.value = true; // change the box collider toggle to true
-                                  //IN THEORY
-            Debug.Log("component " + 1 + "should be being toggled");
+            SRTog.value = true;
+        } else
+        {
+            SRTog.value = false;
+        }
+       
+        if( obj.GetComponent<SpriteRenderer>().sprite.name == noSprite.name) //check to see if sprite is default or not
+        {
+            IMGTog.value = false;
+        }else
+        {
+            IMGTog.value = true;
         }
 
-     
-            
+        if (obj.getComponentEnabledStatus(obj.components[2]) == true) //check if BoxCollider = true
+        {
+            BC2DTog.value = true;
+        }
+        else
+        {
+            BC2DTog.value = false;
+        }
+
+
+
     }    
         
       
