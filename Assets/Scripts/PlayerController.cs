@@ -286,6 +286,7 @@ public class PlayerController : SimulatedScript
         playerInput.currentActionMap.Disable();
         playerInput.SwitchCurrentActionMap(mapName);
 
+        /*
         switch (mapName)
         {
             case "UI":
@@ -302,6 +303,7 @@ public class PlayerController : SimulatedScript
                 Cursor.visible = false;
                 break;
         }
+        */
     }
     #endregion
 

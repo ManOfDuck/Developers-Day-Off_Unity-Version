@@ -7,6 +7,8 @@ public class SimulatedObject : MonoBehaviour
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
 
+    private bool mouseOver = false;
+
     [System.Serializable]
     public class SimulatedComponent
     {
@@ -46,5 +48,23 @@ public class SimulatedObject : MonoBehaviour
     public void toggleScript(SimulatedScript script)
     {
         setScriptEnabledStatus(script, !script.enabled);
+    }
+
+    public void OnMouseEnter()
+    {
+        mouseOver = true;
+    }
+
+    public void OnMouseExit()
+    {
+        mouseOver = false;
+    }
+
+    public void OnMouseDown()
+    {
+        if (mouseOver)
+        {
+            Debug.Log("Clicked!");
+        }
     }
 }
