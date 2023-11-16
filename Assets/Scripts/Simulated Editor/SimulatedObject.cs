@@ -64,6 +64,7 @@ public class SimulatedObject : MonoBehaviour
     {
         if (mouseOver)
         {
+            // Send object to inspector
             Debug.Log("Clicked!");
         }
     }
