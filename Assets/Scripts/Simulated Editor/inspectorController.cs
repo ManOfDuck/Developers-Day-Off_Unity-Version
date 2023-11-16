@@ -10,11 +10,14 @@ public class inspectorController : MonoBehaviour
 
     VisualElement root;
     Label objectName, objectTag;
-    private void OnEnable()
+    Toggle BC2DTog;
+    private void OnEnable() // get ui references B-)
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         objectName = root.Q<Label>("Object_name");
         objectTag = root.Q<Label>("Tag");
+        BC2DTog = root.Q<Toggle>("BC2D_toggle");
+
     }
 
     void Start()
@@ -29,7 +32,14 @@ public class inspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject obj)
     {
-        Debug.Log(obj.components.ToString());
+        Debug.Log("WAH");
+        
+        if (obj.getComponentEnabledStatus(obj.components[0]) == true) //check if boxcolider = true
+        {
+            BC2DTog.value = true; // change the box collider toggle to true
+            //IN THEORY
+        }
+       
 
 
     }

@@ -6,6 +6,7 @@ public class SimulatedObject : MonoBehaviour
 {
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
+    private inspectorController controller;
 
     [System.Serializable]
     public class SimulatedComponent
@@ -47,4 +48,6 @@ public class SimulatedObject : MonoBehaviour
     {
         setScriptEnabledStatus(script, !script.enabled);
     }
+
+   
 }
