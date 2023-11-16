@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : MonoBehaviour
+public class Patrol : SimulatedScript
 {
     [SerializeField] private List<Vector2> patrolPoints;
     [SerializeField] private float speed;

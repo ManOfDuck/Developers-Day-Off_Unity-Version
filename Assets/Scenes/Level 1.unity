@@ -272,6 +272,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &692925837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1641151438760214246, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+  m_PrefabInstance: {fileID: 1626825328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &692925840 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1641151438760214248, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+  m_PrefabInstance: {fileID: 1626825328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &692925844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692925837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  components:
+  - realComponent: {fileID: 692925840}
+    visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
+  scripts: []
 --- !u!4 &760381455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6977160775376425858, guid: ea7f9175c5ff94adfae5280678388de0, type: 3}
@@ -698,6 +724,10 @@ PrefabInstance:
     - target: {fileID: 1641151438760214246, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_Name
       value: Patrol Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214248, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214248, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_IsTrigger

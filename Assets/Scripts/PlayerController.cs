@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : SimulatedScript
 {
     [SerializeField]
     [Range(0f, 2f)]

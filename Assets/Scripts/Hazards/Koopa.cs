@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Koopa : MonoBehaviour
+public class Koopa : SimulatedScript
 {
     enum KoopaColor { red, green }
     enum Direction { left, right }
