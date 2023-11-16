@@ -50,6 +50,7 @@ public class SimulatedObject : MonoBehaviour
         setScriptEnabledStatus(script, !script.enabled);
     }
 
+    #region Interactivity
     public void OnMouseEnter()
     {
         mouseOver = true;
@@ -68,4 +69,5 @@ public class SimulatedObject : MonoBehaviour
             Debug.Log("Clicked!");
         }
     }
+    #endregion
 }
