@@ -59349,7 +59349,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1641151438760214246, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_Name
-      value: Patrol Enemy (1)
+      value: Patrol Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214249, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: title
@@ -59771,6 +59771,10 @@ PrefabInstance:
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: giz_offset.y
       value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: playerHealth
+      value: 200000
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: visualScript

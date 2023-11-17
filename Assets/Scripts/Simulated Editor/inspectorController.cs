@@ -85,6 +85,13 @@ public class inspectorController : MonoBehaviour
             }
         }
 
+        foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
+        {
+            Toggle toggle = kvp.Key;
+            SimulatedScript script = kvp.Value;
+            currentObject.setScriptEnabledStatus(script, toggle.value);
+        }
+
     }
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
