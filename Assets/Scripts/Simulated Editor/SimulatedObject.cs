@@ -27,8 +27,11 @@ public class SimulatedObject : MonoBehaviour
 
     public void setComponentEnabledStatus(SimulatedComponent component, bool enabled)
     {
+        Debug.Log("bro");
         if (isComponentToggleable(component))
         {
+            Debug.Log("Component Is Toggleable");
+            Debug.Log((component.realComponent as Behaviour).enabled);
             (component.realComponent as Behaviour).enabled = enabled;
         }        
     }

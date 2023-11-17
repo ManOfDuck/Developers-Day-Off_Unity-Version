@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,6 +13,11 @@ public class inspectorController : MonoBehaviour
     Label objectName, objectTag;
     Toggle TRANSTog, SRTog, IMGTog, RB2DTog, BC2DTog;
     Image test;
+
+    Sprite globalSpriteDefault, globarSprite1;
+    SimulatedObject currentObject;
+
+    
     private void OnEnable() // get ui references B-)
     {
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -41,12 +47,44 @@ public class inspectorController : MonoBehaviour
 
     void Update()
     {
-        
+        if (currentObject == null)
+        {
+            //catch exeption;
+        } 
+
+        if (SRTog.value == true) // set spriterender based on toggle
+        {
+            //currentObject.
+            currentObject.setComponentEnabledStatus(currentObject.components[1],true);
+            //Debug.Log("yea");
+        }
+        else if (SRTog.value == false)
+        {
+            currentObject.setComponentEnabledStatus(currentObject.components[1], false);
+            //currentObject.toggleComponent(currentObject.components[1]);
+            //Debug.Log("Awr Nawr");
+        }
+
+        if (IMGTog.value == true) //set image based on toggle
+        {
+            currentObject.GetComponent<SpriteRenderer>().sprite = globarSprite1;
+        } else if (IMGTog.value == false)
+        {
+            currentObject.GetComponent<SpriteRenderer>().sprite = globalSpriteDefault;
+        }
+
     }
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
         root.visible = true;
+        currentObject = obj;
+        globalSpriteDefault = noSprite;
+        globarSprite1 = sprite;
+
+        //SET OBJ NAME & TAG
+        objectName.text = obj.gameObject.name.ToString();
+        objectTag.text = obj.gameObject.tag.ToString();
 
         //SET TOGGLES
         if (obj.getComponentEnabledStatus(obj.components[1]) == true) //check if Sprite Renderer = true
@@ -77,14 +115,8 @@ public class inspectorController : MonoBehaviour
 
 
     }    
+
+
         
-      
 
-
-    //this one is just for testing
-    public void SetNameTag(string name, string tag)
-    {
-        objectName.text = name;
-        objectTag.text = tag;
-    }
 }
