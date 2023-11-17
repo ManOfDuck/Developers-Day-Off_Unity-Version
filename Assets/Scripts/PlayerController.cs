@@ -41,7 +41,7 @@ public class PlayerController : SimulatedScript
     [SerializeField] private Rigidbody2D playerBody;
     [SerializeField] private Collider2D playerCollider;
     [SerializeField] private SpriteRenderer playerRenderer;
-    //[SerializeField] private Animator spriteAnimator;
+    [SerializeField] private Animator spriteAnimator;
 
     private Vector2 moveInput;
     private Vector2 slopeDir;
@@ -147,13 +147,16 @@ public class PlayerController : SimulatedScript
 
         //Update the animator with the current running state and horizontal speed
         //spriteAnimator.SetBool("Run?!?!?!?!", isPlayerRunning);
+        
         if (Mathf.Approximately(playerBody.velocity.x, 0))
         {
-            //spriteAnimator.SetFloat("Horizontal Speed", 0);
+            Debug.Log("zero");
+            spriteAnimator.SetFloat("Horizontal Speed", 0);
         }
         else
         {
-            //spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
+            Debug.Log(Mathf.Abs(playerBody.velocity.x));
+            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
         }
     }
     #endregion
@@ -184,7 +187,7 @@ public class PlayerController : SimulatedScript
         //Cap vertical speed
         CheckVerticalSpeedCap();
         //Update animator
-        //spriteAnimator.SetBool("IsFalling", Mathf.Sign(playerBody.velocity.y) == -1);
+        spriteAnimator.SetBool("IsFalling", Mathf.Sign(playerBody.velocity.y) == -1);
     }
     #endregion
 
@@ -259,7 +262,7 @@ public class PlayerController : SimulatedScript
         RaycastHit2D[] hits = Physics2D.RaycastAll((Vector2)transform.position + giz_offset, Vector2.down, giz_rad, groundLayer);
 
         bool isGrounded = (hits.Length > 0);
-        //spriteAnimator.SetBool("IsGrounded", isGrounded);
+        spriteAnimator.SetBool("IsGrounded", isGrounded);
         if (isGrounded)
         {
             walljumpsRemaining = walljumpCount;
@@ -286,6 +289,7 @@ public class PlayerController : SimulatedScript
         playerInput.currentActionMap.Disable();
         playerInput.SwitchCurrentActionMap(mapName);
 
+        /*
         switch (mapName)
         {
             case "UI":
@@ -302,6 +306,7 @@ public class PlayerController : SimulatedScript
                 Cursor.visible = false;
                 break;
         }
+        */
     }
     #endregion
 

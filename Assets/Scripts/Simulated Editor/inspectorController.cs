@@ -40,6 +40,20 @@ public class inspectorController : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         root.visible = false;
@@ -50,16 +64,10 @@ public class inspectorController : MonoBehaviour
         if (currentObject == null)
         {
             //catch exeption;
-        } 
+        }
 
-        if (SRTog.value == true) // set spriterender based on toggle
-        {
-            currentObject.setComponentEnabledStatus(currentObject.components[1],true);
-        }
-        else if (SRTog.value == false)
-        {
-            currentObject.setComponentEnabledStatus(currentObject.components[1], false);
-        }
+        currentObject.setComponentEnabledStatus(currentObject.components[1], SRTog.value);
+        currentObject.setComponentEnabledStatus(currentObject.components[3], BC2DTog.value);
 
         if (IMGTog.value == true) //set image based on toggle
         {
@@ -67,15 +75,6 @@ public class inspectorController : MonoBehaviour
         } else if (IMGTog.value == false)
         {
             currentObject.GetComponent<SpriteRenderer>().sprite = globalSpriteDefault;
-        }
-
-        if (BC2DTog.value == true) // set boxCollider based on toggle
-        {
-            currentObject.setComponentEnabledStatus(currentObject.components[2], true);
-        }
-        else if (BC2DTog.value == false)
-        {
-            currentObject.setComponentEnabledStatus(currentObject.components[2], false);
         }
 
     }
