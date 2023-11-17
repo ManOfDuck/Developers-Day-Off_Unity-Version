@@ -13,6 +13,7 @@ public class inspectorController : MonoBehaviour
     Label objectName, objectTag;
     Toggle TRANSTog, SRTog, IMGTog, RB2DTog, BC2DTog;
     Image test;
+    Button script1Button, script2Button, script3Button;
 
     Sprite globalSpriteDefault, globarSprite1;
     SimulatedObject currentObject;
@@ -36,6 +37,10 @@ public class inspectorController : MonoBehaviour
 
 
         test = root.Q<Image>("SR_image");
+
+        script1Button = root.Q<Button>("Script1_button");
+        script2Button = root.Q<Button>("Script2_button");
+        script3Button = root.Q<Button>("Script3_button");
 
 
     }
@@ -76,6 +81,19 @@ public class inspectorController : MonoBehaviour
         {
             currentObject.GetComponent<SpriteRenderer>().sprite = globalSpriteDefault;
         }
+
+        script1Button.clickable.clicked += () =>
+        {
+            Debug.Log("Script1 clickecd");
+        };
+        script2Button.clickable.clicked += () =>
+        {
+            Debug.Log("Script2 clickecd");
+        };
+        script3Button.clickable.clicked += () =>
+        {
+            Debug.Log("Script3 clickecd");
+        };
 
     }
 
