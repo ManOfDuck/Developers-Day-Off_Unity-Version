@@ -184,9 +184,10 @@ GameObject:
   - component: {fileID: 1194877906}
   - component: {fileID: 1194877909}
   - component: {fileID: 1194877910}
+  - component: {fileID: 1194877911}
   m_Layer: 0
   m_Name: Le Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,8 +318,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
+  components:
+  - realComponent: {fileID: 1194877908}
+    visualComponent: {fileID: 11400000, guid: 02b3cf9288d03de45ab501d6e004422e, type: 2}
+  - realComponent: {fileID: 1194877907}
+    visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
+  - realComponent: {fileID: 1194877906}
+    visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
+  - realComponent: {fileID: 1194877909}
+    visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts: []
+--- !u!114 &1194877911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194877905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902147a7bdd1b2f42b75e6613458c1da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulatedObject: {fileID: 1194877910}
+  controller: {fileID: 2011245197}
+  defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
+  sprite1: {fileID: 21300000, guid: 666319e87c6b841fa87bfeb1217eb550, type: 3}
 --- !u!1 &1664133538
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,7 +454,7 @@ GameObject:
   - component: {fileID: 1904642980}
   m_Layer: 0
   m_Name: Guy Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -678,7 +703,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2011245196}
+  - component: {fileID: 2011245198}
   - component: {fileID: 2011245195}
   - component: {fileID: 2011245197}
   m_Layer: 5
@@ -704,21 +729,6 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 0238fc54791c6e641aa227d74ac52b72, type: 3}
   m_SortingOrder: 0
---- !u!4 &2011245196
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011245194}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03100434, y: 0.014499074, z: 0.0046934113}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2011245197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,3 +741,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320c7d0aaf9fd014695915e490eb875a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2011245198
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011245194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0046934113}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.03100434, y: 0.014499074}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

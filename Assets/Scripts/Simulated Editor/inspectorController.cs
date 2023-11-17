@@ -54,15 +54,11 @@ public class inspectorController : MonoBehaviour
 
         if (SRTog.value == true) // set spriterender based on toggle
         {
-            //currentObject.
             currentObject.setComponentEnabledStatus(currentObject.components[1],true);
-            //Debug.Log("yea");
         }
         else if (SRTog.value == false)
         {
             currentObject.setComponentEnabledStatus(currentObject.components[1], false);
-            //currentObject.toggleComponent(currentObject.components[1]);
-            //Debug.Log("Awr Nawr");
         }
 
         if (IMGTog.value == true) //set image based on toggle
@@ -71,6 +67,15 @@ public class inspectorController : MonoBehaviour
         } else if (IMGTog.value == false)
         {
             currentObject.GetComponent<SpriteRenderer>().sprite = globalSpriteDefault;
+        }
+
+        if (BC2DTog.value == true) // set boxCollider based on toggle
+        {
+            currentObject.setComponentEnabledStatus(currentObject.components[2], true);
+        }
+        else if (BC2DTog.value == false)
+        {
+            currentObject.setComponentEnabledStatus(currentObject.components[2], false);
         }
 
     }
