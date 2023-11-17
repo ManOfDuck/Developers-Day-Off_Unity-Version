@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SpriteRenderer 2D
   m_EditorClassIdentifier: 
   title: Sprite Renderer 2D
-  image: {fileID: 21300000, guid: 31e19a0848556409fa4319e0ac37d3d0, type: 3}
+  image: {fileID: 21300000, guid: 5674254345f2eef4c8af0abea3b4dba6, type: 3}
   description: not fanta renderer

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BoxCollider2D
   m_EditorClassIdentifier: 
   title: Box Collider 2D
-  image: {fileID: 21300000, guid: 69bae9629b8f84eff83e6289a2860a11, type: 3}
+  image: {fileID: 21300000, guid: dfd86a529b70782449bee0863b750654, type: 3}
   description: A box around the object that fires events when it hits other colliders

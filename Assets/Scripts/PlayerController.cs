@@ -150,12 +150,10 @@ public class PlayerController : SimulatedScript
         
         if (Mathf.Approximately(playerBody.velocity.x, 0))
         {
-            Debug.Log("zero");
             spriteAnimator.SetFloat("Horizontal Speed", 0);
         }
         else
         {
-            Debug.Log(Mathf.Abs(playerBody.velocity.x));
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
         }
     }

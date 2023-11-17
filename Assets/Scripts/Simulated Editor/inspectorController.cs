@@ -3,41 +3,32 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using SimulatedComponent = SimulatedObject.SimulatedComponent;
 
 public class inspectorController : MonoBehaviour
 {
     private static inspectorController _instance;
     public static inspectorController Instance { get { return _instance; } }
 
-    VisualElement root;
-    Label objectName, objectTag;
-    Toggle TRANSTog, SRTog, IMGTog, RB2DTog, BC2DTog;
-    Image test;
+    public VisualTreeAsset componentTemplate;
 
-    Sprite globalSpriteDefault, globarSprite1;
-    SimulatedObject currentObject;
+    private VisualElement root;
+    private Label objectName, objectTag;
+    private Toggle TRANSTog, SRTog, IMGTog, RB2DTog, BC2DTog;
+    private Image test;
 
-    
+    private Sprite globalSpriteDefault, globalSprite1;
+    private SimulatedObject currentObject;
+    private List<SimulatedComponent> components;
+    private List<VisualElement> componentDisplays = new();
+    private Dictionary<Toggle, SimulatedComponent> toggleBindings = new();
+
+
     private void OnEnable() // get ui references B-)
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         objectName = root.Q<Label>("Object_name");
         objectTag = root.Q<Label>("Tag");
-
-
-        SRTog = root.Q<Toggle>("SR_toggle");
-
-        IMGTog = root.Q<Toggle>("IMG_toggle");
-
-        BC2DTog = root.Q<Toggle>("RB2D_toggle");
-
-        BC2DTog = root.Q<Toggle>("BC2D_toggle");
-
-
-
-        test = root.Q<Image>("SR_image");
-
-
     }
 
     private void Awake()
@@ -63,63 +54,88 @@ public class inspectorController : MonoBehaviour
     {
         if (currentObject == null)
         {
-            //catch exeption;
+            return;
         }
 
-        currentObject.setComponentEnabledStatus(currentObject.components[1], SRTog.value);
-        currentObject.setComponentEnabledStatus(currentObject.components[3], BC2DTog.value);
-
-        if (IMGTog.value == true) //set image based on toggle
+        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in toggleBindings)
         {
-            currentObject.GetComponent<SpriteRenderer>().sprite = globarSprite1;
-        } else if (IMGTog.value == false)
-        {
-            currentObject.GetComponent<SpriteRenderer>().sprite = globalSpriteDefault;
+            Toggle toggle = kvp.Key;
+            SimulatedComponent component = kvp.Value;
+            if (component.realComponent is SpriteRenderer)
+            {
+                currentObject.GetComponent<SpriteRenderer>().sprite = toggle.value ? globalSprite1 : globalSpriteDefault;
+            }
+            else
+            {
+                currentObject.setComponentEnabledStatus(component, toggle.value);
+            }
         }
-
     }
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
-        root.visible = true;
+        // Clear old elements
+        foreach (VisualElement element in componentDisplays)
+        {
+            root.Remove(element);
+        }
+        // Clear old bindings
+        foreach(KeyValuePair<Toggle, SimulatedComponent> kvp in toggleBindings)
+        {
+            toggleBindings.Remove(kvp.Key);
+        }
+
+        componentDisplays = new List<VisualElement>();
         currentObject = obj;
+        components = currentObject.components;
+
+        // Display the components
+        foreach (SimulatedComponent c in components)
+        {
+            VisualElement componentDisplay = getComponentDisplay(c);
+            componentDisplays.Add(componentDisplay);
+            root.Q<VisualElement>("components").Add(componentDisplay);
+        }
+
         globalSpriteDefault = noSprite;
-        globarSprite1 = sprite;
+        globalSprite1 = sprite;
 
         //SET OBJ NAME & TAG
         objectName.text = obj.gameObject.name.ToString();
         objectTag.text = obj.gameObject.tag.ToString();
 
-        //SET TOGGLES
-        if (obj.getComponentEnabledStatus(obj.components[1]) == true) //check if Sprite Renderer = true
-        {
-            SRTog.value = true;
-        } else
-        {
-            SRTog.value = false;
-        }
-       
-        if( obj.GetComponent<SpriteRenderer>().sprite.name == noSprite.name) //check to see if sprite is default or not
-        {
-            IMGTog.value = false;
-        }else
-        {
-            IMGTog.value = true;
-        }
+        root.visible = true;
+    }    
 
-        if (obj.getComponentEnabledStatus(obj.components[2]) == true) //check if BoxCollider = true
+    public VisualElement getComponentDisplay(SimulatedComponent component)
+    {
+        VisualComponent visualComponent = component.visualComponent;
+
+        VisualElement componentDisplay = componentTemplate.CloneTree();
+        VisualElement icon = componentDisplay.Q<VisualElement>("image");
+        Label label = componentDisplay.Q<Label>("label");
+        Label description = componentDisplay.Q<Label>("desc");
+        Toggle toggle = componentDisplay.Q<Toggle>("toggle");
+
+        Debug.Log(icon);
+        Debug.Log(visualComponent.image);
+
+        icon.style.backgroundImage = visualComponent.image.texture;
+        label.text = visualComponent.title;
+        description.text = visualComponent.description;
+
+        if (currentObject.isComponentToggleable(component))
         {
-            BC2DTog.value = true;
+            toggle.value = currentObject.getComponentEnabledStatus(component);
+            toggleBindings.Add(toggle, component);
         }
         else
         {
-            BC2DTog.value = false;
+            toggle.style.opacity = 0;
         }
 
-
-
-    }    
-
+        return componentDisplay;
+    }
 
         
 
