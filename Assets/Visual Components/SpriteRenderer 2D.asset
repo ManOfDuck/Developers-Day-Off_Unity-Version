@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Sprite Renderer 2D
   image: {fileID: 21300000, guid: 5674254345f2eef4c8af0abea3b4dba6, type: 3}
-  description: A component that renders an object's sprite
+  description: A component that renders an \nobject's sprite

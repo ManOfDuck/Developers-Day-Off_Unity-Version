@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Transform
   image: {fileID: 21300000, guid: e51e888adad1c704997aa9a6cf4a0562, type: 3}
-  description: The components location in the scene. Every object has a trasnform
+  description: The components location in \nthe scene. Every object has a \ntrasnform
     commponent.
