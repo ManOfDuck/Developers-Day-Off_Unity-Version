@@ -66,6 +66,9 @@ public class SimulatedObject : MonoBehaviour
             case Animator animator:
                 animator.enabled = enabled;
                 break;
+            default:
+                Debug.Log("hello");
+                break;
         }     
     }
 
