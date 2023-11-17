@@ -11,7 +11,7 @@ public class Enemy : SimulatedScript
     GameManager gameManager;
 
     // Start is called at the beginning of the game
-    private void Start()
+    void Start()
     {
         // Get a reference to the Game Manager
         gameManager = GameManager.Instance;
@@ -20,11 +20,14 @@ public class Enemy : SimulatedScript
     // This method is called when we collide with another object
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Light(15);
         // Check if the game object we collided with is tagged as "Player"
         if (collision.gameObject.CompareTag("Player"))
         {
+            Light(18);
             // If so, tell the Game Manager to hurt the player
             gameManager.HurtPlayer();
+            Light(20);
         }
     }
 }

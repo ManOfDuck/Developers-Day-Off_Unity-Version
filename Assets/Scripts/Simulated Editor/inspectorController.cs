@@ -10,46 +10,28 @@ public class inspectorController : MonoBehaviour
     private static inspectorController _instance;
     public static inspectorController Instance { get { return _instance; } }
 
+    public UIDocument mainUIDocument;
+    public PanelSettings panelSettings;
+
     public VisualTreeAsset componentTemplate;
     public VisualTreeAsset scriptTemplate;
 
+    public Color trueColor;
+    public Color falseColor;
+    public AnimationCurve flashCurve;
+
     private VisualElement root;
+    private Button xButton;
     private Label objectName, objectTag;
 
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
     private List<VisualElement> scriptDisplays = new();
-    private Dictionary<Toggle, SimulatedComponent> componentToggleBindings = new();
+    private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
+    private Dictionary<Toggle, SimulatedScript> scriptToggleBindings;
+    private UIDocument currentDisplay;
 
-    private Button script1Button, script2Button, script3Button;
-
-
-    private void OnEnable() // get ui references B-)
-    {
-        root = GetComponent<UIDocument>().rootVisualElement;
-        objectName = root.Q<Label>("Object_name");
-        objectTag = root.Q<Label>("Tag");
-
-
-        script1Button = root.Q<Button>("Script1_button");
-        script2Button = root.Q<Button>("Script2_button");
-        script3Button = root.Q<Button>("Script3_button");
-
-        script1Button.clickable.clicked += () =>
-        {
-            //this.GetComponent<ScriptController>
-            Debug.Log("Script1 clickecd");
-        };
-        script2Button.clickable.clicked += () =>
-        {
-            Debug.Log("Script2 clickecd");
-        };
-        script3Button.clickable.clicked += () =>
-        {
-            Debug.Log("Script3 clickecd");
-        };
-    }
 
     private void Awake()
     {
@@ -63,6 +45,18 @@ public class inspectorController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    
+    private void OnEnable() // get ui references B-)
+    {
+        root = mainUIDocument.rootVisualElement;
+        objectName = root.Q<Label>("Object_name");
+        objectTag = root.Q<Label>("Tag");
+        xButton = root.Q<Button>("x_button");
+        xButton.clickable.clicked += () =>
+        {
+            root.visible = false;
+        };
     }
 
     void Start()
@@ -95,22 +89,33 @@ public class inspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
+        Debug.Log("1");
         // Clear old elements
-        foreach (VisualElement element in componentDisplays)
+        while (componentDisplays.Count > 0)
         {
-            root.Remove(element);
+            VisualElement element = componentDisplays[0];
+            root.Q<VisualElement>("components").Remove(element);
+            componentDisplays.Remove(element);
         }
-        foreach (VisualElement element in scriptDisplays)
+        while (scriptDisplays.Count > 0)
         {
-            root.Remove(element);
+            Debug.Log("2");
+            VisualElement element = scriptDisplays[0];
+            Debug.Log(element);
+            root.Q<VisualElement>("scripts").Remove(element);
+            scriptDisplays.Remove(element);
         }
-        // Clear old bindings
-        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
-        {
-            componentToggleBindings.Remove(kvp.Key);
-        }
+        Debug.Log("3");
+
+        //Clear old bindings
+        componentToggleBindings = new();
+        scriptToggleBindings = new();
+
+        //Remove the current display
+        Display(null);
 
         componentDisplays = new List<VisualElement>();
+        scriptDisplays = new List<VisualElement>();
         this.currentObject = obj;
         List<SimulatedComponent> components = currentObject.components;
         List<SimulatedScript> scripts = currentObject.scripts;
@@ -125,21 +130,9 @@ public class inspectorController : MonoBehaviour
 
         // Display the scripts as buttons
         foreach (SimulatedScript script in scripts){
-
-        }
-
-        //SHOW SCRIPT BUTTONS
-        if (obj.scripts[0] != null)
-        {
-            script1Button.text = obj.scripts[0].name + ".cs";
-        }
-        if (obj.scripts[1] != null)
-        {
-            script2Button.text = obj.scripts[1].name + ".cs";
-        }
-        if (obj.scripts[2] != null)
-        {
-            script3Button.text = obj.scripts[2].name.ToString() + ".cs";
+            VisualElement scriptDisplay = GetScriptDisplay(script);
+            scriptDisplays.Add(scriptDisplay);
+            root.Q<VisualElement>("scripts").Add(scriptDisplay);
         }
 
         globalSpriteDefault = noSprite;
@@ -149,6 +142,7 @@ public class inspectorController : MonoBehaviour
         objectName.text = obj.gameObject.name.ToString();
         objectTag.text = obj.gameObject.tag.ToString();
 
+        //Show the inspector
         root.visible = true;
     }    
 
@@ -181,12 +175,36 @@ public class inspectorController : MonoBehaviour
 
         return componentDisplay;
     }
-    /*
-    private VisualElement getScriptDisplay(SimulatedScript script)
+    private VisualElement GetScriptDisplay(SimulatedScript script)
     {
         VisualElement scriptDisplay = scriptTemplate.CloneTree();
 
+        Button button = scriptDisplay.Q<Button>("button");
+        Toggle toggle = scriptDisplay.Q<Toggle>("toggle");
 
+        button.text = script.visualScript.title + ".cs";
+        button.clickable.clicked += () =>
+        {
+            Display(script.GetUIDoc(panelSettings));
+        };
+
+        toggle.value = script.enabled;
+        scriptToggleBindings.Add(toggle, script);
+
+        return scriptDisplay;
     }
-    */
+
+    private void Display(UIDocument displayedUI)
+    {
+        if (currentDisplay)
+        {
+            currentDisplay.rootVisualElement.visible = false;
+        }
+
+        currentDisplay = displayedUI;
+        if (displayedUI)
+        {
+            displayedUI.rootVisualElement.visible = true;
+        }
+    }
 }
