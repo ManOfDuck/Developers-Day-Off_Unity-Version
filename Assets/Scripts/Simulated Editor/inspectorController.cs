@@ -40,6 +40,20 @@ public class inspectorController : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         root.visible = false;

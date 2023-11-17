@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 1194877906}
   - component: {fileID: 1194877909}
   - component: {fileID: 1194877910}
-  - component: {fileID: 1194877911}
   m_Layer: 0
   m_Name: Le Floor
   m_TagString: Ground
@@ -328,20 +327,6 @@ MonoBehaviour:
   - realComponent: {fileID: 1194877909}
     visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts: []
---- !u!114 &1194877911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194877905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902147a7bdd1b2f42b75e6613458c1da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulatedObject: {fileID: 1194877910}
-  controller: {fileID: 2011245197}
   defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
   sprite1: {fileID: 21300000, guid: 666319e87c6b841fa87bfeb1217eb550, type: 3}
 --- !u!1 &1664133538
@@ -451,7 +436,6 @@ GameObject:
   - component: {fileID: 1904642973}
   - component: {fileID: 1904642976}
   - component: {fileID: 1904642979}
-  - component: {fileID: 1904642980}
   m_Layer: 0
   m_Name: Guy Player
   m_TagString: Player
@@ -595,20 +579,6 @@ MonoBehaviour:
   - realComponent: {fileID: 1904642976}
     visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts: []
---- !u!114 &1904642980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904642972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902147a7bdd1b2f42b75e6613458c1da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulatedObject: {fileID: 1904642979}
-  controller: {fileID: 2011245197}
   defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
   sprite1: {fileID: 21300000, guid: 00a823d4738204b03b0d2e74efe5977e, type: 3}
 --- !u!1 &1960953773

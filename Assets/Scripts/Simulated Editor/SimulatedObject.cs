@@ -8,13 +8,19 @@ public class SimulatedObject : MonoBehaviour
     public List<SimulatedScript> scripts;
     private inspectorController controller;
 
-    private bool mouseOver = false;
+    public Sprite defaultSprite;
+    public Sprite sprite1;
 
     [System.Serializable]
     public class SimulatedComponent
     {
         public Component realComponent;
         public VisualComponent visualComponent;
+    }
+
+    public void Start()
+    {
+        controller = inspectorController.Instance;
     }
 
     public bool isComponentToggleable(SimulatedComponent component)
@@ -79,24 +85,9 @@ public class SimulatedObject : MonoBehaviour
         setScriptEnabledStatus(script, !script.enabled);
     }
 
-    #region Interactivity
-    public void OnMouseEnter()
-    {
-        mouseOver = true;
-    }
-
-    public void OnMouseExit()
-    {
-        mouseOver = false;
-    }
 
     public void OnMouseDown()
     {
-        if (mouseOver)
-        {
-            // Send object to inspector
-            Debug.Log("Clicked!");
-        }
+        controller.DisplayObject(this, defaultSprite, sprite1);
     }
-    #endregion
 }
