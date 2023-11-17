@@ -14,8 +14,6 @@ public class inspectorController : MonoBehaviour
 
     private VisualElement root;
     private Label objectName, objectTag;
-    private Toggle TRANSTog, SRTog, IMGTog, RB2DTog, BC2DTog;
-    private Image test;
 
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
@@ -23,9 +21,7 @@ public class inspectorController : MonoBehaviour
     private List<VisualElement> componentDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> toggleBindings = new();
 
-    VisualElement root;
-    Label objectName, objectTag;
-    Button script1Button, script2Button, script3Button;
+    private Button script1Button, script2Button, script3Button;
 
 
     private void OnEnable() // get ui references B-)
@@ -38,6 +34,20 @@ public class inspectorController : MonoBehaviour
         script1Button = root.Q<Button>("Script1_button");
         script2Button = root.Q<Button>("Script2_button");
         script3Button = root.Q<Button>("Script3_button");
+
+        script1Button.clickable.clicked += () =>
+        {
+            //this.GetComponent<ScriptController>
+            Debug.Log("Script1 clickecd");
+        };
+        script2Button.clickable.clicked += () =>
+        {
+            Debug.Log("Script2 clickecd");
+        };
+        script3Button.clickable.clicked += () =>
+        {
+            Debug.Log("Script3 clickecd");
+        };
     }
 
     private void Awake()
@@ -79,19 +89,6 @@ public class inspectorController : MonoBehaviour
                 currentObject.setComponentEnabledStatus(component, toggle.value);
             }
         }
-
-        script1Button.clickable.clicked += () =>
-        {
-            Debug.Log("Script1 clickecd");
-        };
-        script2Button.clickable.clicked += () =>
-        {
-            Debug.Log("Script2 clickecd");
-        };
-        script3Button.clickable.clicked += () =>
-        {
-            Debug.Log("Script3 clickecd");
-        };
 
     }
 
@@ -158,8 +155,8 @@ public class inspectorController : MonoBehaviour
         }
 
         return componentDisplay;
-    }
         //SHOW SCRIPT BUTTONS
+        /*
         if (obj.scripts[0] != null)
         {
             script1Button.text = obj.scripts[0].visualScript.name.ToString() + ".cs";
@@ -172,13 +169,10 @@ public class inspectorController : MonoBehaviour
         {
             script3Button.text = obj.scripts[2].visualScript.name.ToString() + ".cs";
         }
-
+        */
         
         
 
 
     }    
-
-        
-
 }
