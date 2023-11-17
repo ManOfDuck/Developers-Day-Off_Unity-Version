@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Rigidbody 2D
   image: {fileID: 21300000, guid: 4d35ddf5084912f489c4f99fc57c6adc, type: 3}
-  description: 'how hard the guy be :pensive:'
+  description: A represntation of the object in Unity's physics engine
