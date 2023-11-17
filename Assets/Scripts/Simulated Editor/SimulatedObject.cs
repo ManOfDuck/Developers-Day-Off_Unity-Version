@@ -19,24 +19,48 @@ public class SimulatedObject : MonoBehaviour
 
     public bool isComponentToggleable(SimulatedComponent component)
     {
-        return component.realComponent as Behaviour is not null;
+        switch (component.realComponent)
+        {
+            case Collider2D:
+                return true;
+            case SpriteRenderer:
+                return true;
+            case Animator:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public bool getComponentEnabledStatus (SimulatedComponent component)
     {
-        return !isComponentToggleable(component) || (component.realComponent as Behaviour).enabled;
+        switch (component.realComponent)
+        {
+            case Collider2D collider:
+                return collider.enabled;
+            case SpriteRenderer renderer:
+                return renderer.enabled;
+            case Animator animator:
+                return animator.enabled;
+            default:
+                return true;
+        }
     }
 
     public void setComponentEnabledStatus(SimulatedComponent component, bool enabled)
     {
-        //Debug.Log("bro");
-        if (isComponentToggleable(component))
+        switch (component.realComponent)
         {
-            Debug.Log("Component Is Toggleable");
-            Debug.Log((component.realComponent as Behaviour).enabled);
-
-            (component.realComponent as Behaviour).enabled = enabled;
-        }        
+            case Collider2D collider:
+                collider.enabled = enabled;
+                break;
+            case SpriteRenderer renderer:
+                renderer.enabled = enabled;
+                break;
+            case Animator animator:
+                animator.enabled = enabled;
+                break;
+        }     
     }
 
     public void toggleComponent(SimulatedComponent component)
