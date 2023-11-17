@@ -61215,6 +61215,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6793022463475628256, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
   m_PrefabInstance: {fileID: 6793022465265984652}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2010897517 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+  m_PrefabInstance: {fileID: 6793022465265984652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010897509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742482c4c42e14fa5914142350812ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2070835361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7304736187897288336, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
@@ -61432,6 +61443,46 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3efbe695efba64876890d7239aa6051a, type: 2}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: 5a741f9b-2b94-49b4-b9d8-fd29f8bd41f9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: Player/Reset[/Keyboard/r]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2010897517}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoRMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: giz_rad
       value: 0.06

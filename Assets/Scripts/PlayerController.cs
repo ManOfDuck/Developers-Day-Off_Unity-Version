@@ -79,6 +79,14 @@ public class PlayerController : SimulatedScript
         Light(34);
     }
 
+    public void GoRMode(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            gameManager.ResetScene();
+        }
+    }
+
     private void Move(Vector2 inputDirection)
     {
         Light(38, Color.blue);
