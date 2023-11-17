@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d27180ea9b945e79b5f1c881008e7d, type: 3}
   m_Name: Koopa
   m_EditorClassIdentifier: 
-  title: 
-  description: 
-  UI: {fileID: 0}
+  title: Koopa
+  description: Move an object along the ground, turning at walls and cliffs
+  UI: {fileID: 9197481963319205126, guid: b8e7b5457e6e49a499c7ac0650f99674, type: 3}

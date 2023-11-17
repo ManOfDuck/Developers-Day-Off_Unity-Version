@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d27180ea9b945e79b5f1c881008e7d, type: 3}
   m_Name: Patrol
   m_EditorClassIdentifier: 
-  title: 
-  description: 
-  UI: {fileID: 0}
+  title: Patrol
+  description: Moves an object through a list of points, waiting at each point
+  UI: {fileID: 9197481963319205126, guid: 64d0f8b452f639a44b7fb09707832f25, type: 3}
