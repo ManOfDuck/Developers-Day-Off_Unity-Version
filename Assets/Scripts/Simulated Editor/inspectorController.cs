@@ -11,6 +11,7 @@ public class inspectorController : MonoBehaviour
     public static inspectorController Instance { get { return _instance; } }
 
     public VisualTreeAsset componentTemplate;
+    public VisualTreeAsset scriptTemplate;
 
     private VisualElement root;
     private Label objectName, objectTag;
@@ -18,7 +19,8 @@ public class inspectorController : MonoBehaviour
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
-    private Dictionary<Toggle, SimulatedComponent> toggleBindings = new();
+    private List<VisualElement> scriptDisplays = new();
+    private Dictionary<Toggle, SimulatedComponent> componentToggleBindings = new();
 
     private Button script1Button, script2Button, script3Button;
 
@@ -75,7 +77,7 @@ public class inspectorController : MonoBehaviour
             return;
         }
 
-        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in toggleBindings)
+        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
@@ -98,10 +100,14 @@ public class inspectorController : MonoBehaviour
         {
             root.Remove(element);
         }
-        // Clear old bindings
-        foreach(KeyValuePair<Toggle, SimulatedComponent> kvp in toggleBindings)
+        foreach (VisualElement element in scriptDisplays)
         {
-            toggleBindings.Remove(kvp.Key);
+            root.Remove(element);
+        }
+        // Clear old bindings
+        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
+        {
+            componentToggleBindings.Remove(kvp.Key);
         }
 
         componentDisplays = new List<VisualElement>();
@@ -146,7 +152,7 @@ public class inspectorController : MonoBehaviour
         root.visible = true;
     }    
 
-    public VisualElement getComponentDisplay(SimulatedComponent component)
+    private VisualElement getComponentDisplay(SimulatedComponent component)
     {
         VisualComponent visualComponent = component.visualComponent;
 
@@ -166,7 +172,7 @@ public class inspectorController : MonoBehaviour
         if (currentObject.isComponentToggleable(component))
         {
             toggle.value = currentObject.getComponentEnabledStatus(component);
-            toggleBindings.Add(toggle, component);
+            componentToggleBindings.Add(toggle, component);
         }
         else
         {
@@ -174,5 +180,13 @@ public class inspectorController : MonoBehaviour
         }
 
         return componentDisplay;
-    }    
+    }
+    /*
+    private VisualElement getScriptDisplay(SimulatedScript script)
+    {
+        VisualElement scriptDisplay = scriptTemplate.CloneTree();
+
+
+    }
+    */
 }

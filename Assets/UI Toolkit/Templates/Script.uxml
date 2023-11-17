@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="script" style="height: 48px; flex-direction: row; padding-left: 0; padding-right: 11px;">
+        <ui:VisualElement name="image" style="width: 33px; background-image: url(&apos;project://database/Assets/Sprites/script%20icon.PNG?fileID=2800000&amp;guid=cb6651b19ec9511418108db4f3f37b68&amp;type=3#script icon&apos;); height: 30px; margin-left: 74px; margin-right: 14px; margin-top: 8px; background-color: rgb(0, 0, 0); -unity-background-image-tint-color: rgb(92, 92, 92); -unity-background-scale-mode: scale-to-fit;" />
+        <ui:Toggle name="toggle" />
+        <ui:Button text="Script1.cs" display-tooltip-when-elided="true" name="button" style="font-size: 23px; color: rgb(223, 223, 223); width: 217px; padding-left: 3px; padding-right: 3px; padding-top: 3px; padding-bottom: 3px; margin-left: 18px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); border-top-left-radius: 7px; border-bottom-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; background-color: rgb(78, 78, 78);" />
+    </ui:VisualElement>
+</ui:UXML>
