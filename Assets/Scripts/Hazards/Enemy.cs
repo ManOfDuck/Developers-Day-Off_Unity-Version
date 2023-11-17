@@ -6,25 +6,25 @@ public class Enemy : SimulatedScript
 {
     // The values of serialized fields are set it the editor
     [SerializeField] Collider2D enemyCollider;
-    [SerializeField] int damage = 1;
 
-    // Every object can see the game manager, which tracks important variables
+    // Every object can see the Game Manager, which tracks important variables
     GameManager gameManager;
 
+    // Start is called at the beginning of the game
     private void Start()
     {
+        // Get a reference to the Game Manager
         gameManager = GameManager.Instance;
     }
 
+    // This method is called when we collide with another object
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Check if the game object we collided with is tagged as "Player"
         if (collision.gameObject.CompareTag("Player"))
         {
-            for (int i = 0; i < damage; i++)
-            {
-                Debug.Log("hurting player");
-                gameManager.HurtPlayer();
-            }
+            // If so, tell the Game Manager to hurt the player
+            gameManager.HurtPlayer();
         }
     }
 }
