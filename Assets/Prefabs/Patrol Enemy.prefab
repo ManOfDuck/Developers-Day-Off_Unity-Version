@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1641151438760214253}
   - component: {fileID: 1641151438760214250}
   - component: {fileID: 1641151438760214251}
-  - component: {fileID: 1641151438760214248}
   - component: {fileID: 1641151438760214249}
   - component: {fileID: 1641151438760214252}
+  - component: {fileID: 7479025438316269261}
   m_Layer: 0
   m_Name: Patrol Enemy
   m_TagString: Untagged
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.754717, g: 0.024919916, b: 0.024919916, a: 1}
+  m_Sprite: {fileID: 866235571, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,36 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55385b2cc14714a9990b3cfd00730a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualScript: {fileID: 0}
   patrolPoints: []
-  speed: 0
-  waitTime: 0
+  speed: 5
+  waitTime: 1
   body: {fileID: 1641151438760214252}
---- !u!61 &1641151438760214248
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641151438760214246}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &1641151438760214249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCollider: {fileID: 1641151438760214248}
+  visualScript: {fileID: 0}
+  enemyCollider: {fileID: 0}
   damage: 1
 --- !u!50 &1641151438760214252
 Rigidbody2D:
@@ -165,3 +141,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &7479025438316269261
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641151438760214246}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
