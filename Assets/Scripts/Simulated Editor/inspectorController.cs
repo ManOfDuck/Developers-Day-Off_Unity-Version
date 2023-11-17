@@ -134,6 +134,22 @@ public class inspectorController : MonoBehaviour
             BC2DTog.value = false;
         }
 
+        //SHOW SCRIPT BUTTONS
+        if (obj.scripts[0] != null)
+        {
+            script1Button.text = obj.scripts[0].visualScript.name.ToString() + ".cs";
+        }
+        if (obj.scripts[1] != null)
+        {
+            script2Button.text = obj.scripts[1].visualScript.name.ToString() + ".cs";
+        }
+        if (obj.scripts[2] != null)
+        {
+            script3Button.text = obj.scripts[2].visualScript.name.ToString() + ".cs";
+        }
+
+        
+        
 
 
     }    
