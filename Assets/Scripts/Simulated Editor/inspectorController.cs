@@ -17,7 +17,6 @@ public class inspectorController : MonoBehaviour
 
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
-    private List<SimulatedComponent> components;
     private List<VisualElement> componentDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> toggleBindings = new();
 
@@ -106,15 +105,35 @@ public class inspectorController : MonoBehaviour
         }
 
         componentDisplays = new List<VisualElement>();
-        currentObject = obj;
-        components = currentObject.components;
+        this.currentObject = obj;
+        List<SimulatedComponent> components = currentObject.components;
+        List<SimulatedScript> scripts = currentObject.scripts;
 
         // Display the components
-        foreach (SimulatedComponent c in components)
+        foreach (SimulatedComponent component in components)
         {
-            VisualElement componentDisplay = getComponentDisplay(c);
+            VisualElement componentDisplay = getComponentDisplay(component);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
+        }
+
+        // Display the scripts as buttons
+        foreach (SimulatedScript script in scripts){
+
+        }
+
+        //SHOW SCRIPT BUTTONS
+        if (obj.scripts[0] != null)
+        {
+            script1Button.text = obj.scripts[0].name + ".cs";
+        }
+        if (obj.scripts[1] != null)
+        {
+            script2Button.text = obj.scripts[1].name + ".cs";
+        }
+        if (obj.scripts[2] != null)
+        {
+            script3Button.text = obj.scripts[2].name.ToString() + ".cs";
         }
 
         globalSpriteDefault = noSprite;
@@ -155,24 +174,5 @@ public class inspectorController : MonoBehaviour
         }
 
         return componentDisplay;
-        //SHOW SCRIPT BUTTONS
-        /*
-        if (obj.scripts[0] != null)
-        {
-            script1Button.text = obj.scripts[0].visualScript.name.ToString() + ".cs";
-        }
-        if (obj.scripts[1] != null)
-        {
-            script2Button.text = obj.scripts[1].visualScript.name.ToString() + ".cs";
-        }
-        if (obj.scripts[2] != null)
-        {
-            script3Button.text = obj.scripts[2].visualScript.name.ToString() + ".cs";
-        }
-        */
-        
-        
-
-
     }    
 }
