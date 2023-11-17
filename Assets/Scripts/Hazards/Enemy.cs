@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Enemy : SimulatedScript
 {
+    // The values of serialized fields are set it the editor
     [SerializeField] Collider2D enemyCollider;
     [SerializeField] int damage = 1;
 
+    // Every object can see the game manager, which tracks important variables
     GameManager gameManager;
 
     private void Start()
