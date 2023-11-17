@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerController : SimulatedScript
 {
@@ -77,65 +73,27 @@ public class PlayerController : SimulatedScript
     public void SetMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
-        //Debug.Log(moveInput);
-    }
-
-    private Vector2 GetMoveDir(Vector2 inputDirection)
-    {
-        RaycastHit2D raycast = Physics2D.Raycast(playerCollider.bounds.min + Vector3.up * groundCheckDistance, Vector2.down, groundCheckDistance * 2, groundLayer);
-        if (raycast == false)
-        {
-            return inputDirection;
-        }
-
-        Vector2 moveDir = Vector2.Perpendicular(raycast.normal) * inputDirection;
-        return moveDir;
     }
 
     private void Move(Vector2 inputDirection)
     {
-        Vector2 direction = inputDirection * slopeDir;
+        //Get the player's speed
+        float playerSpeed = Mathf.Abs(playerBody.velocity.x);
 
-        //Check for movement input
-        bool isPlayerRunning = Mathf.Abs(direction.magnitude) > 0.01f;
-        if (isPlayerRunning)
+        if (inputDirection.magnitude > 0.01f)
         {
-            //Calculate the gap between the max and current speed
-            float targetSpeed = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
+            float force = getMoveForce(inputDirection, playerSpeed);
+            playerBody.AddForce(inputDirection * force, ForceMode2D.Force);
 
-            //Check if there is a gap
-            if (!Mathf.Approximately(targetSpeed, 0f))
-            {
-                float force;
-                if (CheckIsGrounded())
-                {
-                    force = runForce;
-                }
-                else
-                {
-                    force = airRunForce;
-                }
-                if (targetSpeed > 0)
-                {
-                    float accelCap = Mathf.Min(targetSpeed / Time.fixedDeltaTime * playerBody.mass, force);
-                    playerBody.AddForce(direction * accelCap, ForceMode2D.Force);
-                }
-
-                else
-                {
-                    playerBody.AddForce(targetSpeed * Mathf.Sign(playerBody.velocity.x) * playerBody.mass * Vector2.right, ForceMode2D.Impulse);
-                }
-
-                playerRenderer.flipX = !(Mathf.Sign(direction.x) == -1);
-            }
+            playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
         }
         //If there is not input but the player is moving, apply friction
         //If the player is grounded, apply regular friction
         else if (CheckIsGrounded() && Mathf.Abs(playerBody.velocity.x) > 0.1f)
         {
-            float amount = Mathf.Min(Mathf.Abs(playerBody.velocity.x), Mathf.Abs(friction));
-            amount *= Mathf.Sign(playerBody.velocity.x);
-            playerBody.AddForce(slopeDir * -amount, ForceMode2D.Impulse);
+            float amount = Mathf.Min(playerSpeed, friction);
+            amount *= -Mathf.Sign(playerBody.velocity.x);
+            playerBody.AddForce(Vector2.right * amount, ForceMode2D.Impulse);
         }
         //Otherwise, apply air friction
         else
@@ -157,6 +115,41 @@ public class PlayerController : SimulatedScript
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
         }
     }
+
+    private float getMoveForce(Vector2 inputDirection, float playerSpeed)
+    {
+        //Calculate the gap between the max and current speed
+        float speedDifference = horizontalSpeedCap - playerSpeed;
+
+        if (!Mathf.Approximately(speedDifference, 0f))
+        {
+            float force;
+            if (CheckIsGrounded())
+            {
+                force = runForce;
+            }
+            else
+            {
+                force = airRunForce;
+            }
+            if (speedDifference > 0)
+            {
+                float forceCap = speedDifference / Time.fixedDeltaTime * playerBody.mass;
+                float cappedForce = Mathf.Min(forceCap, force);
+
+                return cappedForce;
+            }
+            else
+            {
+                playerBody.AddForce(speedDifference * Mathf.Sign(playerBody.velocity.x) * playerBody.mass * Vector2.right, ForceMode2D.Impulse);
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
     #endregion
 
     #region Jumping
@@ -167,12 +160,13 @@ public class PlayerController : SimulatedScript
             //Jumping
             if (CheckIsGrounded())
             {
-                playerBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                playerBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
         else if (context.canceled)
         {
-            playerBody.AddForce(new Vector2(0, -0.5f * playerBody.velocity.y), ForceMode2D.Impulse);
+            float downwardsForce = playerBody.velocity.y * 0.5f;
+            playerBody.AddForce(Vector2.down * downwardsForce, ForceMode2D.Impulse);
         }
     }
 
@@ -257,7 +251,10 @@ public class PlayerController : SimulatedScript
     //Check if the player is grounded
     private bool CheckIsGrounded()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll((Vector2)transform.position + giz_offset, Vector2.down, giz_rad, groundLayer);
+        Vector2 raycastOrigin = playerCollider.bounds.min;
+        Vector2 raycastDirection = Vector2.down;
+        float raycastDistance = groundCheckDistance;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
         bool isGrounded = (hits.Length > 0);
         spriteAnimator.SetBool("IsGrounded", isGrounded);
