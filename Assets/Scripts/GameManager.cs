@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
             i += Time.deltaTime;
             //This is a nice juice thing, if we want a volume to appear on damage (like red at the sides of the screen)
 
-            //damageVolume.weight = (playerDamageCooldown - i) / playerDamageCooldown;
+            damageVolume.weight = (playerDamageCooldown - i) / playerDamageCooldown;
             yield return null;
         }
 
