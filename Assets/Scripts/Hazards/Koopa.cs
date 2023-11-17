@@ -7,13 +7,11 @@ public class Koopa : SimulatedScript
     enum KoopaColor { red, green }
     enum Direction { left, right }
 
-    [Tooltip("Red for turning at edges, green for walking of edges")]
+    [Tooltip("Red for turning at edges, green for walking off edges")]
     [SerializeField] private KoopaColor color;
     [SerializeField] private float speed;
     [SerializeField] private Direction startingDirection;
-    [SerializeField] private float wallCheckDistance;
     [SerializeField] private float cliffCheckDistance;
-    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private BoxCollider2D koopaCollider;
@@ -21,82 +19,73 @@ public class Koopa : SimulatedScript
     [SerializeField] private SpriteRenderer koopaRenderer;
     [SerializeField] private float rotationSpeed;
 
-
-    Vector2 slopeDir;
-    private Direction direction;
+    private Vector2 direction;
 
     void Start()
     {
-        direction = startingDirection;
+        direction = startingDirection == Direction.right ? Vector2.right : Vector2.left;
     }
 
-    // Update is called once per frame
+    // Fixed update is called 50 times a second, regardless of frame rate
     void FixedUpdate()
     {
-        Vector2 moveDir = direction == Direction.right ? Vector2.right : Vector2.left;
-        if (CheckForWall(moveDir) || (CheckForCliff(moveDir) && color == KoopaColor.red))
+        // Check if there's a wall or cliff in the direction we're heading
+        if (CheckForWall() || (CheckForCliff() && color == KoopaColor.red))
         {
+            // If there is, turn around
             ChangeDirection();
-            moveDir = direction == Direction.right ? Vector2.right : Vector2.left;
         }
-        Move(moveDir);
+
+        // Move in our current direction
+        Move(direction);
     }
 
     private void Move(Vector2 moveDir)
     {
-        float targetSpeed = (moveDir * speed).x - body.velocity.x;
+        // Find the difference between our current speed and our target speed
+        float speedDifference = (moveDir * speed).x - body.velocity.x;
 
+        // Calculate the force required to reach our target speed
+        float forceRequired = speedDifference * body.mass;
 
-        if (!Mathf.Approximately(targetSpeed, 0f))
-        {
-            body.AddForce(new Vector2((Vector2.right * targetSpeed * body.mass).x, slopeDir.y), ForceMode2D.Impulse);
-        }
+        // Apply the force
+        body.AddForce(Vector2.right * forceRequired, ForceMode2D.Impulse);
     }
 
     private void ChangeDirection()
     {
-        if (direction == Direction.right)
-        {
-            direction = Direction.left;
-        }
-        else if (direction == Direction.left)
-        {
-            direction = Direction.right;
-        }
-        else
-        {
-            Debug.Log("Bro I dont even KNOW how you fucked up this bad");
-        }
+        // Flip the sign of our direction vector
+        direction *= -1;
 
+        // Tell the sprite renderer to flip/unflip the sprite
         koopaRenderer.flipX = !koopaRenderer.flipX;
     }
 
-    private bool CheckForWall(Vector2 moveDir)
+    private bool CheckForWall()
     {
+        // If we're at zero speed, we've hit something
         return body.velocity.magnitude == 0;
     }
 
-    private bool CheckForCliff(Vector2 moveDir)
+    private bool CheckForCliff()
     {
-        RaycastHit2D boxCastHit = Physics2D.BoxCast(koopaCollider.bounds.center + new Vector3((koopaCollider.bounds.size.x + cliffCheckDistance)
-            * moveDir.x, 0, 0), koopaCollider.bounds.size, 0f, Vector2.down, 1f, groundLayer);
+        // To tell if there's a cliff in front of us, we'll use a box cast
+        // For the offset, we'll add cliffCheckDistance to the front of the enemy
+        float boxCastOffset = koopaCollider.bounds.size.x + cliffCheckDistance;
+        Vector2 boxCastOrigin = (Vector2) koopaCollider.bounds.center + (boxCastOffset * direction);
+
+        // For the size, we'll just use the enemy's size
+        Vector2 boxCastSize = koopaCollider.bounds.size;
+
+        // We want the box to not be straight, and to extend one unit down
+        float boxCastAngle = 0f;
+        Vector2 boxCastDirection = Vector2.down;
+        float boxCastDistance = 1f;
+
+        // We'll output any ground it hits into boxCastHit
+        RaycastHit2D boxCastHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, boxCastAngle, boxCastDirection, boxCastDistance, groundLayer);
+
+        // If no ground was hit, we're at a cliff
         return boxCastHit.collider == null;
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-            slopeDir = Vector2.Perpendicular(collision.contacts[0].normal).normalized * -1;
-            if (slopeDir == Vector2.up || slopeDir == Vector2.down)
-            {
-                slopeDir = Vector2.right;
-                return;
-            }
-            body.gravityScale = 0;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        slopeDir = Vector2.right;
-        body.gravityScale = 1;
     }
 }
