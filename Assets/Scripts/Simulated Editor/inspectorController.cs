@@ -75,14 +75,7 @@ public class inspectorController : MonoBehaviour
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
-            if (component.realComponent is SpriteRenderer)
-            {
-                currentObject.GetComponent<SpriteRenderer>().sprite = toggle.value ? globalSprite1 : globalSpriteDefault;
-            }
-            else
-            {
-                currentObject.setComponentEnabledStatus(component, toggle.value);
-            }
+            currentObject.setComponentEnabledStatus(component, toggle.value);
         }
 
         foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
