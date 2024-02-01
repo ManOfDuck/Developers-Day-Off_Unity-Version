@@ -15,6 +15,8 @@ public class SimulatedScript : MonoBehaviour
 
     private Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
 
+    public bool doCoroutines = true;
+
     protected void Light(int lineNumber)
     {
         string lineName = "Line" + lineNumber;

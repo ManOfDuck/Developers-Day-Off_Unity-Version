@@ -32,6 +32,12 @@ public class Patrol : SimulatedScript
                 target = point + initPos;
                 while (body.position != target)
                 {
+                    // Pause if object is disabled
+                    while (!doCoroutines)
+                    {
+                        yield return null;
+                    }
+
                     Light(22);
                     step = speed * Time.deltaTime;
                     body.position = Vector2.MoveTowards(body.position, target, step);

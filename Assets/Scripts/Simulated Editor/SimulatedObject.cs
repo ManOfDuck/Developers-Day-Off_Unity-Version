@@ -81,6 +81,7 @@ public class SimulatedObject : MonoBehaviour
     public void setScriptEnabledStatus(SimulatedScript script, bool enabled)
     {
         script.enabled = enabled;
+        script.doCoroutines = enabled;
     }
 
     public void toggleScript(SimulatedScript script)
