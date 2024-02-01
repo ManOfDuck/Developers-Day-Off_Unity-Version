@@ -61210,11 +61210,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
   m_PrefabInstance: {fileID: 6793022465265984652}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2010897511 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6793022463475628256, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-  m_PrefabInstance: {fileID: 6793022465265984652}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2010897517 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
@@ -61488,60 +61483,8 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: giz_rad
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: friction
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: runForce
-      value: 23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: jumpForce
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: airFriction
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: airRunForce
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: bonusGravity
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: giz_offset.y
-      value: -0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: playerHealth
       value: 200000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: visualScript
-      value: 
-      objectReference: {fileID: 11400000, guid: 446e683ce625e420481cd570aca0303b, type: 2}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: spriteAnimator
-      value: 
-      objectReference: {fileID: 2010897511}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: verticalSpeedCap
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: horizontalSpeedCap
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Name
