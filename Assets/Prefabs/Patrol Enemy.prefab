@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1641151438760214252}
   - component: {fileID: 7479025438316269261}
   - component: {fileID: 5235406433781951832}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Patrol Enemy
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
+  doCoroutines: 1
   patrolPoints: []
   speed: 5
   waitTime: 1
@@ -119,8 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
+  doCoroutines: 1
   enemyCollider: {fileID: 0}
-  damage: 1
 --- !u!50 &1641151438760214252
 Rigidbody2D:
   serializedVersion: 4

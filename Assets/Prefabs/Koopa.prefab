@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 5685396654955758918}
   - component: {fileID: 5685396654955758919}
   - component: {fileID: 5685396654955758936}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Koopa
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,14 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
+  doCoroutines: 1
   color: 0
   speed: 2
   startingDirection: 0
-  wallCheckDistance: 0.1
   cliffCheckDistance: 0.2
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -117,7 +114,6 @@ MonoBehaviour:
   koopaCollider: {fileID: 5685396654955758918}
   spriteTransform: {fileID: 5685396654955758914}
   koopaRenderer: {fileID: 5685396654955758915}
-  rotationSpeed: 0
 --- !u!114 &5685396654955758917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
+  doCoroutines: 1
   enemyCollider: {fileID: 5685396654955758918}
-  damage: 1
 --- !u!61 &5685396654955758918
 BoxCollider2D:
   m_ObjectHideFlags: 0
