@@ -42,6 +42,7 @@ public class PlayerController : SimulatedScript
 
     private Vector2 moveInput;
     private Vector2 slopeDir;
+    private bool grounded;
     private Rigidbody2D standingOn;
     private int walljumpsRemaining;
 
@@ -66,10 +67,9 @@ public class PlayerController : SimulatedScript
 
     void FixedUpdate()
     {
-        Light(26, Color.blue);
+        grounded = CheckIsGrounded();
         Move(moveInput);
-        Light(28, Color.blue);
-        Fall(CheckIsGrounded());
+        Fall(grounded);
     }
 
     public void GoRMode(InputAction.CallbackContext context)
@@ -102,7 +102,7 @@ public class PlayerController : SimulatedScript
             // Update sprite
             playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
 
-            if (CheckIsGrounded())
+            if (grounded)
             {
                 ApplyRunForce(runForce, inputDirection);
             }
@@ -114,7 +114,7 @@ public class PlayerController : SimulatedScript
 
         // Friction
         if (!inputActive || holdingOppositeDirection) {
-            if (CheckIsGrounded())
+            if (grounded)
             {
                 ApplyFriction(friction);
             }
@@ -124,13 +124,38 @@ public class PlayerController : SimulatedScript
             }
         }
 
-        if (standingOn is not null)
-        {
-            playerBody.position += standingOn.velocity * Time.fixedDeltaTime;
-        }
+        InheritVelocity(standingOn);
 
         // Update Animator
-        if (playerStopped)
+        UpdateAnimator(playerStopped);
+    }
+
+    private void ApplyRunForce(float amount, Vector2 direction)
+    {
+        float amountBelowCap = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
+        float velocityToAdd = Mathf.Min(amount, amountBelowCap);
+
+        playerBody.velocity += Time.fixedDeltaTime * velocityToAdd * direction;
+    }
+
+    private void ApplyFriction(float amount)
+    {
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
+        float velocitySign = -Mathf.Sign(playerBody.velocity.x);
+        playerBody.velocity += velocitySign * velocityToRemove * Vector2.right;
+    }
+
+    private void InheritVelocity(Rigidbody2D other)
+    {
+        if (other == null) return;
+
+        Vector2 velocity = new Vector2(other.velocity.x, Mathf.Min(other.velocity.y, 0));
+        playerBody.position += velocity * Time.fixedDeltaTime;
+    }
+
+    private void UpdateAnimator(bool isStopped)
+    {
+        if (isStopped)
         {
             spriteAnimator.SetFloat("Horizontal Speed", 0);
         }
@@ -148,21 +173,6 @@ public class PlayerController : SimulatedScript
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x - standingOnVelocity.x));
         }
     }
-
-    private void ApplyRunForce(float amount, Vector2 direction)
-    {
-        float amountBelowCap = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
-        float velocityToAdd = Mathf.Min(amount, amountBelowCap);
-
-        playerBody.velocity += Time.fixedDeltaTime * velocityToAdd * direction;
-    }
-
-    private void ApplyFriction(float amount)
-    {
-        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
-        float velocitySign = -Mathf.Sign(playerBody.velocity.x);
-        playerBody.velocity += velocitySign * velocityToRemove * Vector2.right;
-    }
     #endregion
 
     #region Jumping
@@ -173,11 +183,12 @@ public class PlayerController : SimulatedScript
         {
             Light(74, Color.green);
             //Jumping
-            if (CheckIsGrounded())
+            if (grounded)
             {
                 Light(76, Color.green);
                 playerBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 Light(78);
+
             }
             else Light(76, Color.red);
         }
@@ -372,7 +383,7 @@ public class PlayerController : SimulatedScript
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (CheckIsGrounded())
+        if (grounded)
         {
             slopeDir = Vector2.Perpendicular(collision.contacts[0].normal).normalized * -1;
             if (slopeDir == Vector2.up || slopeDir == Vector2.down)
