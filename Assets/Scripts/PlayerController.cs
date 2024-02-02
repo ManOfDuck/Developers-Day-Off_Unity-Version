@@ -71,6 +71,14 @@ public class PlayerController : SimulatedScript
         Fall(CheckIsGrounded());
     }
 
+    public void GoRMode(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            gameManager.ResetScene();
+        }
+    }
+
     #region Running
     //Listen for movement input
     public void SetMoveInput(InputAction.CallbackContext context)
@@ -78,14 +86,6 @@ public class PlayerController : SimulatedScript
         Light(32, Color.blue);
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
         Light(34);
-    }
-
-    public void GoRMode(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            gameManager.ResetScene();
-        }
     }
 
     private void Move(Vector2 inputDirection)
@@ -140,13 +140,6 @@ public class PlayerController : SimulatedScript
         playerBody.velocity += Vector2.right * velocitySign * velocityToRemove;
     }
 
-    private void ClampSpeedToZero()
-    {
-        if (Mathf.Approximately(playerBody.velocity.x, 0)){
-            playerBody.velocity = new Vector2(0, playerBody.velocity.y);
-        }
-    }
-
     private void UpdateAnimatorSpeed(float velocity)
     {
         if (Mathf.Approximately(velocity, 0))
@@ -156,118 +149,6 @@ public class PlayerController : SimulatedScript
         else
         {
             spriteAnimator.SetFloat("Horizontal Speed", velocity);
-        }
-    }
-
-    /*
-    private void Move(Vector2 inputDirection)
-    {
-        Light(38, Color.blue);
-        //Get the player's speed
-        float playerSpeed = Mathf.Abs(playerBody.velocity.x);
-        Light(40);
-
-        if (inputDirection.magnitude > 0.01f)
-        {
-            Light(43, Color.green);
-            float force = getMoveForce(inputDirection, playerSpeed);
-            Light(45);
-            playerBody.AddForce(inputDirection * force, ForceMode2D.Force);
-            Light(47);
-
-            playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
-            Light(49);
-        }
-        //If there is not input but the player is moving, apply friction
-        //If the player is grounded, apply regular friction
-        else if (CheckIsGrounded() && Mathf.Abs(playerBody.velocity.x) > 0.1f)
-        {
-            Light(43, Color.red);
-            Light(54, Color.green);
-            float amount = Mathf.Min(playerSpeed, friction);
-            Light(57);
-            amount *= -Mathf.Sign(playerBody.velocity.x);
-            Light(60);
-            playerBody.AddForce(Vector2.right * amount, ForceMode2D.Impulse);
-            Light(63);
-        }
-        //Otherwise, apply air friction
-        else if (Mathf.Abs(playerBody.velocity.x) > 0.1f)
-        {
-            Light(43, Color.red);
-            Light(54, Color.green);
-            float amount = Mathf.Min(Mathf.Abs(playerBody.velocity.x), Mathf.Abs(airFriction));
-            Light(57);
-            amount *= Mathf.Sign(playerBody.velocity.x);
-            Light(60);
-            playerBody.AddForce(slopeDir * -amount, ForceMode2D.Impulse);
-            Light(63);
-        }
-        else
-        {
-            Light(43, Color.red);
-            Light(54, Color.red);
-        }
-
-        //Update the animator with the current running state and horizontal speed
-        //spriteAnimator.SetBool("Run?!?!?!?!", isPlayerRunning);
-        
-        if (Mathf.Approximately(playerBody.velocity.x, 0))
-        {
-            spriteAnimator.SetFloat("Horizontal Speed", 0);
-        }
-        else
-        {
-            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
-        }
-        Light(68);
-    }
-    */
-
-    private float getMoveForce(Vector2 inputDirection, float playerSpeed)
-    {
-        Light(93, Color.blue);
-        //Calculate the gap between the max and current speed
-        float speedDifference = horizontalSpeedCap - playerSpeed;
-        Light(96);
-
-        if (!Mathf.Approximately(speedDifference, 0f))
-        {
-            Light(99, Color.green);
-
-            float force;
-            if (CheckIsGrounded())
-            {
-                force = runForce;
-            }
-            else
-            {
-                force = airRunForce;
-            }
-            if (speedDifference > 0)
-            {
-                float forceCap = speedDifference / Time.fixedDeltaTime * playerBody.mass;
-                Light(104);
-                float cappedForce = Mathf.Min(forceCap, force);
-                Light(105);
-
-                Light(107, Color.blue);
-                return cappedForce;
-            }
-            else
-            {
-                Light(99, Color.red); Light(110, Color.blue);
-                Light(110, Color.blue);
-                playerBody.AddForce(speedDifference * Mathf.Sign(playerBody.velocity.x) * playerBody.mass * Vector2.right, ForceMode2D.Impulse);
-                return 0;
-            }
-        }
-        else
-        {
-            Light(99, Color.red);
-            Light(110, Color.green);
-            Light(111, Color.blue);
-            return 0;
         }
     }
     #endregion
