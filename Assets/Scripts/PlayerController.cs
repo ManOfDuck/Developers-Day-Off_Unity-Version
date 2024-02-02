@@ -321,13 +321,11 @@ public class PlayerController : SimulatedScript
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
         Light(121);
         bool leftCheck = (hits.Length > 0);
-        Debug.Log("check1" + leftCheck);
 
         // Check bottom-right
         raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x, 0, 0);
         hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
         bool rightCheck = (hits.Length > 0);
-        Debug.Log("check2" + rightCheck);
 
         bool isGrounded = leftCheck || rightCheck;
 
