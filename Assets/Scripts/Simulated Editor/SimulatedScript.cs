@@ -18,6 +18,11 @@ public class SimulatedScript : MonoBehaviour
     public bool doCoroutines = true;
     public bool doCollisionEvents = true;
 
+    public void Start()
+    {
+        // Do nothing
+    }
+
     protected void Light(int lineNumber)
     {
         string lineName = "Line" + lineNumber;
