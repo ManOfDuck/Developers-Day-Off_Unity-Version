@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &209738523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.999139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.264982
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758937, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_Name
+      value: Koopa
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
 --- !u!1001 &253126011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1514,7 +1571,7 @@ Transform:
   m_Children:
   - {fileID: 271125370}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &760381455 stripped
 Transform:
@@ -59505,7 +59562,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1113516267
 MonoBehaviour:
@@ -59522,6 +59579,7 @@ MonoBehaviour:
   TitleScreen: 
   Level1: BobbyLevel1
   playerDamageCooldown: 1
+  inspectorController: {fileID: 0}
   damageVolume: {fileID: 395048501}
   playerHealth: 0
   OnGameStart:
@@ -59719,7 +59777,7 @@ Transform:
   - {fileID: 1237353663}
   - {fileID: 1967196881}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1967196881 stripped
 Transform:
@@ -59796,7 +59854,7 @@ Transform:
   m_Children:
   - {fileID: 886384278}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6129543825242976734
 PrefabInstance:
@@ -59913,10 +59971,6 @@ PrefabInstance:
     - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: playerHealth
-      value: 200000
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Name
