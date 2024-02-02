@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -89,6 +90,78 @@ public class PlayerController : SimulatedScript
 
     private void Move(Vector2 inputDirection)
     {
+        bool inputActive = inputDirection.magnitude > 0.01f;
+        bool holdingOppositeDirection = inputActive && (Mathf.Sign(inputDirection.x) != Mathf.Sign(playerBody.velocity.x));
+
+        // Running
+        if (inputActive)
+        {
+            // Update sprite
+            playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
+
+            if (CheckIsGrounded())
+            {
+                ApplyRunForce(runForce, inputDirection);
+            }
+            else
+            {
+                ApplyRunForce(airRunForce, inputDirection);
+            }
+        }
+
+        // Friction
+        if (!inputActive || holdingOppositeDirection) {
+            if (CheckIsGrounded())
+            {
+                ApplyFriction(friction);
+            }
+            else
+            {
+                ApplyFriction(airFriction);
+            }
+        }
+
+        // Update Animator
+        UpdateAnimatorSpeed(Mathf.Abs(playerBody.velocity.x));
+    }
+
+    private void ApplyRunForce(float amount, Vector2 direction)
+    {
+        float amountBelowCap = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
+        float velocityToAdd = Mathf.Min(amount, amountBelowCap);
+
+        playerBody.velocity += direction * velocityToAdd * Time.fixedDeltaTime;
+    }
+
+    private void ApplyFriction(float amount)
+    {
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
+        float velocitySign = -Mathf.Sign(playerBody.velocity.x);
+        playerBody.velocity += Vector2.right * velocitySign * velocityToRemove;
+    }
+
+    private void ClampSpeedToZero()
+    {
+        if (Mathf.Approximately(playerBody.velocity.x, 0)){
+            playerBody.velocity = new Vector2(0, playerBody.velocity.y);
+        }
+    }
+
+    private void UpdateAnimatorSpeed(float velocity)
+    {
+        if (Mathf.Approximately(velocity, 0))
+        {
+            spriteAnimator.SetFloat("Horizontal Speed", 0);
+        }
+        else
+        {
+            spriteAnimator.SetFloat("Horizontal Speed", velocity);
+        }
+    }
+
+    /*
+    private void Move(Vector2 inputDirection)
+    {
         Light(38, Color.blue);
         //Get the player's speed
         float playerSpeed = Mathf.Abs(playerBody.velocity.x);
@@ -149,6 +222,7 @@ public class PlayerController : SimulatedScript
         }
         Light(68);
     }
+    */
 
     private float getMoveForce(Vector2 inputDirection, float playerSpeed)
     {
@@ -318,27 +392,28 @@ public class PlayerController : SimulatedScript
         Light(120);
 
         // Check bottom-left
-        RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+        RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
         Light(121);
-        bool leftCheck = (hits.Length > 0);
-        Debug.Log("check1" + leftCheck);
 
         // Check bottom-right
         raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x, 0, 0);
-        hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
-        bool rightCheck = (hits.Length > 0);
-        Debug.Log("check2" + rightCheck);
+        RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
-        bool isGrounded = leftCheck || rightCheck;
+        RaycastHit2D[] totalHits = leftHits.Concat(rightHits).ToArray();
+        bool isGrounded = totalHits.Length > 0;
 
         if (isGrounded)
         {
+            //transform.SetParent(totalHits[0].transform);
+
             Light(124, Color.green);
             Light(127, Color.green);
             Light(129, Color.green);
         }
         else
         {
+           // transform.SetParent(null);
+
             Light(124, Color.red);
             Light(127, Color.red);
             Light(129, Color.red);
