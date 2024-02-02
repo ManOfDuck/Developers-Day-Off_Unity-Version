@@ -1,16 +1,12 @@
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : SimulatedScript
 {
-    [SerializeField]
-    [Range(0f, 2f)]
-    private float giz_rad;
-
-    [SerializeField]
-    private Vector2 giz_offset;
-
     [SerializeField] private int playerHealth = 3;
 
     [Header("Running")]
@@ -42,8 +38,8 @@ public class PlayerController : SimulatedScript
 
     private Vector2 moveInput;
     private Vector2 slopeDir;
-    private bool grounded;
-    private Rigidbody2D standingOn;
+    private Rigidbody2D groundObject;
+    private bool jumpingThisFrame = false;
     private int walljumpsRemaining;
 
     GameManager gameManager;
@@ -67,9 +63,12 @@ public class PlayerController : SimulatedScript
 
     void FixedUpdate()
     {
-        grounded = CheckIsGrounded();
+        if (!jumpingThisFrame)
+            UpdateGroundObject();
+        else
+            jumpingThisFrame = false;
         Move(moveInput);
-        Fall(grounded);
+        Fall(groundObject != null);
     }
 
     public void GoRMode(InputAction.CallbackContext context)
@@ -94,7 +93,6 @@ public class PlayerController : SimulatedScript
         bool inputActive = inputDirection.magnitude > 0.01f;
         bool playerStopped = Mathf.Approximately(playerBody.velocity.x, 0);
         bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(inputDirection.x) != Mathf.Sign(playerBody.velocity.x));
-        Debug.Log(holdingOppositeDirection);
 
         // Running
         if (inputActive)
@@ -102,7 +100,7 @@ public class PlayerController : SimulatedScript
             // Update sprite
             playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
 
-            if (grounded)
+            if (groundObject)
             {
                 ApplyRunForce(runForce, inputDirection);
             }
@@ -114,7 +112,7 @@ public class PlayerController : SimulatedScript
 
         // Friction
         if (!inputActive || holdingOppositeDirection) {
-            if (grounded)
+            if (groundObject)
             {
                 ApplyFriction(friction);
             }
@@ -124,7 +122,7 @@ public class PlayerController : SimulatedScript
             }
         }
 
-        InheritVelocity(standingOn);
+        InheritVelocity(groundObject);
 
         // Update Animator
         UpdateAnimator(playerStopped);
@@ -149,7 +147,7 @@ public class PlayerController : SimulatedScript
     {
         if (other == null) return;
 
-        Vector2 velocity = new Vector2(other.velocity.x, Mathf.Min(other.velocity.y, 0));
+        Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
         playerBody.position += velocity * Time.fixedDeltaTime;
     }
 
@@ -162,13 +160,13 @@ public class PlayerController : SimulatedScript
         else
         {
             Vector2 standingOnVelocity;
-            if (standingOn is null)
+            if (groundObject is null)
             {
                 standingOnVelocity = Vector2.zero;
             }
             else
             {
-                standingOnVelocity = standingOn.velocity;
+                standingOnVelocity = groundObject.velocity;
             }
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x - standingOnVelocity.x));
         }
@@ -183,12 +181,14 @@ public class PlayerController : SimulatedScript
         {
             Light(74, Color.green);
             //Jumping
-            if (grounded)
+            if (groundObject != null)
             {
+                groundObject = null;
+                jumpingThisFrame = true;
+
                 Light(76, Color.green);
                 playerBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 Light(78);
-
             }
             else Light(76, Color.red);
         }
@@ -268,11 +268,6 @@ public class PlayerController : SimulatedScript
         SwitchCurrentActionMap("Endscreen");
     }
 
-    public void QuitGame(InputAction.CallbackContext context)
-    {
-        gameManager.QuitGame();
-    }
-
     #region Helper Functions
     //Check if the vertical speed is over the speed cap
     void CheckVerticalSpeedCap()
@@ -285,7 +280,7 @@ public class PlayerController : SimulatedScript
     }
 
     //Check if the player is grounded
-    private bool CheckIsGrounded()
+    private void UpdateGroundObject()
     {
         Light(115, Color.blue);
         Vector2 raycastOrigin = playerCollider.bounds.min; 
@@ -310,28 +305,18 @@ public class PlayerController : SimulatedScript
         RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
         bool isGrounded = totalHits.Length > 0;
 
-        if (isGrounded)
-        {
-            standingOn = totalHits[0].rigidbody;
-
-            Light(124, Color.green);
-            Light(127, Color.green);
-            Light(129, Color.green);
-        }
-        else
-        {
-            standingOn = null;
-
-            Light(124, Color.red);
-            Light(127, Color.red);
-            Light(129, Color.red);
-        }
         spriteAnimator.SetBool("IsGrounded", isGrounded);
+
         if (isGrounded)
         {
             walljumpsRemaining = walljumpCount;
+            playerBody.gravityScale = 0;
         }
-        return isGrounded;
+        else
+        {
+            playerBody.gravityScale = 1;
+        }
+        groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
     //Check for a wall on the player's left
@@ -374,16 +359,21 @@ public class PlayerController : SimulatedScript
     }
     #endregion
 
-    private void OnDrawGizmos()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)transform.position + giz_offset, giz_rad);
-        Gizmos.DrawLine(playerBody.transform.position, (Vector2)playerBody.transform.position + slopeDir);
+        UpdateGroundObject();
+
+        //Prevent bouncing
+        if (groundObject != null)
+        {
+            playerBody.velocity *= Vector2.right;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (grounded)
+        // Slope-handling stuff, ignore for now
+        if (groundObject !=  null)
         {
             slopeDir = Vector2.Perpendicular(collision.contacts[0].normal).normalized * -1;
             if (slopeDir == Vector2.up || slopeDir == Vector2.down)
@@ -391,13 +381,15 @@ public class PlayerController : SimulatedScript
                 slopeDir = Vector2.right;
                 return;
             }
-            playerBody.gravityScale = 0;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        slopeDir = Vector2.right;
-        playerBody.gravityScale = 1;
+        // Slope-handling stuff, ignore for now
+        if (groundObject == null)
+        {
+            slopeDir = Vector2.right;
+        }
     }
 }
