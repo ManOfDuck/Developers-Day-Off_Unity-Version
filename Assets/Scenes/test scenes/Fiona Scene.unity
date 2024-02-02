@@ -291,7 +291,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2541,7 +2541,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3077,7 +3077,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -61713,12 +61713,24 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4444444
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.6111112
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1666154275, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
+      objectReference: {fileID: 1992956254, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
     - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -61727,9 +61739,13 @@ PrefabInstance:
     - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+      objectReference: {fileID: 2100000, guid: fad52df0dc5322947850b59274b04c41, type: 2}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
@@ -61789,12 +61805,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.2
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.2
+      value: 0.29
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
