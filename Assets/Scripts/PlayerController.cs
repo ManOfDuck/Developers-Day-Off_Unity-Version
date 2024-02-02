@@ -42,6 +42,7 @@ public class PlayerController : SimulatedScript
 
     private Vector2 moveInput;
     private Vector2 slopeDir;
+    private Rigidbody2D standingOn;
     private int walljumpsRemaining;
 
     GameManager gameManager;
@@ -91,7 +92,9 @@ public class PlayerController : SimulatedScript
     private void Move(Vector2 inputDirection)
     {
         bool inputActive = inputDirection.magnitude > 0.01f;
-        bool holdingOppositeDirection = inputActive && (Mathf.Sign(inputDirection.x) != Mathf.Sign(playerBody.velocity.x));
+        bool playerStopped = Mathf.Approximately(playerBody.velocity.x, 0);
+        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(inputDirection.x) != Mathf.Sign(playerBody.velocity.x));
+        Debug.Log(holdingOppositeDirection);
 
         // Running
         if (inputActive)
@@ -121,8 +124,29 @@ public class PlayerController : SimulatedScript
             }
         }
 
+        if (standingOn is not null)
+        {
+            playerBody.position += standingOn.velocity * Time.fixedDeltaTime;
+        }
+
         // Update Animator
-        UpdateAnimatorSpeed(Mathf.Abs(playerBody.velocity.x));
+        if (playerStopped)
+        {
+            spriteAnimator.SetFloat("Horizontal Speed", 0);
+        }
+        else
+        {
+            Vector2 standingOnVelocity;
+            if (standingOn is null)
+            {
+                standingOnVelocity = Vector2.zero;
+            }
+            else
+            {
+                standingOnVelocity = standingOn.velocity;
+            }
+            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x - standingOnVelocity.x));
+        }
     }
 
     private void ApplyRunForce(float amount, Vector2 direction)
@@ -130,26 +154,14 @@ public class PlayerController : SimulatedScript
         float amountBelowCap = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        playerBody.velocity += direction * velocityToAdd * Time.fixedDeltaTime;
+        playerBody.velocity += Time.fixedDeltaTime * velocityToAdd * direction;
     }
 
     private void ApplyFriction(float amount)
     {
         float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
         float velocitySign = -Mathf.Sign(playerBody.velocity.x);
-        playerBody.velocity += Vector2.right * velocitySign * velocityToRemove;
-    }
-
-    private void UpdateAnimatorSpeed(float velocity)
-    {
-        if (Mathf.Approximately(velocity, 0))
-        {
-            spriteAnimator.SetFloat("Horizontal Speed", 0);
-        }
-        else
-        {
-            spriteAnimator.SetFloat("Horizontal Speed", velocity);
-        }
+        playerBody.velocity += velocitySign * velocityToRemove * Vector2.right;
     }
     #endregion
 
@@ -276,16 +288,20 @@ public class PlayerController : SimulatedScript
         RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
         Light(121);
 
+        // Check bottom-middle
+        raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x * 0.5f, 0, 0);
+        RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+
         // Check bottom-right
         raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x, 0, 0);
         RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
-        RaycastHit2D[] totalHits = leftHits.Concat(rightHits).ToArray();
+        RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
         bool isGrounded = totalHits.Length > 0;
 
         if (isGrounded)
         {
-            //transform.SetParent(totalHits[0].transform);
+            standingOn = totalHits[0].rigidbody;
 
             Light(124, Color.green);
             Light(127, Color.green);
@@ -293,7 +309,7 @@ public class PlayerController : SimulatedScript
         }
         else
         {
-           // transform.SetParent(null);
+            standingOn = null;
 
             Light(124, Color.red);
             Light(127, Color.red);
