@@ -150,6 +150,14 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1].y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Size.y
+      value: 0.32
+      objectReference: {fileID: 0}
     - target: {fileID: 2482227986016671640, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Name
       value: Moving Platform (1)
@@ -159,12 +167,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.41
+      value: 5.6937
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.45
+      value: -8.514
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59431,12 +59447,28 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1].y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Size.y
+      value: 0.32
+      objectReference: {fileID: 0}
     - target: {fileID: 2482227986016671640, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Name
       value: Moving Platform
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
