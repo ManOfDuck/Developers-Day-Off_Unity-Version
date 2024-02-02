@@ -82,6 +82,7 @@ public class SimulatedObject : MonoBehaviour
     {
         script.enabled = enabled;
         script.doCoroutines = enabled;
+        script.doCollisionEvents = enabled;
     }
 
     public void toggleScript(SimulatedScript script)

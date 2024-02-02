@@ -16,6 +16,7 @@ public class SimulatedScript : MonoBehaviour
     private Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
 
     public bool doCoroutines = true;
+    public bool doCollisionEvents = true;
 
     protected void Light(int lineNumber)
     {

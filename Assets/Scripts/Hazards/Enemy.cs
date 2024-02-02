@@ -20,6 +20,9 @@ public class Enemy : SimulatedScript
     // This method is called when we collide with another object
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!doCollisionEvents)
+            return;
+
         Light(15);
         // Check if the game object we collided with is tagged as "Player"
         if (collision.gameObject.CompareTag("Player"))

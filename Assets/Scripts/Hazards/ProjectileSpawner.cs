@@ -18,6 +18,10 @@ public class ProjectileSpawner : SimulatedScript
     {
         while (true)
         {
+            while (!doCoroutines)
+            {
+                yield return null;
+            }
             GameObject gameObject = Instantiate(projectilePrefab);
             gameObject.transform.SetParent(this.transform);
             gameObject.transform.position = this.transform.position;

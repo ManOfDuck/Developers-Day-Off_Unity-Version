@@ -61500,7 +61500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: playerHealth
-      value: 200000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: horizontalSpeedCap
@@ -61650,6 +61650,10 @@ PrefabInstance:
     - target: {fileID: 8166331372137793480, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166331372137793486, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
+      propertyPath: timeBetweenShots
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8166331372137793487, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
       propertyPath: m_Name

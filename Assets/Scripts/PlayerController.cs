@@ -361,6 +361,9 @@ public class PlayerController : SimulatedScript
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!doCollisionEvents)
+            return;
+
         UpdateGroundObject();
 
         //Prevent bouncing
@@ -372,6 +375,9 @@ public class PlayerController : SimulatedScript
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (!doCollisionEvents)
+            return;
+
         // Slope-handling stuff, ignore for now
         if (groundObject !=  null)
         {
@@ -386,6 +392,9 @@ public class PlayerController : SimulatedScript
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (!doCollisionEvents)
+            return;
+
         // Slope-handling stuff, ignore for now
         if (groundObject == null)
         {
