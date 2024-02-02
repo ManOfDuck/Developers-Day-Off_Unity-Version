@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void HealPlayer()
     {
-        Debug.Log("Healing player: " + playerHealth);
+        //Debug.Log("Healing player: " + playerHealth);
         playerHealth++;
         OnPlayerHeal.Invoke();
     }
@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
 
             playerHealth--;
             OnPlayerHurt.Invoke();
-            Debug.Log("Player health:" + playerHealth);
+            //Debug.Log("Player health:" + playerHealth);
 
             if (playerHealth <= 0)
             {
