@@ -21,30 +21,37 @@ public class Patrol : SimulatedScript
 
     protected virtual IEnumerator Move()
     {
-        float step = 0f;
-        Vector2 target = Vector2.zero;
         while (true)
         {
             Light(18);
             foreach (Vector2 point in patrolPoints)
             {
                 Light(20);
-                target = point + initPos;
-                while (body.position != target)
+                Vector2 initial = body.position;
+                Vector2 target = point + initPos;
+                Vector2 path = target - initial;
+                Vector2 direction = path.normalized;
+                Vector2 traveled = Vector2.zero;
+
+                while (traveled.magnitude < path.magnitude)
                 {
                     // Pause if object is disabled
                     while (!doCoroutines)
                     {
+                        body.velocity = Vector2.zero;
                         yield return null;
                     }
 
-                    Light(22);
-                    step = speed * Time.deltaTime;
-                    body.position = Vector2.MoveTowards(body.position, target, step);
-                    Light(25);
+                    float distanceRemaining = path.magnitude - traveled.magnitude;
+                    float speedToAdd = Mathf.Min(speed, (distanceRemaining) / Time.fixedDeltaTime);
+
+                    body.velocity = speedToAdd * direction;
+                    traveled = body.position - initial;
+
                     yield return null;
-                    Light(28, Color.blue);
                 }
+                // Stop and wait
+                body.velocity = Vector2.zero;
                 yield return new WaitForSeconds(waitTime);
                 Light(31, Color.blue);
             }

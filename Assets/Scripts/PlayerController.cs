@@ -1,15 +1,12 @@
+using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : SimulatedScript
 {
-    [SerializeField]
-    [Range(0f, 2f)]
-    private float giz_rad;
-
-    [SerializeField]
-    private Vector2 giz_offset;
-
     [SerializeField] private int playerHealth = 3;
 
     [Header("Running")]
@@ -41,6 +38,8 @@ public class PlayerController : SimulatedScript
 
     private Vector2 moveInput;
     private Vector2 slopeDir;
+    private Rigidbody2D groundObject;
+    private bool jumpingThisFrame = false;
     private int walljumpsRemaining;
 
     GameManager gameManager;
@@ -64,10 +63,20 @@ public class PlayerController : SimulatedScript
 
     void FixedUpdate()
     {
-        Light(26, Color.blue);
+        if (!jumpingThisFrame)
+            UpdateGroundObject();
+        else
+            jumpingThisFrame = false;
         Move(moveInput);
-        Light(28, Color.blue);
-        Fall(CheckIsGrounded());
+        Fall(groundObject != null);
+    }
+
+    public void GoRMode(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            gameManager.ResetScene();
+        }
     }
 
     #region Running
@@ -79,121 +88,87 @@ public class PlayerController : SimulatedScript
         Light(34);
     }
 
-    public void GoRMode(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            gameManager.ResetScene();
-        }
-    }
-
     private void Move(Vector2 inputDirection)
     {
-        Light(38, Color.blue);
-        //Get the player's speed
-        float playerSpeed = Mathf.Abs(playerBody.velocity.x);
-        Light(40);
+        bool inputActive = inputDirection.magnitude > 0.01f;
+        bool playerStopped = Mathf.Approximately(playerBody.velocity.x, 0);
+        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(inputDirection.x) != Mathf.Sign(playerBody.velocity.x));
 
-        if (inputDirection.magnitude > 0.01f)
+        // Running
+        if (inputActive)
         {
-            Light(43, Color.green);
-            float force = getMoveForce(inputDirection, playerSpeed);
-            Light(45);
-            playerBody.AddForce(inputDirection * force, ForceMode2D.Force);
-            Light(47);
-
+            // Update sprite
             playerRenderer.flipX = !(Mathf.Sign(inputDirection.x) == -1);
-            Light(49);
-        }
-        //If there is not input but the player is moving, apply friction
-        //If the player is grounded, apply regular friction
-        else if (CheckIsGrounded() && Mathf.Abs(playerBody.velocity.x) > 0.1f)
-        {
-            Light(43, Color.red);
-            Light(54, Color.green);
-            float amount = Mathf.Min(playerSpeed, friction);
-            Light(57);
-            amount *= -Mathf.Sign(playerBody.velocity.x);
-            Light(60);
-            playerBody.AddForce(Vector2.right * amount, ForceMode2D.Impulse);
-            Light(63);
-        }
-        //Otherwise, apply air friction
-        else if (Mathf.Abs(playerBody.velocity.x) > 0.1f)
-        {
-            Light(43, Color.red);
-            Light(54, Color.green);
-            float amount = Mathf.Min(Mathf.Abs(playerBody.velocity.x), Mathf.Abs(airFriction));
-            Light(57);
-            amount *= Mathf.Sign(playerBody.velocity.x);
-            Light(60);
-            playerBody.AddForce(slopeDir * -amount, ForceMode2D.Impulse);
-            Light(63);
-        }
-        else
-        {
-            Light(43, Color.red);
-            Light(54, Color.red);
+
+            if (groundObject)
+            {
+                ApplyRunForce(runForce, inputDirection);
+            }
+            else
+            {
+                ApplyRunForce(airRunForce, inputDirection);
+            }
         }
 
-        //Update the animator with the current running state and horizontal speed
-        //spriteAnimator.SetBool("Run?!?!?!?!", isPlayerRunning);
-        
-        if (Mathf.Approximately(playerBody.velocity.x, 0))
+        // Friction
+        if (!inputActive || holdingOppositeDirection) {
+            if (groundObject)
+            {
+                ApplyFriction(friction);
+            }
+            else
+            {
+                ApplyFriction(airFriction);
+            }
+        }
+
+        InheritVelocity(groundObject);
+
+        // Update Animator
+        UpdateAnimator(playerStopped);
+    }
+
+    private void ApplyRunForce(float amount, Vector2 direction)
+    {
+        float amountBelowCap = horizontalSpeedCap - Mathf.Abs(playerBody.velocity.x);
+        float velocityToAdd = Mathf.Min(amount, amountBelowCap);
+
+        playerBody.velocity += Time.fixedDeltaTime * velocityToAdd * direction;
+    }
+
+    private void ApplyFriction(float amount)
+    {
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
+        float velocitySign = -Mathf.Sign(playerBody.velocity.x);
+        playerBody.velocity += velocitySign * velocityToRemove * Vector2.right;
+    }
+
+    private void InheritVelocity(Rigidbody2D other)
+    {
+        if (other == null) return;
+
+        Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
+        playerBody.position += velocity * Time.fixedDeltaTime;
+    }
+
+    private void UpdateAnimator(bool isStopped)
+    {
+        if (isStopped)
         {
             spriteAnimator.SetFloat("Horizontal Speed", 0);
         }
         else
         {
-            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x));
-        }
-        Light(68);
-    }
-
-    private float getMoveForce(Vector2 inputDirection, float playerSpeed)
-    {
-        Light(93, Color.blue);
-        //Calculate the gap between the max and current speed
-        float speedDifference = horizontalSpeedCap - playerSpeed;
-        Light(96);
-
-        if (!Mathf.Approximately(speedDifference, 0f))
-        {
-            Light(99, Color.green);
-
-            float force;
-            if (CheckIsGrounded())
+            Vector2 standingOnVelocity;
+            if (groundObject is null)
             {
-                force = runForce;
+                standingOnVelocity = Vector2.zero;
             }
             else
             {
-                force = airRunForce;
+                standingOnVelocity = groundObject.velocity;
             }
-            if (speedDifference > 0)
-            {
-                float forceCap = speedDifference / Time.fixedDeltaTime * playerBody.mass;
-                Light(104);
-                float cappedForce = Mathf.Min(forceCap, force);
-                Light(105);
-
-                Light(107, Color.blue);
-                return cappedForce;
-            }
-            else
-            {
-                Light(99, Color.red); Light(110, Color.blue);
-                Light(110, Color.blue);
-                playerBody.AddForce(speedDifference * Mathf.Sign(playerBody.velocity.x) * playerBody.mass * Vector2.right, ForceMode2D.Impulse);
-                return 0;
-            }
-        }
-        else
-        {
-            Light(99, Color.red);
-            Light(110, Color.green);
-            Light(111, Color.blue);
-            return 0;
+            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x - standingOnVelocity.x));
         }
     }
     #endregion
@@ -206,8 +181,11 @@ public class PlayerController : SimulatedScript
         {
             Light(74, Color.green);
             //Jumping
-            if (CheckIsGrounded())
+            if (groundObject != null)
             {
+                groundObject = null;
+                jumpingThisFrame = true;
+
                 Light(76, Color.green);
                 playerBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 Light(78);
@@ -290,11 +268,6 @@ public class PlayerController : SimulatedScript
         SwitchCurrentActionMap("Endscreen");
     }
 
-    public void QuitGame(InputAction.CallbackContext context)
-    {
-        gameManager.QuitGame();
-    }
-
     #region Helper Functions
     //Check if the vertical speed is over the speed cap
     void CheckVerticalSpeedCap()
@@ -307,7 +280,7 @@ public class PlayerController : SimulatedScript
     }
 
     //Check if the player is grounded
-    private bool CheckIsGrounded()
+    private void UpdateGroundObject()
     {
         Light(115, Color.blue);
         Vector2 raycastOrigin = playerCollider.bounds.min; 
@@ -318,37 +291,32 @@ public class PlayerController : SimulatedScript
         Light(120);
 
         // Check bottom-left
-        RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+        RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
         Light(121);
-        bool leftCheck = (hits.Length > 0);
-        Debug.Log("check1" + leftCheck);
+
+        // Check bottom-middle
+        raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x * 0.5f, 0, 0);
+        RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
         // Check bottom-right
         raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x, 0, 0);
-        hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
-        bool rightCheck = (hits.Length > 0);
-        Debug.Log("check2" + rightCheck);
+        RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
-        bool isGrounded = leftCheck || rightCheck;
+        RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
+        bool isGrounded = totalHits.Length > 0;
 
-        if (isGrounded)
-        {
-            Light(124, Color.green);
-            Light(127, Color.green);
-            Light(129, Color.green);
-        }
-        else
-        {
-            Light(124, Color.red);
-            Light(127, Color.red);
-            Light(129, Color.red);
-        }
         spriteAnimator.SetBool("IsGrounded", isGrounded);
+
         if (isGrounded)
         {
             walljumpsRemaining = walljumpCount;
+            playerBody.gravityScale = 0;
         }
-        return isGrounded;
+        else
+        {
+            playerBody.gravityScale = 1;
+        }
+        groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
     //Check for a wall on the player's left
@@ -391,16 +359,21 @@ public class PlayerController : SimulatedScript
     }
     #endregion
 
-    private void OnDrawGizmos()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)transform.position + giz_offset, giz_rad);
-        Gizmos.DrawLine(playerBody.transform.position, (Vector2)playerBody.transform.position + slopeDir);
+        UpdateGroundObject();
+
+        //Prevent bouncing
+        if (groundObject != null)
+        {
+            playerBody.velocity *= Vector2.right;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (CheckIsGrounded())
+        // Slope-handling stuff, ignore for now
+        if (groundObject !=  null)
         {
             slopeDir = Vector2.Perpendicular(collision.contacts[0].normal).normalized * -1;
             if (slopeDir == Vector2.up || slopeDir == Vector2.down)
@@ -408,13 +381,15 @@ public class PlayerController : SimulatedScript
                 slopeDir = Vector2.right;
                 return;
             }
-            playerBody.gravityScale = 0;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        slopeDir = Vector2.right;
-        playerBody.gravityScale = 1;
+        // Slope-handling stuff, ignore for now
+        if (groundObject == null)
+        {
+            slopeDir = Vector2.right;
+        }
     }
 }
