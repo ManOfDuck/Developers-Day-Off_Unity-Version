@@ -55,11 +55,16 @@ public class inspectorController : MonoBehaviour
         xButton = root.Q<Button>("x_button");
         xButton.clickable.clicked += () =>
         {
-            root.visible = false;
+            StopDisplaying();
         };
     }
 
     void Start()
+    {
+        StopDisplaying();
+    }
+
+    public void StopDisplaying()
     {
         root.visible = false;
     }

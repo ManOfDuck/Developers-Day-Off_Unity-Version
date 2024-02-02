@@ -60582,6 +60582,7 @@ MonoBehaviour:
   TitleScreen: 
   Level1: Level 1
   playerDamageCooldown: 1
+  inspectorController: {fileID: 2070835362}
   damageVolume: {fileID: 395048501}
   playerHealth: 0
   OnGameStart:
@@ -61230,6 +61231,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2070835362 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7304736187897288342, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
+  m_PrefabInstance: {fileID: 1085017662}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320c7d0aaf9fd014695915e490eb875a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2138627652

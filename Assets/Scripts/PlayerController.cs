@@ -223,7 +223,7 @@ public class PlayerController : SimulatedScript
 
     public void heal(int health)
     {
-        for (int i = 0; i < health; i++)
+        for (int i = 0; i < health - 1; i++)
         {
             gameManager.HealPlayer();
         }

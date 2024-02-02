@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string TitleScreen;
     [SerializeField] private string Level1;
     [SerializeField] private float playerDamageCooldown;
+    [SerializeField] inspectorController inspectorController;
     [SerializeField] private UnityEngine.Rendering.Volume damageVolume;
     public int playerHealth;
 
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
     public void ResetScene()
     {
         LoadScene(currentScene);
+        inspectorController.StopDisplaying();
     }
 
     public void LoadScene(string sceneName)
