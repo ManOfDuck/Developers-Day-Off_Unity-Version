@@ -50,6 +50,7 @@ public class Patrol : SimulatedScript
 
                     yield return null;
                 }
+                // Stop and wait
                 body.velocity = Vector2.zero;
                 yield return new WaitForSeconds(waitTime);
                 Light(31, Color.blue);
