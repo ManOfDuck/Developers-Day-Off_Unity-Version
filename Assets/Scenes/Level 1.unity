@@ -61442,18 +61442,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6464460167355857351, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: defaultSprite
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
-    - target: {fileID: 6793022463475628256, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628256, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3efbe695efba64876890d7239aa6051a, type: 2}
     - target: {fileID: 6793022463475628262, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_ActionEvents.Array.size
       value: 20
@@ -61494,30 +61482,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: friction
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: runForce
-      value: 46
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: airFriction
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: airRunForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: playerHealth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: horizontalSpeedCap
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -61526,28 +61490,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1666154275, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
-    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
@@ -61589,26 +61533,6 @@ PrefabInstance:
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Size.x
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Size.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664122455749873983, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
@@ -61688,6 +61612,14 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[0].y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8792028
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.008556038
+      objectReference: {fileID: 0}
     - target: {fileID: 2482227986016671640, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Name
       value: Moving Platform
@@ -61698,7 +61630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.66
+      value: -4.316
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.y
