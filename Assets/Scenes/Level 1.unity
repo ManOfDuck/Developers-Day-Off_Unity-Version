@@ -61483,8 +61483,28 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: friction
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: runForce
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: airFriction
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: airRunForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: playerHealth
       value: 200000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628263, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: horizontalSpeedCap
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_Name
