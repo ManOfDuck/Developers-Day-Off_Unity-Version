@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1466621181741736270}
   - component: {fileID: 975301614714355331}
   - component: {fileID: 5995785365106334769}
+  - component: {fileID: 3226394734520558984}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Enemy
@@ -140,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
   doCoroutines: 1
+  doCollisionEvents: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -168,6 +170,7 @@ MonoBehaviour:
   scripts:
   - {fileID: 1466621181741736270}
   - {fileID: 5995785365106334769}
+  clickTrigger: {fileID: 3226394734520558984}
   defaultSprite: {fileID: 0}
   sprite1: {fileID: 0}
 --- !u!114 &5995785365106334769
@@ -184,4 +187,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualScript: {fileID: 11400000, guid: 25f626f50ec6542fbb511536defb2874, type: 2}
   doCoroutines: 1
+  doCollisionEvents: 1
   enemyCollider: {fileID: 5912186647450479061}
+--- !u!58 &3226394734520558984
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122649085294386744}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

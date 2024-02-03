@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1859364087930125080}
   - component: {fileID: 1763612938278477948}
   - component: {fileID: 7217916014756392569}
+  - component: {fileID: 6244038403369663774}
   m_Layer: 3
   m_Name: Moving Platform
   m_TagString: Untagged
@@ -177,5 +178,35 @@ MonoBehaviour:
     visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts:
   - {fileID: 1763612938278477948}
+  clickTrigger: {fileID: 6244038403369663774}
+  layer:
+    serializedVersion: 2
+    m_Bits: 8
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
+--- !u!61 &6244038403369663774
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482227986016671640}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.007678151, y: -0.012796044}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.4444444, y: 1.2222222}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.1322196, y: 0.88952434}
+  m_EdgeRadius: 0

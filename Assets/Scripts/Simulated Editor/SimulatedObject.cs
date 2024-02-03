@@ -6,6 +6,8 @@ public class SimulatedObject : MonoBehaviour
 {
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
+    public Collider2D clickTrigger;
+    private LayerMask layer;
     private inspectorController controller;
 
     public Sprite defaultSprite;
@@ -21,6 +23,11 @@ public class SimulatedObject : MonoBehaviour
     public void Start()
     {
         controller = inspectorController.Instance;
+        layer = gameObject.layer;
+        foreach (SimulatedScript script in scripts)
+        {
+            setScriptEnabledStatus(script, script.isActiveAndEnabled);
+        }
     }
 
     public bool isComponentToggleable(SimulatedComponent component)
@@ -59,6 +66,7 @@ public class SimulatedObject : MonoBehaviour
         {
             case Collider2D collider:
                 collider.enabled = enabled;
+                gameObject.layer = enabled ? layer : 0;
                 break;
             case SpriteRenderer renderer:
                 renderer.enabled = enabled;
