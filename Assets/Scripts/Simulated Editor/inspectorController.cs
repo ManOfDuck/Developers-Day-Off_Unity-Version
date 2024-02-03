@@ -20,6 +20,10 @@ public class inspectorController : MonoBehaviour
     public Color falseColor;
     public AnimationCurve flashCurve;
 
+    public FollowCamera followCamera;
+    public float cameraShiftAmount;
+    public float shiftDistance;
+
     private VisualElement root;
     private Button xButton;
     private Label objectName, objectTag;
@@ -67,6 +71,7 @@ public class inspectorController : MonoBehaviour
     public void StopDisplaying()
     {
         root.visible = false;
+        followCamera.shift = 0;
     }
 
     void Update()
@@ -149,6 +154,8 @@ public class inspectorController : MonoBehaviour
 
         //Show the inspector
         root.visible = true;
+        if (followCamera.followCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
+            followCamera.shift = cameraShiftAmount;
     }    
 
     private VisualElement getComponentDisplay(SimulatedComponent component)

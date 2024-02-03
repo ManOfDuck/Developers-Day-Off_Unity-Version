@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
 
-    [SerializeField] private Camera followCamera;
+    [SerializeField] public Camera followCamera;
 
     [Tooltip("Offset from the player we'll follow at (based on the camera's position and the player's position)")]
     [SerializeField] private Vector3 offset;
@@ -18,8 +18,7 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] private float upperBound;
     [SerializeField] private float lowerBound;
 
-    private float adjustedLeftBound;
-    private float adjustedRightBound;
+    public float shift;
 
 
     private void Awake()
@@ -47,8 +46,8 @@ public class FollowCamera : MonoBehaviour
     {
         float boundedX = Mathf.Clamp(following.transform.position.x + offset.x, leftBound, rightBound);
         float boundedY = Mathf.Clamp(following.transform.position.y + offset.y, lowerBound, upperBound);
-        transform.position = new Vector3(boundedX, boundedY, transform.position.z);
-
+        transform.position = new Vector3(boundedX + shift, boundedY, transform.position.z);
+        Debug.Log(shift);
     }
 
 }

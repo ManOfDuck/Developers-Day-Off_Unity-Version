@@ -105,3 +105,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  followCamera: {fileID: 0}
+  cameraShiftAmount: 7
+  shiftDistance: 800
