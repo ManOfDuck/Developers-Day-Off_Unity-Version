@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         currentScene = sceneName;
     }
 
+    public void ChangeRespawnScene(string sceneName)
+    {
+        currentScene = sceneName;
+    }
+
     public void HealPlayer()
     {
         //Debug.Log("Healing player: " + playerHealth);
