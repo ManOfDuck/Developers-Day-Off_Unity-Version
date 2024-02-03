@@ -114,13 +114,13 @@ public class GameManager : MonoBehaviour
     public void ResetScene()
     {
         LoadScene(currentScene);
-        inspectorController.StopDisplaying();
     }
 
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
+        inspectorController.StopDisplaying();
     }
 
     public void ChangeRespawnScene(string sceneName)

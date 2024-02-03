@@ -8718,6 +8718,10 @@ PrefabInstance:
       propertyPath: followCamera
       value: 
       objectReference: {fileID: 494642840}
+    - target: {fileID: 4731934273233402307, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
+      propertyPath: shiftDistance
+      value: 9999
+      objectReference: {fileID: 0}
     - target: {fileID: 5629753015066820928, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
       propertyPath: following
       value: 
@@ -8728,6 +8732,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
+--- !u!114 &467422103 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4731934273233402307, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
+  m_PrefabInstance: {fileID: 467422102}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320c7d0aaf9fd014695915e490eb875a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &494642840 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5367041674420445465, guid: 85a10beb7f0214693be1311a296c4bfd, type: 3}
@@ -66849,6 +66864,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: inspectorController
+      value: 
+      objectReference: {fileID: 467422103}
     - target: {fileID: 8686681478243960497, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: m_Name
       value: GameManager
