@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8166331372137793481}
   - component: {fileID: 8166331372137793486}
   - component: {fileID: 8079836255429848045}
+  - component: {fileID: 8840514794893888476}
   m_Layer: 0
   m_Name: ProjectileSpawner
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualScript: {fileID: 0}
   doCoroutines: 1
+  doCollisionEvents: 1
   timeBetweenShots: 1
   launchDirection: {x: 10, y: 0}
   projectilePrefab: {fileID: 9122649085294386744, guid: 37ac759e043b049f282102ec180f66d3, type: 3}
@@ -122,5 +124,32 @@ MonoBehaviour:
     visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
   scripts:
   - {fileID: 8166331372137793486}
+  clickTrigger: {fileID: 8840514794893888476}
   defaultSprite: {fileID: 0}
   sprite1: {fileID: 0}
+--- !u!61 &8840514794893888476
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166331372137793487}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
