@@ -7,12 +7,13 @@ public class MessageUIScript : MonoBehaviour
 {
 
     [SerializeField] UIDocument UIDoc;
+    [SerializeField] string speakerName;
     [SerializeField] string[] conversationArray;
 
     private int conversationPosition = 0;
     private VisualElement root;
     private VisualElement image;
-    private Label text;
+    private Label name, text;
 
 
     // Start is called before the first frame update
@@ -21,14 +22,21 @@ public class MessageUIScript : MonoBehaviour
         root = UIDoc.rootVisualElement;
         image = root.Q<VisualElement>("speakerImage");
         text = root.Q<Label>("speakerText");
+        name = root.Q<Label>("speakerName");
         text.text = conversationArray[0];
+        name.text = speakerName;
         root.style.visibility = Visibility.Hidden;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+ 
     }
 
     void conversation()

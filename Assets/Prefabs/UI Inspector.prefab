@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7113185759849202434}
   - component: {fileID: 4731934273233402307}
   m_Layer: 5
-  m_Name: UI
+  m_Name: UI Inspector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
