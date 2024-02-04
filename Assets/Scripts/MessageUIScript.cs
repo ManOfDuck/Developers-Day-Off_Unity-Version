@@ -8,6 +8,7 @@ public class MessageUIScript : MonoBehaviour
 
     [SerializeField] UIDocument UIDoc;
     [SerializeField] string speakerName;
+    [SerializeField] BoxCollider2D collider;
     [SerializeField] string[] conversationArray;
 
     private int conversationPosition = 0;
@@ -23,7 +24,7 @@ public class MessageUIScript : MonoBehaviour
         image = root.Q<VisualElement>("speakerImage");
         text = root.Q<Label>("speakerText");
         name = root.Q<Label>("speakerName");
-        text.text = conversationArray[0];
+        //text.text = conversationArray[0];
         name.text = speakerName;
         root.style.visibility = Visibility.Hidden;
     }
@@ -34,15 +35,19 @@ public class MessageUIScript : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
- 
+        Debug.Log("trigger hit");
+        root.style.visibility = Visibility.Visible;
+        conversation();
     }
 
     void conversation()
     {
-        conversationPosition++;
-        if(conversationArray[conversationPosition] != null)
+        //conversationPosition++;
+        //if(conversationArray[conversationPosition] != null)
+        if(conversationPosition < conversationArray.Length)
         {
             text.text = conversationArray[conversationPosition];
         }
@@ -50,6 +55,7 @@ public class MessageUIScript : MonoBehaviour
         {
             root.style.visibility = Visibility.Hidden;
         }
+        conversationPosition++;
     }
 
 }

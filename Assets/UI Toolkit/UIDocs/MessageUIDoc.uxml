@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="speakerBackground" style="height: 15%; flex-direction: row;">
         <ui:VisualElement name="speakerImage" style="width: 14%; height: 100%;" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="speakerName" style="font-size: 48px;" />
         <ui:Label text="Label" display-tooltip-when-elided="true" name="speakerText" style="font-size: 48px;" />
     </ui:VisualElement>
 </ui:UXML>
