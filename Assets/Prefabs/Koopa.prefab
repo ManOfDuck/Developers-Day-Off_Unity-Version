@@ -109,7 +109,7 @@ MonoBehaviour:
   color: 0
   speed: 2
   startingDirection: 0
-  cliffCheckDistance: 0.2
+  cliffCheckDistance: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
