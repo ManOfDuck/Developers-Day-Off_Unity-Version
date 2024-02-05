@@ -43,9 +43,12 @@ public class MessageUIScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("trigger hit");
-        root.style.visibility = Visibility.Visible;
-        conversation();
+        if(other.tag == "UnRootable")
+        {
+            Debug.Log("trigger hit");
+            root.style.visibility = Visibility.Visible;
+            conversation();
+        }
     }
 
     void conversation()
