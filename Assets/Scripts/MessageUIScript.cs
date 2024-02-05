@@ -15,6 +15,7 @@ public class MessageUIScript : MonoBehaviour
     private VisualElement root;
     private VisualElement image;
     private Label name, text;
+    private bool isTalking = false;
 
 
     // Start is called before the first frame update
@@ -24,7 +25,6 @@ public class MessageUIScript : MonoBehaviour
         image = root.Q<VisualElement>("speakerImage");
         text = root.Q<Label>("speakerText");
         name = root.Q<Label>("speakerName");
-        //text.text = conversationArray[0];
         name.text = speakerName;
         root.style.visibility = Visibility.Hidden;
     }
@@ -32,7 +32,12 @@ public class MessageUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.E) && isTalking)
+        {
+            Debug.Log("conversatin");
+            conversationPosition++;
+            conversation();
+        }
     }
 
 
@@ -45,8 +50,8 @@ public class MessageUIScript : MonoBehaviour
 
     void conversation()
     {
-        //conversationPosition++;
-        //if(conversationArray[conversationPosition] != null)
+        isTalking = true;
+        Time.timeScale = 0;
         if(conversationPosition < conversationArray.Length)
         {
             text.text = conversationArray[conversationPosition];
@@ -54,8 +59,12 @@ public class MessageUIScript : MonoBehaviour
         else
         {
             root.style.visibility = Visibility.Hidden;
+            Time.timeScale = 1;
+            Destroy(collider);
+            isTalking = false;
+            return;
         }
-        conversationPosition++;
+
     }
 
 }
