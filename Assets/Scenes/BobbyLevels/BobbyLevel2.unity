@@ -60314,6 +60314,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 300266146888308864, guid: 495b4bf32a9e4a348bc5205d1932738e, type: 3}
+      propertyPath: sourceAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: a12947866ca41cf46a17830ad485e02d, type: 3}
     - target: {fileID: 300266146888308865, guid: 495b4bf32a9e4a348bc5205d1932738e, type: 3}
       propertyPath: m_Name
       value: MessageUI
@@ -60368,7 +60372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 300266146888308867, guid: 495b4bf32a9e4a348bc5205d1932738e, type: 3}
       propertyPath: conversationArray.Array.data[0]
-      value: test1
+      value: Hi! this is line 1~ click e to continue
       objectReference: {fileID: 0}
     - target: {fileID: 300266146888308867, guid: 495b4bf32a9e4a348bc5205d1932738e, type: 3}
       propertyPath: conversationArray.Array.data[1]
