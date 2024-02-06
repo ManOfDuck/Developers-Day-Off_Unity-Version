@@ -86081,6 +86081,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialougeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075819, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: UIDoc
       value: 

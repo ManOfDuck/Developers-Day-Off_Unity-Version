@@ -77439,6 +77439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moving Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 6054564143421115725, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 349c4d898d535a348bd22219b073d031, type: 2}
     - target: {fileID: 6244038403369663774, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Size.y
       value: 0.78555614
@@ -78496,6 +78500,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Patrol Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214250, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1146592550, guid: f4c5a2298d26ddb4394deea96502e2f3, type: 3}
+    - target: {fileID: 1641151438760214250, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fad52df0dc5322947850b59274b04c41, type: 2}
     - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: patrolPoints.Array.size
       value: 1
