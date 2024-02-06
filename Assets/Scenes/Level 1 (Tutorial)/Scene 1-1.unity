@@ -67483,10 +67483,10 @@ PrefabInstance:
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: UIDoc
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1667212545}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: timeDelay
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: speakerName
@@ -67495,35 +67495,35 @@ PrefabInstance:
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: objectToEnable
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1817539318}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: triggerCollider
       value: 
       objectReference: {fileID: 1009338614}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.size
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[0]
-      value: <b>*ring ring*</b>\n<color=yellow><i>click e to advance text</i></color>
+      value: <b>*ring ring*</b>\n\n<color=yellow><i>click e to advance text</i></color>
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[1]
-      value: Yes?
+      value: Hey, thanks for agreeing to playtest our game!
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[2]
-      value: What? You already found a bug?
+      value: Please keep any thoughts in mind while you play, we'll have you fill
+        out at questionnare afterwards.
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[3]
-      value: Oh, the platform isn't moving? I must have forgotten to <color=yellow>enable
-        its script</color>...
+      value: Oh, and call me back if you find any bugs.
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[4]
-      value: 'Look, today''s my day off. '
+      value: Have fun!
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[5]
@@ -67533,6 +67533,22 @@ PrefabInstance:
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[6]
       value: 'Thanks, buddy. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075822, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: m_Size.x
+      value: 7.2230244
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075822, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25932217
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075822, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: m_Offset.x
+      value: 2.0431376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075822, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.0293689
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075823, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: m_RootOrder
@@ -68125,6 +68141,74 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85a10beb7f0214693be1311a296c4bfd, type: 3}
+--- !u!1001 &1501597168
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5167380555618128657, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_Name
+      value: UI Textboxes
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.851856
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.592092
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.30486476
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167380555618128663, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+--- !u!114 &1667212545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5167380555618128662, guid: c0f4466049eae0940b157d40677228d4, type: 3}
+  m_PrefabInstance: {fileID: 1501597168}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1670240018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68251,7 +68335,7 @@ RectTransform:
   m_GameObject: {fileID: 1817539318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.27, y: 1.27, z: 1.27}
+  m_LocalScale: {x: 1.8462362, y: 1.8462362, z: 1.8462362}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1023472194}
@@ -68259,7 +68343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391.92, y: -171.21}
+  m_AnchoredPosition: {x: -389, y: -167.88}
   m_SizeDelta: {x: 4.7775, y: 8.6787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1817539320
@@ -68579,7 +68663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.18
+      value: -7.33
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_LocalPosition.z
