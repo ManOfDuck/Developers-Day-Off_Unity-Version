@@ -77624,7 +77624,7 @@ PrefabInstance:
       objectReference: {fileID: 815165123}
     - target: {fileID: 4731934273233402307, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
       propertyPath: shiftDistance
-      value: 300
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7304736187897288337, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
       propertyPath: m_Name
