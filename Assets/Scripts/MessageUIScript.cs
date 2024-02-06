@@ -8,13 +8,14 @@ public class MessageUIScript : MonoBehaviour
 
     [SerializeField] UIDocument UIDoc;
     [SerializeField] string speakerName;
-    [SerializeField] BoxCollider2D collider;
+    [SerializeField] BoxCollider2D triggerCollider;
     [SerializeField] string[] conversationArray;
+    [SerializeField] float timeDelay;
 
     private int conversationPosition = 0;
     private VisualElement root;
     private VisualElement image;
-    private Label name, text;
+    private Label conversationName, text;
     private bool isTalking = false;
 
 
@@ -24,8 +25,8 @@ public class MessageUIScript : MonoBehaviour
         root = UIDoc.rootVisualElement;
         image = root.Q<VisualElement>("speakerImage");
         text = root.Q<Label>("speakerText");
-        name = root.Q<Label>("speakerName");
-        name.text = speakerName;
+        conversationName = root.Q<Label>("speakerName");
+        conversationName.text = speakerName;
         root.style.visibility = Visibility.Hidden;
     }
 
@@ -51,6 +52,12 @@ public class MessageUIScript : MonoBehaviour
         }
     }
 
+    private IEnumerator DoTimer()
+    {
+        yield return new WaitForSeconds(timeDelay);
+        conversation();
+    }
+
     void conversation()
     {
         isTalking = true;
@@ -63,7 +70,7 @@ public class MessageUIScript : MonoBehaviour
         {
             root.style.visibility = Visibility.Hidden;
             Time.timeScale = 1;
-            Destroy(collider);
+            Destroy(triggerCollider);
             isTalking = false;
             return;
         }
