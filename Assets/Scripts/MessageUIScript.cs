@@ -48,14 +48,14 @@ public class MessageUIScript : MonoBehaviour
         if(other.tag == "UnRootable" || other.tag == "Player")
         {
             Debug.Log("trigger hit");
-            root.style.visibility = Visibility.Visible;
-            conversation();
+            StartCoroutine(DoTimer());
         }
     }
 
     private IEnumerator DoTimer()
     {
         yield return new WaitForSeconds(timeDelay);
+        root.style.visibility = Visibility.Visible;
         conversation();
     }
 

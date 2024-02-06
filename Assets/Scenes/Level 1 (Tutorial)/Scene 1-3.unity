@@ -67354,6 +67354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+--- !u!61 &1556246301 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2581674208171075822, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+  m_PrefabInstance: {fileID: 2581674209572147880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1743944345
 GameObject:
   m_ObjectHideFlags: 0
@@ -67371,7 +67376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1743944346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -67412,7 +67417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click on objects to open the Inspector
+  m_text: Click on glowing objects to open the Inspector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -67566,9 +67571,55 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 631465548}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: timeDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: speakerName
+      value: 'Boss:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: objectToEnable
       value: 
       objectReference: {fileID: 1743944345}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: triggerCollider
+      value: 
+      objectReference: {fileID: 1556246301}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[0]
+      value: <b>*ring ring*</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[1]
+      value: Yes?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[2]
+      value: What? You already found a bug?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[3]
+      value: Oh, the platform isn't moving? I must have forgotten to <color=yellow>enable
+        its script</color>...
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[4]
+      value: 'Look, today''s my day off. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[5]
+      value: I know you're just an intern, but do you think you could figure this
+        out on your own?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: conversationArray.Array.data[6]
+      value: 'Thanks, buddy. '
+      objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075823, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: m_RootOrder
       value: 13
