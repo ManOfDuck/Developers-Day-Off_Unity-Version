@@ -86314,6 +86314,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8166331372137793481, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 384587625, guid: 5933e7d3a088b42d080958c4ef1fa860, type: 3}
     - target: {fileID: 8166331372137793486, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
       propertyPath: timeBetweenShots
       value: 0.1

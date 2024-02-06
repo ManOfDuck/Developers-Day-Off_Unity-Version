@@ -67572,7 +67572,7 @@ PrefabInstance:
       objectReference: {fileID: 631465548}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: timeDelay
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: speakerName
