@@ -81340,36 +81340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47043f6a93193604c915a562b22a9eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleScreen: 
-  Level1: Level 1
-  playerDamageCooldown: 1
-  inspectorController: {fileID: 0}
-  damageVolume: {fileID: 0}
-  playerHealth: 0
-  OnGameStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGamePaused:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGameResumed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGameWin:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGameLoss:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGameQuit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlayerHurt:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlayerHeal:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1131941564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86306,6 +86276,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
       propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4444444
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.6111112
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793022463475628266, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793022463475628267, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
