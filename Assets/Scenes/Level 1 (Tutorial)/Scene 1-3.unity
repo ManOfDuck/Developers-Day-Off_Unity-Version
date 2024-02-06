@@ -67121,6 +67121,7 @@ MonoBehaviour:
   - I may've forgotten to finish more of the level up ahead...
   - Go and use your <color=yellow>Inspector</color> to try and fix it!
   timeDelay: 0
+  objectToEnable: {fileID: 0}
 --- !u!50 &1399306900
 Rigidbody2D:
   serializedVersion: 4
@@ -67380,15 +67381,15 @@ RectTransform:
   m_GameObject: {fileID: 1743944345}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.27, y: 1.27, z: 1.27}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 777735676}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -385.97, y: -166.83}
+  m_AnchoredPosition: {x: -387.19, y: -165.94}
   m_SizeDelta: {x: 4.7775, y: 8.6787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743944347
@@ -67564,6 +67565,10 @@ PrefabInstance:
       propertyPath: UIDoc
       value: 
       objectReference: {fileID: 631465548}
+    - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
+      propertyPath: objectToEnable
+      value: 
+      objectReference: {fileID: 1743944345}
     - target: {fileID: 2581674208171075823, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: m_RootOrder
       value: 13

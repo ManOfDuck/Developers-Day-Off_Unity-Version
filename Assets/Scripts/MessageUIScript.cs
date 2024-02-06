@@ -11,6 +11,7 @@ public class MessageUIScript : MonoBehaviour
     [SerializeField] BoxCollider2D triggerCollider;
     [SerializeField] string[] conversationArray;
     [SerializeField] float timeDelay;
+    [SerializeField] GameObject objectToEnable;
 
     private int conversationPosition = 0;
     private VisualElement root;
@@ -72,6 +73,7 @@ public class MessageUIScript : MonoBehaviour
             Time.timeScale = 1;
             Destroy(triggerCollider);
             isTalking = false;
+            objectToEnable.SetActive(true);
             return;
         }
 
