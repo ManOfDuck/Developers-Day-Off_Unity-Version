@@ -67886,7 +67886,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: Level1
-      value: BobbyLevel2
+      value: Scene 1-2
       objectReference: {fileID: 0}
     - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: playerHealth
