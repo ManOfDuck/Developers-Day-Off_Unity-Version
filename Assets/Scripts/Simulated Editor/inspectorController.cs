@@ -42,12 +42,11 @@ public class inspectorController : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(_instance.gameObject);
+            _instance = this;
         }
     }
     
