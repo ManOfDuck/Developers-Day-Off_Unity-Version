@@ -27,7 +27,9 @@
             </ui:VisualElement>
             <ui:VisualElement name="spacer" style="height: 274px;">
                 <ui:VisualElement name="scripts" />
-                <ui:VisualElement name="Info" style="height: 48px; flex-direction: row; display: flex;" />
+                <ui:VisualElement name="Info" style="height: 48px; flex-direction: row; display: flex;">
+                    <ui:Label text="&lt;b&gt;Click on checkboxes to toggle scripts and components&lt;/b&gt;" display-tooltip-when-elided="true" name="click_for_more" style="background-color: rgb(56, 56, 56); font-size: 23px; color: rgb(156, 133, 0); margin-left: 18px; margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; -unity-text-align: upper-center; white-space: normal; margin-right: 19px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

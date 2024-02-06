@@ -8730,6 +8730,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Inspector
       objectReference: {fileID: 0}
+    - target: {fileID: 7113185759849202434, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
+      propertyPath: sourceAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 8188e8e8b193847ab9a17630ce9a06ec, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57663dc6a974f48a0a2824d4a2643c1e, type: 3}
 --- !u!114 &467422103 stripped
@@ -67107,7 +67111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIDoc: {fileID: 631465548}
   speakerName: 'Your Boss:'
-  collider: {fileID: 1399306901}
+  triggerCollider: {fileID: 0}
   conversationArray:
   - See that wasn't so hard! I knew you could do it.
   - Every <color=yellow>object</color> has <color=yellow>components</color> and <color=yellow>scripts</color>
@@ -67116,6 +67120,7 @@ MonoBehaviour:
   - Got it?
   - I may've forgotten to finish more of the level up ahead...
   - Go and use your <color=yellow>Inspector</color> to try and fix it!
+  timeDelay: 0
 --- !u!50 &1399306900
 Rigidbody2D:
   serializedVersion: 4
@@ -67383,7 +67388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -385.88, y: -166.35}
+  m_AnchoredPosition: {x: -385.97, y: -166.83}
   m_SizeDelta: {x: 4.7775, y: 8.6787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743944347
@@ -67406,7 +67411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click on Highlighted Objects to open the Inspector
+  m_text: Click on objects to open the Inspector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
