@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/test scenes/FionaScene.unity
+    path: 
     guid: e7e2502840087ee4a85b1110d591b3b3
   - enabled: 1
     path: Assets/Scenes/Sandbox Level.unity
@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1 (Tutorial)/Scene 1-6.unity
     guid: 24c8c6edcd6f249d4b83370e0843c323
+  - enabled: 1
+    path: Assets/Scenes/Level 1 (Tutorial)/To Be Continued.unity
+    guid: a5ae83760f4404696b63e0ab9f95824a
   m_configObjects: {}
