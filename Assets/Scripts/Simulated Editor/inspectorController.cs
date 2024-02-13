@@ -84,14 +84,14 @@ public class inspectorController : MonoBehaviour
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
-            currentObject.setComponentEnabledStatus(component, toggle.value);
+            currentObject.SetComponentEnabledStatus(component, toggle.value);
         }
 
         foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
         {
             Toggle toggle = kvp.Key;
             SimulatedScript script = kvp.Value;
-            currentObject.setScriptEnabledStatus(script, toggle.value);
+            currentObject.SetScriptEnabledStatus(script, toggle.value);
         }
 
     }
@@ -174,9 +174,9 @@ public class inspectorController : MonoBehaviour
         label.text = visualComponent.title;
         description.text = visualComponent.description;
 
-        if (currentObject.isComponentToggleable(component))
+        if (currentObject.IsComponentToggleable(component))
         {
-            toggle.value = currentObject.getComponentEnabledStatus(component);
+            toggle.value = currentObject.GetComponentEnabledStatus(component);
             componentToggleBindings.Add(toggle, component);
         }
         else
