@@ -80,7 +80,7 @@ public class SimulatedObject : MonoBehaviour
         }     
     }
 
-    public void toggleComponent(SimulatedComponent component)
+    public void ToggleComponent(SimulatedComponent component)
     {
         SetComponentEnabledStatus(component, !GetComponentEnabledStatus(component));
     }
