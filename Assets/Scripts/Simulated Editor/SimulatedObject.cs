@@ -26,11 +26,11 @@ public class SimulatedObject : MonoBehaviour
         layer = gameObject.layer;
         foreach (SimulatedScript script in scripts)
         {
-            setScriptEnabledStatus(script, script.isActiveAndEnabled);
+            SetScriptEnabledStatus(script, script.isActiveAndEnabled);
         }
     }
 
-    public bool isComponentToggleable(SimulatedComponent component)
+    public bool IsComponentToggleable(SimulatedComponent component)
     {
         switch (component.realComponent)
         {
@@ -45,7 +45,7 @@ public class SimulatedObject : MonoBehaviour
         }
     }
 
-    public bool getComponentEnabledStatus (SimulatedComponent component)
+    public bool GetComponentEnabledStatus (SimulatedComponent component)
     {
         switch (component.realComponent)
         {
@@ -60,7 +60,7 @@ public class SimulatedObject : MonoBehaviour
         }
     }
 
-    public void setComponentEnabledStatus(SimulatedComponent component, bool enabled)
+    public void SetComponentEnabledStatus(SimulatedComponent component, bool enabled)
     {
         switch (component.realComponent)
         {
@@ -82,20 +82,20 @@ public class SimulatedObject : MonoBehaviour
 
     public void toggleComponent(SimulatedComponent component)
     {
-        setComponentEnabledStatus(component, !getComponentEnabledStatus(component));
+        SetComponentEnabledStatus(component, !GetComponentEnabledStatus(component));
     }
 
 
-    public void setScriptEnabledStatus(SimulatedScript script, bool enabled)
+    public void SetScriptEnabledStatus(SimulatedScript script, bool enabled)
     {
         script.enabled = enabled;
         script.doCoroutines = enabled;
         script.doCollisionEvents = enabled;
     }
 
-    public void toggleScript(SimulatedScript script)
+    public void ToggleScript(SimulatedScript script)
     {
-        setScriptEnabledStatus(script, !script.enabled);
+        SetScriptEnabledStatus(script, !script.enabled);
     }
 
 
