@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
   defaultSpawner: 1
+  editorRenderer: {fileID: 3772156921593113708}
 --- !u!212 &3772156921593113708
 SpriteRenderer:
   m_ObjectHideFlags: 0
