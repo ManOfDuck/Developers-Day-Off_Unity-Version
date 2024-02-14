@@ -105,7 +105,9 @@ MonoBehaviour:
   visualScript: {fileID: 11400000, guid: 446e683ce625e420481cd570aca0303b, type: 2}
   doCoroutines: 1
   doCollisionEvents: 1
-  playerHealth: 1
+  health: 1
+  playerDamageCooldown: 1
+  damageVolume: {fileID: 0}
   runForce: 46
   airRunForce: 10
   friction: 19

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using System.Numerics;
 using UnityEngine;
@@ -7,7 +8,10 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : SimulatedScript
 {
-    [SerializeField] private int playerHealth = 3;
+    [Header("Health")]
+    [SerializeField] private int maxHealth;
+    [SerializeField] private float playerDamageCooldown;
+    [SerializeField] private UnityEngine.Rendering.Volume damageVolume;
 
     [Header("Running")]
     [SerializeField] private float runForce;
@@ -42,10 +46,15 @@ public class PlayerController : SimulatedScript
     private bool jumpingThisFrame = false;
     private int walljumpsRemaining;
 
+    int health;
+    bool damagable = true;
+
     GameManager gameManager;
 
+    public IEnumerator DamageCoroutineObject { get; private set; }
+
     // Update is called once per frame
-    void Start()
+    new void Start()
     {
         gameManager = GameManager.Instance;
 
@@ -57,8 +66,7 @@ public class PlayerController : SimulatedScript
 
         gameManager.OnGameWin.AddListener(OnGameEnd);
         gameManager.OnGameLoss.AddListener(OnGameEnd);
-
-        heal(playerHealth);
+        health = maxHealth;
     }
 
     void FixedUpdate()
@@ -221,30 +229,49 @@ public class PlayerController : SimulatedScript
     #endregion
 
 
-    public void heal(int health)
+    public void Heal(int healthToAdd)
     {
-        for (int i = 0; i < health - 1; i++)
+        maxHealth += healthToAdd;
+    }
+
+    public void Hurt(int damage)
+    {
+        if (damagable)
         {
-            gameManager.HealPlayer();
+            DamageCoroutineObject = DoDamageCooldown();
+            StartCoroutine(DamageCoroutineObject);
+
+            maxHealth -= damage;
+
+            if (maxHealth <= 0)
+            {
+                Die();
+            }
         }
     }
 
-    public void hurt(int damage)
+    protected virtual IEnumerator DoDamageCooldown()
     {
-        for (int i = 0; i < damage; i++)
+        damagable = false;
+
+        float i = 0;
+        while (i < playerDamageCooldown)
         {
-            gameManager.HurtPlayer();
+            i += Time.deltaTime;
+            //This is a nice juice thing, if we want a volume to appear on damage (like red at the sides of the screen)
+
+            if (damageVolume != null)
+                damageVolume.weight = (playerDamageCooldown - i) / playerDamageCooldown;
+            yield return null;
         }
+
+        damagable = true;
     }
 
-    public void Kill()
+    public void Die()
     {
-        gameManager.LoseGame();
-    }
-
-    public void Win()
-    {
-        gameManager.WinGame();
+        PlayerSpawn.Respawn();
+        health = maxHealth;
     }
 
     public void TogglePause(InputAction.CallbackContext context)

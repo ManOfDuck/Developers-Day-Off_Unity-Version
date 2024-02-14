@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSpawn : MonoBehaviour
 {
     public GameObject playerPrefab;
     public bool defaultSpawner;
+    [SerializeField] SpriteRenderer editorRenderer;
 
     private static PlayerSpawn _activeSpawner;
     public static PlayerSpawn ActiveSpawner { get { return _activeSpawner; } }
@@ -23,14 +25,22 @@ public class PlayerSpawn : MonoBehaviour
 
         if (defaultSpawner)
         {
-            SetActive();
+            SetSpawnPoint(this);
             SpawnPlayer();
         }
+
+        editorRenderer.enabled = false;
     }
 
-    public void SetActive()
+    public static void Respawn()
     {
-        _activeSpawner = this;
+        // This isnt fantastic, but it works better than killing the player and spawning a new one
+        Player.transform.position = ActiveSpawner.transform.position;
+    }
+
+    public static void SetSpawnPoint(PlayerSpawn newSpawner)
+    {
+        _activeSpawner = newSpawner;
     }
 
     public PlayerController SpawnPlayer()

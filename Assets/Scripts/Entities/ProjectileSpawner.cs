@@ -29,7 +29,6 @@ public class ProjectileSpawner : SimulatedScript
             if (gameObject.TryGetComponent<Rigidbody2D>(out var body))
             {
                 body.velocity = launchDirection;
-                Debug.Log("go");
             }
 
             yield return new WaitForSeconds(timeBetweenShots);

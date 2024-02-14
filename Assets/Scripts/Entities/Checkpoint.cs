@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] private string newRespawnScene;
+    [SerializeField] private PlayerSpawn newSpawn;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.Instance.ChangeRespawnScene(newRespawnScene);
+            PlayerSpawn.SetSpawnPoint(newSpawn);
         }
     }
 }

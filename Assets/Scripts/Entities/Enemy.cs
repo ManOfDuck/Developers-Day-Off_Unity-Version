@@ -28,8 +28,10 @@ public class Enemy : SimulatedScript
         if (collision.gameObject.CompareTag("Player"))
         {
             Light(18);
-            // If so, tell the Game Manager to hurt the player
-            gameManager.HurtPlayer();
+            // If so, hurt the player
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player)
+                player.Hurt(1);
             Light(20);
         }
     }
