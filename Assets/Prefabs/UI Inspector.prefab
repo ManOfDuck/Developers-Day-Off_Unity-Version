@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainUIDocument: {fileID: 7113185759849202434}
   panelSettings: {fileID: 11400000, guid: e54039dcaab600d4f9f92171bb7850fa, type: 2}
+  lineOfSightBlockingTag: CordBlocking
   componentTemplate: {fileID: 9197481963319205126, guid: ae5359627a37f4a1cb9c93fa7f7ab30c, type: 3}
   scriptTemplate: {fileID: 9197481963319205126, guid: 38af2be51eb43495f86363b3de5fbffd, type: 3}
   trueColor: {r: 0, g: 0, b: 0, a: 0}

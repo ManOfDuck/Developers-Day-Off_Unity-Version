@@ -5,10 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - UnRootable
-  - Rootable
   - Enemy
   - DialougeTrigger
+  - CordBlocking
   layers:
   - Default
   - TransparentFX

@@ -60,7 +60,7 @@ public class SimulatedScript : MonoBehaviour
             float r = color.r;
             float g = color.g;
             float b = color.b;
-            a = inspectorController.Instance.flashCurve.Evaluate(time);
+            a = InspectorController.Instance.flashCurve.Evaluate(time);
 
             line.style.backgroundColor = new Color(r, g, b, a);
             time += Time.deltaTime;

@@ -179,9 +179,6 @@ MonoBehaviour:
   scripts:
   - {fileID: 1763612938278477948}
   clickTrigger: {fileID: 6244038403369663774}
-  layer:
-    serializedVersion: 2
-    m_Bits: 8
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
 --- !u!61 &6244038403369663774

@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using SimulatedComponent = SimulatedObject.SimulatedComponent;
 
-public class inspectorController : MonoBehaviour
+public class InspectorController : MonoBehaviour
 {
-    private static inspectorController _instance;
-    public static inspectorController Instance { get { return _instance; } }
+    private static InspectorController _instance;
+    public static InspectorController Instance { get { return _instance; } }
 
     public UIDocument mainUIDocument;
     public PanelSettings panelSettings;
+
+    public string lineOfSightBlockingTag;
 
     public VisualTreeAsset componentTemplate;
     public VisualTreeAsset scriptTemplate;
@@ -69,7 +71,10 @@ public class inspectorController : MonoBehaviour
 
     public void StopDisplaying()
     {
-        root.visible = false;
+        if (root != null)
+        {
+            root.visible = false;
+        }
         followCamera.shift = 0;
     }
 
@@ -153,7 +158,7 @@ public class inspectorController : MonoBehaviour
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.followCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
+        if (followCamera.controlledCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
             followCamera.shift = cameraShiftAmount;
     }    
 

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2836611925539128070}
   m_Layer: 3
   m_Name: Patrol Enemy
-  m_TagString: Ground
+  m_TagString: CordBlocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -131,10 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4069ed344e242d2b9ea70bae89ffb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followCamera: {fileID: 5367041674420445671}
+  controlledCamera: {fileID: 5367041674420445671}
   offset: {x: 0, y: 1, z: 0}
-  following: {fileID: 0}
   leftBound: -1000
   rightBound: 1000
   upperBound: 1000
   lowerBound: -1000
+  shift: 0

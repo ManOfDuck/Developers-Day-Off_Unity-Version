@@ -8,7 +8,8 @@ public class SimulatedObject : MonoBehaviour
     public List<SimulatedScript> scripts;
     public Collider2D clickTrigger;
     private LayerMask layer;
-    private inspectorController controller;
+    private InspectorController controller;
+    private GameManager gameManager;
 
     public Sprite defaultSprite;
     public Sprite sprite1;
@@ -22,7 +23,8 @@ public class SimulatedObject : MonoBehaviour
 
     public void Start()
     {
-        controller = inspectorController.Instance;
+        controller = InspectorController.Instance;
+        gameManager = GameManager.Instance;
         layer = gameObject.layer;
         foreach (SimulatedScript script in scripts)
         {
@@ -101,6 +103,26 @@ public class SimulatedObject : MonoBehaviour
 
     public void OnMouseDown()
     {
-        controller.DisplayObject(this, defaultSprite, sprite1);
+        Vector2 playerPos = PlayerSpawn.Player.transform.position;
+        Vector2 cursorPos = controller.followCamera.controlledCamera.ScreenToWorldPoint(Input.mousePosition);
+        if (!CheckBlockingObject(playerPos, cursorPos).HasValue)
+        {
+            controller.DisplayObject(this, defaultSprite, sprite1);
+        }
+    }
+
+    public Vector2? CheckBlockingObject(Vector2 origin, Vector2 destination)
+    {
+        Vector2 raycastVector = destination - origin;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, raycastVector.normalized, raycastVector.magnitude, PlayerSpawn.Player.groundLayer);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.CompareTag(controller.lineOfSightBlockingTag) && !clickTrigger.bounds.Contains(hit.point) && hit.collider != clickTrigger)
+            {
+                Debug.Log(hit.point);
+                return hit.point;
+            }
+        }
+        return null;
     }
 }

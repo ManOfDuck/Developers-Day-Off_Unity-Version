@@ -30,7 +30,7 @@ public class PlayerController : SimulatedScript
 
     [Header("Other")]
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] public LayerMask groundLayer;
     [SerializeField] private Rigidbody2D playerBody;
     [SerializeField] private Collider2D playerCollider;
     [SerializeField] private SpriteRenderer playerRenderer;

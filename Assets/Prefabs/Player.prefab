@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6464460167355857351}
   m_Layer: 0
   m_Name: Player
-  m_TagString: UnRootable
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1666154275, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
+  m_Sprite: {fileID: 1992956254, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4444444, y: 1.6111112}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -252,6 +252,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eeb17bca-6f73-4ec2-902d-d8e2aa1dcf38
     m_ActionName: Player/Destroy Roots[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a741f9b-2b94-49b4-b9d8-fd29f8bd41f9
+    m_ActionName: Player/Reset[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -311,18 +315,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0659371}
+  m_Offset: {x: 0.0034275055, y: -0.08821249}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 1.2}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1.4444444, y: 1.6111112}
+    newSize: {x: 1.4444444, y: 1.6111112}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7557926, y: 1.0681258}
+  m_Size: {x: 0.87916183, y: 1.1126766}
   m_EdgeRadius: 0
 --- !u!114 &6464460167355857351
 MonoBehaviour:
@@ -347,5 +351,6 @@ MonoBehaviour:
     visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts:
   - {fileID: 6793022463475628263}
+  clickTrigger: {fileID: 0}
   defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
   sprite1: {fileID: -1666154275, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -8,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string TitleScreen;
-    [SerializeField] private string Level1;
+    [SerializeField] InspectorController inspectorController;
+
+    // TODO: PC should control these values
     [SerializeField] private float playerDamageCooldown;
-    [SerializeField] inspectorController inspectorController;
     [SerializeField] private UnityEngine.Rendering.Volume damageVolume;
     public int playerHealth;
 
@@ -44,11 +43,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (_instance == null)
         {
             _instance = this;
-
+            currentScene = SceneManager.GetActiveScene().name;
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -66,7 +64,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         CurrentGameState = GameState.Playing;
-        LoadScene(Level1);
         
         OnGameStart.Invoke();
         TogglePause();
@@ -101,7 +98,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(TitleScreen);
         OnGameQuit.Invoke();
     }
 

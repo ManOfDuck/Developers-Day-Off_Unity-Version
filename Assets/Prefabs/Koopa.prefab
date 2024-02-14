@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 6335500864271608466}
   m_Layer: 3
   m_Name: Koopa
-  m_TagString: Ground
+  m_TagString: CordBlocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
