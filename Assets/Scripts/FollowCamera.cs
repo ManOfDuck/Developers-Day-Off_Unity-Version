@@ -43,18 +43,19 @@ public class FollowCamera : MonoBehaviour
     void Update()
     {
         //Once the player goes out-of-bounds, they cannot reactivate the bounded camera
-        bounded = bounded && cameraBoundingBox.bounds.Contains(PlayerSpawn.Player.transform.position);
+        bounded = bounded && cameraBoundingBox.bounds.Contains((Vector2) PlayerSpawn.Player.transform.position);
 
         if (bounded)
         {
             target = GetBoundedPosition();
         }
         else
-        {
-            target = PlayerSpawn.Player.transform.position;
+        { 
+            Vector2 playerPos = PlayerSpawn.Player.transform.position;
+            target = new(playerPos.x + offset.x, playerPos.y + offset.y);
         }
 
-        transform.position = new(target.x + offset.x + shift, target.y + offset.y, offset.z);
+        transform.position = new(target.x, target.y, offset.z);
     }
 
     private Vector2 GetBoundedPosition()
