@@ -6,11 +6,15 @@ using UnityEngine;
 public class HighlightTest : MonoBehaviour
 {
     [SerializeField] Material highlightMaterial;
-    [SerializeField] Renderer renderer;
+    //[SerializeField] Renderer renderer;
+
+    Renderer renderer;
 
     // Start is called before the first frame update
     void Start()
     {
+        //renderer.material = highlightMaterial;
+        renderer = GetComponent<Renderer>();
         renderer.material = highlightMaterial;
     }
 

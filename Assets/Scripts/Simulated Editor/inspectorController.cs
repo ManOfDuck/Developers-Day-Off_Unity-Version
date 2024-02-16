@@ -30,6 +30,8 @@ public class InspectorController : MonoBehaviour
     private Button xButton;
     private Label objectName, objectTag;
 
+    public Material highlightMaterial;
+
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
@@ -37,6 +39,7 @@ public class InspectorController : MonoBehaviour
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
     private Dictionary<Toggle, SimulatedScript> scriptToggleBindings;
     private UIDocument currentDisplay;
+    private Renderer targetRenderer;
 
 
     private void Awake()
@@ -133,6 +136,9 @@ public class InspectorController : MonoBehaviour
         this.currentObject = obj;
         List<SimulatedComponent> components = currentObject.components;
         List<SimulatedScript> scripts = currentObject.scripts;
+
+        targetRenderer = this.currentObject.GetComponent<Renderer>();
+        targetRenderer.material = highlightMaterial;
 
         // Display the components
         foreach (SimulatedComponent component in components)
