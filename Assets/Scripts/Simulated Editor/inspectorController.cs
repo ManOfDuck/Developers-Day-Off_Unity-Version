@@ -31,6 +31,7 @@ public class InspectorController : MonoBehaviour
     private Label objectName, objectTag;
 
     public Material highlightMaterial;
+    public Material defaultMaterial;
 
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
@@ -130,6 +131,14 @@ public class InspectorController : MonoBehaviour
 
         //Remove the current display
         Display(null);
+        try
+        {
+            targetRenderer.material = defaultMaterial;
+        }
+        catch
+        {
+            Debug.Log("we do not have a targetRenderer");
+        }
 
         componentDisplays = new List<VisualElement>();
         scriptDisplays = new List<VisualElement>();
