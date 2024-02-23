@@ -155,7 +155,7 @@ public class CharacterController : SimulatedScript
         if (other == null) return;
 
         Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
-        playerBody.position += velocity * Time.fixedDeltaTime;
+        playerBody.position += velocity * Time.deltaTime;
     }
 
     private void UpdateAnimator(bool isStopped)
