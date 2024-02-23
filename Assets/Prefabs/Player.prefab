@@ -105,12 +105,12 @@ MonoBehaviour:
   visualScript: {fileID: 11400000, guid: 446e683ce625e420481cd570aca0303b, type: 2}
   doCoroutines: 1
   doCollisionEvents: 1
-  runForce: 46
+  runForce: 50
   airRunForce: 10
   friction: 26
   airFriction: 12
   horizontalSpeedCap: 14
-  coyoteTime: 0.1
+  coyoteTime: 0.05
   jumpForce: 11
   cancelledJumpImpulseRatio: 0.5
   regularGravity: 20.8
