@@ -17,8 +17,9 @@ public class CharacterController : SimulatedScript
     [SerializeField] protected float jumpForce;
     [Tooltip("The portion of the character's Y velocity to remove after a cancelled jump")]
     [SerializeField] protected float cancelledJumpImpulseRatio = 0.5f;
-    [SerializeField] protected float gravity;
-    [SerializeField] protected float bonusGravity;
+    [SerializeField] protected float regularGravity;
+    [SerializeField] protected float fallingGravity;
+    [SerializeField] protected float releaseImpulse;
     [SerializeField] protected float verticalSpeedCap;
     [SerializeField] protected float groundCheckDistance;
 
@@ -98,10 +99,17 @@ public class CharacterController : SimulatedScript
 
 
     #region Vertical Movement
-    public void Jump()
+    public bool TryJump()
     {
-        groundObject = null;
-        ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
+        if (groundObject != null)
+        {
+            groundObject = null;
+            ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
+
+            return true;
+        }
+
+        return false;
     }
 
     public void CancelJump()
@@ -110,12 +118,15 @@ public class CharacterController : SimulatedScript
         ApplyImpulse(Vector2.down, downwardsForce, verticalSpeedCap);
     }
 
-    protected void DoGravity(bool doBonusGravity)
+    protected void DoGravity(bool falling)
     {
-        ApplyForce(Vector2.down, gravity, verticalSpeedCap);
-        if (doBonusGravity)
+        if (falling)
         {
-            ApplyForce(Vector2.down, bonusGravity, verticalSpeedCap);
+            ApplyForce(Vector2.down, fallingGravity, verticalSpeedCap);
+        }
+        else
+        {
+            ApplyForce(Vector2.down, regularGravity, verticalSpeedCap);
         }
     }
     #endregion

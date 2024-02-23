@@ -9,8 +9,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] float jumpBufferTime;
 
     public Vector2 moveInput = Vector2.zero;
-    public bool jumpPressed = false;
-    public bool jumpHeld = true;
+    public bool jumpBufferActive = false;
+    public bool jumpHeld = false;
 
     private IEnumerator jumpBufferCoroutine;
 
@@ -59,14 +59,14 @@ public class InputManager : MonoBehaviour
         if (jumpBufferCoroutine is not null)
         {
             StopCoroutine(jumpBufferCoroutine);
-            jumpPressed = false;
+            jumpBufferActive = false;
         }
     }
 
     private IEnumerator DoJumpBuffer()
     {
-        jumpPressed = true;
+        jumpBufferActive = true;
         yield return new WaitForSeconds(jumpBufferTime);
-        jumpPressed = false;
+        jumpBufferActive = false;
     }
 }

@@ -34,17 +34,28 @@ public class PlayerController : CharacterController
         inputManager = InputManager.Instance;
         health = maxHealth;
 
-        inputManager.OnJumpPressed.AddListener(Jump);
         inputManager.OnJumpReleased.AddListener(CancelJump);
     }
 
     void FixedUpdate()
     {
         Move(inputManager.moveInput);
-        if (!inputManager.jumpPressed)
-            UpdateGroundObject();
+        if (inputManager.jumpBufferActive)
+        {
+            bool jumpSucceeded = TryJump();
+            if (jumpSucceeded)
+            {
+                inputManager.ConsumeJumpInput();
+            }
+        }
         else
-            DoGravity(!inputManager.jumpHeld);
+        {
+            UpdateGroundObject();
+            if (groundObject == null)
+            {
+                DoGravity(playerBody.velocity.y < 0);
+            }
+        }
     }
 
     public void GoRMode(InputAction.CallbackContext context)
