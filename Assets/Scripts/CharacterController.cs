@@ -14,6 +14,7 @@ public class CharacterController : SimulatedScript
     [SerializeField] protected float horizontalSpeedCap;
 
     [Header("Vertical Movement")]
+    [SerializeField] protected float coyoteTime;
     [SerializeField] protected float jumpForce;
     [Tooltip("The portion of the character's Y velocity to remove after a cancelled jump")]
     [SerializeField] protected float cancelledJumpImpulseRatio = 0.5f;
@@ -33,7 +34,10 @@ public class CharacterController : SimulatedScript
     protected Vector2 slopeDir;
     protected Rigidbody2D groundObject;
     protected bool jumpingThisFrame = false;
+    protected bool coyoteTimeActive = false;
     protected int walljumpsRemaining;
+
+    private IEnumerator CoyoteTimeRoutine;
 
     // Start is called before the first frame update
     void Start()
@@ -101,10 +105,16 @@ public class CharacterController : SimulatedScript
     #region Vertical Movement
     public bool TryJump()
     {
-        if (groundObject != null)
+        if (groundObject != null || coyoteTimeActive)
         {
             groundObject = null;
             ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
+
+            if (CoyoteTimeRoutine != null)
+            {
+                StopCoroutine(CoyoteTimeRoutine);
+                coyoteTimeActive = false;
+            }
 
             return true;
         }
@@ -129,6 +139,14 @@ public class CharacterController : SimulatedScript
             ApplyForce(Vector2.down, regularGravity, verticalSpeedCap);
         }
     }
+
+    private IEnumerator DoCoyoteTime()
+    {
+        coyoteTimeActive = true;
+        yield return new WaitForSeconds(coyoteTime);
+        coyoteTimeActive = false;
+    }
+
     #endregion
 
 
@@ -180,16 +198,6 @@ public class CharacterController : SimulatedScript
     }
 
     #region Helper Functions
-    //Check if the vertical speed is over the speed cap
-    void CheckVerticalSpeedCap()
-    {
-        float yVelocity = playerBody.velocity.y;
-        if (Mathf.Abs(yVelocity) > verticalSpeedCap)
-        {
-            playerBody.velocity = new Vector2(playerBody.velocity.x, verticalSpeedCap * Mathf.Sign(yVelocity));
-        }
-    }
-
     //Check if the player is grounded
     virtual protected void UpdateGroundObject()
     {
@@ -213,13 +221,10 @@ public class CharacterController : SimulatedScript
 
         spriteAnimator.SetBool("IsGrounded", isGrounded);
 
-        if (isGrounded)
+        if (!isGrounded)
         {
-            playerBody.gravityScale = 0;
-        }
-        else
-        {
-            playerBody.gravityScale = 1;
+            CoyoteTimeRoutine = DoCoyoteTime();
+            StartCoroutine(CoyoteTimeRoutine);
         }
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }

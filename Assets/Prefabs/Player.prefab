@@ -110,10 +110,11 @@ MonoBehaviour:
   friction: 26
   airFriction: 12
   horizontalSpeedCap: 14
+  coyoteTime: 0.1
   jumpForce: 11
-  cancelledJumpImpulseRatio: 0.3
-  regularGravity: 11
-  fallingGravity: 20
+  cancelledJumpImpulseRatio: 0.5
+  regularGravity: 20.8
+  fallingGravity: 29.8
   releaseImpulse: 0
   verticalSpeedCap: 1000000
   groundCheckDistance: 0.1
