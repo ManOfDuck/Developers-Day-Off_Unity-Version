@@ -111,7 +111,7 @@ MonoBehaviour:
   airFriction: 12
   horizontalSpeedCap: 14
   jumpForce: 11
-  cancelledJumpImpulseRatio: 0.5
+  cancelledJumpImpulseRatio: 0.3
   regularGravity: 11
   fallingGravity: 20
   releaseImpulse: 0
