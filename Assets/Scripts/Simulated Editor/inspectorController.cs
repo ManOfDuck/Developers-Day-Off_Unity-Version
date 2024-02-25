@@ -30,6 +30,9 @@ public class InspectorController : MonoBehaviour
     private Button xButton;
     private Label objectName, objectTag;
 
+    public Material highlightMaterial;
+    public Material defaultMaterial;
+
     private Sprite globalSpriteDefault, globalSprite1;
     private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
@@ -37,6 +40,7 @@ public class InspectorController : MonoBehaviour
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
     private Dictionary<Toggle, SimulatedScript> scriptToggleBindings;
     private UIDocument currentDisplay;
+    private Renderer targetRenderer;
 
 
     private void Awake()
@@ -127,12 +131,23 @@ public class InspectorController : MonoBehaviour
 
         //Remove the current display
         Display(null);
+        try
+        {
+            targetRenderer.material = defaultMaterial;
+        }
+        catch
+        {
+            Debug.Log("we do not have a targetRenderer");
+        }
 
         componentDisplays = new List<VisualElement>();
         scriptDisplays = new List<VisualElement>();
         this.currentObject = obj;
         List<SimulatedComponent> components = currentObject.components;
         List<SimulatedScript> scripts = currentObject.scripts;
+
+        targetRenderer = this.currentObject.GetComponent<Renderer>();
+        targetRenderer.material = highlightMaterial;
 
         // Display the components
         foreach (SimulatedComponent component in components)

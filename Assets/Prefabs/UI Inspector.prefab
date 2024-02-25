@@ -109,3 +109,5 @@ MonoBehaviour:
   followCamera: {fileID: 0}
   cameraShiftAmount: 7
   shiftDistance: 800
+  highlightMaterial: {fileID: 2100000, guid: 349c4d898d535a348bd22219b073d031, type: 2}
+  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
