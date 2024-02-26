@@ -105,23 +105,19 @@ MonoBehaviour:
   visualScript: {fileID: 11400000, guid: 446e683ce625e420481cd570aca0303b, type: 2}
   doCoroutines: 1
   doCollisionEvents: 1
-  health: 1
-  playerDamageCooldown: 1
-  damageVolume: {fileID: 0}
-  runForce: 46
+  runForce: 50
   airRunForce: 10
-  friction: 19
+  friction: 26
   airFriction: 12
   horizontalSpeedCap: 14
+  coyoteTime: 0.05
   jumpForce: 11
-  bonusGravity: 10
-  verticalSpeedCap: 1000
+  cancelledJumpImpulseRatio: 0.5
+  regularGravity: 20.8
+  fallingGravity: 29.8
+  releaseImpulse: 0
+  verticalSpeedCap: 1000000
   groundCheckDistance: 0.1
-  horizontalWalljumpForce: 0
-  verticalWalljumpForce: 0
-  walljumpCount: 10
-  wallCheckDistance: 10
-  playerInput: {fileID: 6793022463475628262}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -129,6 +125,13 @@ MonoBehaviour:
   playerCollider: {fileID: 8664122455749873983}
   playerRenderer: {fileID: 6793022463475628266}
   spriteAnimator: {fileID: 6793022463475628256}
+  maxHealth: 1
+  playerDamageCooldown: 1
+  damageVolume: {fileID: 0}
+  horizontalWalljumpForce: 0
+  verticalWalljumpForce: 0
+  walljumpCount: 10
+  wallCheckDistance: 10
 --- !u!114 &6793022463475628262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,11 +281,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 5748fda6bf9fe47b685f5be41c983122, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &6793022463475628256
 Animator:
