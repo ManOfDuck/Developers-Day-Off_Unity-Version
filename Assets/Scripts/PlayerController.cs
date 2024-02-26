@@ -78,7 +78,7 @@ public class PlayerController : CharacterController
             DamageCoroutineObject = DoDamageCooldown();
             StartCoroutine(DamageCoroutineObject);
 
-            maxHealth -= damage;
+            health -= damage;
 
             if (health <= 0)
             {
