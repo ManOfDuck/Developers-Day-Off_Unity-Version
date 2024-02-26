@@ -69,4 +69,12 @@ public class InputManager : MonoBehaviour
         yield return new WaitForSeconds(jumpBufferTime);
         jumpBufferActive = false;
     }
+
+    public void ResetLevel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            GameManager.Instance.ResetScene();
+        }
+    }
 }
