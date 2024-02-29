@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpBufferTime: 0.2
   moveInput: {x: 0, y: 0}
-  jumpPressed: 0
+  jumpBufferActive: 0
   jumpHeld: 1
   OnJumpPressed:
     m_PersistentCalls:
@@ -133,7 +133,19 @@ MonoBehaviour:
     m_ActionId: eeb17bca-6f73-4ec2-902d-d8e2aa1dcf38
     m_ActionName: Player/Destroy Roots[/Keyboard/t]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ResetLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5a741f9b-2b94-49b4-b9d8-fd29f8bd41f9
     m_ActionName: Player/Reset[/Keyboard/r]
   - m_PersistentCalls:
