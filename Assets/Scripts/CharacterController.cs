@@ -34,10 +34,9 @@ public class CharacterController : SimulatedScript
     protected Vector2 slopeDir;
     protected Rigidbody2D groundObject;
     protected bool jumpingThisFrame = false;
-    protected bool coyoteTimeActive = false;
     protected int walljumpsRemaining;
-
-    private IEnumerator CoyoteTimeRoutine;
+    protected float timeSinceGrounded = 0;
+    protected bool coyoteJumpConsumed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,9 +45,18 @@ public class CharacterController : SimulatedScript
     }
 
     // Update is called once per frame
-    void Update()
+    virtual protected void FixedUpdate()
     {
-        
+        // Update timeSinceGrounded, for coyote time
+        if (groundObject == null)
+        {
+            timeSinceGrounded += Time.deltaTime;
+        }
+        else
+        {
+            timeSinceGrounded = 0;
+            coyoteJumpConsumed = false;
+        }
     }
 
     #region Lateral Movement
@@ -105,21 +113,21 @@ public class CharacterController : SimulatedScript
     #region Vertical Movement
     public bool TryJump()
     {
-        if (groundObject != null || coyoteTimeActive)
+        if (groundObject != null || (timeSinceGrounded <= coyoteTime && !coyoteJumpConsumed))
         {
-            groundObject = null;
-            ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
-
-            if (CoyoteTimeRoutine != null)
-            {
-                StopCoroutine(CoyoteTimeRoutine);
-                coyoteTimeActive = false;
-            }
-
+            Jump();
+            coyoteJumpConsumed = true;
             return true;
         }
+        else return false;
+    }
 
-        return false;
+    private void Jump()
+    {
+        groundObject = null;
+        // Cancel out existing vertical velocity, for coyote gamers
+        playerBody.velocity *= Vector2.right;
+        ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
     }
 
     public void CancelJump()
@@ -139,17 +147,10 @@ public class CharacterController : SimulatedScript
             ApplyForce(Vector2.down, regularGravity, verticalSpeedCap);
         }
     }
-
-    private IEnumerator DoCoyoteTime()
-    {
-        coyoteTimeActive = true;
-        yield return new WaitForSeconds(coyoteTime);
-        coyoteTimeActive = false;
-    }
-
     #endregion
 
 
+    #region Forces
     protected void ApplyForce(Vector2 direction, float amount, float cap)
     {
         direction.Normalize();
@@ -175,6 +176,7 @@ public class CharacterController : SimulatedScript
         Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
         playerBody.position += velocity * Time.deltaTime;
     }
+    #endregion
 
     private void UpdateAnimator(bool isStopped)
     {
@@ -221,11 +223,6 @@ public class CharacterController : SimulatedScript
 
         spriteAnimator.SetBool("IsGrounded", isGrounded);
 
-        if (!isGrounded)
-        {
-            CoyoteTimeRoutine = DoCoyoteTime();
-            StartCoroutine(CoyoteTimeRoutine);
-        }
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 

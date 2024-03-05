@@ -37,9 +37,12 @@ public class PlayerController : CharacterController
         inputManager.OnJumpReleased.AddListener(CancelJump);
     }
 
-    void FixedUpdate()
+    override protected void FixedUpdate()
     {
+        base.FixedUpdate();
+
         Move(inputManager.moveInput);
+
         if (inputManager.jumpBufferActive)
         {
             bool jumpSucceeded = TryJump();
@@ -51,10 +54,11 @@ public class PlayerController : CharacterController
         else
         {
             UpdateGroundObject();
-            if (groundObject == null)
-            {
-                DoGravity(playerBody.velocity.y < 0);
-            }
+        }
+
+        if (groundObject == null)
+        {
+            DoGravity(playerBody.velocity.y < 0);
         }
     }
 
