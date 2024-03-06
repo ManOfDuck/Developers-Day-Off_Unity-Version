@@ -17,29 +17,30 @@ public class PlayerController : CharacterController
     [SerializeField] private float horizontalWalljumpForce;
     [SerializeField] private float verticalWalljumpForce;
     [SerializeField] private int walljumpCount;
-    [SerializeField] private float wallCheckDistance;
 
     int health;
     bool damagable = true;
 
-    private GameManager gameManager;
     private InputManager inputManager;
 
     public IEnumerator DamageCoroutineObject { get; private set; }
 
     // Update is called once per frame
-    new void Start()
+    override protected void Start()
     {
-        gameManager = GameManager.Instance;
+        base.Start();
         inputManager = InputManager.Instance;
         health = maxHealth;
 
         inputManager.OnJumpReleased.AddListener(CancelJump);
     }
 
-    void FixedUpdate()
+    override protected void FixedUpdate()
     {
+        base.FixedUpdate();
+
         Move(inputManager.moveInput);
+
         if (inputManager.jumpBufferActive)
         {
             bool jumpSucceeded = TryJump();
@@ -50,11 +51,7 @@ public class PlayerController : CharacterController
         }
         else
         {
-            UpdateGroundObject();
-            if (groundObject == null)
-            {
-                DoGravity(playerBody.velocity.y < 0);
-            }
+            
         }
     }
 

@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5685396654955758914}
   - component: {fileID: 5685396654955758915}
-  - component: {fileID: 5685396654955758916}
   - component: {fileID: 5685396654955758917}
   - component: {fileID: 5685396654955758918}
   - component: {fileID: 5685396654955758919}
   - component: {fileID: 5685396654955758936}
   - component: {fileID: -4741774193269951121}
   - component: {fileID: 6335500864271608466}
+  - component: {fileID: 6235694413283908679}
   m_Layer: 3
   m_Name: Koopa
   m_TagString: CordBlocking
@@ -91,32 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5685396654955758916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5685396654955758937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc926e1d23c594c6d9945c637a22a25e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualScript: {fileID: 11400000, guid: bb1ec1f3e718f4986907421bdb4c6bf7, type: 2}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  color: 0
-  speed: 2
-  startingDirection: 0
-  cliffCheckDistance: 0.4
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  body: {fileID: 5685396654955758919}
-  koopaCollider: {fileID: 5685396654955758918}
-  spriteTransform: {fileID: 5685396654955758914}
-  koopaRenderer: {fileID: 5685396654955758915}
 --- !u!114 &5685396654955758917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +187,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.049776852}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -224,7 +198,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.2, y: 1.1004463}
   m_EdgeRadius: 0
 --- !u!114 &6335500864271608466
 MonoBehaviour:
@@ -249,7 +223,46 @@ MonoBehaviour:
     visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
   scripts:
   - {fileID: 5685396654955758917}
-  - {fileID: 5685396654955758916}
+  - {fileID: 6235694413283908679}
   clickTrigger: {fileID: -4741774193269951121}
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 552198496, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
+--- !u!114 &6235694413283908679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685396654955758937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc926e1d23c594c6d9945c637a22a25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualScript: {fileID: 11400000, guid: bb1ec1f3e718f4986907421bdb4c6bf7, type: 2}
+  doCoroutines: 1
+  doCollisionEvents: 1
+  runForce: 0
+  airRunForce: 0
+  friction: 0
+  airFriction: 0
+  horizontalSpeedCap: 2.5
+  wallCheckDistance: 0.1
+  coyoteTime: 0
+  jumpForce: 0
+  cancelledJumpImpulseRatio: 0.5
+  regularGravity: 20.8
+  fallingGravity: 20.8
+  releaseImpulse: 0
+  verticalSpeedCap: 1000
+  groundCheckDistance: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  characterBody: {fileID: 5685396654955758919}
+  characterCollider: {fileID: 5685396654955758918}
+  characterRenderer: {fileID: 5685396654955758915}
+  spriteAnimator: {fileID: 5685396654955758936}
+  color: 0
+  startingDirection: 0
+  cliffCheckDistance: 0.1
