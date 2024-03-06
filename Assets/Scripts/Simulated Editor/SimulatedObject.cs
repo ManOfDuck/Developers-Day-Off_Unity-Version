@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SimulatedObject : MonoBehaviour
 {
+    public bool interactable = true;
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
     public Collider2D clickTrigger;
@@ -103,6 +104,7 @@ public class SimulatedObject : MonoBehaviour
 
     public void OnMouseDown()
     {
-        controller.DisplayObject(this, defaultSprite, sprite1);
+        if (interactable)
+            controller.DisplayObject(this, defaultSprite, sprite1);
     }
 }
