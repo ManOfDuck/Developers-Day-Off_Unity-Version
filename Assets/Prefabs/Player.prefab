@@ -109,6 +109,7 @@ MonoBehaviour:
   friction: 26
   airFriction: 12
   horizontalSpeedCap: 14
+  wallCheckDistance: 10
   coyoteTime: 0.12
   jumpForce: 11
   cancelledJumpImpulseRatio: 0.5
@@ -120,9 +121,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  playerBody: {fileID: 6793022463475628261}
-  playerCollider: {fileID: 8664122455749873983}
-  playerRenderer: {fileID: 6793022463475628266}
+  characterBody: {fileID: 6793022463475628261}
+  characterCollider: {fileID: 8664122455749873983}
+  characterRenderer: {fileID: 6793022463475628266}
   spriteAnimator: {fileID: 6793022463475628256}
   maxHealth: 1
   playerDamageCooldown: 1
@@ -130,7 +131,6 @@ MonoBehaviour:
   horizontalWalljumpForce: 0
   verticalWalljumpForce: 0
   walljumpCount: 10
-  wallCheckDistance: 10
 --- !u!50 &6793022463475628261
 Rigidbody2D:
   serializedVersion: 4

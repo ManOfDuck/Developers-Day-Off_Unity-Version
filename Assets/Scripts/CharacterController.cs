@@ -12,24 +12,27 @@ public class CharacterController : SimulatedScript
     [SerializeField] protected float friction;
     [SerializeField] protected float airFriction;
     [SerializeField] protected float horizontalSpeedCap;
+    [SerializeField] protected float wallCheckDistance = 0.1f;
 
     [Header("Vertical Movement")]
     [SerializeField] protected float coyoteTime;
     [SerializeField] protected float jumpForce;
     [Tooltip("The portion of the character's Y velocity to remove after a cancelled jump")]
     [SerializeField] protected float cancelledJumpImpulseRatio = 0.5f;
-    [SerializeField] protected float regularGravity;
-    [SerializeField] protected float fallingGravity;
+    [SerializeField] protected float regularGravity = 20.8f;
+    [SerializeField] protected float fallingGravity = 29.8f;
     [SerializeField] protected float releaseImpulse;
-    [SerializeField] protected float verticalSpeedCap;
-    [SerializeField] protected float groundCheckDistance;
+    [SerializeField] protected float verticalSpeedCap = 1000f;
+    [SerializeField] protected float groundCheckDistance = 0.1f;
 
     [Header("Other")]
     [SerializeField] public LayerMask groundLayer;
-    [SerializeField] protected Rigidbody2D playerBody;
-    [SerializeField] protected Collider2D playerCollider;
-    [SerializeField] protected SpriteRenderer playerRenderer;
+    [SerializeField] protected Rigidbody2D characterBody;
+    [SerializeField] protected Collider2D characterCollider;
+    [SerializeField] protected SpriteRenderer characterRenderer;
     [SerializeField] protected Animator spriteAnimator;
+
+    protected GameManager gameManager;
 
     protected Vector2 slopeDir;
     protected Rigidbody2D groundObject;
@@ -39,17 +42,21 @@ public class CharacterController : SimulatedScript
     protected bool coyoteJumpConsumed = false;
 
     // Start is called before the first frame update
-    void Start()
+    virtual protected new void Start()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
     virtual protected void FixedUpdate()
     {
+        UpdateGroundObject();
+
         // Update timeSinceGrounded, for coyote time
         if (groundObject == null)
         {
+            Debug.Log("falling");
+            DoGravity(characterBody.velocity.y < 0);
             timeSinceGrounded += Time.deltaTime;
         }
         else
@@ -63,14 +70,14 @@ public class CharacterController : SimulatedScript
     virtual protected void Move(Vector2 movementDirection)
     {
         bool inputActive = movementDirection.magnitude > 0.01f;
-        bool playerStopped = Mathf.Approximately(playerBody.velocity.x, 0);
-        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(playerBody.velocity.x));
+        bool playerStopped = Mathf.Approximately(characterBody.velocity.x, 0);
+        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(characterBody.velocity.x));
 
         // Running
         if (inputActive)
         {
             // Update sprite
-            playerRenderer.flipX = !(Mathf.Sign(movementDirection.x) == -1);
+            characterRenderer.flipX = !(Mathf.Sign(movementDirection.x) == -1);
 
             if (groundObject)
             {
@@ -103,12 +110,11 @@ public class CharacterController : SimulatedScript
 
     private void ApplyFriction(float amount)
     {
-        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(playerBody.velocity.x));
-        float velocitySign = -Mathf.Sign(playerBody.velocity.x);
-        playerBody.velocity += velocitySign * velocityToRemove * Vector2.right;
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(characterBody.velocity.x));
+        float velocitySign = -Mathf.Sign(characterBody.velocity.x);
+        characterBody.velocity += velocitySign * velocityToRemove * Vector2.right;
     }
     #endregion
-
 
     #region Vertical Movement
     public bool TryJump()
@@ -126,13 +132,13 @@ public class CharacterController : SimulatedScript
     {
         groundObject = null;
         // Cancel out existing vertical velocity, for coyote gamers
-        playerBody.velocity *= Vector2.right;
+        characterBody.velocity *= Vector2.right;
         ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
     }
 
     public void CancelJump()
     {
-        float downwardsForce = playerBody.velocity.y * cancelledJumpImpulseRatio;
+        float downwardsForce = characterBody.velocity.y * cancelledJumpImpulseRatio;
         ApplyImpulse(Vector2.down, downwardsForce, verticalSpeedCap);
     }
 
@@ -149,61 +155,39 @@ public class CharacterController : SimulatedScript
     }
     #endregion
 
-
     #region Forces
     protected void ApplyForce(Vector2 direction, float amount, float cap)
     {
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((playerBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((characterBody.velocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        playerBody.velocity += velocityToAdd * Time.fixedDeltaTime * direction;
+        characterBody.velocity += velocityToAdd * Time.fixedDeltaTime * direction;
     }
 
     protected void ApplyImpulse(Vector2 direction, float amount, float cap)
     {
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((playerBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((characterBody.velocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        playerBody.velocity += velocityToAdd * direction;
+        characterBody.velocity += velocityToAdd * direction;
     }
 
-    private void InheritVelocity(Rigidbody2D other)
+    protected void InheritVelocity(Rigidbody2D other)
     {
         if (other == null) return;
 
         Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
-        playerBody.position += velocity * Time.deltaTime;
+        characterBody.position += velocity * Time.deltaTime;
     }
     #endregion
-
-    private void UpdateAnimator(bool isStopped)
-    {
-        if (isStopped)
-        {
-            spriteAnimator.SetFloat("Horizontal Speed", 0);
-        }
-        else
-        {
-            Vector2 standingOnVelocity;
-            if (groundObject is null)
-            {
-                standingOnVelocity = Vector2.zero;
-            }
-            else
-            {
-                standingOnVelocity = groundObject.velocity;
-            }
-            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(playerBody.velocity.x - standingOnVelocity.x));
-        }
-    }
 
     #region Helper Functions
     //Check if the player is grounded
     virtual protected void UpdateGroundObject()
     {
-        Vector2 raycastOrigin = playerCollider.bounds.min;
+        Vector2 raycastOrigin = characterCollider.bounds.min;
         Vector2 raycastDirection = Vector2.down;
         float raycastDistance = groundCheckDistance;
 
@@ -211,11 +195,11 @@ public class CharacterController : SimulatedScript
         RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
         // Check bottom-middle
-        raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x * 0.5f, 0, 0);
+        raycastOrigin = characterCollider.bounds.min + new Vector3(characterCollider.bounds.size.x * 0.5f, 0, 0);
         RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
         // Check bottom-right
-        raycastOrigin = playerCollider.bounds.min + new Vector3(playerCollider.bounds.size.x, 0, 0);
+        raycastOrigin = characterCollider.bounds.min + new Vector3(characterCollider.bounds.size.x, 0, 0);
         RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
 
         RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
@@ -226,24 +210,26 @@ public class CharacterController : SimulatedScript
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
-    /*
     //Check for a wall on the player's left
-    private bool CheckIsWalledLeft()
+    protected bool CheckForWall(Vector2 direction)
     {
-        RaycastHit2D boxCastHit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.left, wallCheckDistance, groundLayer);
-        return boxCastHit.collider != null;
-    }
+        Vector2 origin = characterCollider.bounds.center;
+        Vector2 size = characterCollider.bounds.size;
+        float angle = 0f;
 
-    //Check for a wall on the player's right
-    private bool CheckIsWalledRight()
-    {
-        RaycastHit2D boxCastHit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.right, wallCheckDistance, groundLayer);
-        return boxCastHit.collider != null;
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction, wallCheckDistance, groundLayer);
+        foreach (RaycastHit2D hit in boxCastHit)
+        {
+            if (hit.rigidbody != characterBody)
+            {
+                return true;
+            }
+        }
+        return false;
     }
-    */
     #endregion
 
-
+    #region Collisions
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!doCollisionEvents)
@@ -254,7 +240,7 @@ public class CharacterController : SimulatedScript
         //Prevent bouncing
         if (groundObject != null)
         {
-            playerBody.velocity *= Vector2.right;
+            characterBody.velocity *= Vector2.right;
         }
     }
 
@@ -284,6 +270,28 @@ public class CharacterController : SimulatedScript
         if (groundObject == null)
         {
             slopeDir = Vector2.right;
+        }
+    }
+    #endregion
+
+    private void UpdateAnimator(bool isStopped)
+    {
+        if (isStopped)
+        {
+            spriteAnimator.SetFloat("Horizontal Speed", 0);
+        }
+        else
+        {
+            Vector2 standingOnVelocity;
+            if (groundObject is null)
+            {
+                standingOnVelocity = Vector2.zero;
+            }
+            else
+            {
+                standingOnVelocity = groundObject.velocity;
+            }
+            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(characterBody.velocity.x - standingOnVelocity.x));
         }
     }
 }
