@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/StyleSheets/Button.uss?fileID=7433441132597879392&amp;guid=ec4eb6631e9c49646939f5c4f85a6d34&amp;type=3#Button" />
+    <ui:VisualElement style="height: 1076px; align-items: center;">
+        <ui:Label text="Paused" display-tooltip-when-elided="true" style="font-size: 48px; -unity-text-align: upper-center;" />
+        <ui:Button text="Resume" display-tooltip-when-elided="true" name="Resume" class="Button" style="top: 12%;" />
+        <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="Button" style="top: 24%; display: none;" />
+    </ui:VisualElement>
+</ui:UXML>

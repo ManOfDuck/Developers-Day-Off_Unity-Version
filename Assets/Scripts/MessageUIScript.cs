@@ -17,8 +17,6 @@ public class MessageUIScript : MonoBehaviour
     private VisualElement root;
     private VisualElement image;
     private Label conversationName, text;
-    private bool isTalking = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +32,7 @@ public class MessageUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isTalking)
+        if (Input.GetKeyDown(KeyCode.E) && GameManager.Instance.CurrentGameState == GameManager.GameState.Cutscene)
         {
             Debug.Log("conversatin");
             conversationPosition++;
@@ -61,8 +59,7 @@ public class MessageUIScript : MonoBehaviour
 
     void conversation()
     {
-        isTalking = true;
-        Time.timeScale = 0;
+        GameManager.Instance.EnterCutscene();
         if(conversationPosition < conversationArray.Length)
         {
             text.text = conversationArray[conversationPosition];
@@ -70,9 +67,8 @@ public class MessageUIScript : MonoBehaviour
         else
         {
             root.style.visibility = Visibility.Hidden;
-            Time.timeScale = 1;
+            GameManager.Instance.ExitCutscene();
             Destroy(triggerCollider);
-            isTalking = false;
             objectToEnable.SetActive(true);
             return;
         }

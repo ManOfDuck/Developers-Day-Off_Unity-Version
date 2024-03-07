@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance == null)
         {
             _instance = this;
@@ -75,6 +76,14 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             GameManager.Instance.ResetScene();
+        }
+    }
+
+    public void TogglePause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            GameManager.Instance.TogglePause();
         }
     }
 }
