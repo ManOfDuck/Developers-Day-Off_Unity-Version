@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        Playing, Paused, GameOver
+        Playing, Paused, Cutscene
     }
 
     // this is a property with default getters/setters
@@ -71,28 +71,34 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        if (CurrentGameState == GameState.Cutscene) 
+            return;
         CurrentGameState = GameState.Paused;
         OnGamePaused.Invoke();
+
+        Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
+        if (CurrentGameState == GameState.Cutscene) 
+            return;
         CurrentGameState = GameState.Playing;
         OnGameResumed.Invoke();
+
+        Time.timeScale = 1;
     }
 
-    public void WinGame()
+    public void EnterCutscene()
     {
-        CurrentGameState = GameState.GameOver;
-        OnGameWin.Invoke();
-    }
+        CurrentGameState = GameState.Cutscene;
+        Time.timeScale = 0;
 
-    public void LoseGame()
+    }
+    public void ExitCutscene()
     {
-        CurrentGameState = GameState.GameOver;
-        Debug.Log("Loser!!!");
-        OnGameLoss.Invoke();
-        ResetScene();
+        CurrentGameState = GameState.Playing;
+        Time.timeScale = 1;
     }
 
     public void QuitGame()

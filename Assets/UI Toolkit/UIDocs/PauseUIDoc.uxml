@@ -3,6 +3,6 @@
     <ui:VisualElement style="height: 1076px; align-items: center;">
         <ui:Label text="Paused" display-tooltip-when-elided="true" style="font-size: 48px; -unity-text-align: upper-center;" />
         <ui:Button text="Resume" display-tooltip-when-elided="true" name="Resume" class="Button" style="top: 12%;" />
-        <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="Button" style="top: 24%;" />
+        <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="Button" style="top: 24%; display: none;" />
     </ui:VisualElement>
 </ui:UXML>

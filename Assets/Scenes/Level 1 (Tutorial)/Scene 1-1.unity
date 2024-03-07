@@ -9761,6 +9761,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &294710214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6387954861479389581, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+  m_PrefabInstance: {fileID: 1670240018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3edbd43fe5e364170a7dfb3315d7a055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &683428226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67977,6 +67988,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 294710214}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InputManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 176684319191619234, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: Level1
       value: Scene 1-1
