@@ -12,31 +12,47 @@ public class Patrol : SimulatedScript
     [SerializeField] private Rigidbody2D body;
 
     Vector2 initPos;
+    bool touchingPlayer = false;
+    bool moving = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         patrolPoints.Add(new Vector2(0, 0));
         initPos = body.position;
-        if (waitForPlayer)
+        if (!waitForPlayer)
             StartCoroutine(Move());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (waitForPlayer)
+        if (!waitForPlayer)
             return;
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Move());
+            touchingPlayer = true;
+            if (!moving)
+                StartCoroutine(Move());
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!waitForPlayer)
+            return;
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            touchingPlayer = false;
         }
     }
 
 
     protected virtual IEnumerator Move()
     {
-        while (true)
+        moving = true;
+        while (moving)
         {
             Light(18);
             foreach (Vector2 point in patrolPoints)
@@ -70,6 +86,9 @@ public class Patrol : SimulatedScript
                 yield return new WaitForSeconds(waitTime);
                 Light(31, Color.blue);
             }
+
+            if (waitForPlayer && !touchingPlayer)
+                moving = false;
         }
     }
 }
