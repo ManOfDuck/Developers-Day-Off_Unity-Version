@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     public Vector2 moveInput = Vector2.zero;
     public bool jumpBufferActive = false;
     public bool jumpHeld = false;
+    public Vector2 mousePos;
 
     private IEnumerator jumpBufferCoroutine;
 
@@ -19,6 +20,7 @@ public class InputManager : MonoBehaviour
 
     public UnityEvent OnJumpPressed;
     public UnityEvent OnJumpReleased;
+    public UnityEvent OnClick;
 
     private void Awake()
     {
@@ -52,6 +54,19 @@ public class InputManager : MonoBehaviour
         {
             jumpHeld = false;
             OnJumpReleased.Invoke();
+        }
+    }
+
+    public void SetMousePos(InputAction.CallbackContext context)
+    { 
+        mousePos = context.ReadValue<Vector2>();
+    }
+
+    public void MouseClicked(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnClick.Invoke();
         }
     }
 

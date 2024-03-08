@@ -31,6 +31,16 @@ public class SimulatedObject : MonoBehaviour
         {
             SetScriptEnabledStatus(script, script.isActiveAndEnabled);
         }
+
+        InputManager.Instance.OnClick.AddListener(OnClick);
+
+        // Its a 2D game, we dont want any depth. Plus it messes with click detection
+        AlignZAxis();
+    }
+
+    private void AlignZAxis()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     public bool IsComponentToggleable(SimulatedComponent component)
@@ -102,9 +112,12 @@ public class SimulatedObject : MonoBehaviour
     }
 
 
-    public void OnMouseDown()
+    public void OnClick()
     {
-        if (interactable)
+        Vector2 worldSpaceMousePos = controller.followCamera.controlledCamera.ScreenToWorldPoint(InputManager.Instance.mousePos);
+        if (interactable && clickTrigger.bounds.Contains(worldSpaceMousePos))
+        {
             controller.DisplayObject(this, defaultSprite, sprite1);
+        }    
     }
 }
