@@ -45,6 +45,8 @@ public class InspectorController : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.OnPlayerHurt.AddListener(StopDisplaying);
+
         if (_instance == null)
         {
             _instance = this;
