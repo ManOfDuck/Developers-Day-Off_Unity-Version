@@ -67651,7 +67651,7 @@ PrefabInstance:
       objectReference: {fileID: 1667212545}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: timeDelay
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: speakerName
@@ -67671,7 +67671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[0]
-      value: <b>*ring ring*</b>\n\n<color=yellow><i>click e to advance text</i></color>
+      value: <b>*ring ring*</b>\n<color=yellow><i>click e to advance text</i></color>
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: conversationArray.Array.data[1]
