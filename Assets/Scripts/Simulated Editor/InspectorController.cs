@@ -75,6 +75,16 @@ public class InspectorController : MonoBehaviour
 
     public void StopDisplaying()
     {
+        try
+        {
+            targetRenderer.material = defaultMaterial;
+        }
+        catch
+        {
+            Debug.Log("there is no target renderer");
+        }
+
+        
         if (root != null)
         {
             root.visible = false;
