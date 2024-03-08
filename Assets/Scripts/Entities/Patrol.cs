@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Patrol : SimulatedScript
 {
+    [Tooltip("Disable to make platform wait for player")]
+    [SerializeField] private bool waitForPlayer = false;
     [SerializeField] private List<Vector2> patrolPoints;
     [SerializeField] private float speed;
     [SerializeField] private float waitTime;
@@ -16,8 +18,21 @@ public class Patrol : SimulatedScript
     {
         patrolPoints.Add(new Vector2(0, 0));
         initPos = body.position;
-        StartCoroutine(Move());
+        if (waitForPlayer)
+            StartCoroutine(Move());
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (waitForPlayer)
+            return;
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(Move());
+        }
+    }
+
 
     protected virtual IEnumerator Move()
     {
