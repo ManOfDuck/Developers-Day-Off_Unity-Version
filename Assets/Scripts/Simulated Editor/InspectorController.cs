@@ -35,7 +35,6 @@ public class InspectorController : MonoBehaviour
     public Material defaultMaterial;
 
     private Sprite globalSpriteDefault, globalSprite1;
-    private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
     private List<VisualElement> scriptDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
@@ -86,7 +85,7 @@ public class InspectorController : MonoBehaviour
 
     void Update()
     {
-        if (currentObject == null)
+        if (root.visible == false)
         {
             return;
         }
@@ -95,19 +94,19 @@ public class InspectorController : MonoBehaviour
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
-            currentObject.SetComponentEnabledStatus(component, toggle.value);
+            componentManager.SetComponentEnabledStatus(component, toggle.value);
         }
 
         foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
         {
             Toggle toggle = kvp.Key;
             SimulatedScript script = kvp.Value;
-            currentObject.SetScriptEnabledStatus(script, toggle.value);
+            componentManager.SetScriptEnabledStatus(script, toggle.value);
         }
 
     }
 
-    public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
+    public void DisplayObject(SimulatedObject displayedObject, Sprite noSprite, Sprite sprite)
     {
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -141,11 +140,10 @@ public class InspectorController : MonoBehaviour
 
         componentDisplays = new List<VisualElement>();
         scriptDisplays = new List<VisualElement>();
-        this.currentObject = obj;
-        List<SimulatedComponent> components = currentObject.components;
-        List<SimulatedScript> scripts = currentObject.scripts;
+        List<SimulatedComponent> components = displayedObject.components;
+        List<SimulatedScript> scripts = displayedObject.scripts;
 
-        targetRenderer = this.currentObject.GetComponent<Renderer>();
+        targetRenderer = displayedObject.GetComponent<Renderer>();
         targetRenderer.material = highlightMaterial;
 
         // Display the components
@@ -169,12 +167,12 @@ public class InspectorController : MonoBehaviour
         globalSprite1 = sprite;
 
         //SET OBJ NAME & TAG
-        objectName.text = obj.gameObject.name.ToString();
-        objectTag.text = obj.gameObject.tag.ToString();
+        objectName.text = displayedObject.gameObject.name.ToString();
+        objectTag.text = displayedObject.gameObject.tag.ToString();
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.controlledCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
+        if (followCamera.controlledCamera.WorldToScreenPoint(displayedObject.transform.position).x > shiftDistance)
             followCamera.shift = cameraShiftAmount;
     }
 
@@ -183,9 +181,9 @@ public class InspectorController : MonoBehaviour
         Toggle toggle = componentDisplay.Q<Toggle>("toggle");
 
         // Not all components are toggleable
-        if (currentObject.IsComponentToggleable(component) && toggle is not null)
+        if (componentManager.IsComponentToggleable(component) && toggle is not null)
         {
-            toggle.value = currentObject.GetComponentEnabledStatus(component);
+            toggle.value = componentManager.GetComponentEnabledStatus(component);
             componentToggleBindings.Add(toggle, component);
         }
         else if (toggle is not null)

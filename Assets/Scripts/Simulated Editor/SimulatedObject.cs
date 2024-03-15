@@ -8,8 +8,9 @@ public class SimulatedObject : MonoBehaviour
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
     public Collider2D clickTrigger;
-    private LayerMask layer;
-    private InspectorController controller;
+    public LayerMask layer;
+    private InspectorController inspectorController;
+    private ComponentManager componentManager;
     private GameManager gameManager;
 
     public Sprite defaultSprite;
@@ -19,87 +20,24 @@ public class SimulatedObject : MonoBehaviour
 
     public void Start()
     {
-        controller = InspectorController.Instance;
+        inspectorController = InspectorController.Instance;
+        componentManager = ComponentManager.Instance;
         gameManager = GameManager.Instance;
         layer = gameObject.layer;
+        foreach (SimulatedComponent component in components)
+        {
+            component.parentObject = this;
+        }
         foreach (SimulatedScript script in scripts)
         {
-            SetScriptEnabledStatus(script, script.isActiveAndEnabled);
+            componentManager.SetScriptEnabledStatus(script, script.isActiveAndEnabled);
         }
-    }
-
-    public bool IsComponentToggleable(SimulatedComponent component)
-    {
-        switch (component.realComponent)
-        {
-            case Collider2D:
-                return true;
-            case SpriteRenderer:
-                return true;
-            case Animator:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public bool GetComponentEnabledStatus (SimulatedComponent component)
-    {
-        switch (component.realComponent)
-        {
-            case Collider2D collider:
-                return collider.enabled;
-            case SpriteRenderer renderer:
-                return renderer.enabled;
-            case Animator animator:
-                return animator.enabled;
-            default:
-                return true;
-        }
-    }
-
-    public void SetComponentEnabledStatus(SimulatedComponent component, bool enabled)
-    {
-        switch (component.realComponent)
-        {
-            case Collider2D collider:
-                collider.enabled = enabled;
-                gameObject.layer = enabled ? layer : 0;
-                break;
-            case SpriteRenderer renderer:
-                renderer.enabled = enabled;
-                break;
-            case Animator animator:
-                animator.enabled = enabled;
-                break;
-            default:
-                Debug.Log("hello");
-                break;
-        }     
-    }
-
-    public void ToggleComponent(SimulatedComponent component)
-    {
-        SetComponentEnabledStatus(component, !GetComponentEnabledStatus(component));
-    }
-
-
-    public void SetScriptEnabledStatus(SimulatedScript script, bool enabled)
-    {
-        script.enabled = enabled;
-        script.doCoroutines = enabled;
-        script.doCollisionEvents = enabled;
-    }
-
-    public void ToggleScript(SimulatedScript script)
-    {
-        SetScriptEnabledStatus(script, !script.enabled);
     }
 
 
     public void OnMouseDown()
     {
         if (interactable)
-            controller.DisplayObject(this, defaultSprite, sprite1);
+            inspectorController.DisplayObject(this, defaultSprite, sprite1);
     }
 }
