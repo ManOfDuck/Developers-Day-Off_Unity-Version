@@ -10,6 +10,8 @@ public class InspectorController : MonoBehaviour
     private static InspectorController _instance;
     public static InspectorController Instance { get { return _instance; } }
 
+    private ComponentManager componentManager;
+
     public UIDocument mainUIDocument;
     public PanelSettings panelSettings;
 
@@ -55,6 +57,12 @@ public class InspectorController : MonoBehaviour
             _instance = this;
         }
     }
+
+    private void Start()
+    {
+        StopDisplaying();
+        componentManager = ComponentManager.Instance;
+    }
     
     private void OnEnable() // get ui references B-)
     {
@@ -66,11 +74,6 @@ public class InspectorController : MonoBehaviour
         {
             StopDisplaying();
         };
-    }
-
-    void Start()
-    {
-        StopDisplaying();
     }
 
     public void StopDisplaying()
@@ -107,7 +110,6 @@ public class InspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
-        Debug.Log("1");
         // Clear old elements
         while (componentDisplays.Count > 0)
         {
@@ -117,13 +119,11 @@ public class InspectorController : MonoBehaviour
         }
         while (scriptDisplays.Count > 0)
         {
-            Debug.Log("2");
             VisualElement element = scriptDisplays[0];
             Debug.Log(element);
             root.Q<VisualElement>("scripts").Remove(element);
             scriptDisplays.Remove(element);
         }
-        Debug.Log("3");
 
         //Clear old bindings
         componentToggleBindings = new();
@@ -152,14 +152,16 @@ public class InspectorController : MonoBehaviour
         // Display the components
         foreach (SimulatedComponent component in components)
         {
-            VisualElement componentDisplay = getComponentDisplay(component);
+            VisualElement componentDisplay = componentManager.GetComponentDisplay(component, componentTemplate);
+            AddComponentToggle(component, componentDisplay);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
         // Display the scripts as buttons
         foreach (SimulatedScript script in scripts){
-            VisualElement scriptDisplay = GetScriptDisplay(script);
+            VisualElement scriptDisplay = componentManager.GetScriptDisplay(script, scriptTemplate);
+            AddScriptToggle(script, scriptDisplay);
             scriptDisplays.Add(scriptDisplay);
             root.Q<VisualElement>("scripts").Add(scriptDisplay);
         }
@@ -175,54 +177,30 @@ public class InspectorController : MonoBehaviour
         root.visible = true;
         if (followCamera.controlledCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
             followCamera.shift = cameraShiftAmount;
-    }    
+    }
 
-    private VisualElement getComponentDisplay(SimulatedComponent component)
+    private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
     {
-        VisualComponent visualComponent = component.visualComponent;
-
-        VisualElement componentDisplay = componentTemplate.CloneTree();
-        VisualElement icon = componentDisplay.Q<VisualElement>("image");
-        Label label = componentDisplay.Q<Label>("label");
-        Label description = componentDisplay.Q<Label>("desc");
         Toggle toggle = componentDisplay.Q<Toggle>("toggle");
 
-        Debug.Log(icon);
-        Debug.Log(visualComponent.image);
-
-        icon.style.backgroundImage = visualComponent.image.texture;
-        label.text = visualComponent.title;
-        description.text = visualComponent.description;
-
-        if (currentObject.IsComponentToggleable(component))
+        // Not all components are toggleable
+        if (currentObject.IsComponentToggleable(component) && toggle is not null)
         {
             toggle.value = currentObject.GetComponentEnabledStatus(component);
             componentToggleBindings.Add(toggle, component);
         }
-        else
+        else if (toggle is not null)
         {
             toggle.style.opacity = 0;
         }
-
-        return componentDisplay;
     }
-    private VisualElement GetScriptDisplay(SimulatedScript script)
+
+    private void AddScriptToggle(SimulatedScript script, VisualElement scriptDisplay)
     {
-        VisualElement scriptDisplay = scriptTemplate.CloneTree();
-
-        Button button = scriptDisplay.Q<Button>("button");
         Toggle toggle = scriptDisplay.Q<Toggle>("toggle");
-
-        button.text = script.visualScript.title + ".cs";
-        button.clickable.clicked += () =>
-        {
-            Display(script.GetUIDoc(panelSettings));
-        };
 
         toggle.value = script.enabled;
         scriptToggleBindings.Add(toggle, script);
-
-        return scriptDisplay;
     }
 
     private void Display(UIDocument displayedUI)
