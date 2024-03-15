@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using SimulatedComponent = SimulatedObject.SimulatedComponent;
 
 public class InspectorController : MonoBehaviour
 {

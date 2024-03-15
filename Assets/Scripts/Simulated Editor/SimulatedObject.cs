@@ -15,12 +15,7 @@ public class SimulatedObject : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite sprite1;
 
-    [System.Serializable]
-    public class SimulatedComponent
-    {
-        public Component realComponent;
-        public VisualComponent visualComponent;
-    }
+  
 
     public void Start()
     {
