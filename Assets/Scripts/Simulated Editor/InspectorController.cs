@@ -42,6 +42,8 @@ public class InspectorController : MonoBehaviour
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
+    public bool objectHasBeenClicked;
+
 
     private void Awake()
     {
@@ -72,6 +74,7 @@ public class InspectorController : MonoBehaviour
 
     void Start()
     {
+        InputManager.Instance.OnClick.AddListener(OnClick);
         StopDisplaying();
     }
 
@@ -119,6 +122,7 @@ public class InspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
     {
+        objectHasBeenClicked = true;
         Debug.Log("1");
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -249,5 +253,28 @@ public class InspectorController : MonoBehaviour
         {
             displayedUI.rootVisualElement.visible = true;
         }
+    }
+
+    public void OnClick()
+    {
+        Debug.Log("onclickcalled");
+        //wait a moment
+        Invoke("CheckNothingClicked", 0);
+    }
+
+    private void CheckNothingClicked()
+    {
+        Debug.Log("checking nothing clicked");
+
+        if (objectHasBeenClicked == false)
+        {
+            Debug.Log("close display");
+            StopDisplaying();
+        }
+        else
+        {
+            Debug.Log("keep display");
+        }
+        objectHasBeenClicked = false;
     }
 }
