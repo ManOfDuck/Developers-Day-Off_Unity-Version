@@ -22,6 +22,47 @@ public class ComponentManager : MonoBehaviour
         }
     }
 
+    public SimulatedComponent AddSimulatedComponentToObject(SimulatedComponent simulatedComponent, SimulatedObject simulatedObject)
+    {
+        Component newComponent = AddComponentToObject(simulatedComponent.realComponent, simulatedObject.gameObject);
+
+        SimulatedComponent newSimulatedComponent = new()
+        {
+            parentObject = simulatedObject,
+            realComponent = newComponent,
+            visualComponent = simulatedComponent.visualComponent
+        };
+
+        return newSimulatedComponent;
+    }
+
+    public SimulatedScript AddSimulatedScriptToObject(SimulatedScript simulatedScript, SimulatedObject simulatedObject)
+    {
+        return (SimulatedScript) AddComponentToObject(simulatedScript, simulatedObject.gameObject); 
+    }
+
+    private Component AddComponentToObject(Component component, GameObject gameObject)
+    {
+        // Get the component's type and fields
+        System.Type componentType = component.GetType();
+        System.Reflection.FieldInfo[] componentFields = componentType.GetFields();
+
+        // Add a new component of that type to this object
+        Component copiedComponent = gameObject.AddComponent(componentType);
+
+        // Iterate through each field and copy its value
+        foreach (var field in componentFields)
+        {
+            // Get the value of the field from the original component
+            object value = field.GetValue(component);
+
+            // Set the value of the field in the added component
+            field.SetValue(copiedComponent, value);
+        }
+
+        return copiedComponent;
+    }
+
     public VisualElement GetComponentDisplay(SimulatedComponent component, VisualTreeAsset template)
     {
         VisualComponent visualComponent = component.visualComponent;
@@ -44,7 +85,7 @@ public class ComponentManager : MonoBehaviour
         Button button = scriptDisplay.Q<Button>("button");
 
         button.text = script.visualScript.title + ".cs";
-        // This will need a rework to work for both toolkit and inspector, for now we'll disable it to avoid confusion
+        // This will need a rework to work for both toolkit and inspector, for now we'll disable it to avoid player confusion
         /*
         button.clickable.clicked += () =>
         {

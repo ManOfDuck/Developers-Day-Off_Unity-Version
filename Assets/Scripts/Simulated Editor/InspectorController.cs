@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,9 +13,6 @@ public class InspectorController : MonoBehaviour
     private ComponentManager componentManager;
 
     public UIDocument mainUIDocument;
-    public PanelSettings panelSettings;
-
-    public string lineOfSightBlockingTag;
 
     public VisualTreeAsset componentTemplate;
     public VisualTreeAsset scriptTemplate;
@@ -33,6 +31,8 @@ public class InspectorController : MonoBehaviour
 
     public Material highlightMaterial;
     public Material defaultMaterial;
+
+    public SimulatedObject displayedObject;
 
     private Sprite globalSpriteDefault, globalSprite1;
     private List<VisualElement> componentDisplays = new();
@@ -76,6 +76,7 @@ public class InspectorController : MonoBehaviour
 
     public void StopDisplaying()
     {
+        displayedObject = null;
         if (root != null)
         {
             root.visible = false;
@@ -106,7 +107,7 @@ public class InspectorController : MonoBehaviour
 
     }
 
-    public void DisplayObject(SimulatedObject displayedObject, Sprite noSprite, Sprite sprite)
+    public void DisplayObject(SimulatedObject objectToDisplay, Sprite noSprite, Sprite sprite)
     {
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -140,10 +141,10 @@ public class InspectorController : MonoBehaviour
 
         componentDisplays = new List<VisualElement>();
         scriptDisplays = new List<VisualElement>();
-        List<SimulatedComponent> components = displayedObject.components;
-        List<SimulatedScript> scripts = displayedObject.scripts;
+        List<SimulatedComponent> components = objectToDisplay.components;
+        List<SimulatedScript> scripts = objectToDisplay.scripts;
 
-        targetRenderer = displayedObject.GetComponent<Renderer>();
+        targetRenderer = objectToDisplay.GetComponent<Renderer>();
         targetRenderer.material = highlightMaterial;
 
         // Display the components
@@ -167,13 +168,15 @@ public class InspectorController : MonoBehaviour
         globalSprite1 = sprite;
 
         //SET OBJ NAME & TAG
-        objectName.text = displayedObject.gameObject.name.ToString();
-        objectTag.text = displayedObject.gameObject.tag.ToString();
+        objectName.text = objectToDisplay.gameObject.name.ToString();
+        objectTag.text = objectToDisplay.gameObject.tag.ToString();
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.controlledCamera.WorldToScreenPoint(displayedObject.transform.position).x > shiftDistance)
+        if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
             followCamera.shift = cameraShiftAmount;
+
+        this.displayedObject = objectToDisplay;
     }
 
     private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
