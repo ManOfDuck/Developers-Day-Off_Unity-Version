@@ -50,10 +50,12 @@ public class ToolkitController : MonoBehaviour
         foreach (SimulatedComponent component in components)
         {
             componentManager.SetComponentEnabledStatus(component, false);
+            AddComponent(component);
         }
         foreach (SimulatedScript script in scripts)
         {
             componentManager.SetScriptEnabledStatus(script, false);
+            AddScript(script);
         }
     }
 
@@ -64,25 +66,20 @@ public class ToolkitController : MonoBehaviour
         componentArea = toolkitRoot.Q<VisualElement>("TK_components");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddComponent(SimulatedComponent component)
     {
-        foreach (SimulatedComponent component in components)
-        {
-            VisualElement componentDisplay = componentManager.GetComponentDisplay(component, componentTemplate);
-            AddComponentButton(component, componentDisplay);
-            componentDisplays.Add(componentDisplay);
-            root.Q<VisualElement>("components").Add(componentDisplay);
-        }
+        VisualElement componentDisplay = componentManager.GetComponentDisplay(component, componentTemplate);
+        AddComponentButton(component, componentDisplay);
+        componentDisplays.Add(componentDisplay);
+        componentArea.Add(componentDisplay);
+    }
 
-        // Display the scripts as buttons
-        foreach (SimulatedScript script in scripts)
-        {
-            VisualElement scriptDisplay = componentManager.GetScriptDisplay(script, scriptTemplate);
-            AddScriptButton(script, scriptDisplay);
-            scriptDisplays.Add(scriptDisplay);
-            root.Q<VisualElement>("scripts").Add(scriptDisplay);
-        }
+    public void AddScript(SimulatedScript script)
+    {
+        VisualElement scriptDisplay = componentManager.GetScriptDisplay(script, scriptTemplate);
+        AddScriptButton(script, scriptDisplay);
+        scriptDisplays.Add(scriptDisplay);
+        componentArea.Add(scriptDisplay);
     }
 
     private void AddComponentButton(SimulatedComponent component, VisualElement componentDisplay)

@@ -55,7 +55,6 @@ public class CharacterController : SimulatedScript
         // Update timeSinceGrounded, for coyote time
         if (groundObject == null)
         {
-            Debug.Log("falling");
             DoGravity(characterBody.velocity.y < 0);
             timeSinceGrounded += Time.deltaTime;
         }
