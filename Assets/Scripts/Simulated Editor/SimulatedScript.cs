@@ -23,6 +23,11 @@ public class SimulatedScript : MonoBehaviour
         // Do nothing
     }
 
+    virtual public List<Component> TryGetReferences()
+    {
+        return null;
+    }
+
     protected void Light(int lineNumber)
     {
         string lineName = "Line" + lineNumber;

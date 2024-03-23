@@ -19,6 +19,17 @@ public class Patrol : SimulatedScript
         StartCoroutine(Move());
     }
 
+    override public List<Component> TryGetReferences()
+    {
+        bool bodyFound = TryGetComponent<Rigidbody2D>(out body);
+        if (!bodyFound)
+        {
+            return new List<Component> { new Rigidbody2D() };
+        }
+
+        return base.TryGetReferences();
+    }
+
     protected virtual IEnumerator Move()
     {
         while (true)

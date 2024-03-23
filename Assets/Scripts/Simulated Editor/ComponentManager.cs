@@ -38,7 +38,9 @@ public class ComponentManager : MonoBehaviour
 
     public SimulatedScript AddSimulatedScriptToObject(SimulatedScript simulatedScript, SimulatedObject simulatedObject)
     {
-        return (SimulatedScript) AddComponentToObject(simulatedScript, simulatedObject.gameObject); 
+        SimulatedScript addedScript = (SimulatedScript)AddComponentToObject(simulatedScript, simulatedObject.gameObject);
+        addedScript.TryGetReferences();
+        return addedScript;
     }
 
     private Component AddComponentToObject(Component component, GameObject gameObject)
@@ -84,7 +86,11 @@ public class ComponentManager : MonoBehaviour
 
         Button button = scriptDisplay.Q<Button>("button");
 
-        button.text = script.visualScript.title + ".cs";
+        if (button is not null)
+        {
+            button.text = script.visualScript.title + ".cs";
+        }
+
         // This will need a rework to work for both toolkit and inspector, for now we'll disable it to avoid player confusion
         /*
         button.clickable.clicked += () =>
