@@ -4,6 +4,8 @@ using UnityEngine;
 using static SimulatedObject;
 using UnityEngine.UIElements;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using System.Reflection;
+using System.Linq;
 
 public class ComponentManager : MonoBehaviour
 {
@@ -45,21 +47,31 @@ public class ComponentManager : MonoBehaviour
 
     private Component AddComponentToObject(Component component, GameObject gameObject)
     {
-        // Get the component's type and fields
+        // Get the component's type and properties
         System.Type componentType = component.GetType();
-        System.Reflection.FieldInfo[] componentFields = componentType.GetFields();
+        BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+        PropertyInfo[] componentProperties = componentType.GetProperties(flags);
+
+        // Discard properties that have no set method or are declared too high up
+        IEnumerable<PropertyInfo> settableProperties = from property in componentProperties
+                                            where property.CanWrite
+                                            where property.DeclaringType != typeof(Component)
+                                            where property.DeclaringType != typeof(Object)
+                                            select property;
 
         // Add a new component of that type to this object
         Component copiedComponent = gameObject.AddComponent(componentType);
 
-        // Iterate through each field and copy its value
-        foreach (var field in componentFields)
+        // Iterate through each property and copy its value
+        foreach (PropertyInfo property in settableProperties)
         {
-            // Get the value of the field from the original component
-            object value = field.GetValue(component);
+            Debug.Log(property.Name);
 
-            // Set the value of the field in the added component
-            field.SetValue(copiedComponent, value);
+            // Get the value of the property from the original component
+            object value = property.GetValue(component);
+
+            // Set the value of the property in the added component
+            property.SetValue(copiedComponent, value);
         }
 
         return copiedComponent;
