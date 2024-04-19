@@ -141,8 +141,8 @@ public class InspectorController : MonoBehaviour
 
         componentDisplays = new List<VisualElement>();
         scriptDisplays = new List<VisualElement>();
-        List<SimulatedComponent> components = objectToDisplay.components;
-        List<SimulatedScript> scripts = objectToDisplay.scripts;
+        List<SimulatedComponent> components = objectToDisplay.Components;
+        List<SimulatedScript> scripts = objectToDisplay.Scripts;
 
         targetRenderer = objectToDisplay.GetComponent<Renderer>();
         targetRenderer.material = highlightMaterial;

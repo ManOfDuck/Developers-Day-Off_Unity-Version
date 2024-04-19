@@ -18,14 +18,35 @@ public class SimulatedScript : MonoBehaviour
     public bool doCoroutines = true;
     public bool doCollisionEvents = true;
 
+    public SimulatedObject ParentObject { get; set; }
+
     public void Start()
     {
         // Do nothing
     }
 
-    virtual public List<Component> TryGetReferences()
+    // Returns true if all passed references are valid, false otherwise
+    protected bool ValidateReferences(params Component[] components)
     {
-        return null;
+        foreach (Component c in components)
+        {
+            if (c == null)
+            {
+                return false;
+            }
+        }
+
+        // TODO: Modify this code to support a simulated stack-trace
+
+        return true;
+    }
+
+    protected IEnumerator PauseCoroutineIfDisabled()
+    {
+        while (!doCoroutines)
+        {
+            yield return null;
+        }
     }
 
     protected void Light(int lineNumber)

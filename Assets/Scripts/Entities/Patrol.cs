@@ -4,41 +4,66 @@ using UnityEngine;
 
 public class Patrol : SimulatedScript
 {
+    private IEnumerator moveCoroutine;
+    private int currentPoint;
+    private Vector2 initPos;
+
     [SerializeField] private List<Vector2> patrolPoints;
+    public List<Vector2> PatrolPoints
+    {
+        get
+        {
+            return this.patrolPoints;
+        }
+        set
+        {
+            // If we've changed the count or next point, we need to update the coroutine
+            if (value.Count != patrolPoints.Count || value[currentPoint] != patrolPoints[currentPoint])
+            {
+                StopCoroutine(moveCoroutine);
+
+                int startingPoint = currentPoint % value.Count;
+
+                moveCoroutine = Move(startingPoint);
+                StartCoroutine(moveCoroutine);
+            }
+
+            patrolPoints = value;       
+        }
+    }
+
     [SerializeField] private float speed;
+    public float Speed { get; set; }
+
     [SerializeField] private float waitTime;
-    [SerializeField] private Rigidbody2D body;
+    public float WaitTime { get; set; }
 
-    Vector2 initPos;
+    private Rigidbody2D body;
+    public Rigidbody2D Body => ParentObject.TryAssignReference(ref body);
 
-    // Start is called before the first frame update
+
     void Awake()
     {
-        patrolPoints.Add(new Vector2(0, 0));
-        initPos = body.position;
-        StartCoroutine(Move());
+        initPos = Body.position;
+        moveCoroutine = Move(0);
+        StartCoroutine(moveCoroutine);
     }
 
-    override public List<Component> TryGetReferences()
-    {
-        bool bodyFound = TryGetComponent<Rigidbody2D>(out body);
-        if (!bodyFound)
-        {
-            return new List<Component> { new Rigidbody2D() };
-        }
-
-        return base.TryGetReferences();
-    }
-
-    protected virtual IEnumerator Move()
+    protected virtual IEnumerator Move(int startingIndex = 0)
     {
         while (true)
         {
             Light(18);
-            foreach (Vector2 point in patrolPoints)
+            for (currentPoint = startingIndex; currentPoint < patrolPoints.Count + 1; currentPoint++)
             {
+                // Wait for references
+                while (!ValidateReferences(body)) yield return null;
+
+                // Return to (0, 0) before looping
+                Vector2 point = currentPoint < patrolPoints.Count ? patrolPoints[currentPoint] : Vector2.zero;
+
                 Light(20);
-                Vector2 initial = body.position;
+                Vector2 initial = Body.position;
                 Vector2 target = point + initPos;
                 Vector2 path = target - initial;
                 Vector2 direction = path.normalized;
@@ -46,25 +71,31 @@ public class Patrol : SimulatedScript
 
                 while (traveled.magnitude < path.magnitude)
                 {
+                    // Wait for references
+                    while (!ValidateReferences(body)) yield return null;
+
                     // Pause if object is disabled
                     while (!doCoroutines)
                     {
-                        body.velocity = Vector2.zero;
+                        Body.velocity = Vector2.zero;
                         yield return null;
                     }
 
                     float distanceRemaining = path.magnitude - traveled.magnitude;
                     float speedToAdd = Mathf.Min(speed, (distanceRemaining) / Time.fixedDeltaTime);
 
-                    body.velocity = speedToAdd * direction;
-                    traveled = body.position - initial;
+                    Body.velocity = speedToAdd * direction;
+                    traveled = Body.position - initial;
 
                     yield return null;
                 }
                 // Stop and wait
-                body.velocity = Vector2.zero;
+                Body.velocity = Vector2.zero;
                 yield return new WaitForSeconds(waitTime);
                 Light(31, Color.blue);
+
+                // Start from 0 next time
+                startingIndex = 0;
             }
         }
     }

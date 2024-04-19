@@ -35,13 +35,15 @@ public class ComponentManager : MonoBehaviour
             visualComponent = simulatedComponent.visualComponent
         };
 
+        simulatedObject.ComponentAdded(newSimulatedComponent);
         return newSimulatedComponent;
     }
 
     public SimulatedScript AddSimulatedScriptToObject(SimulatedScript simulatedScript, SimulatedObject simulatedObject)
     {
         SimulatedScript addedScript = (SimulatedScript)AddComponentToObject(simulatedScript, simulatedObject.gameObject);
-        addedScript.TryGetReferences();
+        addedScript.ParentObject = simulatedObject;
+        simulatedObject.ScriptAdded(addedScript);
         return addedScript;
     }
 
