@@ -1,0 +1,11 @@
+menu_button {
+    margin-left: 3px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 374px;
+}
