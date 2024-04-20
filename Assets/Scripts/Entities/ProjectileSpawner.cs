@@ -8,6 +8,8 @@ public class ProjectileSpawner : SimulatedScript
     [SerializeField] Vector2 launchDirection;
     [SerializeField] GameObject projectilePrefab;
 
+    protected override string DefaultVisualComponentName => "ProjectileSpawner";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class ProjectileSpawner : SimulatedScript
     {
         while (true)
         {
-            while (!doCoroutines)
+            while (!DoCoroutines)
             {
                 yield return null;
             }
@@ -33,5 +35,11 @@ public class ProjectileSpawner : SimulatedScript
 
             yield return new WaitForSeconds(timeBetweenShots);
         }
+    }
+
+    // TODO: Implement this
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        throw new System.NotImplementedException();
     }
 }

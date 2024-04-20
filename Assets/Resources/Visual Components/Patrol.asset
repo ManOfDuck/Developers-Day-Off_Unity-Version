@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc0bdd9b7b9b641469511085e7bef7dd, type: 3}
-  m_Name: RigidBody 2D
+  m_Name: Patrol
   m_EditorClassIdentifier: 
-  title: Rigidbody 2D
-  image: {fileID: 21300000, guid: 4d35ddf5084912f489c4f99fc57c6adc, type: 3}
-  description: A represntation of the object in \nUnity's physics engine
+  title: Waypoints.cs
+  image: {fileID: 21300000, guid: cb6651b19ec9511418108db4f3f37b68, type: 3}
+  description: Moves an object through a list of points, waiting at each point

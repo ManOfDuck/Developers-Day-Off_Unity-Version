@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class CharacterController : SimulatedScript
 {
+    protected override string DefaultVisualComponentName => "CharacterController";
+
     [Header("Lateral Movement")]
     [SerializeField] protected float runForce;
     [SerializeField] protected float airRunForce;
@@ -292,5 +294,10 @@ public class CharacterController : SimulatedScript
             }
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(characterBody.velocity.x - standingOnVelocity.x));
         }
+    }
+
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        throw new System.NotImplementedException();
     }
 }

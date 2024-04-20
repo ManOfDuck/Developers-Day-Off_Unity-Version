@@ -108,7 +108,6 @@ MonoBehaviour:
   patrolPoints: []
   speed: 5
   waitTime: 1
-  body: {fileID: 1641151438760214252}
 --- !u!114 &1641151438760214249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,19 +173,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactable: 1
   components:
-  - realComponent: {fileID: 1641151438760214253}
+  - parentObject: {fileID: 0}
+    realComponent: {fileID: 1641151438760214253}
     visualComponent: {fileID: 11400000, guid: 02b3cf9288d03de45ab501d6e004422e, type: 2}
-  - realComponent: {fileID: 1641151438760214250}
+  - parentObject: {fileID: 0}
+    realComponent: {fileID: 1641151438760214250}
     visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
-  - realComponent: {fileID: 1641151438760214252}
+  - parentObject: {fileID: 0}
+    realComponent: {fileID: 1641151438760214252}
     visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
-  - realComponent: {fileID: 7479025438316269261}
+  - parentObject: {fileID: 0}
+    realComponent: {fileID: 7479025438316269261}
     visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   scripts:
   - {fileID: 1641151438760214251}
   - {fileID: 1641151438760214249}
   clickTrigger: {fileID: 2836611925539128070}
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 866235571, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
 --- !u!58 &2836611925539128070

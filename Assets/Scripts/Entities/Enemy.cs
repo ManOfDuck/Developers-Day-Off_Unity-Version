@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : SimulatedScript
 {
+    protected override string DefaultVisualComponentName => "Enemy";
+
     // The values of serialized fields are set it the editor
     [SerializeField] Collider2D enemyCollider;
 
@@ -34,5 +36,11 @@ public class Enemy : SimulatedScript
                 player.Hurt(1);
             Light(20);
         }
+    }
+
+    // TODO: Implement this
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        throw new System.NotImplementedException();
     }
 }

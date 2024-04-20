@@ -5,24 +5,31 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
-public class SimulatedScript : MonoBehaviour
+public abstract class SimulatedScript : SimulatedComponent
 {
-    public VisualScript visualScript;
+    public override Component DirectComponentReference => this;
+    public override bool IsComponentToggleable => true;
+    public override bool ComponentEnabledStatus => enabled;
+
     private UIDocument scriptUI;
 
     private VisualElement root;
     private Button xButton;
 
-    private Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
+    private readonly Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
 
-    public bool doCoroutines = true;
-    public bool doCollisionEvents = true;
+    protected bool DoCoroutines => enabled;
+    protected bool doCollisionEvents = true;
 
-    public SimulatedObject ParentObject { get; set; }
-
-    public void Start()
+    public override bool ToggleComponent()
     {
-        // Do nothing
+        return SetComponentEnabledStatus(!ComponentEnabledStatus);
+    }
+
+    public override bool SetComponentEnabledStatus(bool status)
+    {
+        if (IsComponentToggleable) enabled = status;
+        return IsComponentToggleable;
     }
 
     // Returns true if all passed references are valid, false otherwise
@@ -41,26 +48,9 @@ public class SimulatedScript : MonoBehaviour
         return true;
     }
 
-    protected IEnumerator PauseCoroutineIfDisabled()
-    {
-        while (!doCoroutines)
-        {
-            yield return null;
-        }
-    }
-
     protected void Light(int lineNumber)
     {
-        string lineName = "Line" + lineNumber;
-        VisualElement line = root?.Q<VisualElement>(lineName);
-        if (line is null) return;
-        if (lightCoroutines.ContainsKey(line))
-        {
-            StopCoroutine(lightCoroutines[line]);
-            lightCoroutines.Remove(line);
-        }
-        lightCoroutines.Add(line, LightCoroutine(line, Color.white));
-        StartCoroutine(lightCoroutines[line]);
+        Light(lineNumber, Color.white);
     }
 
     protected void Light(int lineNumber, Color color)
@@ -94,7 +84,7 @@ public class SimulatedScript : MonoBehaviour
         }
     }
 
-
+    /*
     public UIDocument GetUIDoc(PanelSettings panelSettings)
     {
         scriptUI = gameObject.GetComponent<UIDocument>();
@@ -115,5 +105,6 @@ public class SimulatedScript : MonoBehaviour
 
         return scriptUI;
     }
+    */
 
 }

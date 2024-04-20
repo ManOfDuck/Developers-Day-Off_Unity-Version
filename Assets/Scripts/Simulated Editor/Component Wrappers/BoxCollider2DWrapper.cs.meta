@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: 55385b2cc14714a9990b3cfd00730a0d
+guid: c4c64353833814540ac3b0449973808b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - visualComponent: {fileID: 11400000, guid: eb7b3e6df2d9b4928b7b72da6337965b, type: 2}
+  - visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
+  - _wrappedComponent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

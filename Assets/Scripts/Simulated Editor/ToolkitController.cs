@@ -15,7 +15,6 @@ public class ToolkitController : MonoBehaviour
     public List<SimulatedComponent> components;
     public List<SimulatedScript> scripts;
 
-    private ComponentManager componentManager;
     private InspectorController inspectorController;
 
     private VisualElement root;
@@ -23,9 +22,7 @@ public class ToolkitController : MonoBehaviour
     private VisualElement toolkitRoot;
     private VisualElement componentArea;
     private List<VisualElement> componentDisplays = new();
-    private List<VisualElement> scriptDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentAddBindings;
-    private Dictionary<Toggle, SimulatedScript> scriptAddBindings;
 
     private void Awake()
     {
@@ -43,19 +40,13 @@ public class ToolkitController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        componentManager = ComponentManager.Instance;
         inspectorController = InspectorController.Instance;
 
-        // Disable all components and scripts, we dont want them running on this game object
+        // Disable all components, we dont want them running on this game object
         foreach (SimulatedComponent component in components)
         {
-            componentManager.SetComponentEnabledStatus(component, false);
+            component.SetComponentEnabledStatus(false);
             AddComponent(component);
-        }
-        foreach (SimulatedScript script in scripts)
-        {
-            componentManager.SetScriptEnabledStatus(script, false);
-            AddScript(script);
         }
     }
 
@@ -68,31 +59,16 @@ public class ToolkitController : MonoBehaviour
 
     public void AddComponent(SimulatedComponent component)
     {
-        VisualElement componentDisplay = componentManager.GetComponentDisplay(component, componentTemplate);
+        VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
         AddComponentButton(component, componentDisplay);
         componentDisplays.Add(componentDisplay);
         componentArea.Add(componentDisplay);
-    }
-
-    public void AddScript(SimulatedScript script)
-    {
-        VisualElement scriptDisplay = componentManager.GetScriptDisplay(script, scriptTemplate);
-        AddScriptButton(script, scriptDisplay);
-        scriptDisplays.Add(scriptDisplay);
-        componentArea.Add(scriptDisplay);
     }
 
     private void AddComponentButton(SimulatedComponent component, VisualElement componentDisplay)
     {
         Button button = componentDisplay.Q<Button>("Button");
 
-        button.clicked += () => componentManager.AddSimulatedComponentToObject(component, inspectorController.displayedObject);
-    }
-
-    private void AddScriptButton(SimulatedScript script, VisualElement sciptDisplay)
-    {
-        Button button = sciptDisplay.Q<Button>("Button");
-
-        button.clicked += () => componentManager.AddSimulatedScriptToObject(script, inspectorController.displayedObject);
+        button.clicked += () => component.Copy(inspectorController.displayedObject);
     }
 }

@@ -10,12 +10,9 @@ public class InspectorController : MonoBehaviour
     private static InspectorController _instance;
     public static InspectorController Instance { get { return _instance; } }
 
-    private ComponentManager componentManager;
-
     public UIDocument mainUIDocument;
 
     public VisualTreeAsset componentTemplate;
-    public VisualTreeAsset scriptTemplate;
 
     public Color trueColor;
     public Color falseColor;
@@ -36,9 +33,7 @@ public class InspectorController : MonoBehaviour
 
     private Sprite globalSpriteDefault, globalSprite1;
     private List<VisualElement> componentDisplays = new();
-    private List<VisualElement> scriptDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
-    private Dictionary<Toggle, SimulatedScript> scriptToggleBindings;
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
@@ -59,7 +54,6 @@ public class InspectorController : MonoBehaviour
     private void Start()
     {
         StopDisplaying();
-        componentManager = ComponentManager.Instance;
     }
     
     private void OnEnable() // get ui references B-)
@@ -84,6 +78,12 @@ public class InspectorController : MonoBehaviour
         followCamera.shift = 0;
     }
 
+    public void RefreshDisplay()
+    {
+        if (!displayedObject) return;
+        DisplayObject(displayedObject);
+    }
+
     void Update()
     {
         if (root.visible == false)
@@ -95,19 +95,11 @@ public class InspectorController : MonoBehaviour
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
-            componentManager.SetComponentEnabledStatus(component, toggle.value);
+            component.SetComponentEnabledStatus(toggle.value);
         }
-
-        foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
-        {
-            Toggle toggle = kvp.Key;
-            SimulatedScript script = kvp.Value;
-            componentManager.SetScriptEnabledStatus(script, toggle.value);
-        }
-
     }
 
-    public void DisplayObject(SimulatedObject objectToDisplay, Sprite noSprite, Sprite sprite)
+    public void DisplayObject(SimulatedObject objectToDisplay)
     {
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -116,17 +108,9 @@ public class InspectorController : MonoBehaviour
             root.Q<VisualElement>("components").Remove(element);
             componentDisplays.Remove(element);
         }
-        while (scriptDisplays.Count > 0)
-        {
-            VisualElement element = scriptDisplays[0];
-            Debug.Log(element);
-            root.Q<VisualElement>("scripts").Remove(element);
-            scriptDisplays.Remove(element);
-        }
 
         //Clear old bindings
         componentToggleBindings = new();
-        scriptToggleBindings = new();
 
         //Remove the current display
         Display(null);
@@ -140,9 +124,7 @@ public class InspectorController : MonoBehaviour
         }
 
         componentDisplays = new List<VisualElement>();
-        scriptDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
-        List<SimulatedScript> scripts = objectToDisplay.Scripts;
 
         targetRenderer = objectToDisplay.GetComponent<Renderer>();
         targetRenderer.material = highlightMaterial;
@@ -150,22 +132,11 @@ public class InspectorController : MonoBehaviour
         // Display the components
         foreach (SimulatedComponent component in components)
         {
-            VisualElement componentDisplay = componentManager.GetComponentDisplay(component, componentTemplate);
+            VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
-
-        // Display the scripts as buttons
-        foreach (SimulatedScript script in scripts){
-            VisualElement scriptDisplay = componentManager.GetScriptDisplay(script, scriptTemplate);
-            AddScriptToggle(script, scriptDisplay);
-            scriptDisplays.Add(scriptDisplay);
-            root.Q<VisualElement>("scripts").Add(scriptDisplay);
-        }
-
-        globalSpriteDefault = noSprite;
-        globalSprite1 = sprite;
 
         //SET OBJ NAME & TAG
         objectName.text = objectToDisplay.gameObject.name.ToString();
@@ -184,23 +155,15 @@ public class InspectorController : MonoBehaviour
         Toggle toggle = componentDisplay.Q<Toggle>("toggle");
 
         // Not all components are toggleable
-        if (componentManager.IsComponentToggleable(component) && toggle is not null)
+        if (component.IsComponentToggleable && toggle is not null)
         {
-            toggle.value = componentManager.GetComponentEnabledStatus(component);
+            toggle.value = component.ComponentEnabledStatus;
             componentToggleBindings.Add(toggle, component);
         }
         else if (toggle is not null)
         {
             toggle.style.opacity = 0;
         }
-    }
-
-    private void AddScriptToggle(SimulatedScript script, VisualElement scriptDisplay)
-    {
-        Toggle toggle = scriptDisplay.Q<Toggle>("toggle");
-
-        toggle.value = script.enabled;
-        scriptToggleBindings.Add(toggle, script);
     }
 
     private void Display(UIDocument displayedUI)
