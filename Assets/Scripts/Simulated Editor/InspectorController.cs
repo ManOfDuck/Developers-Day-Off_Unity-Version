@@ -95,6 +95,8 @@ public class InspectorController : MonoBehaviour
             root.visible = false;
         }
         followCamera.shift = 0;
+        targetRenderer = this.currentObject?.GetComponent<Renderer>();
+        targetRenderer.material = defaultMaterial;
     }
 
     void Update()

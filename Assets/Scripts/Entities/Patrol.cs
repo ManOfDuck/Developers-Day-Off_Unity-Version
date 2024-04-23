@@ -26,10 +26,10 @@ public class Patrol : SimulatedScript
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!waitForPlayer)
+        if (!waitForPlayer || !doCollisionEvents)
             return;
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.collider.bounds.min.y >= collision.otherCollider.bounds.max.y)
         {
             touchingPlayer = true;
             if (!moving)
@@ -39,7 +39,7 @@ public class Patrol : SimulatedScript
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (!waitForPlayer)
+        if (!waitForPlayer || !doCollisionEvents)
             return;
 
         if (collision.gameObject.CompareTag("Player"))
