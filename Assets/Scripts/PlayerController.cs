@@ -9,6 +9,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : CharacterController
 {
+    protected override string DefaultVisualComponentName => "PlayerController";
+
     [Header("Health")]
     [SerializeField] private int _maxHealth;
     public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
@@ -66,6 +68,8 @@ public class PlayerController : CharacterController
     override protected void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (!ValidateReferences(CharacterBody)) return;
 
         Move(inputManager.moveInput);
 

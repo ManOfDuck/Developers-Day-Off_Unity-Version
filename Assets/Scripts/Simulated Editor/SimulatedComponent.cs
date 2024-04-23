@@ -56,4 +56,14 @@ public abstract class SimulatedComponent : MonoBehaviour
 
         return componentDisplay;
     }
+
+    protected T TryAssignReference<T>(ref T component) where T : Component
+    {
+        return ParentObject == null ? null : ParentObject.TryAssignReference(ref component) as T;
+    }
+
+    protected T AssignMandatoryReference<T>(ref T component, System.Type wrapperClass) where T : Component
+    {
+        return ParentObject == null ? null : ParentObject.AssignMandatoryReference(ref component, wrapperClass) as T;
+    }
 }

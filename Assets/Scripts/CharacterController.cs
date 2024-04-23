@@ -9,30 +9,51 @@ public class CharacterController : SimulatedScript
     protected override string DefaultVisualComponentName => "CharacterController";
 
     [Header("Lateral Movement")]
-    [SerializeField] protected float runForce;
-    [SerializeField] protected float airRunForce;
-    [SerializeField] protected float friction;
-    [SerializeField] protected float airFriction;
-    [SerializeField] protected float horizontalSpeedCap;
-    [SerializeField] protected float wallCheckDistance = 0.1f;
+    [SerializeField] private float _runForce;
+    [SerializeField] private float _airRunForce;
+    [SerializeField] private float _friction;
+    [SerializeField] private float _airFriction;
+    [SerializeField] private float _horizontalSpeedCap;
+    [SerializeField] private float _wallCheckDistance = 0.1f;
+    protected float RunForce { get => _runForce; set => _runForce = value; }
+    protected float AirRunForce { get => _airRunForce; set => _airRunForce = value; }
+    protected float Friction { get => _friction; set => _friction = value; }
+    protected float AirFriction { get => _airFriction; set => _airFriction = value; }
+    protected float HorizontalSpeedCap { get => _horizontalSpeedCap; set => _horizontalSpeedCap = value; }
+    protected float WallCheckDistance { get => _wallCheckDistance; set => _wallCheckDistance = value; }
+    protected float CoyoteTime { get => _coyoteTime; set => _coyoteTime = value; }
 
     [Header("Vertical Movement")]
-    [SerializeField] protected float coyoteTime;
-    [SerializeField] protected float jumpForce;
+    [SerializeField] private float _coyoteTime;
+    [SerializeField] private float _jumpForce;
     [Tooltip("The portion of the character's Y velocity to remove after a cancelled jump")]
-    [SerializeField] protected float cancelledJumpImpulseRatio = 0.5f;
-    [SerializeField] protected float regularGravity = 20.8f;
-    [SerializeField] protected float fallingGravity = 29.8f;
-    [SerializeField] protected float releaseImpulse;
-    [SerializeField] protected float verticalSpeedCap = 1000f;
-    [SerializeField] protected float groundCheckDistance = 0.1f;
+    [SerializeField] private float _cancelledJumpImpulseRatio = 0.5f;
+    [SerializeField] private float _regularGravity = 20.8f;
+    [SerializeField] private float _fallingGravity = 29.8f;
+    [SerializeField] private float _releaseImpulse;
+    [SerializeField] private float _verticalSpeedCap = 1000f;
+    [SerializeField] private float _groundCheckDistance = 0.1f;
+    protected float JumpForce { get => _jumpForce; set => _jumpForce = value; }
+    protected float CancelledJumpImpulseRatio { get => _cancelledJumpImpulseRatio; set => _cancelledJumpImpulseRatio = value; }
+    protected float RegularGravity { get => _regularGravity; set => _regularGravity = value; }
+    protected float FallingGravity { get => _fallingGravity; set => _fallingGravity = value; }
+    protected float ReleaseImpulse { get => _releaseImpulse; set => _releaseImpulse = value; }
+    protected float VerticalSpeedCap { get => _verticalSpeedCap; set => _verticalSpeedCap = value; }
+    protected float GroundCheckDistance { get => _groundCheckDistance; set => _groundCheckDistance = value; }
 
     [Header("Other")]
-    [SerializeField] public LayerMask groundLayer;
-    [SerializeField] protected Rigidbody2D characterBody;
-    [SerializeField] protected Collider2D characterCollider;
-    [SerializeField] protected SpriteRenderer characterRenderer;
-    [SerializeField] protected Animator spriteAnimator;
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private Rigidbody2D _characterBody;
+    [SerializeField] private BoxCollider2D _characterCollider;
+    [SerializeField] private SpriteRenderer _characterRenderer;
+    [SerializeField] private Animator _spriteAnimator;
+    public LayerMask GroundLayer { get => _groundLayer; set => _groundLayer = value; }
+
+    protected Rigidbody2D CharacterBody => AssignMandatoryReference(ref _characterBody, typeof(Rigidbody2DWrapper));
+    protected BoxCollider2D CharacterCollider => TryAssignReference(ref _characterCollider);
+    protected SpriteRenderer CharacterRenderer => TryAssignReference(ref _characterRenderer);
+    protected Animator SpriteAnimator => TryAssignReference(ref _spriteAnimator);
+
 
     protected GameManager gameManager;
 
@@ -45,12 +66,34 @@ public class CharacterController : SimulatedScript
 
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
-        throw new System.NotImplementedException();
+        CharacterController copy = destination.gameObject.AddComponent(this.GetType()) as CharacterController;
+
+        copy.RunForce = this.RunForce;
+        copy.AirRunForce = this.AirRunForce;
+        copy.Friction = this.Friction;
+        copy.AirFriction = this.AirFriction;
+        copy.HorizontalSpeedCap = this.HorizontalSpeedCap;
+        copy.WallCheckDistance = this.WallCheckDistance;
+
+        copy.CoyoteTime = this.CoyoteTime;
+        copy.JumpForce = this.JumpForce;
+        copy.CancelledJumpImpulseRatio = this.CancelledJumpImpulseRatio;
+        copy.RegularGravity = this.RegularGravity;
+        copy.FallingGravity = this.FallingGravity;
+        copy.ReleaseImpulse = this.ReleaseImpulse;
+        copy.VerticalSpeedCap = this.VerticalSpeedCap;
+        copy.GroundCheckDistance = this.GroundCheckDistance;
+
+        copy.GroundLayer = this.GroundLayer;
+
+        return copy;
     }
 
+
     // Start is called before the first frame update
-    virtual protected new void Start()
+    override protected void Start()
     {
+        base.Start();
         gameManager = GameManager.Instance;
     }
 
@@ -59,10 +102,12 @@ public class CharacterController : SimulatedScript
     {
         UpdateGroundObject();
 
+        if (!ValidateReferences(CharacterBody)) return;
+
         // Update timeSinceGrounded, for coyote time
         if (groundObject == null)
         {
-            DoGravity(characterBody.velocity.y < 0);
+            DoGravity(CharacterBody.velocity.y < 0);
             timeSinceGrounded += Time.deltaTime;
         }
         else
@@ -76,22 +121,23 @@ public class CharacterController : SimulatedScript
     virtual protected void Move(Vector2 movementDirection)
     {
         bool inputActive = movementDirection.magnitude > 0.01f;
-        bool playerStopped = Mathf.Approximately(characterBody.velocity.x, 0);
-        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(characterBody.velocity.x));
+        bool playerStopped = Mathf.Approximately(CharacterBody.velocity.x, 0);
+        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(CharacterBody.velocity.x));
 
         // Running
         if (inputActive)
         {
             // Update sprite
-            characterRenderer.flipX = !(Mathf.Sign(movementDirection.x) == -1);
+            if (ValidateReferences(CharacterRenderer))
+                CharacterRenderer.flipX = !(Mathf.Sign(movementDirection.x) == -1);
 
             if (groundObject)
             {
-                ApplyForce(movementDirection, runForce, horizontalSpeedCap);
+                ApplyForce(movementDirection, RunForce, HorizontalSpeedCap);
             }
             else
             {
-                ApplyForce(movementDirection, airRunForce, horizontalSpeedCap);
+                ApplyForce(movementDirection, AirRunForce, HorizontalSpeedCap);
             }
         }
 
@@ -100,11 +146,11 @@ public class CharacterController : SimulatedScript
         {
             if (groundObject)
             {
-                ApplyFriction(friction);
+                ApplyFriction(Friction);
             }
             else
             {
-                ApplyFriction(airFriction);
+                ApplyFriction(AirFriction);
             }
         }
 
@@ -116,16 +162,16 @@ public class CharacterController : SimulatedScript
 
     private void ApplyFriction(float amount)
     {
-        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(characterBody.velocity.x));
-        float velocitySign = -Mathf.Sign(characterBody.velocity.x);
-        characterBody.velocity += velocitySign * velocityToRemove * Vector2.right;
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(CharacterBody.velocity.x));
+        float velocitySign = -Mathf.Sign(CharacterBody.velocity.x);
+        CharacterBody.velocity += velocitySign * velocityToRemove * Vector2.right;
     }
     #endregion
 
     #region Vertical Movement
     public bool TryJump()
     {
-        if (groundObject != null || (timeSinceGrounded <= coyoteTime && !coyoteJumpConsumed))
+        if (groundObject != null || (timeSinceGrounded <= CoyoteTime && !coyoteJumpConsumed))
         {
             Jump();
             coyoteJumpConsumed = true;
@@ -136,27 +182,31 @@ public class CharacterController : SimulatedScript
 
     private void Jump()
     {
+        if (!ValidateReferences(CharacterBody)) return;
+
         groundObject = null;
         // Cancel out existing vertical velocity, for coyote gamers
-        characterBody.velocity *= Vector2.right;
-        ApplyImpulse(Vector2.up, jumpForce, verticalSpeedCap);
+        CharacterBody.velocity *= Vector2.right;
+        ApplyImpulse(Vector2.up, JumpForce, VerticalSpeedCap);
     }
 
     public void CancelJump()
     {
-        float downwardsForce = characterBody.velocity.y * cancelledJumpImpulseRatio;
-        ApplyImpulse(Vector2.down, downwardsForce, verticalSpeedCap);
+        if (!ValidateReferences(CharacterBody)) return;
+
+        float downwardsForce = CharacterBody.velocity.y * CancelledJumpImpulseRatio;
+        ApplyImpulse(Vector2.down, downwardsForce, VerticalSpeedCap);
     }
 
     protected void DoGravity(bool falling)
     {
         if (falling)
         {
-            ApplyForce(Vector2.down, fallingGravity, verticalSpeedCap);
+            ApplyForce(Vector2.down, FallingGravity, VerticalSpeedCap);
         }
         else
         {
-            ApplyForce(Vector2.down, regularGravity, verticalSpeedCap);
+            ApplyForce(Vector2.down, RegularGravity, VerticalSpeedCap);
         }
     }
     #endregion
@@ -164,28 +214,33 @@ public class CharacterController : SimulatedScript
     #region Forces
     protected void ApplyForce(Vector2 direction, float amount, float cap)
     {
+        if (!ValidateReferences(CharacterBody)) return;
+
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((characterBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((CharacterBody.velocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        characterBody.velocity += velocityToAdd * Time.fixedDeltaTime * direction;
+        CharacterBody.velocity += velocityToAdd * Time.fixedDeltaTime * direction;
     }
 
     protected void ApplyImpulse(Vector2 direction, float amount, float cap)
     {
+        if (!ValidateReferences(CharacterBody)) return;
+
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((characterBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((CharacterBody.velocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        characterBody.velocity += velocityToAdd * direction;
+        CharacterBody.velocity += velocityToAdd * direction;
     }
 
     protected void InheritVelocity(Rigidbody2D other)
     {
+        if (!ValidateReferences(CharacterBody)) return;
         if (other == null) return;
 
         Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
-        characterBody.position += velocity * Time.deltaTime;
+        CharacterBody.position += velocity * Time.deltaTime;
     }
     #endregion
 
@@ -193,25 +248,28 @@ public class CharacterController : SimulatedScript
     //Check if the player is grounded
     virtual protected void UpdateGroundObject()
     {
-        Vector2 raycastOrigin = characterCollider.bounds.min;
+        if (!ValidateReferences(CharacterCollider)) return;
+
+        Vector2 raycastOrigin = CharacterCollider.bounds.min;
         Vector2 raycastDirection = Vector2.down;
-        float raycastDistance = groundCheckDistance;
+        float raycastDistance = GroundCheckDistance;
 
         // Check bottom-left
-        RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+        RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
 
         // Check bottom-middle
-        raycastOrigin = characterCollider.bounds.min + new Vector3(characterCollider.bounds.size.x * 0.5f, 0, 0);
-        RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x * 0.5f, 0, 0);
+        RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
 
         // Check bottom-right
-        raycastOrigin = characterCollider.bounds.min + new Vector3(characterCollider.bounds.size.x, 0, 0);
-        RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, groundLayer);
+        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x, 0, 0);
+        RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
 
         RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
         bool isGrounded = totalHits.Length > 0;
 
-        spriteAnimator.SetBool("IsGrounded", isGrounded);
+        if (ValidateReferences(SpriteAnimator))
+            SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
@@ -219,14 +277,14 @@ public class CharacterController : SimulatedScript
     //Check for a wall on the player's left
     protected bool CheckForWall(Vector2 direction)
     {
-        Vector2 origin = characterCollider.bounds.center;
-        Vector2 size = characterCollider.bounds.size;
+        Vector2 origin = CharacterCollider.bounds.center;
+        Vector2 size = CharacterCollider.bounds.size;
         float angle = 0f;
 
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction, wallCheckDistance, groundLayer);
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction, WallCheckDistance, GroundLayer);
         foreach (RaycastHit2D hit in boxCastHit)
         {
-            if (hit.rigidbody != characterBody)
+            if (hit.rigidbody != CharacterBody)
             {
                 return true;
             }
@@ -246,7 +304,7 @@ public class CharacterController : SimulatedScript
         //Prevent bouncing
         if (groundObject != null)
         {
-            characterBody.velocity *= Vector2.right;
+            CharacterBody.velocity *= Vector2.right;
         }
     }
 
@@ -282,9 +340,10 @@ public class CharacterController : SimulatedScript
 
     private void UpdateAnimator(bool isStopped)
     {
+        if (!ValidateReferences(SpriteAnimator)) return;
         if (isStopped)
         {
-            spriteAnimator.SetFloat("Horizontal Speed", 0);
+            SpriteAnimator.SetFloat("Horizontal Speed", 0);
         }
         else
         {
@@ -297,7 +356,7 @@ public class CharacterController : SimulatedScript
             {
                 standingOnVelocity = groundObject.velocity;
             }
-            spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(characterBody.velocity.x - standingOnVelocity.x));
+            SpriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(CharacterBody.velocity.x - standingOnVelocity.x));
         }
     }
 }

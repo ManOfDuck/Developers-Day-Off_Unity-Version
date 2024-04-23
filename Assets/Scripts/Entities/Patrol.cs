@@ -23,18 +23,19 @@ public class Patrol : SimulatedScript
             // If we've changed the amount of points or location of the next point, we need to update the coroutine accordingly
             if (value.Count == 0 || value.Count != _patrolPoints.Count || value[currentPoint] != _patrolPoints[currentPoint])
             {
-                // Stop the existing coroutine
+                // If the coroutine hasn't started, we're good
                 if (moveCoroutine != null)
                 {
+                    // Stop the existing coroutine
                     StopCoroutine(moveCoroutine);
+
+                    // We should stay at the same progress through the point list if possible
+                    int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
+
+                    // Start the coroutine at the adjusted index
+                    moveCoroutine = Move(startingPoint);
+                    StartCoroutine(moveCoroutine);
                 }
-
-                // We should stay at the same progress through the point list if possible
-                int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
-
-                // Start the coroutine at the adjusted index
-                moveCoroutine = Move(startingPoint);
-                StartCoroutine(moveCoroutine);
             }
 
             // Update the patrolPoints field
@@ -50,7 +51,7 @@ public class Patrol : SimulatedScript
 
     private Rigidbody2D _body;
     // When we read the value of this field, ask the parent object (if any) to search for a valid reference and assign it to the body field
-    public Rigidbody2D Body => ParentObject == null ? null : ParentObject.AssignMandatoryReference(ref _body, typeof(Rigidbody2DWrapper));
+    public Rigidbody2D Body => AssignMandatoryReference(ref _body, typeof(Rigidbody2DWrapper));
 
 
     override protected void Start()
@@ -63,7 +64,7 @@ public class Patrol : SimulatedScript
     {
         while (!ValidateReferences(Body)) yield return null;
 
-        initPos = transform.position;
+        initPos = Body.position;
         if (moveCoroutine == null)
         {
             moveCoroutine = Move(0);
@@ -73,6 +74,7 @@ public class Patrol : SimulatedScript
 
     protected virtual IEnumerator Move(int startingIndex = 0)
     {
+        Debug.Log("pos: " + initPos);
         while (true)
         {
             Light(18);
@@ -91,6 +93,9 @@ public class Patrol : SimulatedScript
                 Vector2 direction = path.normalized;
                 Vector2 traveled = Vector2.zero;
 
+                Debug.Log("index: " + currentPoint);
+                Debug.Log("point: " + point);
+                Debug.Log("moving to " + target);
                 while (traveled.magnitude < path.magnitude && !Mathf.Approximately(traveled.magnitude, path.magnitude))
                 {
                     // Wait for references
@@ -106,17 +111,14 @@ public class Patrol : SimulatedScript
                     float distanceRemaining = path.magnitude - traveled.magnitude;
                     float speedToAdd = Mathf.Min(Speed, (distanceRemaining) / Time.fixedDeltaTime);
 
-                    Debug.Log("velocity");
                     Body.velocity = speedToAdd * direction;
                     traveled = Body.position - initial;
 
                     yield return null;
                 }
                 // Stop and wait
-                Debug.Log("wait" + WaitTime);
                 Body.velocity = Vector2.zero;
                 yield return new WaitForSeconds(WaitTime);
-                Debug.Log("done");
                 Light(31, Color.blue);
 
                 // Start from 0 next time

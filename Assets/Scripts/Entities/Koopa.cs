@@ -43,7 +43,7 @@ public class Koopa : CharacterController
 
     protected override void Move(Vector2 movementDirection)
     {
-        characterBody.velocity = horizontalSpeedCap * direction + characterBody.velocity * Vector2.up;
+        CharacterBody.velocity = HorizontalSpeedCap * direction + CharacterBody.velocity * Vector2.up;
         InheritVelocity(groundObject);
     }
 
@@ -54,7 +54,7 @@ public class Koopa : CharacterController
         direction *= -1;
         Light(36);
         // Tell the sprite renderer to flip/unflip the sprite
-        characterRenderer.flipX = !characterRenderer.flipX;
+        CharacterRenderer.flipX = !CharacterRenderer.flipX;
         Light(39);
     }
 
@@ -66,13 +66,13 @@ public class Koopa : CharacterController
         Light(47, UnityEngine.Color.blue);
         // To tell if there's a cliff in front of us, we'll use a box cast
         // For the offset, we'll add cliffCheckDistance to the front of the enemy
-        float boxCastOffset = characterCollider.bounds.size.x + CliffCheckDistance;
+        float boxCastOffset = CharacterCollider.bounds.size.x + CliffCheckDistance;
         Light(50);
-        Vector2 boxCastOrigin = (Vector2) characterCollider.bounds.center + (boxCastOffset * direction);
+        Vector2 boxCastOrigin = (Vector2) CharacterCollider.bounds.center + (boxCastOffset * direction);
         Light(51);
 
         // For the size, we'll just use the enemy's size
-        Vector2 boxCastSize = characterCollider.bounds.size;
+        Vector2 boxCastSize = CharacterCollider.bounds.size;
         Light(54);
 
         // We want the box to not be straight, and to extend one unit down
@@ -84,14 +84,14 @@ public class Koopa : CharacterController
         Light(60);
 
         // We'll output any ground it hits into boxCastHit
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(boxCastOrigin, boxCastSize, boxCastAngle, boxCastDirection, boxCastDistance, groundLayer);
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(boxCastOrigin, boxCastSize, boxCastAngle, boxCastDirection, boxCastDistance, GroundLayer);
         Light(62);
 
         // If no ground was hit (besides ourselves), we're at a cliff
         Light(65, UnityEngine.Color.blue);
         foreach (RaycastHit2D hit in boxCastHit)
         {
-            if (hit.rigidbody != characterBody)
+            if (hit.rigidbody != CharacterBody)
             {
                 return false;
             }
