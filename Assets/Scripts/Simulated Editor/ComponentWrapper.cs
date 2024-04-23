@@ -68,9 +68,9 @@ public abstract class ComponentWrapper<T> : SimulatedComponent where T : Compone
 
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
-        ComponentWrapper<T> copiedWrapper = base.Copy(destination) as ComponentWrapper<T>;
+        ComponentWrapper<T> copiedWrapper = destination.gameObject.AddComponent(this.GetType()) as ComponentWrapper<T>;
 
-        // Get the component's type and properties
+        // Get the component's type and public properties
         System.Type componentType = typeof(T);
         BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
         PropertyInfo[] componentProperties = componentType.GetProperties(flags);
@@ -84,14 +84,11 @@ public abstract class ComponentWrapper<T> : SimulatedComponent where T : Compone
 
 
         // Add a new Component of type T to the destination
-        Debug.Log("destination " + destination.gameObject);
         T copiedComponent = copiedWrapper.CreateComponent();
 
         // Iterate through each property and copy its value to the copied component
         foreach (PropertyInfo property in settableProperties)
         {
-            Debug.Log(property.Name);
-
             // Get the value of the property from the original component
             object value = property.GetValue(WrappedComponent);
 

@@ -16,17 +16,7 @@ public abstract class SimulatedComponent : MonoBehaviour
     public abstract bool ComponentEnabledStatus { get; }
     protected abstract string DefaultVisualComponentName { get; }
 
-    public virtual SimulatedComponent Copy(SimulatedObject destination)
-    {
-        if (destination == null)
-        {
-            return null;
-        }
-
-        SimulatedComponent copy = destination.gameObject.AddComponent(this.GetType()) as SimulatedComponent;
-        copy.VisualComponent = this.VisualComponent;
-        return copy;
-    }
+    public abstract SimulatedComponent Copy(SimulatedObject destination);
     public abstract bool ToggleComponent();
     public abstract bool SetComponentEnabledStatus(bool status);
 

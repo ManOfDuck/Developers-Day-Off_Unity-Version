@@ -43,6 +43,11 @@ public class CharacterController : SimulatedScript
     protected float timeSinceGrounded = 0;
     protected bool coyoteJumpConsumed = false;
 
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Start is called before the first frame update
     virtual protected new void Start()
     {
@@ -294,10 +299,5 @@ public class CharacterController : SimulatedScript
             }
             spriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(characterBody.velocity.x - standingOnVelocity.x));
         }
-    }
-
-    public override SimulatedComponent Copy(SimulatedObject destination)
-    {
-        throw new System.NotImplementedException();
     }
 }

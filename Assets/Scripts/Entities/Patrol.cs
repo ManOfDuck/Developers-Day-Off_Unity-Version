@@ -64,8 +64,11 @@ public class Patrol : SimulatedScript
         while (!ValidateReferences(Body)) yield return null;
 
         initPos = transform.position;
-        moveCoroutine = Move(0);
-        StartCoroutine(moveCoroutine);
+        if (moveCoroutine == null)
+        {
+            moveCoroutine = Move(0);
+            StartCoroutine(moveCoroutine);
+        }
     }
 
     protected virtual IEnumerator Move(int startingIndex = 0)
@@ -88,7 +91,7 @@ public class Patrol : SimulatedScript
                 Vector2 direction = path.normalized;
                 Vector2 traveled = Vector2.zero;
 
-                while (traveled.magnitude < path.magnitude)
+                while (traveled.magnitude < path.magnitude && !Mathf.Approximately(traveled.magnitude, path.magnitude))
                 {
                     // Wait for references
                     while (!ValidateReferences(Body)) yield return null;
@@ -103,14 +106,17 @@ public class Patrol : SimulatedScript
                     float distanceRemaining = path.magnitude - traveled.magnitude;
                     float speedToAdd = Mathf.Min(Speed, (distanceRemaining) / Time.fixedDeltaTime);
 
+                    Debug.Log("velocity");
                     Body.velocity = speedToAdd * direction;
                     traveled = Body.position - initial;
 
                     yield return null;
                 }
                 // Stop and wait
+                Debug.Log("wait" + WaitTime);
                 Body.velocity = Vector2.zero;
                 yield return new WaitForSeconds(WaitTime);
+                Debug.Log("done");
                 Light(31, Color.blue);
 
                 // Start from 0 next time
@@ -119,11 +125,11 @@ public class Patrol : SimulatedScript
         }
     }
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    override public SimulatedComponent Copy(SimulatedObject destination)
     {
-        Patrol copy = base.Copy(destination) as Patrol;
+        Patrol copy = destination.gameObject.AddComponent<Patrol>();
 
-        copy.PatrolPoints = new List<Vector2>(this.PatrolPoints);
+        copy.PatrolPoints = new List<Vector2>(this.PatrolPoints); // Create a deep copy
         copy.Speed = this.Speed;
         copy.WaitTime = this.WaitTime;
 

@@ -3,7 +3,12 @@ guid: dc926e1d23c594c6d9945c637a22a25e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - visualComponent: {fileID: 11400000, guid: 056da4082f57a43909c26e69a79808b3, type: 2}
+  - characterBody: {instanceID: 0}
+  - characterCollider: {instanceID: 0}
+  - characterRenderer: {instanceID: 0}
+  - spriteAnimator: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

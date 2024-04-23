@@ -8,16 +8,22 @@ public class Koopa : CharacterController
     enum Direction { left, right }
 
     [Tooltip("Red for turning at edges, green for walking off edges")]
-    [SerializeField] private KoopaColor color;
-    [SerializeField] private Direction startingDirection;
-    [SerializeField] private float cliffCheckDistance;
+    [SerializeField] private KoopaColor _color;
+    private KoopaColor Color { get => _color; set => _color = value; }
+
+    [SerializeField] private Direction _startingDirection;
+    private Direction StartingDirection { get => _startingDirection; set => _startingDirection = value; }
+
+    [SerializeField] private float _cliffCheckDistance;
+    public float CliffCheckDistance { get => _cliffCheckDistance; set => _cliffCheckDistance = value; }
 
     private Vector2 direction;
+
 
     override protected void Start()
     {
         base.Start();
-        direction = startingDirection == Direction.right ? Vector2.right : Vector2.left;
+        direction = StartingDirection == Direction.right ? Vector2.right : Vector2.left;
     }
 
     // Fixed update is called 50 times a second, regardless of frame rate
@@ -25,14 +31,14 @@ public class Koopa : CharacterController
     {
         base.FixedUpdate();
 
-        if (CheckForWall(direction) || (CheckForCliff() && color == KoopaColor.red))
+        if (CheckForWall(direction) || (CheckForCliff() && Color == KoopaColor.red))
         {
             ChangeDirection();
         }
 
         // Move in our current direction
         Move(direction);
-        Light(21,Color.blue);
+        Light(21, UnityEngine.Color.blue);
     }
 
     protected override void Move(Vector2 movementDirection)
@@ -43,7 +49,7 @@ public class Koopa : CharacterController
 
     private void ChangeDirection()
     {
-        Light(34, Color.blue);
+        Light(34, UnityEngine.Color.blue);
         // Flip the sign of our direction vector
         direction *= -1;
         Light(36);
@@ -57,10 +63,10 @@ public class Koopa : CharacterController
         // Dont turn around if we're already falling
         if (groundObject == null) return false;
 
-        Light(47, Color.blue);
+        Light(47, UnityEngine.Color.blue);
         // To tell if there's a cliff in front of us, we'll use a box cast
         // For the offset, we'll add cliffCheckDistance to the front of the enemy
-        float boxCastOffset = characterCollider.bounds.size.x + cliffCheckDistance;
+        float boxCastOffset = characterCollider.bounds.size.x + CliffCheckDistance;
         Light(50);
         Vector2 boxCastOrigin = (Vector2) characterCollider.bounds.center + (boxCastOffset * direction);
         Light(51);
@@ -82,7 +88,7 @@ public class Koopa : CharacterController
         Light(62);
 
         // If no ground was hit (besides ourselves), we're at a cliff
-        Light(65, Color.blue);
+        Light(65, UnityEngine.Color.blue);
         foreach (RaycastHit2D hit in boxCastHit)
         {
             if (hit.rigidbody != characterBody)
