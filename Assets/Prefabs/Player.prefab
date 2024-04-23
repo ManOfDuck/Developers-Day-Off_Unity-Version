@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8664122455749873983}
   - component: {fileID: -7190368394319624799}
   - component: {fileID: 6464460167355857351}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d74ba9a057d4c86b5e8cd132cee290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualComponent: {fileID: 0}
+  visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
   _wrappedComponent: {fileID: 6793022463475628266}
 --- !u!114 &6793022463475628263
 MonoBehaviour:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742482c4c42e14fa5914142350812ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualComponent: {fileID: 0}
+  visualComponent: {fileID: 11400000, guid: eb724b9ee0fb24df4ae576572e518f75, type: 2}
   _runForce: 50
   _airRunForce: 10
   _friction: 26
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c89d39afa8c4f3aa2cd2dc33834d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualComponent: {fileID: 0}
+  visualComponent: {fileID: 11400000, guid: 0b93e236c61de44ffbdd7c4922073e2b, type: 2}
   _wrappedComponent: {fileID: 6793022463475628256}
 --- !u!61 &8664122455749873983
 BoxCollider2D:

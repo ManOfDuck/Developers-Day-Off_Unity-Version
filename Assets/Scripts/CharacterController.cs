@@ -250,20 +250,26 @@ public class CharacterController : SimulatedScript
     {
         if (!ValidateReferences(CharacterCollider)) return;
 
-        Vector2 raycastOrigin = CharacterCollider.bounds.min;
+        Vector2 raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.05f, 0);
         Vector2 raycastDirection = Vector2.down;
         float raycastDistance = GroundCheckDistance;
 
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(GroundLayer);
+
         // Check bottom-left
         RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
 
         // Check bottom-middle
-        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x * 0.5f, 0, 0);
+        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x * 0.5f, -0.05f, 0);
         RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
 
         // Check bottom-right
-        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x, 0, 0);
+        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x, -0.05f, 0);
         RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
 
         RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
         bool isGrounded = totalHits.Length > 0;
@@ -272,6 +278,11 @@ public class CharacterController : SimulatedScript
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
+    }
+
+    private void OnDrawGizmos()
+    {
+
     }
 
     //Check for a wall on the player's left
