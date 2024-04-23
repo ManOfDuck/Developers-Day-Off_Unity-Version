@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Numerics;
@@ -32,13 +33,18 @@ public class PlayerController : CharacterController
     [SerializeField] private int _walljumpCount;
     public int WalljumpCount { get => _walljumpCount; set => _walljumpCount = value; }
 
+    [Header("Input")]
+    [SerializeField] private float _jumpBufferTime = 0.2f;
+    public float JumpBufferTime { get => _jumpBufferTime; set => _jumpBufferTime = value; }
+
     private int health;
     private bool damagable = true;
 
     private InputManager inputManager;
-
+    private bool jumpBufferActive;
+    
+    private IEnumerator jumpBufferCoroutine;
     public IEnumerator DamageCoroutineObject { get; private set; }
-
 
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
@@ -63,6 +69,7 @@ public class PlayerController : CharacterController
         health = MaxHealth;
 
         inputManager.OnJumpReleased.AddListener(CancelJump);
+        inputManager.OnJumpPressed.AddListener(StartJumpBuffer);
     }
 
     override protected void FixedUpdate()
@@ -73,25 +80,13 @@ public class PlayerController : CharacterController
 
         Move(inputManager.moveInput);
 
-        if (inputManager.jumpBufferActive)
+        if (jumpBufferActive)
         {
             bool jumpSucceeded = TryJump();
             if (jumpSucceeded)
             {
-                inputManager.ConsumeJumpInput();
+                ConsumeJumpInput();
             }
-        }
-        else
-        {
-            
-        }
-    }
-
-    public void GoRMode(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            gameManager.ResetScene();
         }
     }
 
@@ -144,5 +139,35 @@ public class PlayerController : CharacterController
     {
         if (context.performed)
             gameManager.TogglePause();
+    }
+
+    public void GoRMode(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            gameManager.ResetScene();
+        }
+    }
+
+    private void StartJumpBuffer()
+    {
+        jumpBufferCoroutine = DoJumpBuffer();
+        StartCoroutine(jumpBufferCoroutine);
+    }
+
+    public void ConsumeJumpInput()
+    {
+        if (jumpBufferCoroutine is not null)
+        {
+            StopCoroutine(jumpBufferCoroutine);
+            jumpBufferActive = false;
+        }
+    }
+
+    private IEnumerator DoJumpBuffer()
+    {
+        jumpBufferActive = true;
+        yield return new WaitForSeconds(JumpBufferTime);
+        jumpBufferActive = false;
     }
 }

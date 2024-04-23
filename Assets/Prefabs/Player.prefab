@@ -147,6 +147,7 @@ MonoBehaviour:
   _horizontalWalljumpForce: 0
   _verticalWalljumpForce: 0
   _walljumpCount: 0
+  _jumpBufferTime: 0.08
 --- !u!50 &6793022463475628261
 Rigidbody2D:
   serializedVersion: 4

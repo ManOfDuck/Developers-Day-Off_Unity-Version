@@ -6,13 +6,8 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] float jumpBufferTime;
-
     public Vector2 moveInput = Vector2.zero;
-    public bool jumpBufferActive = false;
     public bool jumpHeld = false;
-
-    private IEnumerator jumpBufferCoroutine;
 
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
@@ -44,8 +39,6 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             jumpHeld = true;
-            jumpBufferCoroutine = DoJumpBuffer();
-            StartCoroutine(jumpBufferCoroutine);
             OnJumpPressed.Invoke();
         }
         if (context.canceled)
@@ -53,22 +46,6 @@ public class InputManager : MonoBehaviour
             jumpHeld = false;
             OnJumpReleased.Invoke();
         }
-    }
-
-    public void ConsumeJumpInput()
-    {
-        if (jumpBufferCoroutine is not null)
-        {
-            StopCoroutine(jumpBufferCoroutine);
-            jumpBufferActive = false;
-        }
-    }
-
-    private IEnumerator DoJumpBuffer()
-    {
-        jumpBufferActive = true;
-        yield return new WaitForSeconds(jumpBufferTime);
-        jumpBufferActive = false;
     }
 
     public void ResetLevel(InputAction.CallbackContext context)
