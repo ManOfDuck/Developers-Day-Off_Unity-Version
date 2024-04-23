@@ -104,10 +104,10 @@ public class CharacterController : SimulatedScript
 
         if (!ValidateReferences(CharacterBody)) return;
 
-        // Update timeSinceGrounded, for coyote time
         if (groundObject == null)
         {
             DoGravity(CharacterBody.velocity.y < 0);
+            // Update timeSinceGrounded, for coyote time
             timeSinceGrounded += Time.deltaTime;
         }
         else
@@ -248,36 +248,53 @@ public class CharacterController : SimulatedScript
     //Check if the player is grounded
     virtual protected void UpdateGroundObject()
     {
-        if (!ValidateReferences(CharacterCollider)) return;
+        // While there is backup code here for not having this reference, it causes the object to either float or fall through the floor, depending on if queries hit triggers.
+        // Both feel very awkward for the player but falling through the floor makes more sense for the code and is accomplished by just never running this function (the only difference being you cant "swim" without it)
+        if (!ValidateReferences(CharacterCollider)) return; 
 
-        Vector2 raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.05f, 0);
+        Vector2 raycastOrigin;
+        if (ValidateReferences(CharacterCollider))
+        {
+            raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.05f, 0);
+        }
+        else
+        {
+            raycastOrigin = transform.position;
+        }
         Vector2 raycastDirection = Vector2.down;
         float raycastDistance = GroundCheckDistance;
 
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(GroundLayer);
+        List<RaycastHit2D> totalHits = new();
 
         // Check bottom-left
         RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
+        totalHits.AddRange(leftHits);
+        Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
 
-        // Check bottom-middle
-        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x * 0.5f, -0.05f, 0);
-        RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
+        if (ValidateReferences(CharacterCollider))
+        {
+            // Check bottom-middle
+            raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
+            RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+            Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
 
-        // Check bottom-right
-        raycastOrigin = CharacterCollider.bounds.min + new Vector3(CharacterCollider.bounds.size.x, -0.05f, 0);
-        RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-        //Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance);
+            // Check bottom-right
+            raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
+            RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+            Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
+        }
 
-        RaycastHit2D[] totalHits = leftHits.Concat(middlehits).Concat(rightHits).ToArray();
-        bool isGrounded = totalHits.Length > 0;
+        bool isGrounded = totalHits.Count > 0;
 
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
+    }
+
+    virtual protected void UpdateGroundObjectNoCollider()
+    {
+
     }
 
     private void OnDrawGizmos()
