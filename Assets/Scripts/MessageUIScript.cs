@@ -16,6 +16,7 @@ public class MessageUIScript : MonoBehaviour
     private int conversationPosition = 0;
     private VisualElement root;
     private VisualElement image;
+    private Button continueButton;
     private Label conversationName, text;
 
     // Start is called before the first frame update
@@ -25,8 +26,11 @@ public class MessageUIScript : MonoBehaviour
         image = root.Q<VisualElement>("speakerImage");
         text = root.Q<Label>("speakerText");
         conversationName = root.Q<Label>("speakerName");
+        continueButton = root.Q<Button>("ContinueButton");
         conversationName.text = speakerName;
         root.style.visibility = Visibility.Hidden;
+
+        continueButton.clicked += ContinueClicked;
     }
 
     // Update is called once per frame
@@ -73,6 +77,12 @@ public class MessageUIScript : MonoBehaviour
             return;
         }
 
+    }
+
+    private void ContinueClicked()
+    {
+        conversationPosition++;
+        conversation();
     }
 
 }
