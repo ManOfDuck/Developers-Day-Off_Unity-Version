@@ -98,9 +98,9 @@ public class ProjectileSpawner : SimulatedScript
                 yield return null;
             }
 
-            Fire();
-
             yield return new WaitForSeconds(TimeBetweenShots);
+
+            Fire();
         }
     }
 

@@ -10424,9 +10424,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: 5c4f7cf701c1f41d3aaf27a9a3bdf555, type: 2}
   _timeBetweenShots: 0.2
-  _launchDirection: 2
+  _launchDirection: 3
   _launchSpeed: 5
-  _projectilePrefab: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
+  _projectilePrefab: {fileID: 9122649085294386744, guid: 37ac759e043b049f282102ec180f66d3, type: 3}
 --- !u!1 &749859249
 GameObject:
   m_ObjectHideFlags: 0
