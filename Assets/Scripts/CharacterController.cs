@@ -154,7 +154,7 @@ public class CharacterController : SimulatedScript
             }
         }
 
-        InheritVelocity(groundObject);
+        InheritMovement(groundObject);
 
         // Update Animator
         UpdateAnimator(playerStopped);
@@ -234,7 +234,7 @@ public class CharacterController : SimulatedScript
         CharacterBody.velocity += velocityToAdd * direction;
     }
 
-    protected void InheritVelocity(Rigidbody2D other)
+    protected void InheritMovement(Rigidbody2D other)
     {
         if (!ValidateReferences(CharacterBody)) return;
         if (other == null) return;
@@ -275,12 +275,14 @@ public class CharacterController : SimulatedScript
         {
             // Check bottom-middle
             raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
-            RaycastHit2D[] middlehits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+            RaycastHit2D[] middleHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+            totalHits.AddRange(middleHits);
             Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
 
             // Check bottom-right
             raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
             RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
+            totalHits.AddRange(rightHits);
             Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
         }
 
@@ -292,11 +294,6 @@ public class CharacterController : SimulatedScript
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
-    virtual protected void UpdateGroundObjectNoCollider()
-    {
-
-    }
-
     private void OnDrawGizmos()
     {
 
@@ -305,6 +302,8 @@ public class CharacterController : SimulatedScript
     //Check for a wall on the player's left
     protected bool CheckForWall(Vector2 direction)
     {
+        if (!ValidateReferences(CharacterCollider)) return false;
+
         Vector2 origin = CharacterCollider.bounds.center;
         Vector2 size = CharacterCollider.bounds.size;
         float angle = 0f;
