@@ -93,10 +93,14 @@ MonoBehaviour:
   moveInput: {x: 0, y: 0}
   jumpBufferActive: 0
   jumpHeld: 1
+  mousePos: {x: 0, y: 0}
   OnJumpPressed:
     m_PersistentCalls:
       m_Calls: []
   OnJumpReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClick:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &176684319191619234
@@ -157,7 +161,19 @@ MonoBehaviour:
     m_ActionId: 923ef7c0-6e9f-41d8-b1d7-405692b9256c
     m_ActionName: Player/Jump[/Keyboard/w,/Keyboard/upArrow,/Keyboard/z]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: TogglePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e607eba5-836a-4534-a34e-15810f183ad2
     m_ActionName: Player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
@@ -240,6 +256,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 422fab54-b812-4440-a308-73cb533d0513
     m_ActionName: Endscreen/Quit[/Keyboard/anyKey]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: MouseClicked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 366eadee-c523-4362-be39-82c0bad108cd
+    m_ActionName: Player/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: SetMousePos
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 71ca8711-696f-459f-9949-92b47cfde081
+    m_ActionName: Player/Update Mouse Pos[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -270,7 +318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8686681478243960497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1265504, y: -0.2153582, z: -0.15248786}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
