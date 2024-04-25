@@ -52,7 +52,7 @@ public class SimulatedObject : MonoBehaviour
     { 
 
         Components.Add(simulatedComponent);
-        if (inspectorController != null)
+        if (inspectorController != null  && inspectorController.displayedObject == this)
         {
             inspectorController.RefreshDisplay();
         }

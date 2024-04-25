@@ -27179,7 +27179,7 @@ PrefabInstance:
     - target: {fileID: 5685396654955758915, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fad52df0dc5322947850b59274b04c41, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5685396654955758916, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: speed
       value: 2
@@ -86054,6 +86054,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectileSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8166331372137793487, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b1e71c173e846e1884b5e3740532b3, type: 3}
 --- !u!1001 &1778080100
@@ -86077,7 +86081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: _patrolPoints.Array.data[0].y
-      value: -3.5
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214253, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_RootOrder
