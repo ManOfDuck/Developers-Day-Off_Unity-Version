@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DestroyOnCollision : SimulatedScript
 {
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] public Rigidbody2D projectileBody;
+    protected override string DefaultVisualComponentName => "DestroyOnCollision";
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,4 +14,9 @@ public class DestroyOnCollision : SimulatedScript
         Destroy(this.gameObject);
     }
 
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        DestroyOnCollision copy = destination.gameObject.AddComponent<DestroyOnCollision>();
+        return copy;
+    }
 }

@@ -1,9 +1,9 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using SimulatedComponent = SimulatedObject.SimulatedComponent;
 
 public class InspectorController : MonoBehaviour
 {
@@ -11,12 +11,8 @@ public class InspectorController : MonoBehaviour
     public static InspectorController Instance { get { return _instance; } }
 
     public UIDocument mainUIDocument;
-    public PanelSettings panelSettings;
-
-    public string lineOfSightBlockingTag;
 
     public VisualTreeAsset componentTemplate;
-    public VisualTreeAsset scriptTemplate;
 
     public Color trueColor;
     public Color falseColor;
@@ -33,12 +29,11 @@ public class InspectorController : MonoBehaviour
     public Material highlightMaterial;
     public Material defaultMaterial;
 
+    public SimulatedObject displayedObject;
+
     private Sprite globalSpriteDefault, globalSprite1;
-    private SimulatedObject currentObject;
     private List<VisualElement> componentDisplays = new();
-    private List<VisualElement> scriptDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
-    private Dictionary<Toggle, SimulatedScript> scriptToggleBindings;
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
@@ -55,6 +50,11 @@ public class InspectorController : MonoBehaviour
             _instance = this;
         }
     }
+
+    private void Start()
+    {
+        StopDisplaying();
+    }
     
     private void OnEnable() // get ui references B-)
     {
@@ -68,25 +68,30 @@ public class InspectorController : MonoBehaviour
         };
     }
 
-    void Start()
-    {
-        StopDisplaying();
-    }
-
     public void StopDisplaying()
     {
+        if (displayedObject != null)
+        {
+            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer)) targetRenderer.material = defaultMaterial;
+            displayedObject = null;
+        }
+
         if (root != null)
         {
             root.visible = false;
         }
         followCamera.shift = 0;
-        targetRenderer = this.currentObject?.GetComponent<Renderer>();
-        targetRenderer.material = defaultMaterial;
+    }
+
+    public void RefreshDisplay()
+    {
+        if (!displayedObject) return;
+        DisplayObject(displayedObject);
     }
 
     void Update()
     {
-        if (currentObject == null)
+        if (root.visible == false)
         {
             return;
         }
@@ -95,21 +100,12 @@ public class InspectorController : MonoBehaviour
         {
             Toggle toggle = kvp.Key;
             SimulatedComponent component = kvp.Value;
-            currentObject.SetComponentEnabledStatus(component, toggle.value);
+            component.SetComponentEnabledStatus(toggle.value);
         }
-
-        foreach(KeyValuePair<Toggle,SimulatedScript> kvp in scriptToggleBindings)
-        {
-            Toggle toggle = kvp.Key;
-            SimulatedScript script = kvp.Value;
-            currentObject.SetScriptEnabledStatus(script, toggle.value);
-        }
-
     }
 
-    public void DisplayObject(SimulatedObject obj, Sprite noSprite, Sprite sprite)
+    public void DisplayObject(SimulatedObject objectToDisplay)
     {
-        Debug.Log("1");
         // Clear old elements
         while (componentDisplays.Count > 0)
         {
@@ -117,114 +113,53 @@ public class InspectorController : MonoBehaviour
             root.Q<VisualElement>("components").Remove(element);
             componentDisplays.Remove(element);
         }
-        while (scriptDisplays.Count > 0)
-        {
-            Debug.Log("2");
-            VisualElement element = scriptDisplays[0];
-            Debug.Log(element);
-            root.Q<VisualElement>("scripts").Remove(element);
-            scriptDisplays.Remove(element);
-        }
-        Debug.Log("3");
 
         //Clear old bindings
         componentToggleBindings = new();
-        scriptToggleBindings = new();
 
-        //Remove the current display
-        Display(null);
-        try
-        {
-            targetRenderer.material = defaultMaterial;
-        }
-        catch
-        {
-            Debug.Log("we do not have a targetRenderer");
-        }
+
 
         componentDisplays = new List<VisualElement>();
-        scriptDisplays = new List<VisualElement>();
-        this.currentObject = obj;
-        List<SimulatedComponent> components = currentObject.components;
-        List<SimulatedScript> scripts = currentObject.scripts;
+        List<SimulatedComponent> components = objectToDisplay.Components;
 
-        targetRenderer = this.currentObject.GetComponent<Renderer>();
+        targetRenderer = objectToDisplay.GetComponent<Renderer>();
         targetRenderer.material = highlightMaterial;
 
         // Display the components
         foreach (SimulatedComponent component in components)
         {
-            VisualElement componentDisplay = getComponentDisplay(component);
+            VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
+            AddComponentToggle(component, componentDisplay);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
-        // Display the scripts as buttons
-        foreach (SimulatedScript script in scripts){
-            VisualElement scriptDisplay = GetScriptDisplay(script);
-            scriptDisplays.Add(scriptDisplay);
-            root.Q<VisualElement>("scripts").Add(scriptDisplay);
-        }
-
-        globalSpriteDefault = noSprite;
-        globalSprite1 = sprite;
-
         //SET OBJ NAME & TAG
-        objectName.text = obj.gameObject.name.ToString();
-        objectTag.text = obj.gameObject.tag.ToString();
+        objectName.text = objectToDisplay.gameObject.name.ToString();
+        objectTag.text = objectToDisplay.gameObject.tag.ToString();
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.controlledCamera.WorldToScreenPoint(obj.transform.position).x > shiftDistance)
+        if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
             followCamera.shift = cameraShiftAmount;
-    }    
 
-    private VisualElement getComponentDisplay(SimulatedComponent component)
+        this.displayedObject = objectToDisplay;
+    }
+
+    private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
     {
-        VisualComponent visualComponent = component.visualComponent;
-
-        VisualElement componentDisplay = componentTemplate.CloneTree();
-        VisualElement icon = componentDisplay.Q<VisualElement>("image");
-        Label label = componentDisplay.Q<Label>("label");
-        Label description = componentDisplay.Q<Label>("desc");
         Toggle toggle = componentDisplay.Q<Toggle>("toggle");
 
-        Debug.Log(icon);
-        Debug.Log(visualComponent.image);
-
-        icon.style.backgroundImage = visualComponent.image.texture;
-        label.text = visualComponent.title;
-        description.text = visualComponent.description;
-
-        if (currentObject.IsComponentToggleable(component))
+        // Not all components are toggleable
+        if (component.IsComponentToggleable && toggle is not null)
         {
-            toggle.value = currentObject.GetComponentEnabledStatus(component);
+            toggle.value = component.ComponentEnabledStatus;
             componentToggleBindings.Add(toggle, component);
         }
-        else
+        else if (toggle is not null)
         {
             toggle.style.opacity = 0;
         }
-
-        return componentDisplay;
-    }
-    private VisualElement GetScriptDisplay(SimulatedScript script)
-    {
-        VisualElement scriptDisplay = scriptTemplate.CloneTree();
-
-        Button button = scriptDisplay.Q<Button>("button");
-        Toggle toggle = scriptDisplay.Q<Toggle>("toggle");
-
-        button.text = script.visualScript.title + ".cs";
-        button.clickable.clicked += () =>
-        {
-            Display(script.GetUIDoc(panelSettings));
-        };
-
-        toggle.value = script.enabled;
-        scriptToggleBindings.Add(toggle, script);
-
-        return scriptDisplay;
     }
 
     private void Display(UIDocument displayedUI)

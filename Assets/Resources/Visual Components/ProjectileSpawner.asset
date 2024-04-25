@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc0bdd9b7b9b641469511085e7bef7dd, type: 3}
-  m_Name: SpriteRenderer 2D
+  m_Name: ProjectileSpawner
   m_EditorClassIdentifier: 
-  title: Sprite Renderer 2D
-  image: {fileID: 21300000, guid: 5674254345f2eef4c8af0abea3b4dba6, type: 3}
-  description: A component that renders an \nobject's sprite
+  title: Projectile Spawner
+  image: {fileID: 21300000, guid: cb6651b19ec9511418108db4f3f37b68, type: 3}
+  description: Spawns objects with a specified velocity

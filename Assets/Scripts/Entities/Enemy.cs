@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Enemy : SimulatedScript
 {
-    // The values of serialized fields are set it the editor
-    [SerializeField] Collider2D enemyCollider;
+    protected override string DefaultVisualComponentName => "Enemy";
 
     // Every object can see the Game Manager, which tracks important variables
     GameManager gameManager;
 
     // Start is called at the beginning of the game
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         // Get a reference to the Game Manager
         gameManager = GameManager.Instance;
     }
@@ -34,5 +34,10 @@ public class Enemy : SimulatedScript
                 player.Hurt(1);
             Light(20);
         }
+    }
+
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        return destination.gameObject.AddComponent<Enemy>();
     }
 }

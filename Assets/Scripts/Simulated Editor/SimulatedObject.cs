@@ -1,123 +1,143 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using static UnityEngine.UI.Image;
 
 public class SimulatedObject : MonoBehaviour
 {
-    public bool interactable = true;
-    public List<SimulatedComponent> components;
-    public List<SimulatedScript> scripts;
-    public Collider2D clickTrigger;
-    private LayerMask layer;
-    private InspectorController controller;
-    private GameManager gameManager;
+    [SerializeField] private bool interactable = true;
+    [SerializeField] private Collider2D clickTrigger;
 
+    public List<SimulatedComponent> _components = new();
+    public List<SimulatedComponent> Components { get => _components; private set => _components = value; }
+    public LayerMask Layer { get; private set; }
+
+    private readonly Dictionary<System.Type, List<Component>> safeReferences = new();
+    private InspectorController inspectorController;
+    private GameManager gameManager;
+    private InputManager inputManager;
     public Sprite defaultSprite;
     public Sprite sprite1;
 
-    [System.Serializable]
-    public class SimulatedComponent
+    public void Awake()
     {
-        public Component realComponent;
-        public VisualComponent visualComponent;
+        
     }
 
     public void Start()
     {
-        controller = InspectorController.Instance;
+        inspectorController = InspectorController.Instance;
         gameManager = GameManager.Instance;
-        layer = gameObject.layer;
-        foreach (SimulatedScript script in scripts)
-        {
-            SetScriptEnabledStatus(script, script.isActiveAndEnabled);
-        }
+        Layer = gameObject.layer;
+        inputManager = InputManager.Instance;
+        inputManager.OnClick.AddListener(OnClick);
 
-        InputManager.Instance.OnClick.AddListener(OnClick);
-
-        // Its a 2D game, we dont want any depth. Plus it messes with click detection
         AlignZAxis();
     }
 
-    private void AlignZAxis()
+    public void OnClick()
+    {
+        if (!interactable || clickTrigger == null) return;
+
+        if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
+        {
+            inspectorController.DisplayObject(this);
+        }
+    }
+
+    public void RegisterComponent(SimulatedComponent simulatedComponent)
+    { 
+
+        Components.Add(simulatedComponent);
+        if (inspectorController != null  && inspectorController.displayedObject == this)
+        {
+            inspectorController.RefreshDisplay();
+        }
+
+        // Get the new component
+        Component newComponent = simulatedComponent.DirectComponentReference;
+        if (newComponent == null)
+        {
+            Debug.LogError(simulatedComponent + " DCR is null!");
+            return;
+        }
+
+        // Add the component to the references dictionary
+        System.Type componentType = newComponent.GetType();
+        if (!safeReferences.ContainsKey(componentType))
+        {
+            safeReferences[componentType] = new List<Component>();
+        }
+        safeReferences[componentType].Add(newComponent);
+    }
+
+    public void AlignZAxis()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    public bool IsComponentToggleable(SimulatedComponent component)
+    // If we have a component of this type, set the passed reference. Otherwise, keep it as null.
+    public T TryAssignReference<T>(ref T component) where T : Component
     {
-        switch (component.realComponent)
+        // Only assign a reference if our existing one is null
+        if (component == null)
         {
-            case Collider2D:
-                return true;
-            case SpriteRenderer:
-                return true;
-            case Animator:
-                return true;
-            default:
-                return false;
+            // Search for a list of this type
+            System.Type type = typeof(T);
+            if (safeReferences.ContainsKey(type))
+            {
+                List<Component> referenceList = safeReferences[type];
+                Component foundReference = null;
+                // Walk through the list until we find a non-null reference
+                foreach(Component c in referenceList)
+                {
+                    if (c != null)
+                    {
+                        foundReference = c;
+                        break;
+                    }
+                }
+
+                // Remove the null elements
+                int foundIndex = referenceList.IndexOf(foundReference);
+                referenceList.RemoveRange(0, foundIndex);
+
+                // Assign component to our found reference, which is null if we found nothing
+                component = foundReference as T;
+            }
         }
+
+        return component;
     }
 
-    public bool GetComponentEnabledStatus (SimulatedComponent component)
+    public T AssignMandatoryReference<T>(ref T component, System.Type wrapperClass) where T : Component
     {
-        switch (component.realComponent)
+        // Try to assign the reference
+        TryAssignReference(ref component);
+
+        // If it fails, try a direct search (its possible it exists but hasn't registered itself yet)
+        if (component == null) component = (gameObject.GetComponent(wrapperClass) as ComponentWrapper<T>).DirectComponentReference as T;
+
+        // If that fails, we need to add a new one
+        if (component == null)
         {
-            case Collider2D collider:
-                return collider.enabled;
-            case SpriteRenderer renderer:
-                return renderer.enabled;
-            case Animator animator:
-                return animator.enabled;
-            default:
-                return true;
+            // Check to make sure the passed wrapper is valid
+            if (wrapperClass.IsSubclassOf(typeof(ComponentWrapper<T>)))
+            {
+                // Create a wrapper of the passed type
+                ComponentWrapper<T> wrapper = gameObject.AddComponent(wrapperClass) as ComponentWrapper<T>;
+                // Ask the wrapper to create a component
+                component = wrapper.CreateComponent();
+            }
+            else
+            {
+                throw new ArgumentException("wrapperClass must inherit from ComponentWrapper<" + typeof(T).Name + ">");
+            }
         }
-    }
 
-    public void SetComponentEnabledStatus(SimulatedComponent component, bool enabled)
-    {
-        switch (component.realComponent)
-        {
-            case Collider2D collider:
-                collider.enabled = enabled;
-                gameObject.layer = enabled ? layer : 0;
-                break;
-            case SpriteRenderer renderer:
-                renderer.enabled = enabled;
-                break;
-            case Animator animator:
-                animator.enabled = enabled;
-                break;
-            default:
-                Debug.Log("hello");
-                break;
-        }     
-    }
-
-    public void ToggleComponent(SimulatedComponent component)
-    {
-        SetComponentEnabledStatus(component, !GetComponentEnabledStatus(component));
-    }
-
-
-    public void SetScriptEnabledStatus(SimulatedScript script, bool enabled)
-    {
-        script.enabled = enabled;
-        script.doCoroutines = enabled;
-        script.doCollisionEvents = enabled;
-    }
-
-    public void ToggleScript(SimulatedScript script)
-    {
-        SetScriptEnabledStatus(script, !script.enabled);
-    }
-
-
-    public void OnClick()
-    {
-        Vector2 worldSpaceMousePos = controller.followCamera.controlledCamera.ScreenToWorldPoint(InputManager.Instance.mousePos);
-        if (interactable && clickTrigger.bounds.Contains(worldSpaceMousePos))
-        {
-            controller.DisplayObject(this, defaultSprite, sprite1);
-        }    
+        return component;
     }
 }

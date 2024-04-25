@@ -1,40 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
-public class SimulatedScript : MonoBehaviour
+public abstract class SimulatedScript : SimulatedComponent
 {
-    public VisualScript visualScript;
+    [SerializeField] private bool startEnabled = true;
+
+    public override Component DirectComponentReference => this;
+    public override bool IsComponentToggleable => true;
+    public override bool ComponentEnabledStatus => enabled;
+
     private UIDocument scriptUI;
 
     private VisualElement root;
     private Button xButton;
 
-    private Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
+    private readonly Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
 
-    public bool doCoroutines = true;
-    public bool doCollisionEvents = true;
+    protected bool DoCoroutines => enabled;
 
-    public void Start()
+
+    protected bool doCollisionEvents = true;
+
+
+    protected override void Start()
     {
-        // Do nothing
+        base.Start();
+
+        enabled = startEnabled;
+    }
+
+    public override bool ToggleComponent()
+    {
+        return SetComponentEnabledStatus(!ComponentEnabledStatus);
+    }
+
+    public override bool SetComponentEnabledStatus(bool status)
+    {
+        if (IsComponentToggleable) enabled = status;
+        return IsComponentToggleable;
+    }
+
+    // Returns true if all passed references are valid, false otherwise
+    protected bool ValidateReferences(params Component[] components)
+    {
+        foreach (Component c in components)
+        {
+            if (c == null)
+            {
+                return false;
+            }
+        }
+
+        // TODO: Modify this code to support a simulated stack-trace
+
+        return true;
     }
 
     protected void Light(int lineNumber)
     {
-        string lineName = "Line" + lineNumber;
-        VisualElement line = root?.Q<VisualElement>(lineName);
-        if (line is null) return;
-        if (lightCoroutines.ContainsKey(line))
-        {
-            StopCoroutine(lightCoroutines[line]);
-            lightCoroutines.Remove(line);
-        }
-        lightCoroutines.Add(line, LightCoroutine(line, Color.white));
-        StartCoroutine(lightCoroutines[line]);
+        Light(lineNumber, Color.white);
     }
 
     protected void Light(int lineNumber, Color color)
@@ -68,7 +98,7 @@ public class SimulatedScript : MonoBehaviour
         }
     }
 
-
+    /*
     public UIDocument GetUIDoc(PanelSettings panelSettings)
     {
         scriptUI = gameObject.GetComponent<UIDocument>();
@@ -89,5 +119,6 @@ public class SimulatedScript : MonoBehaviour
 
         return scriptUI;
     }
+    */
 
 }
