@@ -18,6 +18,7 @@ public class SimulatedObject : MonoBehaviour
     private readonly Dictionary<System.Type, List<Component>> safeReferences = new();
     private InspectorController inspectorController;
     private GameManager gameManager;
+    private InputManager inputManager;
     public Sprite defaultSprite;
     public Sprite sprite1;
 
@@ -31,23 +32,20 @@ public class SimulatedObject : MonoBehaviour
         inspectorController = InspectorController.Instance;
         gameManager = GameManager.Instance;
         Layer = gameObject.layer;
+        inputManager = InputManager.Instance;
+        inputManager.OnClick.AddListener(OnClick);
 
-        SimulatedComponent[] allComponents = gameObject.GetComponents<SimulatedComponent>();
-
-        /*
-        List<SimulatedComponent> disabledComponents = allComponents.Where(c => !c.enabled).ToList();
-        //Debug.Log(disabledComponents.Count);
-        foreach(SimulatedComponent c in disabledComponents)
-        {
-            RegisterComponent(c);
-        }
-        */
+        AlignZAxis();
     }
 
-    public void OnMouseDown()
+    public void OnClick()
     {
-        if (interactable)
+        if (!interactable || clickTrigger == null) return;
+
+        if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
+        {
             inspectorController.DisplayObject(this);
+        }
     }
 
     public void RegisterComponent(SimulatedComponent simulatedComponent)
@@ -74,6 +72,11 @@ public class SimulatedObject : MonoBehaviour
             safeReferences[componentType] = new List<Component>();
         }
         safeReferences[componentType].Add(newComponent);
+    }
+
+    public void AlignZAxis()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     // If we have a component of this type, set the passed reference. Otherwise, keep it as null.
@@ -116,7 +119,7 @@ public class SimulatedObject : MonoBehaviour
         TryAssignReference(ref component);
 
         // If it fails, try a direct search (its possible it exists but hasn't registered itself yet)
-        if (component == null) component = gameObject.GetComponent(wrapperClass) as T;
+        if (component == null) component = (gameObject.GetComponent(wrapperClass) as ComponentWrapper<T>).DirectComponentReference as T;
 
         // If that fails, we need to add a new one
         if (component == null)

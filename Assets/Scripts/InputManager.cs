@@ -12,8 +12,12 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
 
+    public Vector2 MousePosition { get; private set; }
+    public Vector2 WorldMousePosition => Camera.main.ScreenToWorldPoint(MousePosition);
+
     public UnityEvent OnJumpPressed;
     public UnityEvent OnJumpReleased;
+    public UnityEvent OnClick;
 
     private void Awake()
     {
@@ -32,6 +36,11 @@ public class InputManager : MonoBehaviour
     public void SetMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
+    }
+
+    public void UpdateMousePos(InputAction.CallbackContext context)
+    {
+        MousePosition = context.ReadValue<Vector2>();
     }
 
     public void SetJumpInput(InputAction.CallbackContext context)
@@ -61,6 +70,14 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             GameManager.Instance.TogglePause();
+        }
+    }
+
+    public void Click(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnClick.Invoke();
         }
     }
 }

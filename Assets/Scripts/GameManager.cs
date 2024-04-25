@@ -120,6 +120,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        if (sceneName is null) return;
+
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
         inspectorController.StopDisplaying();

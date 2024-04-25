@@ -93,9 +93,6 @@ public class Patrol : SimulatedScript
                 Vector2 direction = path.normalized;
                 Vector2 traveled = Vector2.zero;
 
-                Debug.Log("index: " + currentPoint);
-                Debug.Log("point: " + point);
-                Debug.Log("moving to " + target);
                 while (traveled.magnitude < path.magnitude && !Mathf.Approximately(traveled.magnitude, path.magnitude))
                 {
                     // Wait for references
