@@ -95,8 +95,6 @@ public class CharacterController : SimulatedScript
     {
         base.Start();
         gameManager = GameManager.Instance;
-        Debug.Log("hi!");
-        Debug.Log(GetComponent<Rigidbody2D>());
         ValidateReferences(CharacterBody);
     }
 

@@ -74,7 +74,6 @@ public class Patrol : SimulatedScript
 
     protected virtual IEnumerator Move(int startingIndex = 0)
     {
-        Debug.Log("pos: " + initPos);
         while (true)
         {
             Light(18);

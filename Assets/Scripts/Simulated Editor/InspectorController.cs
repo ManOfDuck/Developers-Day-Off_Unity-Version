@@ -70,14 +70,17 @@ public class InspectorController : MonoBehaviour
 
     public void StopDisplaying()
     {
-        displayedObject = null;
+        if (displayedObject != null)
+        {
+            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer)) targetRenderer.material = defaultMaterial;
+            displayedObject = null;
+        }
+
         if (root != null)
         {
             root.visible = false;
         }
         followCamera.shift = 0;
-        targetRenderer = this.displayedObject?.GetComponent<Renderer>();
-        if (targetRenderer != null) targetRenderer.material = defaultMaterial;
     }
 
     public void RefreshDisplay()
@@ -114,16 +117,7 @@ public class InspectorController : MonoBehaviour
         //Clear old bindings
         componentToggleBindings = new();
 
-        //Remove the current display
-        Display(null);
-        try
-        {
-            targetRenderer.material = defaultMaterial;
-        }
-        catch
-        {
-            Debug.Log("we do not have a targetRenderer");
-        }
+
 
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;

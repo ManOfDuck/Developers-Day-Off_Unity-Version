@@ -33,7 +33,6 @@ public class PauseMenu : MonoBehaviour
 
     private void ResumeClicked()
     {
-        Debug.Log("resume clicked");
         HideMenu();
         GameManager.Instance.ResumeGame();
     }
@@ -45,7 +44,6 @@ public class PauseMenu : MonoBehaviour
 
     private void ShowMenu()
     {
-        Debug.Log("pause");
         root.style.visibility = Visibility.Visible;
     }
 
