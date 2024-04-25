@@ -74,7 +74,7 @@ public class InspectorController : MonoBehaviour
 
     void Start()
     {
-        InputManager.Instance.OnClick.AddListener(OnClick);
+        //InputManager.Instance.OnClick.AddListener(OnClick);
         StopDisplaying();
     }
 
@@ -257,7 +257,7 @@ public class InspectorController : MonoBehaviour
         }
     }
 
-    public void OnClick()
+    /*public void OnClick()
     {
         Debug.Log("onclickcalled");
         //wait a moment
@@ -279,4 +279,5 @@ public class InspectorController : MonoBehaviour
         }
         objectHasBeenClicked = false;
     }
+    */
 }
