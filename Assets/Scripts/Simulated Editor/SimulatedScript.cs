@@ -9,6 +9,8 @@ using Color = UnityEngine.Color;
 
 public abstract class SimulatedScript : SimulatedComponent
 {
+    [SerializeField] private bool startEnabled = true;
+
     public override Component DirectComponentReference => this;
     public override bool IsComponentToggleable => true;
     public override bool ComponentEnabledStatus => enabled;
@@ -21,7 +23,17 @@ public abstract class SimulatedScript : SimulatedComponent
     private readonly Dictionary<VisualElement, IEnumerator> lightCoroutines = new();
 
     protected bool DoCoroutines => enabled;
+
+
     protected bool doCollisionEvents = true;
+
+
+    protected override void Start()
+    {
+        base.Start();
+
+        enabled = startEnabled;
+    }
 
     public override bool ToggleComponent()
     {

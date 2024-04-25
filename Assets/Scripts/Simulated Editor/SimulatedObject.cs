@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 using static UnityEngine.UI.Image;
@@ -30,6 +31,17 @@ public class SimulatedObject : MonoBehaviour
         inspectorController = InspectorController.Instance;
         gameManager = GameManager.Instance;
         Layer = gameObject.layer;
+
+        SimulatedComponent[] allComponents = gameObject.GetComponents<SimulatedComponent>();
+
+        /*
+        List<SimulatedComponent> disabledComponents = allComponents.Where(c => !c.enabled).ToList();
+        //Debug.Log(disabledComponents.Count);
+        foreach(SimulatedComponent c in disabledComponents)
+        {
+            RegisterComponent(c);
+        }
+        */
     }
 
     public void OnMouseDown()
@@ -39,7 +51,8 @@ public class SimulatedObject : MonoBehaviour
     }
 
     public void RegisterComponent(SimulatedComponent simulatedComponent)
-    {
+    { 
+
         Components.Add(simulatedComponent);
         if (inspectorController != null)
         {
@@ -48,6 +61,11 @@ public class SimulatedObject : MonoBehaviour
 
         // Get the new component
         Component newComponent = simulatedComponent.DirectComponentReference;
+        if (newComponent == null)
+        {
+            Debug.LogError(simulatedComponent + " DCR is null!");
+            return;
+        }
 
         // Add the component to the references dictionary
         System.Type componentType = newComponent.GetType();
@@ -97,7 +115,10 @@ public class SimulatedObject : MonoBehaviour
         // Try to assign the reference
         TryAssignReference(ref component);
 
-        // If it fails, we need to add a new one
+        // If it fails, try a direct search (its possible it exists but hasn't registered itself yet)
+        if (component == null) component = gameObject.GetComponent(wrapperClass) as T;
+
+        // If that fails, we need to add a new one
         if (component == null)
         {
             // Check to make sure the passed wrapper is valid

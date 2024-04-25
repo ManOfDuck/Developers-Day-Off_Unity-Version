@@ -137,10 +137,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _characterBody: {fileID: 0}
-  _characterCollider: {fileID: 0}
-  _characterRenderer: {fileID: 0}
-  _spriteAnimator: {fileID: 0}
   _maxHealth: 1
   _playerDamageCooldown: 1
   _damageVolume: {fileID: 0}

@@ -49,7 +49,7 @@ public class Patrol : SimulatedScript
     [SerializeField] private float _waitTime;
     public float WaitTime { get => _waitTime; set => _waitTime = value; }
 
-    private Rigidbody2D _body;
+    [SerializeField] private Rigidbody2D _body;
     // When we read the value of this field, ask the parent object (if any) to search for a valid reference and assign it to the body field
     public Rigidbody2D Body => AssignMandatoryReference(ref _body, typeof(Rigidbody2DWrapper));
 

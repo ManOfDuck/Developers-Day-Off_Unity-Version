@@ -38,6 +38,8 @@ public class Koopa : CharacterController
     {
         base.Start();
         direction = StartingDirection == Direction.right ? Vector2.right : Vector2.left;
+        if (!ValidateReferences(CharacterRenderer)) return;
+
         CharacterRenderer.flipX = StartingDirection == Direction.right;
     }
 

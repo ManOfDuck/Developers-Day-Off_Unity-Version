@@ -43,10 +43,10 @@ public class CharacterController : SimulatedScript
 
     [Header("Other")]
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private Rigidbody2D _characterBody;
-    [SerializeField] private BoxCollider2D _characterCollider;
-    [SerializeField] private SpriteRenderer _characterRenderer;
-    [SerializeField] private Animator _spriteAnimator;
+    private Rigidbody2D _characterBody;
+    private BoxCollider2D _characterCollider;
+    private SpriteRenderer _characterRenderer;
+    private Animator _spriteAnimator;
     public LayerMask GroundLayer { get => _groundLayer; set => _groundLayer = value; }
 
     protected Rigidbody2D CharacterBody => AssignMandatoryReference(ref _characterBody, typeof(Rigidbody2DWrapper));
@@ -95,6 +95,9 @@ public class CharacterController : SimulatedScript
     {
         base.Start();
         gameManager = GameManager.Instance;
+        Debug.Log("hi!");
+        Debug.Log(GetComponent<Rigidbody2D>());
+        ValidateReferences(CharacterBody);
     }
 
     // Update is called once per frame

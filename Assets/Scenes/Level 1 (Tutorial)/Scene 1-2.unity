@@ -139,6 +139,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: patrolPoints.Array.data[0].x
       value: 0
       objectReference: {fileID: 0}
@@ -153,6 +157,10 @@ PrefabInstance:
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: patrolPoints.Array.data[1].y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.data[0].y
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 2482227986016671640, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Name
@@ -265,10 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 0}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  enemyCollider: {fileID: 245707759}
+  visualComponent: {fileID: 0}
 --- !u!66 &245707759
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -67395,6 +67400,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: patrolPoints.Array.data[0].x
       value: -7
       objectReference: {fileID: 0}
@@ -67409,6 +67418,10 @@ PrefabInstance:
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: patrolPoints.Array.data[1].y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.data[0].x
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 2482227986016671640, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Name
@@ -67432,11 +67445,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.35
+      value: 21.59
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.45
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.z
@@ -67734,8 +67747,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: _patrolPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: patrolPoints.Array.data[0].y
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: _patrolPoints.Array.data[0].y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214253, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_RootOrder
