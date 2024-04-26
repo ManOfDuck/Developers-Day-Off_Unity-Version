@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: mapscreen paths_13
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1854588794, guid: 50fdd8c0f7c79ff4ab3edab44c67ec76, type: 3}
+  m_Sprite: {fileID: 1985343633, guid: 1889a141b8f04db4a95a3430ad9232aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
