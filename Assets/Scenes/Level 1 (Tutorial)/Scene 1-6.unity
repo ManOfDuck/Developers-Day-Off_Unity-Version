@@ -22104,6 +22104,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: startEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
@@ -22115,7 +22119,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: patrolPoints.Array.data[0].x
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763612938278477948, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: _patrolPoints.Array.data[0].x
       value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 1859364087930125080, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
@@ -22129,6 +22141,10 @@ PrefabInstance:
     - target: {fileID: 6054564143421115725, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6054564143421115725, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6054564143421115725, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -22313,10 +22329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 0}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  enemyCollider: {fileID: 475366566}
+  visualComponent: {fileID: 0}
+  startEnabled: 1
 --- !u!66 &475366566
 CompositeCollider2D:
   m_ObjectHideFlags: 0

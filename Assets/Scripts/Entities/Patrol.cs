@@ -4,92 +4,134 @@ using UnityEngine;
 
 public class Patrol : SimulatedScript
 {
-    [Tooltip("Disable to make platform wait for player")]
-    [SerializeField] private bool waitForPlayer = false;
-    [SerializeField] private List<Vector2> patrolPoints;
-    [SerializeField] private float speed;
-    [SerializeField] private float waitTime;
-    [SerializeField] private Rigidbody2D body;
+    protected override string DefaultVisualComponentName => "Patrol";
 
-    Vector2 initPos;
-    bool touchingPlayer = false;
-    bool moving = false;
+    private IEnumerator moveCoroutine;
+    private int currentPoint = 0;
+    private Vector2 initPos;
 
-    // Start is called before the first frame update
-    void Awake()
+    [SerializeField] private List<Vector2> _patrolPoints = new();
+    public List<Vector2> PatrolPoints
     {
-        patrolPoints.Add(new Vector2(0, 0));
-        initPos = body.position;
-        if (!waitForPlayer)
-            StartCoroutine(Move());
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!waitForPlayer || !doCollisionEvents)
-            return;
-
-        if (collision.gameObject.CompareTag("Player") && collision.collider.bounds.min.y >= collision.otherCollider.bounds.max.y)
+        get
         {
-            touchingPlayer = true;
-            if (!moving)
-                StartCoroutine(Move());
+            // Return the patrolPoints field
+            return _patrolPoints;
+        }
+        set
+        {
+            // If we've changed the amount of points or location of the next point, we need to update the coroutine accordingly
+            if (value.Count == 0 || value.Count != _patrolPoints.Count || value[currentPoint] != _patrolPoints[currentPoint])
+            {
+                // If the coroutine hasn't started, we're good
+                if (moveCoroutine != null)
+                {
+                    // Stop the existing coroutine
+                    StopCoroutine(moveCoroutine);
+
+                    // We should stay at the same progress through the point list if possible
+                    int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
+
+                    // Start the coroutine at the adjusted index
+                    moveCoroutine = Move(startingPoint);
+                    StartCoroutine(moveCoroutine);
+                }
+            }
+
+            // Update the patrolPoints field
+            _patrolPoints = value;       
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (!waitForPlayer || !doCollisionEvents)
-            return;
+    [SerializeField] private float _speed;
+    public float Speed { get => _speed; set => _speed = value; }
 
-        if (collision.gameObject.CompareTag("Player"))
+    [SerializeField] private float _waitTime;
+    public float WaitTime { get => _waitTime; set => _waitTime = value; }
+
+    [SerializeField] private Rigidbody2D _body;
+    // When we read the value of this field, ask the parent object (if any) to search for a valid reference and assign it to the body field
+    public Rigidbody2D Body => AssignMandatoryReference(ref _body, typeof(Rigidbody2DWrapper));
+
+
+    override protected void Start()
+    {
+        base.Start();
+        StartCoroutine(DoSetup());
+    }
+
+    private IEnumerator DoSetup()
+    {
+        while (!ValidateReferences(Body)) yield return null;
+
+        initPos = Body.position;
+        if (moveCoroutine == null)
         {
-            touchingPlayer = false;
+            moveCoroutine = Move(0);
+            StartCoroutine(moveCoroutine);
         }
     }
 
-
-    protected virtual IEnumerator Move()
+    protected virtual IEnumerator Move(int startingIndex = 0)
     {
-        moving = true;
-        while (moving)
+        while (true)
         {
             Light(18);
-            foreach (Vector2 point in patrolPoints)
+            for (currentPoint = startingIndex; currentPoint < PatrolPoints.Count + 1; currentPoint++)
             {
+                // Wait for references
+                while (!ValidateReferences(Body)) yield return null;
+
+                // Return to (0, 0) before looping
+                Vector2 point = currentPoint < PatrolPoints.Count ? PatrolPoints[currentPoint] : Vector2.zero;
+
                 Light(20);
-                Vector2 initial = body.position;
+                Vector2 initial = Body.position;
                 Vector2 target = point + initPos;
                 Vector2 path = target - initial;
                 Vector2 direction = path.normalized;
                 Vector2 traveled = Vector2.zero;
 
-                while (traveled.magnitude < path.magnitude)
+                while (traveled.magnitude < path.magnitude && !Mathf.Approximately(traveled.magnitude, path.magnitude))
                 {
+                    // Wait for references
+                    while (!ValidateReferences(Body)) yield return null;
+
                     // Pause if object is disabled
-                    while (!doCoroutines)
+                    while (!DoCoroutines)
                     {
-                        body.velocity = Vector2.zero;
+                        Body.velocity = Vector2.zero;
                         yield return null;
                     }
 
                     float distanceRemaining = path.magnitude - traveled.magnitude;
-                    float speedToAdd = Mathf.Min(speed, (distanceRemaining) / Time.fixedDeltaTime);
+                    float speedToAdd = Mathf.Min(Speed, (distanceRemaining) / Time.fixedDeltaTime);
 
-                    body.velocity = speedToAdd * direction;
-                    traveled = body.position - initial;
+                    Body.velocity = speedToAdd * direction;
+                    traveled = Body.position - initial;
 
                     yield return null;
                 }
                 // Stop and wait
-                body.velocity = Vector2.zero;
-                yield return new WaitForSeconds(waitTime);
+                Body.velocity = Vector2.zero;
+                yield return new WaitForSeconds(WaitTime);
                 Light(31, Color.blue);
-            }
 
-            if (waitForPlayer && !touchingPlayer)
-                moving = false;
+                // Start from 0 next time
+                startingIndex = 0;
+            }
         }
+    }
+
+    override public SimulatedComponent Copy(SimulatedObject destination)
+    {
+        Patrol copy = destination.gameObject.AddComponent<Patrol>();
+
+        copy.PatrolPoints = new List<Vector2>(this.PatrolPoints); // Create a deep copy
+        copy.Speed = this.Speed;
+        copy.WaitTime = this.WaitTime;
+
+        return copy;
     }
 }
 

@@ -1,23 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class Koopa : CharacterController
 {
+    protected override string DefaultVisualComponentName => "Koopa";
+
     enum KoopaColor { red, green }
     enum Direction { left, right }
 
     [Tooltip("Red for turning at edges, green for walking off edges")]
-    [SerializeField] private KoopaColor color;
-    [SerializeField] private Direction startingDirection;
-    [SerializeField] private float cliffCheckDistance;
+    [SerializeField] private KoopaColor _color;
+    private KoopaColor Color { get => _color; set => _color = value; }
+
+    [SerializeField] private Direction _startingDirection;
+    private Direction StartingDirection { get => _startingDirection; set => _startingDirection = value; }
+
+    [SerializeField] private float _cliffCheckDistance;
+    public float CliffCheckDistance { get => _cliffCheckDistance; set => _cliffCheckDistance = value; }
 
     private Vector2 direction;
+
+    public override SimulatedComponent Copy(SimulatedObject destination)
+    {
+        Koopa copy = base.Copy(destination) as Koopa;
+
+        copy.Color = this.Color;
+        copy.StartingDirection = this.StartingDirection;
+        copy.CliffCheckDistance = this.CliffCheckDistance;
+
+        return copy;
+    }
+
 
     override protected void Start()
     {
         base.Start();
-        direction = startingDirection == Direction.right ? Vector2.right : Vector2.left;
+        direction = StartingDirection == Direction.right ? Vector2.right : Vector2.left;
+        if (!ValidateReferences(CharacterRenderer)) return;
+
+        CharacterRenderer.flipX = StartingDirection == Direction.right;
     }
 
     // Fixed update is called 50 times a second, regardless of frame rate
@@ -25,48 +48,55 @@ public class Koopa : CharacterController
     {
         base.FixedUpdate();
 
-        if (CheckForWall(direction) || (CheckForCliff() && color == KoopaColor.red))
+        if (CheckForWall(direction) || (CheckForCliff() && Color == KoopaColor.red))
         {
             ChangeDirection();
         }
 
         // Move in our current direction
         Move(direction);
-        Light(21,Color.blue);
+        Light(21, UnityEngine.Color.blue);
     }
 
     protected override void Move(Vector2 movementDirection)
     {
-        characterBody.velocity = horizontalSpeedCap * direction + characterBody.velocity * Vector2.up;
-        InheritVelocity(groundObject);
+        if (!ValidateReferences(CharacterBody)) return;
+
+        CharacterBody.velocity = HorizontalSpeedCap * direction + CharacterBody.velocity * Vector2.up;
+        InheritMovement(groundObject);
     }
 
     private void ChangeDirection()
     {
-        Light(34, Color.blue);
+        Light(34, UnityEngine.Color.blue);
+
         // Flip the sign of our direction vector
         direction *= -1;
+
         Light(36);
         // Tell the sprite renderer to flip/unflip the sprite
-        characterRenderer.flipX = !characterRenderer.flipX;
+        if (ValidateReferences(CharacterRenderer))
+        {
+            CharacterRenderer.flipX = !CharacterRenderer.flipX;
+        }
         Light(39);
     }
 
     private bool CheckForCliff()
     {
-        // Dont turn around if we're already falling
-        if (groundObject == null) return false;
+        // Dont turn around if we're already falling or have no collider
+        if (groundObject == null || !ValidateReferences(CharacterCollider)) return false;
 
-        Light(47, Color.blue);
+        Light(47, UnityEngine.Color.blue);
         // To tell if there's a cliff in front of us, we'll use a box cast
         // For the offset, we'll add cliffCheckDistance to the front of the enemy
-        float boxCastOffset = characterCollider.bounds.size.x + cliffCheckDistance;
+        float boxCastOffset = CharacterCollider.bounds.size.x + CliffCheckDistance;
         Light(50);
-        Vector2 boxCastOrigin = (Vector2) characterCollider.bounds.center + (boxCastOffset * direction);
+        Vector2 boxCastOrigin = (Vector2) CharacterCollider.bounds.center + (boxCastOffset * direction);
         Light(51);
 
         // For the size, we'll just use the enemy's size
-        Vector2 boxCastSize = characterCollider.bounds.size;
+        Vector2 boxCastSize = CharacterCollider.bounds.size;
         Light(54);
 
         // We want the box to not be straight, and to extend one unit down
@@ -74,22 +104,47 @@ public class Koopa : CharacterController
         Light(57);
         Vector2 boxCastDirection = Vector2.down;
         Light(59);
-        float boxCastDistance = 1f;
+        float boxCastDistance = GroundCheckDistance;
         Light(60);
 
         // We'll output any ground it hits into boxCastHit
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(boxCastOrigin, boxCastSize, boxCastAngle, boxCastDirection, boxCastDistance, groundLayer);
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(boxCastOrigin, boxCastSize, boxCastAngle, boxCastDirection, boxCastDistance, GroundLayer);
         Light(62);
 
         // If no ground was hit (besides ourselves), we're at a cliff
-        Light(65, Color.blue);
+        Light(65, UnityEngine.Color.blue);
         foreach (RaycastHit2D hit in boxCastHit)
         {
-            if (hit.rigidbody != characterBody)
+            if (hit.rigidbody != CharacterBody)
             {
                 return false;
             }
         }
         return true;
     }
+
+    //This is generated by ChatGPT and somewhat wrong but useful for debugging or for reference when making fake gizmos
+    /*
+    void OnDrawGizmos()
+    {
+        if (CharacterCollider == null) return;
+
+        // Calculate parameters for Gizmos similar to how they are calculated for BoxCast
+        float boxCastOffset = CharacterCollider.bounds.size.x + CliffCheckDistance;
+        Vector2 boxCastOrigin = (Vector2)CharacterCollider.bounds.center + (boxCastOffset * direction);
+        Vector2 boxCastSize = CharacterCollider.bounds.size;
+        float boxCastAngle = 0f;
+        float boxCastDistance = 0.2f;
+
+        // Convert angle from degrees to quaternion for Gizmo rotation
+        Quaternion rotation = Quaternion.Euler(0, 0, boxCastAngle);
+
+        // Adjust the origin downward by half the height to start the box from the bottom of the collider, not the center
+        Vector3 adjustedOrigin = new Vector3(boxCastOrigin.x, boxCastOrigin.y - boxCastSize.y / 2 - boxCastDistance / 2, 0);
+
+        // Draw the box cast area using Gizmos
+        Gizmos.matrix = Matrix4x4.TRS(adjustedOrigin, rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, new Vector3(boxCastSize.x, boxCastDistance, 0.01f)); // Only extend the box to visualize the downward cast
+    }
+    */
 }

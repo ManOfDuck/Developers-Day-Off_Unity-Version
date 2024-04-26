@@ -45,11 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edbd43fe5e364170a7dfb3315d7a055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpBufferTime: 0.2
   moveInput: {x: 0, y: 0}
-  jumpBufferActive: 0
   jumpHeld: 1
-  mousePos: {x: 0, y: 0}
   OnJumpPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -216,7 +213,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6387954861479389581}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: MouseClicked
+        m_MethodName: Click
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -232,7 +229,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6387954861479389581}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: SetMousePos
+        m_MethodName: UpdateMousePos
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

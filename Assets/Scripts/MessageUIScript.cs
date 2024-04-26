@@ -38,7 +38,6 @@ public class MessageUIScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && GameManager.Instance.CurrentGameState == GameManager.GameState.Cutscene)
         {
-            Debug.Log("conversatin");
             conversationPosition++;
             conversation();
         }
@@ -49,7 +48,6 @@ public class MessageUIScript : MonoBehaviour
     {
         if(other.tag == "UnRootable" || other.tag == "Player")
         {
-            Debug.Log("trigger hit");
             StartCoroutine(DoTimer());
         }
     }

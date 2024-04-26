@@ -9,13 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1641151438760214253}
+  - component: {fileID: 1362171962355607652}
+  - component: {fileID: 5235406433781951832}
   - component: {fileID: 1641151438760214250}
+  - component: {fileID: 8068791267801314522}
+  - component: {fileID: 7479025438316269261}
+  - component: {fileID: 823208840449642383}
+  - component: {fileID: -8221849723351094489}
+  - component: {fileID: 8215418529833647588}
   - component: {fileID: 1641151438760214251}
   - component: {fileID: 1641151438760214249}
-  - component: {fileID: 1641151438760214252}
-  - component: {fileID: 7479025438316269261}
-  - component: {fileID: 5235406433781951832}
-  - component: {fileID: 2836611925539128070}
   m_Layer: 3
   m_Name: Patrol Enemy
   m_TagString: CordBlocking
@@ -38,6 +41,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1362171962355607652
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641151438760214246}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.3333334, y: 1.3333334}
+    newSize: {x: 1.3333334, y: 1.3333334}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.3333334, y: 1.3333334}
+  m_EdgeRadius: 0
+--- !u!114 &5235406433781951832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641151438760214246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 1
+  clickTrigger: {fileID: 1362171962355607652}
+  _components: []
+  defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
+  sprite1: {fileID: 866235571, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
 --- !u!212 &1641151438760214250
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +136,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1641151438760214251
+--- !u!114 &8068791267801314522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,17 +145,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641151438760214246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55385b2cc14714a9990b3cfd00730a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d74ba9a057d4c86b5e8cd132cee290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 11400000, guid: 2d803d5ee6cf248309da874d9959cfa8, type: 2}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  patrolPoints: []
-  speed: 5
-  waitTime: 1
-  body: {fileID: 1641151438760214252}
---- !u!114 &1641151438760214249
+  visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
+  _wrappedComponent: {fileID: 1641151438760214250}
+--- !u!58 &7479025438316269261
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641151438760214246}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &823208840449642383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,14 +175,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641151438760214246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
+  m_Script: {fileID: 11500000, guid: 49ce22aefef004bd8a1b4510a4b62cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 11400000, guid: 25f626f50ec6542fbb511536defb2874, type: 2}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  enemyCollider: {fileID: 0}
---- !u!50 &1641151438760214252
+  visualComponent: {fileID: 11400000, guid: e582f1bd7f68f4b76871eb897435ff60, type: 2}
+  _wrappedComponent: {fileID: 7479025438316269261}
+--- !u!50 &-8221849723351094489
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -146,23 +201,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &7479025438316269261
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641151438760214246}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &5235406433781951832
+--- !u!114 &8215418529833647588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,37 +210,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641151438760214246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 40df338304d4345e5a7fcbfbb8d15598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components:
-  - realComponent: {fileID: 1641151438760214253}
-    visualComponent: {fileID: 11400000, guid: 02b3cf9288d03de45ab501d6e004422e, type: 2}
-  - realComponent: {fileID: 1641151438760214250}
-    visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
-  - realComponent: {fileID: 1641151438760214252}
-    visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
-  - realComponent: {fileID: 7479025438316269261}
-    visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
-  scripts:
-  - {fileID: 1641151438760214251}
-  - {fileID: 1641151438760214249}
-  clickTrigger: {fileID: 2836611925539128070}
-  defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
-  sprite1: {fileID: 866235571, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
---- !u!58 &2836611925539128070
-CircleCollider2D:
+  visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
+  _wrappedComponent: {fileID: -8221849723351094489}
+--- !u!114 &1641151438760214251
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641151438760214246}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.6
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55385b2cc14714a9990b3cfd00730a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualComponent: {fileID: 11400000, guid: eb7b3e6df2d9b4928b7b72da6337965b, type: 2}
+  _patrolPoints: []
+  _speed: 5
+  _waitTime: 0
+  _body: {fileID: 0}
+--- !u!114 &1641151438760214249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641151438760214246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualComponent: {fileID: 11400000, guid: 23bd509692f14433887fb5bff61bbcf7, type: 2}
