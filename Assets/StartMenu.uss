@@ -1,4 +1,4 @@
-menu_button {
+.menu_button {
     margin-left: 3px;
     margin-right: 40px;
     margin-top: 10px;
@@ -8,4 +8,81 @@ menu_button {
     padding-top: 25px;
     padding-bottom: 25px;
     width: 374px;
+    color: rgb(47, 47, 47);
+    background-color: rgb(56, 56, 56);
+}
+
+.menu_button:hover {
+    margin-left: 3px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 374px;
+    color: rgb(47, 47, 47);
+    rotate: 3deg;
+    scale: 1.1 1.1;
+    transition-duration: 0.3s;
+    background-color: rgb(88, 88, 88);
+    transition-property: all;
+    transition-timing-function: ease;
+}
+
+.menu_button:active {
+    margin-left: 3px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 374px;
+    color: rgb(218, 248, 255);
+    rotate: 5deg;
+    scale: 1.1 1.1;
+    background-color: rgb(196, 196, 196);
+    transition-duration: 0.1s;
+}
+
+.title_text {
+    white-space: normal;
+    -unity-text-align: upper-center;
+    -unity-font-style: normal;
+    font-size: 178px;
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter.otf?fileID=12800000&guid=23931850f4846e641bb59c035fcbf4a8&type=3#Cracker Winter');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter%20SDF.asset?fileID=11400000&guid=062172f3068469848a97b2d25f7291c6&type=2#Cracker Winter SDF');
+    color: rgb(255, 255, 255);
+    margin-left: -5%;
+    margin-right: 0;
+    margin-top: 3%;
+    margin-bottom: 0;
+    -unity-text-outline-width: 8px;
+    -unity-text-outline-color: rgb(32, 32, 32);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title_text:hover {
+    white-space: normal;
+    -unity-text-align: upper-center;
+    -unity-font-style: normal;
+    font-size: 178px;
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter.otf?fileID=12800000&guid=23931850f4846e641bb59c035fcbf4a8&type=3#Cracker Winter');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter%20SDF.asset?fileID=11400000&guid=062172f3068469848a97b2d25f7291c6&type=2#Cracker Winter SDF');
+    color: rgb(255, 255, 255);
+    margin-left: -5%;
+    margin-right: 0;
+    margin-top: 3%;
+    margin-bottom: 0;
+    -unity-text-outline-width: 8px;
+    -unity-text-outline-color: rgb(32, 32, 32);
+    justify-content: space-between;
+    align-items: center;
+    scale: 1.02 1.02;
+    transition-duration: 1s;
+    transition-timing-function: ease;
 }

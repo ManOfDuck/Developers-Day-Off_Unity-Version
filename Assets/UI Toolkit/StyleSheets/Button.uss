@@ -1,4 +1,22 @@
 .Button {
     width: 30%;
     font-size: 48px;
+    background-color: rgba(42, 42, 42, 255);
+}
+
+.Button:hover {
+    width: 30%;
+    font-size: 48px;
+    background-color: rgb(81, 81, 81);
+    rotate: 3deg;
+    scale: 1.1 1.1;
+}
+
+.Button:active {
+    width: 30%;
+    font-size: 48px;
+    background-color: rgb(196, 196, 196);
+    rotate: 5deg;
+    scale: 1.1 1.1;
+    transition-duration: 0.1s;
 }
