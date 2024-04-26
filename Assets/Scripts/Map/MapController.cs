@@ -71,7 +71,9 @@ public class MapController : TraversePath
             StopCoroutine(moveCoroutine);
             int startingPoint = currentPath.Count - currentPoint;
             currentPath.Reverse();
-            moveCoroutine = Move(currentPath, startingPoint);
+
+            bool loop = currentPath[^1] == currentPath[0] && !PathManager.Instance.IsPositionStoppingPoint(currentPath[0]);
+            moveCoroutine = Move(currentPath, startingPoint, loop);
             StartCoroutine(moveCoroutine);
         }
 
@@ -90,7 +92,8 @@ public class MapController : TraversePath
             }
 
             currentPath = path;
-            moveCoroutine = Move(currentPath);
+            bool loop = currentPath[^1] == currentPath[0] && !PathManager.Instance.IsPositionStoppingPoint(currentPath[0]);
+            moveCoroutine = Move(currentPath, 0, loop);
             StartCoroutine(moveCoroutine);
         }
     }

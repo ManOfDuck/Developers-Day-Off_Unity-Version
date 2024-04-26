@@ -134,6 +134,20 @@ public class PathManager : MonoBehaviour
         return path;
     }
 
+    public bool IsPositionStoppingPoint(Vector2 position)
+    {
+        Vector3Int cellPosition = pathmap.WorldToCell(position);
+        TileBase tile = pathmap.GetTile(cellPosition);
+        ConnectionDirections connections = ConnectionsFromTile[tile];
+        int numConnections = 0;
+        if ((connections & ConnectionDirections.Up) != 0) numConnections++;
+        if ((connections & ConnectionDirections.Down) != 0) numConnections++;
+        if ((connections & ConnectionDirections.Left) != 0) numConnections++;
+        if ((connections & ConnectionDirections.Right) != 0) numConnections++;
+
+        return numConnections > 2 || levelmap.GetTile(cellPosition) != null;
+    }
+
     private Vector2 GetCellCenter(Vector3Int cellPosition)
     {
         Vector2 position = pathmap.CellToWorld(cellPosition);
