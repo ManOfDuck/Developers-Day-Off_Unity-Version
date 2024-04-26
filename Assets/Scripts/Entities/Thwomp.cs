@@ -50,6 +50,7 @@ public class Thwomp : MonoBehaviour
     void MoveUp(Vector3 originalPosition)
     {
         //move to original position
-        rigidbody.position = Vector3.MoveTowards(rigidbody.position, originalPosition, 0.1f);
+        rigidbody.position = Vector3.MoveTowards(rigidbody.position, originalPosition, 7f);
+        
     }
 }
