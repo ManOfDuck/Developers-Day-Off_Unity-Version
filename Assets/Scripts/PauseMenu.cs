@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private UIDocument UIDoc;
 
 
-    private VisualElement root;
+    private VisualElement root, pauseParent;
     private Button resumeButton;
     private Button quitButton;
 
@@ -22,12 +22,15 @@ public class PauseMenu : MonoBehaviour
         root = UIDoc.rootVisualElement;
         root.style.visibility = Visibility.Hidden;
 
+        pauseParent = UIDoc.rootVisualElement.Q<VisualElement>("PauseParent");
+
         resumeButton = UIDoc.rootVisualElement.Q<Button>("Resume");
         quitButton = UIDoc.rootVisualElement.Q<Button>("Quit");
 
         resumeButton.clicked += ResumeClicked;
         quitButton.clicked += quitClicked;
 
+        pauseParent.AddToClassList("menuUp");
         //root.style.visibility = Visibility.Hidden;
     }
 
@@ -39,12 +42,15 @@ public class PauseMenu : MonoBehaviour
 
     private void HideMenu()
     {
-       root.style.visibility = Visibility.Hidden;
+        pauseParent.AddToClassList("menuUp");
+        root.style.visibility = Visibility.Hidden;
+        
     }
 
     private void ShowMenu()
     {
         root.style.visibility = Visibility.Visible;
+        pauseParent.RemoveFromClassList("menuUp");
     }
 
     private void quitClicked()
