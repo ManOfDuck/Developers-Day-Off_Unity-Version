@@ -10,6 +10,7 @@ public class Thwomp : MonoBehaviour
 
     Vector3 startPos;
     Rigidbody2D rigidbody;
+    bool outOfPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,15 @@ public class Thwomp : MonoBehaviour
             Debug.Log("we hit something " + hit.collider.tag);
             MoveDown();
         }
+        else if(outOfPosition == true)
+        {
+            rigidbody.velocity = Vector2.up * 7;
+            if(rigidbody.position.y >= startPos.y)
+            {
+                rigidbody.velocity = new Vector2(0, 0);
+                outOfPosition = false;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -50,7 +60,7 @@ public class Thwomp : MonoBehaviour
     void MoveUp(Vector3 originalPosition)
     {
         //move to original position
-        rigidbody.position = Vector3.MoveTowards(rigidbody.position, originalPosition, 7f);
-        
+        //rigidbody.position = Vector3.MoveTowards(rigidbody.position, originalPosition, 7f);
+        outOfPosition = true;
     }
 }
