@@ -78,7 +78,7 @@ public class PlayerController : CharacterController
 
         if (!ValidateReferences(CharacterBody)) return;
 
-        Move(inputManager.moveInput);
+        Move(inputManager.MoveInput * Vector2.right);
 
         if (jumpBufferActive)
         {

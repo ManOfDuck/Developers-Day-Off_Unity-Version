@@ -6,8 +6,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public Vector2 moveInput = Vector2.zero;
-    public bool jumpHeld = false;
+    private Vector2 moveInput = Vector2.zero;
+    private bool jumpHeld = false;
+
+    public Vector2 MoveInput { get => moveInput; private set => moveInput = value; }
+    public bool JumpHeld { get => jumpHeld; private set => jumpHeld = value; }
 
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
@@ -15,9 +18,11 @@ public class InputManager : MonoBehaviour
     public Vector2 MousePosition { get; private set; }
     public Vector2 WorldMousePosition => Camera.main.ScreenToWorldPoint(MousePosition);
 
+
     public UnityEvent OnJumpPressed;
     public UnityEvent OnJumpReleased;
     public UnityEvent OnClick;
+    public UnityEvent OnInteract;
 
     private void Awake()
     {
@@ -35,7 +40,7 @@ public class InputManager : MonoBehaviour
 
     public void SetMoveInput(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>() * Vector2.right;
+        MoveInput = context.ReadValue<Vector2>();
     }
 
     public void UpdateMousePos(InputAction.CallbackContext context)
@@ -43,16 +48,24 @@ public class InputManager : MonoBehaviour
         MousePosition = context.ReadValue<Vector2>();
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnInteract.Invoke();
+        }
+    }
+
     public void SetJumpInput(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            jumpHeld = true;
+            JumpHeld = true;
             OnJumpPressed.Invoke();
         }
         if (context.canceled)
         {
-            jumpHeld = false;
+            JumpHeld = false;
             OnJumpReleased.Invoke();
         }
     }

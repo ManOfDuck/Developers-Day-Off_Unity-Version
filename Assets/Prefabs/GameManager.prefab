@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edbd43fe5e364170a7dfb3315d7a055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInput: {x: 0, y: 0}
-  jumpHeld: 1
   OnJumpPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -54,6 +52,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteract:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &176684319191619234
@@ -241,6 +242,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 71ca8711-696f-459f-9949-92b47cfde081
     m_ActionName: Player/Update Mouse Pos[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bd35559c-ed43-4d28-8b25-55d2cfe5c947
+    m_ActionName: Player/Interact[/Keyboard/e,/Keyboard/enter,/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -292,6 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspectorController: {fileID: 0}
+  levels: []
+  mapScreen: Map Screen
   OnGameStart:
     m_PersistentCalls:
       m_Calls: []

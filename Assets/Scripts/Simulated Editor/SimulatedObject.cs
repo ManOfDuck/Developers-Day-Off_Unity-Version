@@ -119,7 +119,13 @@ public class SimulatedObject : MonoBehaviour
         TryAssignReference(ref component);
 
         // If it fails, try a direct search (its possible it exists but hasn't registered itself yet)
-        if (component == null) component = (gameObject.GetComponent(wrapperClass) as ComponentWrapper<T>).DirectComponentReference as T;
+        if (component == null) {
+            ComponentWrapper<T> wrapper = gameObject.GetComponent(wrapperClass) as ComponentWrapper<T>;
+            if (wrapper != null)
+            {
+                component = wrapper.DirectComponentReference as T;
+            }
+        }
 
         // If that fails, we need to add a new one
         if (component == null)

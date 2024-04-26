@@ -8,7 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] InspectorController inspectorController;
+    [SerializeField] private InspectorController inspectorController;
+    [SerializeField] private List<Level> levels;
+    [SerializeField] private string mapScreen;
+
+    public string CurrentLevel { get; private set; }
+    public List<string> ClearedLevels { get; private set; }
 
     // TODO: PC should control these values
 
@@ -118,6 +123,29 @@ public class GameManager : MonoBehaviour
         LoadScene(currentScene);
     }
 
+    public void StartLevel(string levelName)
+    {
+        foreach(Level level in levels)
+        {
+            if (level.name == levelName)
+            {
+                LoadScene(level.firstScene);
+            }
+        }
+    }
+
+    public void ClearLevel()
+    {
+        if(CurrentLevel != null)
+            ClearedLevels.Add(CurrentLevel);
+        LoadScene(mapScreen);
+    }
+
+    public void ExitLevel()
+    {
+        LoadScene(mapScreen);
+    }
+
     public void LoadScene(string sceneName)
     {
         if (sceneName is null) return;
@@ -143,4 +171,11 @@ public class GameManager : MonoBehaviour
     {
         ResumeGame();
     }
+}
+
+[System.Serializable]
+public class Level
+{
+    public string name;
+    public string firstScene;
 }

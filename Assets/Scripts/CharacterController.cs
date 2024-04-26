@@ -95,7 +95,6 @@ public class CharacterController : SimulatedScript
     {
         base.Start();
         gameManager = GameManager.Instance;
-        ValidateReferences(CharacterBody);
     }
 
     // Update is called once per frame
