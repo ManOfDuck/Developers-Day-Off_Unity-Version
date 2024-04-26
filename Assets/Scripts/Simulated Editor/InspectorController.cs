@@ -43,6 +43,7 @@ public class InspectorController : MonoBehaviour
     private Renderer targetRenderer;
 
     public bool objectHasBeenClicked;
+    public bool isDisplaying;
 
 
     private void Awake()
@@ -104,6 +105,13 @@ public class InspectorController : MonoBehaviour
         if (currentObject == null)
         {
             return;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Debug.Log("mouse clicked");
+            root.style.visibility = Visibility.Hidden;
+            targetRenderer.material = defaultMaterial;
         }
 
         foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
