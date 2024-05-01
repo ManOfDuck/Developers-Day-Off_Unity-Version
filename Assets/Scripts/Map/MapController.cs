@@ -55,6 +55,8 @@ public class MapController : TraversePath
     // Update is called once per frame
     void Update()
     {
+        if (PathManager.Instance == null) return;
+
         UpdateAnimator();
 
         UpdateSprite();
@@ -64,6 +66,14 @@ public class MapController : TraversePath
         Vector2 movementDirection = GetMovementDirection(inputManager.MoveInput);
 
         if (!ValidateReferences(Body)) return;
+
+        if (PathManager.Instance.GetTileAtPoint(Body.position) == null)
+        {
+            Debug.Log("get outta here");
+            StopCoroutine(moveCoroutine);
+            Moving = false;
+            return;
+        }
 
         // If we move the opposite direction, stop moving so we can turn around
         if (inputManager.MoveInput == -Body.velocity.normalized)
@@ -77,7 +87,7 @@ public class MapController : TraversePath
             StartCoroutine(moveCoroutine);
         }
 
-        if (!Moving && PathManager.Instance != null)
+        if (!Moving)
         {
             List<Vector2> path = PathManager.Instance.GetPathFromPoint(Body.position, movementDirection);
 

@@ -18,6 +18,12 @@ public class PathData : ScriptableObject
     [SerializeField] private List<TileBase> _connectedRight;
     public List<TileBase> ConnectedRight => _connectedRight;
 
-    [SerializeField] private List<TileBase> _levels;
-    public List<TileBase> Levels => _levels;
+    [SerializeField] private List<TileBase> _notConnected;
+    public List<TileBase> NotConnected => _notConnected;
+
+    [SerializeField] private List<TileBase> _levelHoldingTiles;
+    public List<TileBase> LevelHoldingTiles => _levelHoldingTiles;
+
+    [SerializeField] private List<LevelTile> _levels;
+    public List<LevelTile> Levels => _levels;
 }

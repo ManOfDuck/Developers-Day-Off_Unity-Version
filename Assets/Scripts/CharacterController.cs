@@ -102,7 +102,7 @@ public class CharacterController : SimulatedScript
     {
         UpdateGroundObject();
 
-        if (!ValidateReferences(CharacterBody)) return;
+        if (!ValidateReferences(CharacterBody) || CharacterBody.bodyType == RigidbodyType2D.Kinematic) return;
 
         if (groundObject == null)
         {

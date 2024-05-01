@@ -7,12 +7,13 @@ using static UnityEditor.FilePathAttribute;
 [CreateAssetMenu]
 public class LevelTile : Tile
 {
+    public enum LevelStatus
+    {
+        Locked,
+        Unlocked,
+        Cleared
+    }
+
     [SerializeField] private string _levelName;
     public string LevelName => _levelName;
-
-    [SerializeField] private Sprite lockedSprite;
-    [SerializeField] private Sprite unlockedSprite;
-    [SerializeField] private Sprite clearedSprite;
-
-    public PathManager.ConnectionDirections EntranceDirection { get; set; }
 }
