@@ -78,6 +78,14 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void ClearLevel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            GameManager.Instance.ClearLevel();
+        }
+    }
+
     public void TogglePause(InputAction.CallbackContext context)
     {
         if (context.started)

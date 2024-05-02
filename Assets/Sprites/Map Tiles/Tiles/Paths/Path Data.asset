@@ -36,6 +36,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 105ee734209394d4a974e4fea9cd206c, type: 2}
   - {fileID: 11400000, guid: 97bc23b47298b41f68372916f4ad372c, type: 2}
   - {fileID: 11400000, guid: 5fa731bd83ebb41fd96393a92b6a51df, type: 2}
+  - {fileID: 11400000, guid: 83b7e7e501efc455aac7f792916390fb, type: 2}
   _connectedDown:
   - {fileID: 11400000, guid: 2b689c8eb27fb4f9eb441266feb1559e, type: 2}
   - {fileID: 11400000, guid: 1e9f319f365fa4b938880ec2ef194189, type: 2}
@@ -60,6 +61,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1ae2d6e0613c42fe986fce6d5bfe62c, type: 2}
   - {fileID: 11400000, guid: 97bc23b47298b41f68372916f4ad372c, type: 2}
   - {fileID: 11400000, guid: 5fa731bd83ebb41fd96393a92b6a51df, type: 2}
+  - {fileID: 11400000, guid: 83b7e7e501efc455aac7f792916390fb, type: 2}
   _connectedLeft:
   - {fileID: 11400000, guid: dbe4af85661aa4021943694c3b4d58f1, type: 2}
   - {fileID: 11400000, guid: fab841e5e25304f4e910ec077cd667b7, type: 2}
@@ -129,3 +131,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5fa731bd83ebb41fd96393a92b6a51df, type: 2}
   _levels:
   - {fileID: 11400000, guid: 9956156e40f574fd2814526edee10aac, type: 2}
+  - {fileID: 11400000, guid: e371eea657cf8453fb533d5f273b188b, type: 2}

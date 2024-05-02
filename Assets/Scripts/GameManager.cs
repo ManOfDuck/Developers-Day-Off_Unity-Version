@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
         {
             if (level.name == levelName)
             {
+                CurrentLevel = levelName;
                 LoadScene(level.firstScene);
             }
         }
@@ -136,8 +137,12 @@ public class GameManager : MonoBehaviour
 
     public void ClearLevel()
     {
-        if(CurrentLevel != null)
+        if (CurrentLevel != null)
+        {
+            Debug.Log("Level cleared: " + CurrentLevel);
+            ClearedLevels ??= new();
             ClearedLevels.Add(CurrentLevel);
+        }
         LoadScene(mapScreen);
     }
 
@@ -152,7 +157,10 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
-        inspectorController.StopDisplaying();
+        if (inspectorController)
+        {
+            inspectorController.StopDisplaying();
+        }
     }
 
     public void TogglePause()

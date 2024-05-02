@@ -131,7 +131,19 @@ MonoBehaviour:
     m_ActionId: e607eba5-836a-4534-a34e-15810f183ad2
     m_ActionName: Player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6387954861479389581}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ClearLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b249f0db-382b-4e9d-885d-76f1b6c825d8
     m_ActionName: Player/[Debug] Win!!!!1[/Keyboard/m]
   - m_PersistentCalls:

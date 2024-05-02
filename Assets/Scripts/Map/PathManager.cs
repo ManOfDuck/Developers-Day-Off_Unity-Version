@@ -37,6 +37,11 @@ public class PathManager : MonoBehaviour
     [SerializeField] private TileBase unlockedLevelTile;
     [SerializeField] private TileBase clearedLevelTile;
 
+    [Header("Visual")]
+    [SerializeField] private float lockedOpacity = 132f;
+    [SerializeField] private float unlockedOpacity = 255f;
+    [SerializeField] private float fadeSpeed = 100f;
+
     private Dictionary<TileBase, ConnectionDirections> _connectionsFromTile = new();
     public Dictionary<TileBase, ConnectionDirections> ConnectionsFromTile { get => _connectionsFromTile; private set => _connectionsFromTile = value; }
 
@@ -84,11 +89,12 @@ public class PathManager : MonoBehaviour
 
             if (level == null) continue;
 
-            if ((gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName)))
+            if (gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName))
             {
                 // We just cleared this level, lets do an animation
                 LevelStatuses[level] = LevelStatus.Cleared;
-                List<Vector3Int> newUnlockedLevels = UnlockTilesFromPoint(cell, lockedPaths, animatingPaths);
+                UnlockTilesFromPoint(cell, lockedPaths, animatingPaths);
+                StartCoroutine(AnimateTileUnlock(cell));
             }
             else
             {
@@ -98,6 +104,32 @@ public class PathManager : MonoBehaviour
             }
 
            
+        }
+    }
+
+    private IEnumerator AnimateTileUnlock(Vector3Int unlockFrom)
+    {
+        float alpha = animatingPaths.color.a;
+        while (alpha < unlockedOpacity)
+        {
+            alpha += fadeSpeed * Time.deltaTime;
+            animatingPaths.color = new Color(animatingPaths.color.r, animatingPaths.color.g, animatingPaths.color.b, alpha/255);
+            yield return null;
+        }
+        List<Vector3Int> newLevels = UnlockTilesFromPoint(unlockFrom, animatingPaths, unlockedPaths);
+        foreach (Vector3Int cell in newLevels)
+        {
+            LevelTile level = levels.GetTile(cell) as LevelTile;
+
+            Debug.Log(level);
+
+            if (level == null) continue;
+
+            if (LevelStatuses[level] == LevelStatus.Locked)
+            {
+                LevelStatuses[level] = LevelStatus.Unlocked;
+                levelVisuals.SetTile(cell, unlockedLevelTile);
+            }
         }
     }
 
@@ -146,6 +178,7 @@ public class PathManager : MonoBehaviour
             if (!unlockedPaths.HasTile(gridPosition))
             {
                 Debug.Log("begone!");
+                path.Add(GetCellCenter(gridPosition - Vector3Int.RoundToInt((Vector3)direction)));
                 return path; // Exit if out of bounds (Last tile had connection to empty space)
             }
         }
@@ -197,7 +230,11 @@ public class PathManager : MonoBehaviour
         // If this cell's tile is null or has already been found, return early
         if (!originMap.HasTile(gridPosition) || alreadyFound.Contains(gridPosition))
         {
-            //Debug.Log("Cell is null or found, returning");
+            if (!originMap.HasTile(gridPosition))
+            {
+                Debug.Log("Cell is null, returning");
+            }
+            Debug.Log("Cell is null or found, returning");
             return foundLevels; 
         }
 
@@ -226,10 +263,13 @@ public class PathManager : MonoBehaviour
                 // Add that tile beneath the level
                 destinationMap.SetTile(gridPosition, levelHolder);
 
+                Debug.Log("ADDINGQ!!!!!");
+
                 // Return this level
                 foundLevels.Add(gridPosition);
 
                 // This level hasn't been cleared, stop unlocking the path
+                Debug.Log(foundLevels.Count);
                 return foundLevels;
             }
             else
@@ -238,6 +278,8 @@ public class PathManager : MonoBehaviour
                 levelVisuals.SetTile(gridPosition, clearedLevelTile);
             }
         }
+
+
 
         // Unlock this tile
         destinationMap.SetTile(gridPosition, tile);
@@ -255,7 +297,9 @@ public class PathManager : MonoBehaviour
             //Debug.Log("searching " + DirectionFromVector(v) + " from " + gridPosition);
             Vector3Int newGridPosition = gridPosition + Vector3Int.CeilToInt(v);
             foundLevels.AddRange(UnlockTilesFromPoint(newGridPosition, originMap, destinationMap, v, alreadyFound));
+            Debug.Log(foundLevels.Count);
         }
+        Debug.Log("hi" + foundLevels.Count);
         return foundLevels;
     }
 
