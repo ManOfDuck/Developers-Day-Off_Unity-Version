@@ -230,11 +230,6 @@ public class PathManager : MonoBehaviour
         // If this cell's tile is null or has already been found, return early
         if (!originMap.HasTile(gridPosition) || alreadyFound.Contains(gridPosition))
         {
-            if (!originMap.HasTile(gridPosition))
-            {
-                Debug.Log("Cell is null, returning");
-            }
-            Debug.Log("Cell is null or found, returning");
             return foundLevels; 
         }
 
@@ -243,10 +238,8 @@ public class PathManager : MonoBehaviour
             // If the level is uncleared, stop this path (dont unlock the tile beneath it)
             if (LevelStatuses[level] != LevelStatus.Cleared)
             {
-                Debug.Log("adding connection: " + DirectionFromVector(-searchingFrom));
                 // Add this connection to the level tile
                 ConnectionsFromTile[level] |= DirectionFromVector(-searchingFrom);
-                Debug.Log("connections: " + ConnectionsFromTile[level]);
 
 
                 TileBase levelHolder = null;
@@ -262,8 +255,6 @@ public class PathManager : MonoBehaviour
                 }
                 // Add that tile beneath the level
                 destinationMap.SetTile(gridPosition, levelHolder);
-
-                Debug.Log("ADDINGQ!!!!!");
 
                 // Return this level
                 foundLevels.Add(gridPosition);
@@ -297,9 +288,7 @@ public class PathManager : MonoBehaviour
             //Debug.Log("searching " + DirectionFromVector(v) + " from " + gridPosition);
             Vector3Int newGridPosition = gridPosition + Vector3Int.CeilToInt(v);
             foundLevels.AddRange(UnlockTilesFromPoint(newGridPosition, originMap, destinationMap, v, alreadyFound));
-            Debug.Log(foundLevels.Count);
         }
-        Debug.Log("hi" + foundLevels.Count);
         return foundLevels;
     }
 

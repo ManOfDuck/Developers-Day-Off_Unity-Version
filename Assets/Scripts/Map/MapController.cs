@@ -39,6 +39,11 @@ public class MapController : TraversePath
         gameManager = GameManager.Instance;
         inputManager = InputManager.Instance;
         inputManager.OnInteract.AddListener(Interact);
+
+        if (gameManager.MapSpawnPoint != Vector2.zero)
+        {
+            transform.position = gameManager.MapSpawnPoint;
+        }
     }
 
     private void Interact()
@@ -48,6 +53,7 @@ public class MapController : TraversePath
         LevelTile tile = PathManager.Instance.GetLevelTileAtPoint(Body.position);
         if (tile)
         {
+            gameManager.MapSpawnPoint = transform.position;
             gameManager.StartLevel(tile.LevelName);
         }
     }

@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public static PlayerController Player { get { return PlayerSpawn.Player;  } }
 
+    public Vector2 MapSpawnPoint { get; set; }
+
     public enum GameState
     {
         Playing, Paused, Cutscene
