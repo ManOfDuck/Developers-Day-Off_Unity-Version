@@ -1,5 +1,5 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement name="input_space" class="editing_field">
-        <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="filler text" name="input" readonly="false" multiline="false" style="height: 22px; margin-top: 9px; margin-bottom: 7px; -unity-text-align: upper-center; color: rgb(223, 223, 223); margin-right: 40px; margin-left: 16px;" />
+        <ui:TextField picking-mode="Ignore" label="Text Field" value="0" text="filler text" name="input" readonly="false" multiline="false" style="height: 22px; margin-top: 9px; margin-bottom: 7px; -unity-text-align: upper-center; color: rgb(223, 223, 223); margin-right: 40px; margin-left: 16px;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,9 +1,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Windows;
 
 public class InspectorController : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class InspectorController : MonoBehaviour
     public UIDocument mainUIDocument;
 
     public VisualTreeAsset componentTemplate;
+    [SerializeField] private VisualTreeAsset _vectorFieldTemplate;
+    public VisualTreeAsset VectorFieldTemplate => _vectorFieldTemplate;
+    [SerializeField] private VisualTreeAsset _floatFieldTemplate;
+    public VisualTreeAsset FloatFieldTemplate => _floatFieldTemplate;
 
     public Color trueColor;
     public Color falseColor;
@@ -34,6 +40,7 @@ public class InspectorController : MonoBehaviour
     private Sprite globalSpriteDefault, globalSprite1;
     private List<VisualElement> componentDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
+    private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
@@ -102,6 +109,16 @@ public class InspectorController : MonoBehaviour
             SimulatedComponent component = kvp.Value;
             component.SetComponentEnabledStatus(toggle.value);
         }
+
+        foreach (KeyValuePair<TextField, (SimulatedComponent, PropertyInfo)> kvp in floatBindings)
+        {
+            TextField field = kvp.Key;
+            SimulatedComponent component = kvp.Value.Item1;
+            PropertyInfo property = kvp.Value.Item2;
+            Debug.Log(float.Parse(field.value).GetType()); // System.single
+            Debug.Log(property.PropertyType); // System.single
+            property.SetValue(component, float.Parse(field.value));
+        }
     }
 
     public void DisplayObject(SimulatedObject objectToDisplay)
@@ -130,6 +147,7 @@ public class InspectorController : MonoBehaviour
         {
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
+            AddComponentFields(component, componentDisplay);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
@@ -159,6 +177,40 @@ public class InspectorController : MonoBehaviour
         else if (toggle is not null)
         {
             toggle.style.opacity = 0;
+        }
+    }
+
+    private void AddComponentFields(SimulatedComponent component, VisualElement componentDisplay)
+    {
+        VisualElement fieldSpace = componentDisplay.Q<VisualElement>("Fields");
+        if (fieldSpace == null) return;
+        if (component is not SimulatedScript) return;
+
+        BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+        PropertyInfo[] componentProperties = component.GetType().GetProperties(flags);
+
+        foreach (PropertyInfo property in componentProperties)
+        {
+            Debug.Log(property.Name);
+            if (property.PropertyType == typeof(List<Vector2>))
+            {
+                VisualElement vectorField = InspectorController.Instance.VectorFieldTemplate.CloneTree();
+                fieldSpace.Add(vectorField);
+
+                TextField XField = vectorField.Q<TextField>("X");
+                Debug.Log(XField);
+            }
+            if (property.PropertyType == typeof(float))
+            {
+                VisualElement floatField = InspectorController.Instance.FloatFieldTemplate.CloneTree();
+                fieldSpace.Add(floatField);
+
+                TextField input = floatField.Q<TextField>("input");
+
+                input.value = property.GetValue(component).ToString();
+                input.label = property.Name;
+                floatBindings.Add(input, (component, property));
+            }
         }
     }
 

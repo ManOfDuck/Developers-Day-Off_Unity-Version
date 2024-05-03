@@ -1,5 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="Text Field" src="project://database/Assets/UI%20Toolkit/Templates/Text%20Field.uxml?fileID=9197481963319205126&amp;guid=01d173f002ed34bfab5bf139fc0c63bc&amp;type=3#Text Field" />
     <Style src="project://database/Assets/componentuss.uss?fileID=7433441132597879392&amp;guid=e32455b1ebdb42a42a3ac763dd2bf396&amp;type=3#componentuss" />
     <ui:VisualElement name="component" style="height: auto; background-color: rgb(56, 56, 56); justify-content: space-around;">
         <ui:VisualElement name="header" style="height: 27%; width: 100%; flex-direction: row; background-color: rgb(34, 34, 34); border-bottom-width: 1px; border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 1%; flex-shrink: 1; margin-left: 0; padding-left: 3%; padding-right: 0; padding-top: 2%; padding-bottom: 2%;">
@@ -8,9 +7,6 @@
             <ui:Label text="Component" display-tooltip-when-elided="true" name="label" style="padding-top: 0; font-size: 23px; padding-left: 0; color: rgb(223, 223, 223); margin-left: 2%; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-bottom: 0; height: 27px; -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&amp;guid=b707aa2e6dfa52b41aa64d7283a38939&amp;type=3#Alphakind&apos;);" />
         </ui:VisualElement>
         <ui:Label text="Description Description \nDescription Description " display-tooltip-when-elided="true" name="desc" style="margin-left: 12%; font-size: 23px; color: rgb(125, 125, 125); margin-top: 0; margin-right: 0; padding-right: 2%; margin-bottom: 1px; padding-left: 0; padding-top: 2%; padding-bottom: 2%; height: 43%; -unity-text-align: middle-left;" />
-        <ui:VisualElement name="dropdown_space" style="justify-content: space-around; height: auto;">
-            <ui:DropdownField label="Dropdown" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="dropdown" class="editing_field" style="margin-left: 4%; margin-right: 12%; margin-top: 7px; margin-bottom: 7px; -unity-text-align: upper-center; height: 21px;" />
-        </ui:VisualElement>
-        <ui:Instance template="Text Field" name="Text Field" />
+        <ui:VisualElement name="Fields" />
     </ui:VisualElement>
 </ui:UXML>

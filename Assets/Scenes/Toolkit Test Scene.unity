@@ -10215,6 +10215,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.457
       objectReference: {fileID: 0}
+    - target: {fileID: 7323458776770634782, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
+      propertyPath: _floatFieldTemplate
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 01d173f002ed34bfab5bf139fc0c63bc, type: 3}
+    - target: {fileID: 7323458776770634782, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
+      propertyPath: _vectorFieldTemplate
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 83806aaf1e90543c3b763cfd8d64b70b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
 --- !u!1 &683428227 stripped

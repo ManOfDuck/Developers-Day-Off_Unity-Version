@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="dropdown_space" style="justify-content: space-around; height: auto;">
+        <ui:DropdownField label="Dropdown" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="dropdown" class="editing_field" style="margin-left: 4%; margin-right: 12%; margin-top: 7px; margin-bottom: 7px; -unity-text-align: upper-center; height: 21px;" />
+    </ui:VisualElement>
+</ui:UXML>

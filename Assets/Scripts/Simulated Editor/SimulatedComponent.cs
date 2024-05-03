@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,6 +44,7 @@ public abstract class SimulatedComponent : MonoBehaviour
 
     public virtual VisualElement GetComponentDisplay(SimulatedComponent component, VisualTreeAsset template)
     {
+        Debug.Log(this.GetType().Name + "HIEHWIHFOWFIOJHIOHFIOAJOIFJOJ");
         VisualComponent visualComponent = component.VisualComponent;
 
         VisualElement componentDisplay = template.CloneTree();
@@ -53,6 +55,7 @@ public abstract class SimulatedComponent : MonoBehaviour
         icon.style.backgroundImage = visualComponent.image.texture;
         label.text = visualComponent.title;
         description.text = visualComponent.description;
+
 
         return componentDisplay;
     }
