@@ -1,4 +1,74 @@
 .Button {
+    width: auto;
+    font-size: 66px;
+    background-color: rgb(42, 42, 42);
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&guid=b707aa2e6dfa52b41aa64d7283a38939&type=3#Alphakind');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&guid=0c45bef536dd8bd4c9ba0ef64a01b274&type=2#Alphakind SDF');
+    color: rgba(255, 255, 255, 255);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 51px;
+    padding-right: 51px;
+    padding-top: 19px;
+    padding-bottom: 19px;
+}
+
+.Button:hover {
     width: 30%;
     font-size: 48px;
+    background-color: rgb(77, 77, 77);
+    rotate: 3deg;
+    scale: 1.1 1.1;
+}
+
+.Button:active {
+    width: 30%;
+    font-size: 48px;
+    background-color: rgb(196, 196, 196);
+    rotate: 5deg;
+    scale: 1.1 1.1;
+    transition-duration: 0.1s;
+}
+
+.menu {
+    height: 100%;
+    align-items: center;
+    background-color: rgba(42, 42, 42, 0.85);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 51px;
+    border-bottom-left-radius: 51px;
+    border-top-right-radius: 51px;
+    border-bottom-right-radius: 51px;
+    width: auto;
+    margin-left: 16%;
+    margin-right: 16%;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    transition-duration: 0.7s;
+}
+
+.menuUp {
+    translate: 0 -1292px;
+    background-color: rgb(34, 34, 34);
+    opacity: 1;
+    transition-duration: 0.7s;
+}
+
+.settingsText {
+    font-size: 55px;
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&guid=0c45bef536dd8bd4c9ba0ef64a01b274&type=2#Alphakind SDF');
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&guid=b707aa2e6dfa52b41aa64d7283a38939&type=3#Alphakind');
+    color: rgb(255, 255, 255);
+}
+
+.unity-slider {
+    background-color: rgba(26, 198, 105, 0);
+}
+
+.unity-toggle {
 }
