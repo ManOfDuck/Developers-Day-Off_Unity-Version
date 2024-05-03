@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="input_space" class="editing_field" style="flex-direction: row;">
+        <ui:Label text="VECTOR!!!!!" display-tooltip-when-elided="true" />
+        <ui:TextField picking-mode="Ignore" label="X" value="filler text" text="filler text" name="X" readonly="false" multiline="false" style="height: 22px; margin-top: 9px; margin-bottom: 7px; -unity-text-align: upper-right; color: rgb(223, 223, 223); margin-right: 40px; margin-left: 16px;" />
+        <ui:TextField picking-mode="Ignore" label="Y" value="filler text" text="filler text" name="Y" readonly="false" multiline="false" style="height: 22px; margin-top: 9px; margin-bottom: 7px; -unity-text-align: upper-right; color: rgb(223, 223, 223); margin-right: 40px; margin-left: 16px; width: 192px; align-items: center; justify-content: space-between;" />
+    </ui:VisualElement>
+</ui:UXML>
