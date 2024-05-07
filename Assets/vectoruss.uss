@@ -1,0 +1,29 @@
+.unity-text-field {
+    min-width: auto;
+    max-width: none;
+    width: 111px;
+    margin-left: 0;
+    -unity-text-align: middle-center;
+    margin-top: 0;
+}
+
+.unity-base-field {
+    margin-left: 9px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    -unity-text-align: upper-center;
+}
+
+.unity-text-field__label {
+    margin-left: -122px;
+    margin-right: 9px;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-text-align: upper-right;
+    font-size: 14px;
+}
