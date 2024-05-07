@@ -427,10 +427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 0}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  enemyCollider: {fileID: 206749782}
+  visualComponent: {fileID: 0}
+  startEnabled: 1
 --- !u!66 &206749782
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -9867,6 +9865,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.457
       objectReference: {fileID: 0}
+    - target: {fileID: 7323458776770634782, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
+      propertyPath: _floatFieldTemplate
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 01d173f002ed34bfab5bf139fc0c63bc, type: 3}
+    - target: {fileID: 7323458776770634782, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
+      propertyPath: _vectorFieldTemplate
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 83806aaf1e90543c3b763cfd8d64b70b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
 --- !u!1 &683428227 stripped
@@ -9915,14 +9921,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55385b2cc14714a9990b3cfd00730a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 11400000, guid: 2d803d5ee6cf248309da874d9959cfa8, type: 2}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  patrolPoints:
-  - {x: 5, y: 0}
-  speed: 5
-  waitTime: 1
-  body: {fileID: 683428234}
+  visualComponent: {fileID: 0}
+  startEnabled: 1
+  _speed: 0
+  _waitTime: 0
+  _body: {fileID: 0}
+  _patrolPoints: []
 --- !u!50 &683428234
 Rigidbody2D:
   serializedVersion: 4
@@ -68080,6 +68084,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Patrol Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: _patrolPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+      propertyPath: _patrolPoints.Array.data[0].y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1641151438760214253, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -68132,8 +68144,7 @@ PrefabInstance:
       propertyPath: scripts.Array.data[0]
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1641151438760214251, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 690f86860ce4e464084c30cdcc097c58, type: 3}
 --- !u!114 &1667212545 stripped
 MonoBehaviour:

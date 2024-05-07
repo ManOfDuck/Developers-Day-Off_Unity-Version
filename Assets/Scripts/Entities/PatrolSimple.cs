@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : TraversePath
+// Version of patrol with only one patrol point, just to make things easier to develop ya hear
+public class PatrolSimple : TraversePath
 {
     protected override string DefaultVisualComponentName => "Patrol";
 
@@ -19,20 +20,24 @@ public class Patrol : TraversePath
         }
         set
         {
-            // Update the patrolPoints field
-            _patrolPoints = value;
-
-            // If the coroutine hasn't started, we're good
-            if (moveCoroutine != null)
+            // If we've changed the amount of points or location of the next point, we need to update the coroutine accordingly
+            if (value.Count == 0 || value.Count != _patrolPoints.Count || value[currentPoint] != _patrolPoints[currentPoint])
             {
-                // Stop the existing coroutine
-                StopCoroutine(moveCoroutine);
+                // Update the patrolPoints field
+                _patrolPoints = value;
 
-                // We should stay at the same progress through the point list if possible
-                int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
+                // If the coroutine hasn't started, we're good
+                if (moveCoroutine != null)
+                {
+                    // Stop the existing coroutine
+                    StopCoroutine(moveCoroutine);
 
-                // Start the coroutine at the adjusted index
-                StartMove(startingPoint);
+                    // We should stay at the same progress through the point list if possible
+                    int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
+
+                    // Start the coroutine at the adjusted index
+                    StartMove(startingPoint);
+                }
             }
         }
     }
@@ -63,7 +68,7 @@ public class Patrol : TraversePath
             adjustedPoints.Add(Vector2.zero);
         }
 
-        for(int i = 0; i < adjustedPoints.Count; i++)
+        for (int i = 0; i < adjustedPoints.Count; i++)
         {
             adjustedPoints[i] += initPos;
         }

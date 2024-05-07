@@ -41,6 +41,8 @@ public class InspectorController : MonoBehaviour
     private List<VisualElement> componentDisplays = new();
     private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
     private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
+    private Dictionary<TextField, string> lastFrameFieldValues = new();
+    private Dictionary<(TextField, TextField), (SimulatedComponent, PropertyInfo)> vectorArrayBindings = new();
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
@@ -110,16 +112,86 @@ public class InspectorController : MonoBehaviour
             component.SetComponentEnabledStatus(toggle.value);
         }
 
+        #region Kindly Ignore :)
+        // Hello welcome to my code
         foreach (KeyValuePair<TextField, (SimulatedComponent, PropertyInfo)> kvp in floatBindings)
         {
             TextField field = kvp.Key;
-            SimulatedComponent component = kvp.Value.Item1;
-            PropertyInfo property = kvp.Value.Item2;
-            Debug.Log(float.Parse(field.value).GetType()); // System.single
-            Debug.Log(property.PropertyType); // System.single
-            property.SetValue(component, float.Parse(field.value));
+
+            if (!lastFrameFieldValues.ContainsKey(field) || lastFrameFieldValues[field] != field.value)
+            {
+                SimulatedComponent component = kvp.Value.Item1;
+                PropertyInfo property = kvp.Value.Item2;
+
+                try
+                {
+                    float value = field.value == "" ? 0 : float.Parse(field.value);
+                    property.SetValue(component, value);
+                    lastFrameFieldValues[field] = field.value;
+                }
+                catch (System.Exception)
+                {
+                    if (field.value != "-")
+                        field.value = lastFrameFieldValues[field];
+                }
+
+                Debug.Log(field.value);
+                
+            }
         }
+
+        // Hello welcome to my code (2)
+        foreach (KeyValuePair<(TextField, TextField), (SimulatedComponent, PropertyInfo)> kvp in vectorArrayBindings){
+            TextField xField = kvp.Key.Item1;
+            TextField yField = kvp.Key.Item2;
+
+            if (!lastFrameFieldValues.ContainsKey(xField) || lastFrameFieldValues[xField] != xField.value)
+            {
+                SimulatedComponent component = kvp.Value.Item1;
+                PropertyInfo property = kvp.Value.Item2;
+
+                try
+                {
+                    float value = float.Parse(xField.value);
+                    lastFrameFieldValues[xField] = xField.value;
+                    property.SetValue(component, new List<Vector2> { new Vector2(value, (property.GetValue(component) as List<Vector2>)[0].y)});
+                }
+                catch (System.Exception)
+                {
+                    // Allowed temp values
+                    if (xField.value != "" && xField.value != "-")
+                        xField.value = lastFrameFieldValues[xField];
+                }
+
+                Debug.Log("X " + xField.value);
+            }
+
+            // TODO add more copy + pasted code
+            if (!lastFrameFieldValues.ContainsKey(yField) || lastFrameFieldValues[yField] != yField.value)
+            {
+                SimulatedComponent component = kvp.Value.Item1;
+                PropertyInfo property = kvp.Value.Item2;
+
+                try
+                {
+                    float value = float.Parse(yField.value);
+                    lastFrameFieldValues[yField] = yField.value;
+                    (property.GetValue(component) as List<Vector2>)[0] = new Vector2((property.GetValue(component) as List<Vector2>)[0].x, value);
+                }
+                catch (System.Exception)
+                {
+                    // Allowed temp values
+                    if (yField.value != "" && yField.value != "-")
+                        yField.value = lastFrameFieldValues[yField];
+                }
+
+                Debug.Log(yField.value);
+            }
+
+        }
+        #endregion
     }
+
 
     public void DisplayObject(SimulatedObject objectToDisplay)
     {
@@ -180,6 +252,7 @@ public class InspectorController : MonoBehaviour
         }
     }
 
+    #region Ignore this also
     private void AddComponentFields(SimulatedComponent component, VisualElement componentDisplay)
     {
         VisualElement fieldSpace = componentDisplay.Q<VisualElement>("Fields");
@@ -191,6 +264,7 @@ public class InspectorController : MonoBehaviour
 
         foreach (PropertyInfo property in componentProperties)
         {
+            // Kindly ignore
             Debug.Log(property.Name);
             if (property.PropertyType == typeof(List<Vector2>))
             {
@@ -198,7 +272,10 @@ public class InspectorController : MonoBehaviour
                 fieldSpace.Add(vectorField);
 
                 TextField XField = vectorField.Q<TextField>("X");
-                Debug.Log(XField);
+                XField.value = (property.GetValue(component) as List<Vector2>)[0].x.ToString();
+                TextField YField = vectorField.Q<TextField>("Y");
+                YField.value = (property.GetValue(component) as List<Vector2>)[0].y.ToString();
+                vectorArrayBindings.Add((XField, YField), (component, property));
             }
             if (property.PropertyType == typeof(float))
             {
@@ -213,6 +290,7 @@ public class InspectorController : MonoBehaviour
             }
         }
     }
+    #endregion
 
     private void Display(UIDocument displayedUI)
     {
