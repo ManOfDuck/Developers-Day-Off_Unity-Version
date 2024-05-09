@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerSpawn : MonoBehaviour
@@ -14,6 +15,10 @@ public class PlayerSpawn : MonoBehaviour
 
     private static PlayerController _player;
     public static PlayerController Player { get { return _player; } }
+
+    public UnityEvent playerDead;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -36,6 +41,7 @@ public class PlayerSpawn : MonoBehaviour
     {
         // This isnt fantastic, but it works better than killing the player and spawning a new one
         Player.transform.position = ActiveSpawner.transform.position;
+        GameManager.Instance.OnPlayerHurt.Invoke();
     }
 
     public static void SetSpawnPoint(PlayerSpawn newSpawner)

@@ -86201,6 +86201,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2279677127813084132, guid: 4fceec99678944e5f8965c9f2fb76236, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279677127813084132, guid: 4fceec99678944e5f8965c9f2fb76236, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.57
+      objectReference: {fileID: 0}
     - target: {fileID: 2279677127813084133, guid: 4fceec99678944e5f8965c9f2fb76236, type: 3}
       propertyPath: m_RootOrder
       value: 12

@@ -19,7 +19,11 @@ GameObject:
   - component: {fileID: 8664122455749873983}
   - component: {fileID: -7190368394319624799}
   - component: {fileID: 6464460167355857351}
+<<<<<<< HEAD
   m_Layer: 7
+=======
+  m_Layer: 3
+>>>>>>> erm
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
