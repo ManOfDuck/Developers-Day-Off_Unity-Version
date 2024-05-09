@@ -10281,7 +10281,7 @@ MonoBehaviour:
   _waitTime: 0
   _body: {fileID: 0}
   _patrolPoints:
-  - {x: 0, y: 10}
+  - {x: 0, y: 0}
 --- !u!114 &683428234
 MonoBehaviour:
   m_ObjectHideFlags: 0

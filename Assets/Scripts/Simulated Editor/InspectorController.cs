@@ -176,7 +176,7 @@ public class InspectorController : MonoBehaviour
                 {
                     float value = float.Parse(yField.value);
                     lastFrameFieldValues[yField] = yField.value;
-                    (property.GetValue(component) as List<Vector2>)[0] = new Vector2((property.GetValue(component) as List<Vector2>)[0].x, value);
+                    property.SetValue(component, new List<Vector2> { new Vector2((property.GetValue(component) as List<Vector2>)[0].x, value) });
                 }
                 catch (System.Exception)
                 {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Patrol : TraversePath
 {
@@ -28,11 +29,8 @@ public class Patrol : TraversePath
                 // Stop the existing coroutine
                 StopCoroutine(moveCoroutine);
 
-                // We should stay at the same progress through the point list if possible
-                int startingPoint = value.Count == 0 ? 0 : currentPoint % value.Count;
-
                 // Start the coroutine at the adjusted index
-                StartMove(startingPoint);
+                StartMove();
             }
         }
     }
@@ -51,11 +49,11 @@ public class Patrol : TraversePath
         initPos = Body.position;
         if (moveCoroutine == null)
         {
-            StartMove(0);
+            StartMove();
         }
     }
 
-    private void StartMove(int startingPoint)
+    private void StartMove()
     {
         List<Vector2> adjustedPoints = new(PatrolPoints);
         if (adjustedPoints[^1] != Vector2.zero)
@@ -67,6 +65,8 @@ public class Patrol : TraversePath
         {
             adjustedPoints[i] += initPos;
         }
+
+        int startingPoint = adjustedPoints.Count == 0 ? 0 : currentPoint % adjustedPoints.Count;
         moveCoroutine = Move(adjustedPoints, startingPoint, true);
         StartCoroutine(moveCoroutine);
     }
