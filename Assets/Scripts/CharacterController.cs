@@ -124,7 +124,6 @@ public class CharacterController : SimulatedScript
         {
             localVelocity *= Vector2.up;
         }
-        Debug.Log(localVelocity);
     }
 
     #region Lateral Movement

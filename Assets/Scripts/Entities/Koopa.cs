@@ -63,7 +63,6 @@ public class Koopa : CharacterController
         if (!ValidateReferences(CharacterBody)) return;
 
         localVelocity = HorizontalSpeedCap * direction + localVelocity * Vector2.up;
-        Debug.Log(localVelocity);
         InheritMovement(groundObject);
     }
 
