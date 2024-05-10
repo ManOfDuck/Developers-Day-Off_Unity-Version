@@ -114,7 +114,8 @@ public class CharacterController : SimulatedScript
         }
         else
         {
-            localVelocity *= Vector2.right;
+            Vector2 downwardsVelocity = (groundObject.velocity * Vector2.up).y < 0 ? groundObject.velocity * Vector2.up : Vector2.zero;
+            localVelocity = localVelocity * Vector2.right + downwardsVelocity;
             timeSinceGrounded = 0;
             coyoteJumpConsumed = false;
         }
