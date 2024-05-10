@@ -270,7 +270,7 @@ public class CharacterController : SimulatedScript
         Vector2 raycastOrigin;
         if (ValidateReferences(CharacterCollider))
         {
-            raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.001f, 0);
+            raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.05f, 0);
         }
         else
         {
