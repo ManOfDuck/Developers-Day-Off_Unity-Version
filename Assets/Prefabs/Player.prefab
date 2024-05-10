@@ -128,7 +128,7 @@ MonoBehaviour:
   _horizontalSpeedCap: 14
   _wallCheckDistance: 0.1
   _coyoteTime: 0.12
-  _jumpForce: 11
+  _jumpForce: 12.5
   _cancelledJumpImpulseRatio: 0.5
   _regularGravity: 20.8
   _fallingGravity: 29.8
