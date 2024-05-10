@@ -454,3 +454,5 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: fad52df0dc5322947850b59274b04c41, type: 2}
   defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   displayedObject: {fileID: 0}
+  objectHasBeenClicked: 0
+  isDisplaying: 0

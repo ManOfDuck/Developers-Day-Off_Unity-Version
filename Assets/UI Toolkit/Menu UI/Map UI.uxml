@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/StartMenu.uss?fileID=7433441132597879392&amp;guid=25c904d1429f35b4dba40c19e2536492&amp;type=3#StartMenu" />
+    <ui:VisualElement style="justify-content: center; align-items: flex-start; height: 100%; margin-top: 22px; flex-direction: row; width: 100%;">
+        <ui:VisualElement style="width: 100%; justify-content: flex-end; height: 100%;">
+            <ui:Label text="1-1 Hello world" display-tooltip-when-elided="true" class="title_text" style="font-size: 105px; -unity-text-outline-width: 5px; justify-content: space-around; -unity-text-align: middle-center; margin-left: 0; margin-right: 0; margin-top: 2%; margin-bottom: 2%;" />
+            <ui:VisualElement style="height: 100%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

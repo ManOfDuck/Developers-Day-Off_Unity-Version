@@ -1,24 +1,13 @@
 .unity-text-field {
     min-width: auto;
     max-width: none;
-    width: 111px;
+    width: 109px;
     margin-left: 0;
     -unity-text-align: middle-center;
     margin-top: 0;
     padding-left: 0;
-    color: rgba(32, 32, 32, 255);
-}
-
-.unity-base-field {
-    margin-left: 9px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-right: 0;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    -unity-text-align: upper-center;
+    color: rgb(32, 32, 32);
+    -unity-font: resource('FlatSkin/Font/Roboto-Light');
 }
 
 .unity-text-field__label {
@@ -30,8 +19,12 @@
     font-size: 14px;
     padding-left: 0;
     padding-right: 1px;
+    color: rgba(196, 196, 196, 255);
 }
 
 .unity-text-field__input {
-    background-color: rgba(42, 42, 42, 255);
+    background-color: rgb(42, 42, 42);
+    -unity-font: resource('FlatSkin/Font/Roboto-Light');
+    -unity-font-style: bold;
+    color: rgba(70, 96, 124, 255);
 }
