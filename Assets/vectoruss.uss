@@ -5,6 +5,8 @@
     margin-left: 0;
     -unity-text-align: middle-center;
     margin-top: 0;
+    padding-left: 0;
+    color: rgba(32, 32, 32, 255);
 }
 
 .unity-base-field {
@@ -21,9 +23,15 @@
 
 .unity-text-field__label {
     margin-left: -122px;
-    margin-right: 9px;
+    margin-right: 10px;
     margin-top: 0;
     margin-bottom: 0;
     -unity-text-align: upper-right;
     font-size: 14px;
+    padding-left: 0;
+    padding-right: 1px;
+}
+
+.unity-text-field__input {
+    background-color: rgba(42, 42, 42, 255);
 }

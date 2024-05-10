@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public static PlayerController Player { get { return PlayerSpawn.Player;  } }
 
+    public bool DoPrimarySpawn { get; private set; } = true;
+
     public Vector2 MapSpawnPoint { get; set; }
 
     public enum GameState
@@ -153,9 +155,11 @@ public class GameManager : MonoBehaviour
         LoadScene(mapScreen);
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, bool primarySpawn = true)
     {
         if (sceneName is null) return;
+
+        DoPrimarySpawn = primarySpawn;
 
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;

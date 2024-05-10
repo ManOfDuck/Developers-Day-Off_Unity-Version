@@ -5,6 +5,6 @@
             <ui:Label text="Transform" display-tooltip-when-elided="true" name="label" style="padding-top: 0; font-size: 23px; padding-left: 0; color: rgb(223, 223, 223); margin-left: 2%; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-bottom: 0; height: 27px;" />
             <ui:Button text="add" display-tooltip-when-elided="true" name="Button" style="margin-left: 34%; font-size: 18px; padding-left: 12px; padding-right: 11px;" />
         </ui:VisualElement>
-        <ui:Label text="Description Description \nDescription Description " display-tooltip-when-elided="true" name="desc" style="margin-left: 4%; font-size: 23px; color: rgb(125, 125, 125); margin-top: 0; margin-right: 10px; padding-right: 2%; margin-bottom: 9px; padding-left: 2%; padding-top: 2%; padding-bottom: 2%; height: 51%; background-color: rgb(56, 56, 56); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; width: 93%;" />
+        <ui:Label text="Description Description \nDescription Description " display-tooltip-when-elided="true" name="desc" style="margin-left: 4%; font-size: 23px; color: rgb(125, 125, 125); margin-top: 0; margin-right: 10px; padding-right: 2%; margin-bottom: 9px; padding-left: 2%; padding-top: 2%; padding-bottom: 2%; height: 51%; background-color: rgb(56, 56, 56); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; width: 93%; white-space: normal;" />
     </ui:VisualElement>
 </ui:UXML>

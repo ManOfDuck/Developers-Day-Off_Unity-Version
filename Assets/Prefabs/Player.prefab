@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: eb724b9ee0fb24df4ae576572e518f75, type: 2}
+  startEnabled: 1
   _runForce: 50
   _airRunForce: 10
   _friction: 26
@@ -127,7 +128,7 @@ MonoBehaviour:
   _horizontalSpeedCap: 14
   _wallCheckDistance: 0.1
   _coyoteTime: 0.12
-  _jumpForce: 11
+  _jumpForce: 12.5
   _cancelledJumpImpulseRatio: 0.5
   _regularGravity: 20.8
   _fallingGravity: 29.8
