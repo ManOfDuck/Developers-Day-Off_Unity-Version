@@ -31,3 +31,7 @@
     padding-left: 0;
     padding-right: 1px;
 }
+
+.unity-text-field__input {
+    background-color: rgba(42, 42, 42, 255);
+}

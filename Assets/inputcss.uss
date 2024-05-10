@@ -7,11 +7,12 @@
 .unity-base-text-field__input {
     font-size: 14px;
     padding-left: 12px;
-    padding-right: 0;
+    padding-right: 12px;
     padding-top: 0;
     padding-bottom: 0;
 }
 
 .unity-base-field__input {
     margin-right: 57px;
+    background-color: rgba(47, 47, 47, 255);
 }
