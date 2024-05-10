@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelTransitionTrigger : MonoBehaviour
 {
     [SerializeField] private string level;
+    [SerializeField] private bool secondarySpawn = false;
     [SerializeField] private Collider2D trigger;
 
 
@@ -19,7 +20,7 @@ public class LevelTransitionTrigger : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            gameManager.LoadScene(level);
+            gameManager.LoadScene(level, !secondarySpawn);
         }
     }
 }

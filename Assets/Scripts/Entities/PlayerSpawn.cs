@@ -8,6 +8,7 @@ public class PlayerSpawn : MonoBehaviour
 {
     public GameObject playerPrefab;
     public bool defaultSpawner;
+    public bool secondarySpawner;
     [SerializeField] SpriteRenderer editorRenderer;
 
     private static PlayerSpawn _activeSpawner;
@@ -28,7 +29,12 @@ public class PlayerSpawn : MonoBehaviour
             Debug.LogError("JESSE: That is NOT a PlayerController");
         }
 
-        if (defaultSpawner)
+        if (defaultSpawner && GameManager.Instance.DoPrimarySpawn)
+        {
+            SetSpawnPoint(this);
+            SpawnPlayer();
+        }
+        else if (secondarySpawner && !GameManager.Instance.DoPrimarySpawn)
         {
             SetSpawnPoint(this);
             SpawnPlayer();
