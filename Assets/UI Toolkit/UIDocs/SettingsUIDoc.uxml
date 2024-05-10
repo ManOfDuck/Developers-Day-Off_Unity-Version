@@ -19,7 +19,7 @@
             <ui:Slider picking-mode="Ignore" value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" style="scale: 1 1; width: 62%; height: auto; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Option4" style="width: 100%; align-items: center; flex-direction: row; justify-content: center;">
-            <ui:Label text="Click Me" display-tooltip-when-elided="true" class="settingsText" />
+            <ui:Label text="Toggle Juice" display-tooltip-when-elided="true" class="settingsText" />
             <ui:Toggle style="padding-left: 7px; padding-right: 7px; padding-top: 7px; padding-bottom: 7px; margin-left: 13px; margin-right: 13px; margin-top: 13px; margin-bottom: 13px;" />
         </ui:VisualElement>
         <ui:VisualElement style="width: 100%; height: 46%; align-items: center; justify-content: flex-end;">
