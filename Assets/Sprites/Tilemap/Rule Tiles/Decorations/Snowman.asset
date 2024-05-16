@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Snowman
   m_EditorClassIdentifier: Assembly-CSharp::DecorationTile
   m_DefaultSprite: {fileID: -324062639, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultGameObject: {fileID: 7287282999634162284, guid: 593a5b784767f4f5990e3bf189f0e69a, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
