@@ -166,7 +166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 192647964712594247}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3006827061870051623
 MonoBehaviour:
@@ -197,9 +197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIDoc: {fileID: 3006827061870051623}
-  masterMixerGroup: {fileID: 24300002, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
-  musicMixerGroup: {fileID: 6060483653101510383, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
-  sfxMixerGroup: {fileID: -7268390706186319529, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
+  masterMixerGroup: {fileID: 24300002, guid: e921f5d576ca04039b3d08713efca5ca, type: 2}
+  musicMixerGroup: {fileID: 6060483653101510383, guid: e921f5d576ca04039b3d08713efca5ca, type: 2}
+  sfxMixerGroup: {fileID: -7268390706186319529, guid: e921f5d576ca04039b3d08713efca5ca, type: 2}
   masterVolume: 0
   musicVolume: 0
   sfxVolume: 0
