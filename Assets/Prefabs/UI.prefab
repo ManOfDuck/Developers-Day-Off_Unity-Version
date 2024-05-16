@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainUIDocument: {fileID: 2037748756094329257}
-  componentTemplate: {fileID: 9197481963319205126, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
+  componentTemplate: {fileID: 9197481963319205126, guid: 79387b04ea004e149ad64e14685fb3bd, type: 3}
   _vectorFieldTemplate: {fileID: 9197481963319205126, guid: 83806aaf1e90543c3b763cfd8d64b70b, type: 3}
   _floatFieldTemplate: {fileID: 9197481963319205126, guid: 01d173f002ed34bfab5bf139fc0c63bc, type: 3}
   overrideUIDoc: 0
