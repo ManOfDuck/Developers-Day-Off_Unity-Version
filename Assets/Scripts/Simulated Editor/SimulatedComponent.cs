@@ -10,14 +10,14 @@ public abstract class SimulatedComponent : MonoBehaviour
     [SerializeField] private VisualComponent visualComponent;
     public VisualComponent VisualComponent { get => visualComponent; set => visualComponent = value; }
 
-    public SimulatedObject ParentObject => gameObject.GetComponent<SimulatedObject>();
+    public ComponentHolder Holder => gameObject.GetComponent<ComponentHolder>();
 
     public abstract Component DirectComponentReference { get; }
     public abstract bool IsComponentToggleable { get; }
     public abstract bool ComponentEnabledStatus { get; }
     protected abstract string DefaultVisualComponentName { get; }
 
-    public abstract SimulatedComponent Copy(SimulatedObject destination);
+    public abstract SimulatedComponent Copy(ComponentHolder destination);
     public abstract bool ToggleComponent();
     public abstract bool SetComponentEnabledStatus(bool status);
 
@@ -36,15 +36,14 @@ public abstract class SimulatedComponent : MonoBehaviour
             // Do NOT change the filepath please please please please please please please
             VisualComponent = defaultComponent;
         }
-        if (ParentObject != null)
+        if (Holder != null)
         {
-            ParentObject.RegisterComponent(this);
+            Holder.RegisterComponent(this);
         }
     }
 
     public virtual VisualElement GetComponentDisplay(SimulatedComponent component, VisualTreeAsset template)
     {
-        Debug.Log(this.GetType().Name + "HIEHWIHFOWFIOJHIOHFIOAJOIFJOJ");
         VisualComponent visualComponent = component.VisualComponent;
 
         VisualElement componentDisplay = template.CloneTree();
@@ -62,11 +61,11 @@ public abstract class SimulatedComponent : MonoBehaviour
 
     protected T TryAssignReference<T>(ref T component) where T : Component
     {
-        return ParentObject == null ? null : ParentObject.TryAssignReference(ref component) as T;
+        return Holder == null ? null : Holder.TryAssignReference(ref component) as T;
     }
 
     protected T AssignMandatoryReference<T>(ref T component, System.Type wrapperClass) where T : Component
     {
-        return ParentObject == null ? null : ParentObject.AssignMandatoryReference(ref component, wrapperClass) as T;
+        return Holder == null ? null : Holder.AssignMandatoryReference(ref component, wrapperClass) as T;
     }
 }

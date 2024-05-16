@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public string CurrentLevel { get; private set; }
     public List<string> ClearedLevels { get; private set; }
+    [field: SerializeField]
+    public List<string> Upgrades { get; private set; } = new();
 
     // TODO: PC should control these values
 
@@ -153,6 +155,11 @@ public class GameManager : MonoBehaviour
     public void ExitLevel()
     {
         LoadScene(mapScreen);
+    }
+
+    public void AddUpgrade(string upgradeName)
+    {
+        Upgrades.Add(upgradeName);
     }
 
     public void LoadScene(string sceneName, bool primarySpawn = true)
