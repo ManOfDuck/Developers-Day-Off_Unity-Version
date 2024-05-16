@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -39,10 +40,10 @@ public class InspectorController : MonoBehaviour
 
     private Sprite globalSpriteDefault, globalSprite1;
     private List<VisualElement> componentDisplays = new();
-    private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
+    private Dictionary<(VisualElement, Button), SimulatedComponent> toggleBindings = new();
     private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
-    private Dictionary<TextField, string> lastFrameFieldValues = new();
     private Dictionary<(TextField, TextField), (SimulatedComponent, PropertyInfo)> vectorArrayBindings = new();
+    private Dictionary<TextField, string> lastFrameFieldValues = new();
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
@@ -134,13 +135,6 @@ public class InspectorController : MonoBehaviour
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
             targetRenderer.material = defaultMaterial;
-        }
-
-        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
-        {
-            Toggle toggle = kvp.Key;
-            SimulatedComponent component = kvp.Value;
-            component.SetComponentEnabledStatus(toggle.value);
         }
 
         #region Kindly Ignore :)
@@ -236,9 +230,10 @@ public class InspectorController : MonoBehaviour
         }
 
         //Clear old bindings
-        componentToggleBindings = new();
-
-
+        toggleBindings = new();
+        floatBindings = new();
+        vectorArrayBindings = new();
+        
 
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
@@ -251,7 +246,6 @@ public class InspectorController : MonoBehaviour
         {
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
-            Debug.Log(gameManager);
             if (gameManager && gameManager.Upgrades.Contains("Fields"))
             {
                 AddComponentFields(component, componentDisplay);
@@ -274,17 +268,64 @@ public class InspectorController : MonoBehaviour
 
     private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
     {
-        Toggle toggle = componentDisplay.Q<Toggle>("toggle");
+        VisualElement toggle = componentDisplay.Q<VisualElement>("Toggle");
 
-        // Not all components are toggleable
-        if (component.IsComponentToggleable && toggle is not null)
-        {
-            toggle.value = component.ComponentEnabledStatus;
-            componentToggleBindings.Add(toggle, component);
-        }
-        else if (toggle is not null)
+        // If there is no toggle, do nothing
+        if (toggle is null) return;
+
+        // If the component isn't toggleable, turn the toggle off
+        if (!component.IsComponentToggleable)
         {
             toggle.style.opacity = 0;
+            return;
+        }
+
+        // Get the button and ball and set up their class lists
+        VisualElement toggleBG = toggle.Q<VisualElement>("Toggle_BG");
+        Button toggleBall = toggle.Q<Button>("Toggle_Ball");
+
+        if (component.ComponentEnabledStatus)
+        {
+            toggleBall.RemoveFromClassList("togball");
+            toggleBG.RemoveFromClassList("togbg");
+            toggleBall.AddToClassList("togballchecked");
+            toggleBG.AddToClassList("togbgchecked");
+        }
+        else
+        {
+            toggleBall.RemoveFromClassList("togballchecked");
+            toggleBG.RemoveFromClassList("togbgchecked");
+            toggleBall.AddToClassList("togball");
+            toggleBG.AddToClassList("togbg");
+        }
+
+        toggleBindings.Add((toggleBG, toggleBall), component);
+
+        toggleBall.clicked += () =>
+        {
+            ToggleClicked(toggleBG, toggleBall);
+        };
+    }
+
+    private void ToggleClicked(VisualElement toggleBG, Button toggleBall)
+    {
+        toggleBindings[(toggleBG, toggleBall)].ToggleComponent();
+        bool enabled = toggleBindings[(toggleBG, toggleBall)].ComponentEnabledStatus;
+        if (!enabled)
+        { //deactivate
+            toggleBall.RemoveFromClassList("togballchecked");
+            toggleBG.RemoveFromClassList("togbgchecked");
+            toggleBall.AddToClassList("togball");
+            toggleBG.AddToClassList("togbg");
+        }
+        else
+        { //activate
+            toggleBall.RemoveFromClassList("togball");
+            toggleBG.RemoveFromClassList("togbg");
+            toggleBall.AddToClassList("togballchecked");
+            toggleBG.AddToClassList("togbgchecked");
+
+            //could also easily change component bg to be darker to easily signify disabled
         }
     }
 
