@@ -304,7 +304,7 @@ MonoBehaviour:
   _jumpBufferTime: 0.2
   jumpSound: {fileID: 5947624820784636392}
   dieSound: {fileID: 5076194606581843796}
-  deathParticle: {fileID: 5198335446318970962, guid: a4ccd9346b5c1c249b77da854e503791, type: 3}
+  deathParticle: {fileID: 5198335446318970962, guid: 885d7996ef13047e497418c906cb782d, type: 3}
 --- !u!82 &5947624820784636392
 AudioSource:
   m_ObjectHideFlags: 0
