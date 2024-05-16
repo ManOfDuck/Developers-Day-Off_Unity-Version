@@ -34,9 +34,9 @@ public class SettingsMenu : MonoBehaviour
 
         backButton.clicked += backClicked;
 
-        masterVolSlider = root.Q<Slider>("MasterVol");
-        musicVolSlider = root.Q<Slider>("MusicVol");
-        sfxVolSlider = root.Q<Slider>("SFXVol");
+        masterVolSlider = root.Q<Slider>("MasterVolSlider");
+        musicVolSlider = root.Q<Slider>("MusicVolSlider");
+        sfxVolSlider = root.Q<Slider>("SoundVolSlider");
 
         masterVolSlider.RegisterValueChangedCallback(OnMasterSliderValueChange);
         musicVolSlider.RegisterValueChangedCallback(OnMusicSliderValueChange);
@@ -57,17 +57,19 @@ public class SettingsMenu : MonoBehaviour
     public void OnMasterSliderValueChange(ChangeEvent<float> evt)
     {
         masterVolume = evt.newValue;
-        masterMixerGroup.audioMixer.SetFloat("MasterVolParam", Mathf.Log10(evt.newValue) * 20);
-
+        masterMixerGroup.audioMixer.SetFloat("MasterVolParam", evt.newValue);
+        Debug.Log("new master volume is " + evt.newValue);
     }
     public void OnMusicSliderValueChange(ChangeEvent<float> evt)
     {
         musicVolume = evt.newValue;
-        musicMixerGroup.audioMixer.SetFloat("MusicVolParam", Mathf.Log10(evt.newValue) * 20);
+        musicMixerGroup.audioMixer.SetFloat("MusicVolParam", evt.newValue);
+        Debug.Log("new music volume is " + evt.newValue);
     }
     public void OnSfxSliderValueChange(ChangeEvent<float> evt)
     {
         sfxVolume = evt.newValue;
-        sfxMixerGroup.audioMixer.SetFloat("SfxVolParam", Mathf.Log10(evt.newValue) * 20);
+        sfxMixerGroup.audioMixer.SetFloat("SfxVolParam", evt.newValue);
+        Debug.Log("new sfx volume is " + evt.newValue);
     }
 }
