@@ -180,19 +180,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 81.678116
+      value: 84.54972
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 30.890244
+      value: 30.667833
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.4235
+      value: 46.862
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1718
+      value: -3.2828
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499351, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_Size.x
@@ -111484,10 +111484,6 @@ PrefabInstance:
     - target: {fileID: 2037748756094329238, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2037748756094329256, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
-      propertyPath: followCamera
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2037748756094329258, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: m_Pivot.x

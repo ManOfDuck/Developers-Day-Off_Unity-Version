@@ -31,7 +31,7 @@ public class InspectorController : MonoBehaviour
 
     private VisualElement root;
     private Button xButton;
-    private Label objectName, objectTag;
+    private Label objectName, xValue, yValue;
 
     public Material highlightMaterial;
     public Material defaultMaterial;
@@ -81,7 +81,8 @@ public class InspectorController : MonoBehaviour
     {
         root = mainUIDocument.rootVisualElement;
         objectName = root.Q<Label>("Object_name");
-        objectTag = root.Q<Label>("Tag");
+        xValue = root.Q<Label>("x_value");
+        yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
         xButton.clickable.clicked += () =>
         {
@@ -256,7 +257,8 @@ public class InspectorController : MonoBehaviour
 
         //SET OBJ NAME & TAG
         objectName.text = objectToDisplay.gameObject.name.ToString();
-        objectTag.text = objectToDisplay.gameObject.tag.ToString();
+        xValue.text = objectToDisplay.gameObject.transform.position.x.ToString();
+        yValue.text = objectToDisplay.gameObject.transform.position.y.ToString();
 
         //Show the inspector
         root.visible = true;
@@ -281,7 +283,7 @@ public class InspectorController : MonoBehaviour
         }
 
         // Get the button and ball and set up their class lists
-        VisualElement toggleBG = toggle.Q<Button>("Toggle_BG");
+        Button toggleBG = toggle.Q<Button>("Toggle_BG");
         Button toggleBall = toggle.Q<Button>("Toggle_Ball");
 
         if (component.ComponentEnabledStatus)
@@ -300,6 +302,11 @@ public class InspectorController : MonoBehaviour
         }
 
         toggleBindings.Add((toggleBG, toggleBall), component);
+
+        toggleBG.clicked += () =>
+        {
+            ToggleClicked(toggleBG, toggleBall);
+        };
 
         toggleBall.clicked += () =>
         {
