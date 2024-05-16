@@ -181,7 +181,7 @@ MonoBehaviour:
   _groundCheckDistance: 0.1
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   _maxHealth: 1
   _playerDamageCooldown: 1
   _damageVolume: {fileID: 0}
