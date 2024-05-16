@@ -88,6 +88,8 @@ public class PlayerController : CharacterController
                 ConsumeJumpInput();
             }
         }
+
+        if (groundObject && groundObject.CompareTag("Enemy")) Hurt(1);
     }
 
     public void Heal(int healthToAdd)

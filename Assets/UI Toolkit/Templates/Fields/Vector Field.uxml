@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/vectoruss.uss?fileID=7433441132597879392&amp;guid=00180c296bb063645b29bb0a07e287cb&amp;type=3#vectoruss" />
-    <ui:VisualElement name="input_space" class="editing_field" style="flex-direction: column;">
-        <ui:Label text="VECTOR!!!!!" display-tooltip-when-elided="true" style="margin-left: 22px; margin-top: 7px;" />
+    <ui:VisualElement name="input_space" class="editing_field" style="flex-direction: row; height: 37px; align-items: center; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 10px; width: 100%; padding-left: 10px; padding-right: 10px;">
+        <ui:Label text="VECTOR!!!!!" display-tooltip-when-elided="true" style="margin-left: 0; margin-top: 0; color: rgb(196, 196, 196); font-size: 14px; margin-right: 0; margin-bottom: 0;" />
         <ui:VisualElement style="flex-direction: row;">
-            <ui:TextField picking-mode="Ignore" label="X" value="filler text" text="filler text" name="X" readonly="false" multiline="false" style="height: 22px; -unity-text-align: upper-center; color: rgb(223, 223, 223); padding-left: 0; padding-right: 0;" />
-            <ui:TextField picking-mode="Ignore" label="Y" value="filler text" text="filler text" name="Y" readonly="false" multiline="false" style="height: 22px; -unity-text-align: upper-center; color: rgb(223, 223, 223); padding-left: -6px;" />
+            <ui:TextField picking-mode="Ignore" label="X" value="filler text" text="filler text" name="X" />
+            <ui:TextField picking-mode="Ignore" label="Y" value="filler text" text="filler text" name="Y" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -26,14 +26,14 @@ public class ToolkitController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance is null)
+        if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(Instance.gameObject);
+            Instance = this;
         }
     }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7287282999634162285}
   - component: {fileID: 7287282999634162281}
   - component: {fileID: 7862962634493961131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: mushroom 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,13 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 1
-  components:
-  - realComponent: {fileID: 7287282999634162282}
-    visualComponent: {fileID: 11400000, guid: 02b3cf9288d03de45ab501d6e004422e, type: 2}
-  - realComponent: {fileID: 7287282999634162285}
-    visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
-  scripts: []
   clickTrigger: {fileID: 7862962634493961131}
+  _components: []
   defaultSprite: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
   sprite1: {fileID: 0}
 --- !u!61 &7862962634493961131

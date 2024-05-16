@@ -64,6 +64,8 @@ public class CharacterController : SimulatedScript
     protected float timeSinceGrounded = 0;
     protected bool coyoteJumpConsumed = false;
 
+    protected Vector2 localVelocity = Vector2.zero;
+
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
         CharacterController copy = destination.gameObject.AddComponent(this.GetType()) as CharacterController;
@@ -106,14 +108,21 @@ public class CharacterController : SimulatedScript
 
         if (groundObject == null)
         {
-            DoGravity(CharacterBody.velocity.y < 0);
+            DoGravity(localVelocity.magnitude < 0);
             // Update timeSinceGrounded, for coyote time
             timeSinceGrounded += Time.deltaTime;
         }
         else
         {
+            Vector2 downwardsVelocity = (groundObject.velocity * Vector2.up).y < 0 ? groundObject.velocity * Vector2.up : Vector2.zero;
+            localVelocity = localVelocity * Vector2.right + downwardsVelocity;
             timeSinceGrounded = 0;
             coyoteJumpConsumed = false;
+        }
+
+        if(Mathf.Approximately(CharacterBody.velocity.x, 0) || CheckForWall(CharacterBody.velocity * Vector2.right))
+        {
+            localVelocity *= Vector2.up;
         }
     }
 
@@ -121,11 +130,11 @@ public class CharacterController : SimulatedScript
     virtual protected void Move(Vector2 movementDirection)
     {
         bool inputActive = movementDirection.magnitude > 0.01f;
-        bool playerStopped = Mathf.Approximately(CharacterBody.velocity.x, 0);
-        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(CharacterBody.velocity.x));
+        bool playerStopped = Mathf.Approximately(localVelocity.x, 0);
+        bool holdingOppositeDirection = !playerStopped && (Mathf.Sign(movementDirection.x) != Mathf.Sign(localVelocity.x));
 
         // Running
-        if (inputActive)
+        if (inputActive && !CheckForWall(movementDirection))
         {
             // Update sprite
             if (ValidateReferences(CharacterRenderer))
@@ -162,9 +171,9 @@ public class CharacterController : SimulatedScript
 
     private void ApplyFriction(float amount)
     {
-        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(CharacterBody.velocity.x));
-        float velocitySign = -Mathf.Sign(CharacterBody.velocity.x);
-        CharacterBody.velocity += velocitySign * velocityToRemove * Vector2.right;
+        float velocityToRemove = Mathf.Min(amount * Time.fixedDeltaTime, Mathf.Abs(localVelocity.x));
+        float velocitySign = -Mathf.Sign(localVelocity.x);
+        localVelocity += velocitySign * velocityToRemove * Vector2.right;
     }
     #endregion
 
@@ -186,7 +195,7 @@ public class CharacterController : SimulatedScript
 
         groundObject = null;
         // Cancel out existing vertical velocity, for coyote gamers
-        CharacterBody.velocity *= Vector2.right;
+        localVelocity *= Vector2.right;
         ApplyImpulse(Vector2.up, JumpForce, VerticalSpeedCap);
     }
 
@@ -194,7 +203,7 @@ public class CharacterController : SimulatedScript
     {
         if (!ValidateReferences(CharacterBody)) return;
 
-        float downwardsForce = CharacterBody.velocity.y * CancelledJumpImpulseRatio;
+        float downwardsForce = localVelocity.magnitude * CancelledJumpImpulseRatio;
         ApplyImpulse(Vector2.down, downwardsForce, VerticalSpeedCap);
     }
 
@@ -217,10 +226,11 @@ public class CharacterController : SimulatedScript
         if (!ValidateReferences(CharacterBody)) return;
 
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((CharacterBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((localVelocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        CharacterBody.velocity += velocityToAdd * Time.fixedDeltaTime * direction;
+        localVelocity += velocityToAdd * Time.fixedDeltaTime * direction;
+        InheritMovement(groundObject);
     }
 
     protected void ApplyImpulse(Vector2 direction, float amount, float cap)
@@ -228,19 +238,24 @@ public class CharacterController : SimulatedScript
         if (!ValidateReferences(CharacterBody)) return;
 
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((CharacterBody.velocity * direction).magnitude);
+        float amountBelowCap = cap - Mathf.Abs((localVelocity * direction).magnitude);
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
-        CharacterBody.velocity += velocityToAdd * direction;
+        localVelocity += velocityToAdd * direction;
+        InheritMovement(groundObject);
     }
 
     protected void InheritMovement(Rigidbody2D other)
     {
         if (!ValidateReferences(CharacterBody)) return;
-        if (other == null) return;
+        if (other == null)
+        {
+            CharacterBody.velocity = localVelocity;
+            return;
+        }
 
-        Vector2 velocity = new Vector2(other.velocity.x, other.velocity.y);
-        CharacterBody.position += velocity * Time.deltaTime;
+        Vector2 otherVelocity = new(other.velocity.x, other.velocity.y);
+        CharacterBody.velocity = localVelocity + otherVelocity;
     }
     #endregion
 
@@ -305,10 +320,10 @@ public class CharacterController : SimulatedScript
         if (!ValidateReferences(CharacterCollider)) return false;
 
         Vector2 origin = CharacterCollider.bounds.center;
-        Vector2 size = CharacterCollider.bounds.size;
+        Vector2 size = CharacterCollider.bounds.size * 0.95f;
         float angle = 0f;
 
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction, WallCheckDistance, GroundLayer);
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction.normalized, WallCheckDistance, GroundLayer);
         foreach (RaycastHit2D hit in boxCastHit)
         {
             if (hit.rigidbody != CharacterBody)
@@ -331,7 +346,7 @@ public class CharacterController : SimulatedScript
         //Prevent bouncing
         if (groundObject != null)
         {
-            CharacterBody.velocity *= Vector2.right;
+            localVelocity *= Vector2.right;
         }
     }
 
@@ -374,16 +389,7 @@ public class CharacterController : SimulatedScript
         }
         else
         {
-            Vector2 standingOnVelocity;
-            if (groundObject is null)
-            {
-                standingOnVelocity = Vector2.zero;
-            }
-            else
-            {
-                standingOnVelocity = groundObject.velocity;
-            }
-            SpriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(CharacterBody.velocity.x - standingOnVelocity.x));
+            SpriteAnimator.SetFloat("Horizontal Speed", Mathf.Abs(localVelocity.x));
         }
     }
 }
