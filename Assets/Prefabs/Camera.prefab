@@ -161,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606941732263648334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.793196, y: -1.9436951, z: -0.9841485}
+  m_LocalPosition: {x: 18.793196, y: -1.9436951, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: e54039dcaab600d4f9f92171bb7850fa, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 59c121f9c6389374ab65987c004a2e79, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!114 &795032450389889778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +197,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIDoc: {fileID: 3006827061870051623}
+  masterMixerGroup: {fileID: 24300002, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
+  musicMixerGroup: {fileID: 6060483653101510383, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
+  sfxMixerGroup: {fileID: -7268390706186319529, guid: ad63135c484172245b7d7b8c60bc4961, type: 2}
+  masterVolume: 0
+  musicVolume: 0
+  sfxVolume: 0
 --- !u!1 &4950073640219348683
 GameObject:
   m_ObjectHideFlags: 0

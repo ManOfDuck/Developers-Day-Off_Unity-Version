@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class SettingsMenu : MonoBehaviour
 
     private Button backButton;
 
+    [SerializeField] AudioMixerGroup masterMixerGroup;
+    [SerializeField] AudioMixerGroup musicMixerGroup;
+    [SerializeField] AudioMixerGroup sfxMixerGroup;
 
     public float masterVolume;
     public float musicVolume;
@@ -52,14 +56,18 @@ public class SettingsMenu : MonoBehaviour
 
     public void OnMasterSliderValueChange(ChangeEvent<float> evt)
     {
+        masterVolume = evt.newValue;
+        masterMixerGroup.audioMixer.SetFloat("MasterVolParam", Mathf.Log10(evt.newValue) * 20);
 
     }
     public void OnMusicSliderValueChange(ChangeEvent<float> evt)
     {
-
+        musicVolume = evt.newValue;
+        musicMixerGroup.audioMixer.SetFloat("MusicVolParam", Mathf.Log10(evt.newValue) * 20);
     }
     public void OnSfxSliderValueChange(ChangeEvent<float> evt)
     {
-
+        sfxVolume = evt.newValue;
+        sfxMixerGroup.audioMixer.SetFloat("SfxVolParam", Mathf.Log10(evt.newValue) * 20);
     }
 }
