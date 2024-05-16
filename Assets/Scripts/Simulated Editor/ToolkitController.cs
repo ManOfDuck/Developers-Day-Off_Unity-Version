@@ -3,51 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ToolkitController : MonoBehaviour
+public class ToolkitController : ComponentHolder
 {
     public static ToolkitController Instance { get; private set; }
+    
 
-    public UIDocument mainUIDocument;
-
-    public VisualTreeAsset componentTemplate;
-    public VisualTreeAsset scriptTemplate;
-
-    public List<SimulatedComponent> components;
-    public List<SimulatedScript> scripts;
+    [SerializeField] protected UIDocument mainUIDocument;
+    [SerializeField] private VisualTreeAsset componentTemplate;
+    [SerializeField] private bool _overrideComponents = false;
+    public bool OverrideComponents { get => _overrideComponents; }
 
     private InspectorController inspectorController;
 
     private VisualElement root;
-
     private VisualElement toolkitRoot;
     private VisualElement componentArea;
-    private List<VisualElement> componentDisplays = new();
-    private Dictionary<Toggle, SimulatedComponent> componentAddBindings;
+    private readonly List<VisualElement> componentDisplays = new();
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(Instance.gameObject);
-            Instance = this;
+            if (OverrideComponents)
+            {
+                StartCoroutine(DelayDestroy());
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private IEnumerator DelayDestroy()
     {
-        inspectorController = InspectorController.Instance;
-
-        // Disable all components, we dont want them running on this game object
-        foreach (SimulatedComponent component in components)
+        yield return new WaitForSeconds(1);
+        foreach (SimulatedComponent c in Components)
         {
-            component.SetComponentEnabledStatus(false);
-            AddComponent(component);
+            c.Copy(Instance);
         }
+        Destroy(this.gameObject);
+    }
+
+    // Start is called before the first frame update
+    protected override void Start()
+    {
+        base.Start();
+        inspectorController = InspectorController.Instance;
+    }
+
+    public override void RegisterComponent(SimulatedComponent simulatedComponent)
+    {
+        base.RegisterComponent(simulatedComponent);
+        AddComponent(simulatedComponent);
+        simulatedComponent.enabled = false; 
     }
 
     private void OnEnable()

@@ -71,7 +71,7 @@ public class Patrol : TraversePath
         StartCoroutine(moveCoroutine);
     }
 
-    override public SimulatedComponent Copy(SimulatedObject destination)
+    override public SimulatedComponent Copy(ComponentHolder destination)
     {
         Patrol copy = base.Copy(destination) as Patrol;
 

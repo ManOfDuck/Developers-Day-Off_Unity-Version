@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,6 +19,7 @@ public class InspectorController : MonoBehaviour
     public VisualTreeAsset VectorFieldTemplate => _vectorFieldTemplate;
     [SerializeField] private VisualTreeAsset _floatFieldTemplate;
     public VisualTreeAsset FloatFieldTemplate => _floatFieldTemplate;
+    [SerializeField] private bool overrideUIDoc;
 
     public Color trueColor;
     public Color falseColor;
@@ -29,7 +31,7 @@ public class InspectorController : MonoBehaviour
 
     private VisualElement root;
     private Button xButton;
-    private Label objectName, objectTag;
+    private Label objectName, xValue, yValue;
 
     public Material highlightMaterial;
     public Material defaultMaterial;
@@ -38,34 +40,40 @@ public class InspectorController : MonoBehaviour
 
     private Sprite globalSpriteDefault, globalSprite1;
     private List<VisualElement> componentDisplays = new();
-    private Dictionary<Toggle, SimulatedComponent> componentToggleBindings;
+    private Dictionary<(VisualElement, Button), SimulatedComponent> toggleBindings = new();
     private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
-    private Dictionary<TextField, string> lastFrameFieldValues = new();
     private Dictionary<(TextField, TextField), (SimulatedComponent, PropertyInfo)> vectorArrayBindings = new();
+    private Dictionary<TextField, string> lastFrameFieldValues = new();
     private UIDocument currentDisplay;
     private Renderer targetRenderer;
 
     public bool objectHasBeenClicked;
     public bool isDisplaying;
 
+    private GameManager gameManager;
+
 
     private void Awake()
     {
-        GameManager.Instance.OnPlayerHurt.AddListener(StopDisplaying);
-
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(_instance.gameObject);
-            _instance = this;
+            if (overrideUIDoc)
+            {
+                Instance.mainUIDocument.visualTreeAsset = this.mainUIDocument.visualTreeAsset;
+            }
+            Destroy(this.gameObject);
         }
     }
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+        gameManager.OnPlayerHurt.AddListener(StopDisplaying);
         StopDisplaying();
     }
     
@@ -73,7 +81,8 @@ public class InspectorController : MonoBehaviour
     {
         root = mainUIDocument.rootVisualElement;
         objectName = root.Q<Label>("Object_name");
-        objectTag = root.Q<Label>("Tag");
+        xValue = root.Q<Label>("x_value");
+        yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
         xButton.clickable.clicked += () =>
         {
@@ -98,12 +107,15 @@ public class InspectorController : MonoBehaviour
             Debug.Log("there is no target renderer");
         }
 
-        
+
         if (root != null)
         {
             root.visible = false;
         }
-        followCamera.shift = 0;
+        if (followCamera != null)
+        {
+            followCamera.shift = 0;
+        }
     }
 
     public void RefreshDisplay()
@@ -124,13 +136,6 @@ public class InspectorController : MonoBehaviour
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
             targetRenderer.material = defaultMaterial;
-        }
-
-        foreach (KeyValuePair<Toggle, SimulatedComponent> kvp in componentToggleBindings)
-        {
-            Toggle toggle = kvp.Key;
-            SimulatedComponent component = kvp.Value;
-            component.SetComponentEnabledStatus(toggle.value);
         }
 
         #region Kindly Ignore :)
@@ -226,9 +231,10 @@ public class InspectorController : MonoBehaviour
         }
 
         //Clear old bindings
-        componentToggleBindings = new();
-
-
+        toggleBindings = new();
+        floatBindings = new();
+        vectorArrayBindings = new();
+        
 
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
@@ -241,36 +247,92 @@ public class InspectorController : MonoBehaviour
         {
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
-            AddComponentFields(component, componentDisplay);
+            if (gameManager && gameManager.Upgrades.Contains("Fields"))
+            {
+                AddComponentFields(component, componentDisplay);
+            }
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
         //SET OBJ NAME & TAG
         objectName.text = objectToDisplay.gameObject.name.ToString();
-        objectTag.text = objectToDisplay.gameObject.tag.ToString();
+        xValue.text = objectToDisplay.gameObject.transform.position.x.ToString();
+        yValue.text = objectToDisplay.gameObject.transform.position.y.ToString();
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
-            followCamera.shift = cameraShiftAmount;
+       // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
+        //    followCamera.shift = cameraShiftAmount;
 
         this.displayedObject = objectToDisplay;
     }
 
     private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
     {
-        Toggle toggle = componentDisplay.Q<Toggle>("toggle");
+        VisualElement toggle = componentDisplay.Q<VisualElement>("Toggle");
 
-        // Not all components are toggleable
-        if (component.IsComponentToggleable && toggle is not null)
-        {
-            toggle.value = component.ComponentEnabledStatus;
-            componentToggleBindings.Add(toggle, component);
-        }
-        else if (toggle is not null)
+        // If there is no toggle, do nothing
+        if (toggle is null) return;
+
+        // If the component isn't toggleable, turn the toggle off
+        if (!component.IsComponentToggleable)
         {
             toggle.style.opacity = 0;
+            return;
+        }
+
+        // Get the button and ball and set up their class lists
+        Button toggleBG = toggle.Q<Button>("Toggle_BG");
+        Button toggleBall = toggle.Q<Button>("Toggle_Ball");
+
+        if (component.ComponentEnabledStatus)
+        {
+            toggleBall.RemoveFromClassList("togball");
+            toggleBG.RemoveFromClassList("togbg");
+            toggleBall.AddToClassList("togballchecked");
+            toggleBG.AddToClassList("togbgchecked");
+        }
+        else
+        {
+            toggleBall.RemoveFromClassList("togballchecked");
+            toggleBG.RemoveFromClassList("togbgchecked");
+            toggleBall.AddToClassList("togball");
+            toggleBG.AddToClassList("togbg");
+        }
+
+        toggleBindings.Add((toggleBG, toggleBall), component);
+
+        toggleBG.clicked += () =>
+        {
+            ToggleClicked(toggleBG, toggleBall);
+        };
+
+        toggleBall.clicked += () =>
+        {
+            ToggleClicked(toggleBG, toggleBall);
+        };
+    }
+
+    private void ToggleClicked(VisualElement toggleBG, Button toggleBall)
+    {
+        toggleBindings[(toggleBG, toggleBall)].ToggleComponent();
+        bool enabled = toggleBindings[(toggleBG, toggleBall)].ComponentEnabledStatus;
+        if (!enabled)
+        { //deactivate
+            toggleBall.RemoveFromClassList("togballchecked");
+            toggleBG.RemoveFromClassList("togbgchecked");
+            toggleBall.AddToClassList("togball");
+            toggleBG.AddToClassList("togbg");
+        }
+        else
+        { //activate
+            toggleBall.RemoveFromClassList("togball");
+            toggleBG.RemoveFromClassList("togbg");
+            toggleBall.AddToClassList("togballchecked");
+            toggleBG.AddToClassList("togbgchecked");
+
+            //could also easily change component bg to be darker to easily signify disabled
         }
     }
 
@@ -287,7 +349,6 @@ public class InspectorController : MonoBehaviour
         foreach (PropertyInfo property in componentProperties)
         {
             // Kindly ignore
-            Debug.Log(property.Name);
             if (property.PropertyType == typeof(List<Vector2>))
             {
                 VisualElement vectorField = InspectorController.Instance.VectorFieldTemplate.CloneTree();

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/toguss.uss?fileID=7433441132597879392&amp;guid=f9314daf56515aa45a7707763f28e464&amp;type=3#toguss" />
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:Button display-tooltip-when-elided="true" name="Toggle_BG" class="togbgchecked" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; width: 60px; height: 25px; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; margin-left: 7px; margin-right: 7px; margin-top: 7px; margin-bottom: 7px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <ui:Button display-tooltip-when-elided="true" name="Toggle_Ball" class="togballchecked" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; width: 25px; height: 25px;" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

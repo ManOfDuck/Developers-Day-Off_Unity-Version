@@ -1,0 +1,59 @@
+.addbutton {
+    color: rgb(223, 223, 223);
+    background-color: rgb(32, 32, 32);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 18px;
+    width: 56px;
+    height: 30px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.addbutton:hover {
+    color: rgb(223, 223, 223);
+    background-color: rgb(47, 47, 47);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 18px;
+    width: 56px;
+    height: 30px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.addbutton:active {
+    color: rgb(223, 223, 223);
+    background-color: rgb(95, 95, 95);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 18px;
+    width: 56px;
+    height: 30px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

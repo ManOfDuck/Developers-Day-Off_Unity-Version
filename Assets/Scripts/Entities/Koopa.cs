@@ -22,7 +22,7 @@ public class Koopa : CharacterController
 
     private Vector2 direction;
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         Koopa copy = base.Copy(destination) as Koopa;
 

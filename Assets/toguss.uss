@@ -1,0 +1,58 @@
+.togball {
+    border-left-color: rgba(104, 104, 104, 255);
+    border-right-color: rgba(104, 104, 104, 255);
+    border-top-color: rgba(104, 104, 104, 255);
+    border-bottom-color: rgba(104, 104, 104, 255);
+    height: 35px;
+    width: 35px;
+    background-color: rgba(104, 104, 104, 255);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    transition-duration: 0.3s;
+}
+
+.togbg {
+    background-color: rgba(47, 47, 47, 255);
+    height: 35px;
+    width: 82px;
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    flex-direction: row;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    transition-duration: 0.3s;
+}
+
+.togbgchecked {
+    background-color: rgb(89, 156, 79);
+    height: 35px;
+    width: 82px;
+    flex-direction: row;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    transition-duration: 0.3s;
+}
+
+.togballchecked {
+    border-left-color: rgb(104, 104, 104);
+    border-right-color: rgb(104, 104, 104);
+    border-top-color: rgb(104, 104, 104);
+    border-bottom-color: rgb(104, 104, 104);
+    height: 35px;
+    width: 35px;
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    translate: 35px 0;
+    transition-duration: 0.3s;
+}

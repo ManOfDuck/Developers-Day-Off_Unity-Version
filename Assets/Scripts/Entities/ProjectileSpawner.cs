@@ -69,7 +69,7 @@ public class ProjectileSpawner : SimulatedScript
     protected override string DefaultVisualComponentName => "ProjectileSpawner";
 
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         ProjectileSpawner copy = destination.gameObject.AddComponent<ProjectileSpawner>();
 
