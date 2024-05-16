@@ -48,7 +48,7 @@ public class PlayerController : CharacterController
 
     [Header("Sounds")]
     [SerializeField] AudioSource jumpSound;
-    [SerializeField] AudioClip landingSound;
+    //[SerializeField] AudioSource landingSound;
     [SerializeField] AudioSource dieSound;
 
 
@@ -99,6 +99,15 @@ public class PlayerController : CharacterController
         }
 
         if (groundObject && groundObject.CompareTag("Enemy")) Hurt(1);
+    }
+
+    override protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("playing ground sound " + collision.gameObject.tag);
+        if (collision.gameObject.tag == "Ground")
+        {
+            Debug.Log("playing ground sound");
+        }
     }
 
     public void Heal(int healthToAdd)
@@ -186,4 +195,5 @@ public class PlayerController : CharacterController
         yield return new WaitForSeconds(JumpBufferTime);
         jumpBufferActive = false;
     }
+
 }

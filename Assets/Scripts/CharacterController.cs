@@ -66,6 +66,8 @@ public class CharacterController : SimulatedScript
 
     protected Vector2 localVelocity = Vector2.zero;
 
+    [SerializeField] AudioSource landingSound;
+
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
         CharacterController copy = destination.gameObject.AddComponent(this.GetType()) as CharacterController;
@@ -306,6 +308,11 @@ public class CharacterController : SimulatedScript
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
+
+        if (isGrounded && groundObject == null)
+        {
+            landingSound.Play();
+        }
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
@@ -336,7 +343,7 @@ public class CharacterController : SimulatedScript
     #endregion
 
     #region Collisions
-    private void OnCollisionEnter2D(Collision2D collision)
+    virtual protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (!doCollisionEvents)
             return;
