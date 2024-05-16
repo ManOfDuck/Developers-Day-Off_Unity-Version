@@ -154,10 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
   _wrappedComponent: {fileID: 6793022463475628266}
-  jumpSound: {fileID: 5947624820784636392}
-  landingSound: {fileID: 7310623915992248321}
-  dieSound: {fileID: 5076194606581843796}
-  deathParticle: {fileID: 5198335446318970962, guid: a4ccd9346b5c1c249b77da854e503791, type: 3}
 --- !u!50 &6793022463475628261
 Rigidbody2D:
   serializedVersion: 4
@@ -284,6 +280,31 @@ MonoBehaviour:
   _runForce: 50
   _airRunForce: 10
   _friction: 26
+  _airFriction: 12
+  _horizontalSpeedCap: 14
+  _wallCheckDistance: 0.1
+  _coyoteTime: 0.12
+  _jumpForce: 12.5
+  _cancelledJumpImpulseRatio: 0.5
+  _regularGravity: 20.8
+  _fallingGravity: 29.8
+  _releaseImpulse: 0
+  _verticalSpeedCap: 1000
+  _groundCheckDistance: 0.1
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  landingSound: {fileID: 7310623915992248321}
+  _maxHealth: 1
+  _playerDamageCooldown: 1
+  _damageVolume: {fileID: 0}
+  _horizontalWalljumpForce: 0
+  _verticalWalljumpForce: 0
+  _walljumpCount: 0
+  _jumpBufferTime: 0.2
+  jumpSound: {fileID: 5947624820784636392}
+  dieSound: {fileID: 5076194606581843796}
+  deathParticle: {fileID: 5198335446318970962, guid: a4ccd9346b5c1c249b77da854e503791, type: 3}
 --- !u!82 &5947624820784636392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -305,27 +326,6 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  _airFriction: 12
-  _horizontalSpeedCap: 14
-  _wallCheckDistance: 0.1
-  _coyoteTime: 0.12
-  _jumpForce: 12.5
-  _cancelledJumpImpulseRatio: 0.5
-  _regularGravity: 20.8
-  _fallingGravity: 29.8
-  _releaseImpulse: 0
-  _verticalSpeedCap: 1000
-  _groundCheckDistance: 0.1
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _maxHealth: 1
-  _playerDamageCooldown: 1
-  _damageVolume: {fileID: 0}
-  _horizontalWalljumpForce: 0
-  _verticalWalljumpForce: 0
-  _walljumpCount: 0
-  _jumpBufferTime: 0.2
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

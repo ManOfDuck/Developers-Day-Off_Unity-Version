@@ -46,7 +46,6 @@ public class PlayerController : CharacterController
     private IEnumerator jumpBufferCoroutine;
     public IEnumerator DamageCoroutineObject { get; private set; }
 
-    public override SimulatedComponent Copy(ComponentHolder destination)
     [Header("Sounds")]
     [SerializeField] AudioSource jumpSound;
     //[SerializeField] AudioSource landingSound;
@@ -56,6 +55,7 @@ public class PlayerController : CharacterController
     [Header("Miscellaneous")]
     [SerializeField] ParticleSystem deathParticle;
 
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         PlayerController copy = base.Copy(destination) as PlayerController;
 
@@ -99,15 +99,6 @@ public class PlayerController : CharacterController
         }
 
         if (groundObject && groundObject.CompareTag("Enemy")) Hurt(1);
-    }
-
-    override protected void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("playing ground sound " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "Ground")
-        {
-            Debug.Log("playing ground sound");
-        }
     }
 
     public void Heal(int healthToAdd)
