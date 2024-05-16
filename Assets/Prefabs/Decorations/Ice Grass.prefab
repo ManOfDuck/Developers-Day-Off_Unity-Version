@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6704610729736919512}
   - component: {fileID: -7574589394375342671}
   m_Layer: 3
-  m_Name: Sign
+  m_Name: Ice Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1046055830, guid: 5933e7d3a088b42d080958c4ef1fa860, type: 3}
+  m_Sprite: {fileID: -324062639, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7287282999634162282}
   - component: {fileID: 7287282999634162285}
   - component: {fileID: 7287282999634162281}
-  - component: {fileID: 7862962634493961131}
+  - component: {fileID: 420862464528221365}
   m_Layer: 3
-  m_Name: mushroom 2
+  m_Name: Red Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1334651770, guid: 5933e7d3a088b42d080958c4ef1fa860, type: 3}
+  m_Sprite: {fileID: 1854647150, guid: 5933e7d3a088b42d080958c4ef1fa860, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 1
-  clickTrigger: {fileID: 7862962634493961131}
+  clickTrigger: {fileID: 420862464528221365}
   _components: []
   defaultSprite: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
   sprite1: {fileID: 0}
---- !u!61 &7862962634493961131
+--- !u!61 &420862464528221365
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.002497077, y: -0.024970055}
+  m_Offset: {x: 0.0024969578, y: -0.16605067}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -127,5 +127,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6654017, y: 0.9500599}
+  m_Size: {x: 0.66040754, y: 0.66789865}
   m_EdgeRadius: 0

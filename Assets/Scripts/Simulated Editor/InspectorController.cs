@@ -281,7 +281,7 @@ public class InspectorController : MonoBehaviour
         }
 
         // Get the button and ball and set up their class lists
-        VisualElement toggleBG = toggle.Q<VisualElement>("Toggle_BG");
+        VisualElement toggleBG = toggle.Q<Button>("Toggle_BG");
         Button toggleBall = toggle.Q<Button>("Toggle_Ball");
 
         if (component.ComponentEnabledStatus)
