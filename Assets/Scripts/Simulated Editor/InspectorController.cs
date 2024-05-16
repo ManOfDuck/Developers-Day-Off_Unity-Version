@@ -240,7 +240,7 @@ public class InspectorController : MonoBehaviour
         foreach (SimulatedComponent component in components)
         {
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
-            AddComponentToggle(component, componentDisplay);
+            //AddComponentToggle(component, componentDisplay);
             AddComponentFields(component, componentDisplay);
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
@@ -258,7 +258,7 @@ public class InspectorController : MonoBehaviour
         this.displayedObject = objectToDisplay;
     }
 
-    private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
+ /*   private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
     {
         Toggle toggle = componentDisplay.Q<Toggle>("toggle");
 
@@ -273,6 +273,7 @@ public class InspectorController : MonoBehaviour
             toggle.style.opacity = 0;
         }
     }
+ */
 
     #region Ignore this also
     private void AddComponentFields(SimulatedComponent component, VisualElement componentDisplay)
