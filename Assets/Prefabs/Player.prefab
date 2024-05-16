@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 6464460167355857351}
   - component: {fileID: 6793022463475628266}
   - component: {fileID: -1096039975165407039}
-  - component: {fileID: 6793022463475628263}
   - component: {fileID: 6793022463475628261}
   - component: {fileID: -3979753477877448138}
   - component: {fileID: 6793022463475628256}
   - component: {fileID: 943139206617575861}
   - component: {fileID: 8664122455749873983}
   - component: {fileID: -7190368394319624799}
+  - component: {fileID: 8239232330265872846}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -84,7 +84,7 @@ MonoBehaviour:
   _interactable: 0
   clickTrigger: {fileID: -7256860875722512821}
   defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
-  sprite1: {fileID: -1666154275, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
+  sprite1: {fileID: 21300000, guid: 31e19a0848556409fa4319e0ac37d3d0, type: 3}
 --- !u!212 &6793022463475628266
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -151,44 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
   _wrappedComponent: {fileID: 6793022463475628266}
---- !u!114 &6793022463475628263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6793022463475628265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc8a51ea98be4bfbb6008106f4909a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualComponent: {fileID: 11400000, guid: eb724b9ee0fb24df4ae576572e518f75, type: 2}
-  startEnabled: 1
-  _runForce: 50
-  _airRunForce: 10
-  _friction: 26
-  _airFriction: 12
-  _horizontalSpeedCap: 14
-  _wallCheckDistance: 0.1
-  _coyoteTime: 0.12
-  _jumpForce: 12.5
-  _cancelledJumpImpulseRatio: 0.5
-  _regularGravity: 20.8
-  _fallingGravity: 29.8
-  _releaseImpulse: 0
-  _verticalSpeedCap: 1000
-  _groundCheckDistance: 0.1
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _maxHealth: 1
-  _playerDamageCooldown: 1
-  _damageVolume: {fileID: 0}
-  _horizontalWalljumpForce: 0
-  _verticalWalljumpForce: 0
-  _walljumpCount: 0
-  _jumpBufferTime: 0.2
 --- !u!50 &6793022463475628261
 Rigidbody2D:
   serializedVersion: 4
@@ -298,3 +260,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
   _wrappedComponent: {fileID: 8664122455749873983}
+--- !u!114 &8239232330265872846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793022463475628265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722f15b3502a3d4fa018b14cdbd0072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualComponent: {fileID: 0}
+  startEnabled: 1
+  _runForce: 50
+  _airRunForce: 10
+  _friction: 26
+  _airFriction: 12
+  _horizontalSpeedCap: 14
+  _wallCheckDistance: 0.1
+  _coyoteTime: 0.12
+  _jumpForce: 12.5
+  _cancelledJumpImpulseRatio: 0.5
+  _regularGravity: 20.8
+  _fallingGravity: 29.8
+  _releaseImpulse: 0
+  _verticalSpeedCap: 1000
+  _groundCheckDistance: 0.1
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _maxHealth: 1
+  _playerDamageCooldown: 1
+  _damageVolume: {fileID: 0}
+  _horizontalWalljumpForce: 0
+  _verticalWalljumpForce: 0
+  _walljumpCount: 0
+  _jumpBufferTime: 0.2
