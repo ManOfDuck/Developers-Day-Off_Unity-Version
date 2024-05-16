@@ -104466,13 +104466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f441b06c57f4aa09b6c33ae13cccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _components: []
   mainUIDocument: {fileID: 1295133738}
   componentTemplate: {fileID: 9197481963319205126, guid: f37120b21d685754495a561c74d6dd3e, type: 3}
-  scriptTemplate: {fileID: 0}
-  components:
-  - {fileID: 1295133740}
-  - {fileID: 1295133739}
-  scripts: []
+  _overrideComponents: 0
 --- !u!1 &1352996745
 GameObject:
   m_ObjectHideFlags: 0
@@ -104796,6 +104793,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1358777299}
   - component: {fileID: 1358777298}
+  - component: {fileID: 1358777302}
+  - component: {fileID: 1358777301}
+  - component: {fileID: 1358777300}
   m_Layer: 0
   m_Name: Isometric Diamond
   m_TagString: Untagged
@@ -104870,6 +104870,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1358777300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358777297}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55385b2cc14714a9990b3cfd00730a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualComponent: {fileID: 11400000, guid: eb7b3e6df2d9b4928b7b72da6337965b, type: 2}
+  startEnabled: 1
+  _speed: 5
+  _waitTime: 0
+  _body: {fileID: 0}
+  _patrolPoints:
+  - {x: 0, y: 0}
+--- !u!114 &1358777301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358777297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205b4d113228e4e7389c24e0aca78b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components: []
+  collectTrigger: {fileID: 1358777302}
+--- !u!61 &1358777302
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358777297}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.5}
+    newSize: {x: 1, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &1481066667
 GameObject:
   m_ObjectHideFlags: 0
@@ -109822,7 +109881,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: 1, z: 0}

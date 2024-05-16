@@ -14,7 +14,7 @@ public class DestroyOnCollision : SimulatedScript
         Destroy(this.gameObject);
     }
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         DestroyOnCollision copy = destination.gameObject.AddComponent<DestroyOnCollision>();
         return copy;

@@ -10,6 +10,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
+            Debug.Log("level cleared");
             GameManager.Instance.ClearLevel();
         }
     }

@@ -66,7 +66,7 @@ public abstract class ComponentWrapper<T> : SimulatedComponent where T : Compone
         return component;
     }
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         ComponentWrapper<T> copiedWrapper = destination.gameObject.AddComponent(this.GetType()) as ComponentWrapper<T>;
 

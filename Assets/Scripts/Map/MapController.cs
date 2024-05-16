@@ -23,7 +23,7 @@ public class MapController : TraversePath
     private IEnumerator moveCoroutine;
     private List<Vector2> currentPath;
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         MapController copy = destination.gameObject.AddComponent<MapController>();
 

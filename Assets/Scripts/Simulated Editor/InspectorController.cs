@@ -18,6 +18,7 @@ public class InspectorController : MonoBehaviour
     public VisualTreeAsset VectorFieldTemplate => _vectorFieldTemplate;
     [SerializeField] private VisualTreeAsset _floatFieldTemplate;
     public VisualTreeAsset FloatFieldTemplate => _floatFieldTemplate;
+    [SerializeField] private bool overrideUIDoc;
 
     public Color trueColor;
     public Color falseColor;
@@ -48,24 +49,30 @@ public class InspectorController : MonoBehaviour
     public bool objectHasBeenClicked;
     public bool isDisplaying;
 
+    private GameManager gameManager;
+
 
     private void Awake()
     {
-        GameManager.Instance.OnPlayerHurt.AddListener(StopDisplaying);
-
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(_instance.gameObject);
-            _instance = this;
+            if (overrideUIDoc)
+            {
+                Instance.mainUIDocument.visualTreeAsset = this.mainUIDocument.visualTreeAsset;
+            }
+            Destroy(this.gameObject);
         }
     }
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+        gameManager.OnPlayerHurt.AddListener(StopDisplaying);
         StopDisplaying();
     }
     
@@ -98,12 +105,15 @@ public class InspectorController : MonoBehaviour
             Debug.Log("there is no target renderer");
         }
 
-        
+
         if (root != null)
         {
             root.visible = false;
         }
-        followCamera.shift = 0;
+        if (followCamera != null)
+        {
+            followCamera.shift = 0;
+        }
     }
 
     public void RefreshDisplay()
@@ -241,7 +251,11 @@ public class InspectorController : MonoBehaviour
         {
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
-            AddComponentFields(component, componentDisplay);
+            Debug.Log(gameManager);
+            if (gameManager && gameManager.Upgrades.Contains("Fields"))
+            {
+                AddComponentFields(component, componentDisplay);
+            }
             componentDisplays.Add(componentDisplay);
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
@@ -252,8 +266,8 @@ public class InspectorController : MonoBehaviour
 
         //Show the inspector
         root.visible = true;
-        if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
-            followCamera.shift = cameraShiftAmount;
+       // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
+        //    followCamera.shift = cameraShiftAmount;
 
         this.displayedObject = objectToDisplay;
     }
@@ -287,7 +301,6 @@ public class InspectorController : MonoBehaviour
         foreach (PropertyInfo property in componentProperties)
         {
             // Kindly ignore
-            Debug.Log(property.Name);
             if (property.PropertyType == typeof(List<Vector2>))
             {
                 VisualElement vectorField = InspectorController.Instance.VectorFieldTemplate.CloneTree();

@@ -6,18 +6,17 @@ using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 using static UnityEngine.UI.Image;
 
-public class SimulatedObject : MonoBehaviour
+public class SimulatedObject : ComponentHolder
 {
-    [SerializeField] private bool interactable = true;
+    [SerializeField] private bool _interactable = true;
     [SerializeField] private Collider2D clickTrigger;
+    public bool Interactable { get => _interactable; set => _interactable = value; }
 
-    public List<SimulatedComponent> _components = new();
-    public List<SimulatedComponent> Components { get => _components; private set => _components = value; }
+
+
     public LayerMask Layer { get; private set; }
-
     private readonly Dictionary<System.Type, List<Component>> safeReferences = new();
     private InspectorController inspectorController;
-    private GameManager gameManager;
     private InputManager inputManager;
     public Sprite defaultSprite;
     public Sprite sprite1;
@@ -27,10 +26,11 @@ public class SimulatedObject : MonoBehaviour
         
     }
 
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
+
         inspectorController = InspectorController.Instance;
-        gameManager = GameManager.Instance;
         Layer = gameObject.layer;
         inputManager = InputManager.Instance;
         inputManager.OnClick.AddListener(OnClick);
@@ -40,7 +40,7 @@ public class SimulatedObject : MonoBehaviour
 
     public void OnClick()
     {
-        if (!interactable || clickTrigger == null) return;
+        if (!Interactable || clickTrigger == null) return;
 
         if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
         {
@@ -48,10 +48,10 @@ public class SimulatedObject : MonoBehaviour
         }
     }
 
-    public void RegisterComponent(SimulatedComponent simulatedComponent)
-    { 
+    public override void RegisterComponent(SimulatedComponent simulatedComponent)
+    {
+        base.RegisterComponent(simulatedComponent);
 
-        Components.Add(simulatedComponent);
         if (inspectorController != null  && inspectorController.displayedObject == this)
         {
             inspectorController.RefreshDisplay();
@@ -80,7 +80,7 @@ public class SimulatedObject : MonoBehaviour
     }
 
     // If we have a component of this type, set the passed reference. Otherwise, keep it as null.
-    public T TryAssignReference<T>(ref T component) where T : Component
+    public override T TryAssignReference<T>(ref T component)
     {
         // Only assign a reference if our existing one is null
         if (component == null)
@@ -113,7 +113,7 @@ public class SimulatedObject : MonoBehaviour
         return component;
     }
 
-    public T AssignMandatoryReference<T>(ref T component, System.Type wrapperClass) where T : Component
+    public override T AssignMandatoryReference<T>(ref T component, System.Type wrapperClass)
     {
         // Try to assign the reference
         TryAssignReference(ref component);

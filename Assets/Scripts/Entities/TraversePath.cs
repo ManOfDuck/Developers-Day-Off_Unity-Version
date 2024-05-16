@@ -73,7 +73,7 @@ public abstract class TraversePath : SimulatedScript
         Moving = false;
     }
 
-    override public SimulatedComponent Copy(SimulatedObject destination)
+    override public SimulatedComponent Copy(ComponentHolder destination)
     {
         TraversePath copy = destination.gameObject.AddComponent(this.GetType()) as TraversePath;
 

@@ -36,7 +36,7 @@ public class Enemy : SimulatedScript
         }
     }
 
-    public override SimulatedComponent Copy(SimulatedObject destination)
+    public override SimulatedComponent Copy(ComponentHolder destination)
     {
         return destination.gameObject.AddComponent<Enemy>();
     }
