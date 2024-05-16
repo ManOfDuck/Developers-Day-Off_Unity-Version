@@ -46,6 +46,12 @@ public class PlayerController : CharacterController
     private IEnumerator jumpBufferCoroutine;
     public IEnumerator DamageCoroutineObject { get; private set; }
 
+    [Header("Sounds")]
+    [SerializeField] AudioSource jumpSound;
+    [SerializeField] AudioClip landingSound;
+    [SerializeField] AudioSource dieSound;
+
+
     [Header("Miscellaneous")]
     [SerializeField] ParticleSystem deathParticle;
 
@@ -108,6 +114,7 @@ public class PlayerController : CharacterController
             StartCoroutine(DamageCoroutineObject);
 
             health -= damage;
+            dieSound.Play();
 
             if (health <= 0)
             {
@@ -167,6 +174,7 @@ public class PlayerController : CharacterController
     {
         if (jumpBufferCoroutine is not null)
         {
+            jumpSound.Play();
             StopCoroutine(jumpBufferCoroutine);
             jumpBufferActive = false;
         }
