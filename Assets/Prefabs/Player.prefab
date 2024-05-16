@@ -145,6 +145,7 @@ MonoBehaviour:
   _verticalWalljumpForce: 0
   _walljumpCount: 0
   _jumpBufferTime: 0.08
+  deathParticle: {fileID: 5198335446318970962, guid: a4ccd9346b5c1c249b77da854e503791, type: 3}
 --- !u!50 &6793022463475628261
 Rigidbody2D:
   serializedVersion: 4

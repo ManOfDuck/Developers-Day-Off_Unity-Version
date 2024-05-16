@@ -46,6 +46,9 @@ public class PlayerController : CharacterController
     private IEnumerator jumpBufferCoroutine;
     public IEnumerator DamageCoroutineObject { get; private set; }
 
+    [Header("Miscellaneous")]
+    [SerializeField] ParticleSystem deathParticle;
+
     public override SimulatedComponent Copy(SimulatedObject destination)
     {
         PlayerController copy = base.Copy(destination) as PlayerController;
@@ -133,6 +136,9 @@ public class PlayerController : CharacterController
 
     public void Die()
     {
+        ParticleSystem instantiatedDeathParticle = Instantiate<ParticleSystem>(deathParticle);
+        instantiatedDeathParticle.transform.position = this.transform.position;
+
         PlayerSpawn.Respawn();
         health = MaxHealth;
     }
