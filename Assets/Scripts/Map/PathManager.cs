@@ -89,7 +89,7 @@ public class PathManager : MonoBehaviour
 
             if (level == null) continue;
 
-            if (gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName))
+            if (gameManager.CurrentLevel != null && gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName))
             {
                 // We just cleared this level, lets do an animation
                 LevelStatuses[level] = LevelStatus.Cleared;

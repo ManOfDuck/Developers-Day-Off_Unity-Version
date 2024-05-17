@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string mapScreen;
 
     public string CurrentLevel { get; private set; }
-    public List<string> ClearedLevels { get; private set; }
+    public List<string> ClearedLevels { get; private set; } = new();
     [field: SerializeField]
     public List<string> Upgrades { get; private set; } = new();
 
