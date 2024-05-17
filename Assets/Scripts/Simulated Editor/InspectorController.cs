@@ -117,8 +117,10 @@ public class InspectorController : MonoBehaviour
             {
                 Debug.Log(targetRenderer);
                 greyBox.enabled = false;
-                if (displayedObject.GetComponent<Renderer>()) displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
-                if (PlayerSpawn.Player?.GetComponent<Renderer>()) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
+                if (displayedObject.GetComponent<Renderer>() && displayedObject.GetComponent<Renderer>().sortingOrder > 100)
+                    displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
+                if (PlayerSpawn.Player?.GetComponent<Renderer>() && PlayerSpawn.Player?.GetComponent<Renderer>().sortingOrder > 100)
+                    PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
             }
             else
             {
@@ -310,12 +312,13 @@ public class InspectorController : MonoBehaviour
             if (targetRenderer) targetRenderer.material = highlightMaterial;
         }
 
+        if (PlayerSpawn.Player) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder += 1000;
+        if (objectToDisplay.TryGetComponent(out Renderer renderer)) renderer.sortingOrder += 1000;
+
         //SET OBJ NAME & IMG
-        if (objectToDisplay.TryGetComponent(out SpriteRenderer renderer))
+        if (objectToDisplay.TryGetComponent(out SpriteRenderer spriteRenderer))
         {
-            renderer.sortingOrder += 1000;
-            if (PlayerSpawn.Player) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder += 1000;
-            icon.style.backgroundImage = renderer.sprite.texture;
+            icon.style.backgroundImage = spriteRenderer.sprite.texture;
         }
         else
         {

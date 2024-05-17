@@ -45,7 +45,7 @@ public class SimulatedObject : ComponentHolder
 
         if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
         {
-            inspectorController.DisplayObject(this);
+            inspectorController?.DisplayObject(this);
         }
     }
 
