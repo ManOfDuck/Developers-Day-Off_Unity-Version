@@ -1,10 +1,10 @@
 .Button {
-    width: auto;
+    width: 350px;
     font-size: 66px;
     background-color: rgb(42, 42, 42);
     -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&guid=b707aa2e6dfa52b41aa64d7283a38939&type=3#Alphakind');
     -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&guid=0c45bef536dd8bd4c9ba0ef64a01b274&type=2#Alphakind SDF');
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
@@ -13,6 +13,7 @@
     padding-right: 51px;
     padding-top: 19px;
     padding-bottom: 19px;
+    height: 125px;
 }
 
 .Button:hover {
@@ -33,9 +34,9 @@
 }
 
 .menu {
-    height: 100%;
+    height: auto;
     align-items: center;
-    background-color: rgba(42, 42, 42, 0.85);
+    background-color: rgba(42, 42, 42, 0.94);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -45,10 +46,6 @@
     border-top-right-radius: 51px;
     border-bottom-right-radius: 51px;
     width: auto;
-    margin-left: 16%;
-    margin-right: 16%;
-    margin-top: 8%;
-    margin-bottom: 8%;
     transition-duration: 0.7s;
 }
 
@@ -61,14 +58,87 @@
 
 .settingsText {
     font-size: 55px;
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&guid=0c45bef536dd8bd4c9ba0ef64a01b274&type=2#Alphakind SDF');
-    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&guid=b707aa2e6dfa52b41aa64d7283a38939&type=3#Alphakind');
+    -unity-font-definition: none;
+    -unity-font: url('project://database/Packages/com.unity.searcher/Editor/Resources/FlatSkin/Font/Roboto-Medium.ttf?fileID=12800000&guid=a51a3aebb43ac044989270407476b208&type=3#Roboto-Medium');
     color: rgb(255, 255, 255);
 }
 
-.unity-slider {
-    background-color: rgba(26, 198, 105, 0);
+.unity-toggle {
 }
 
-.unity-toggle {
+Slider Label {
+    display: none;
+}
+
+Slider #unity-drag-container {
+    background-color: rgba(81, 81, 81, 255);
+    justify-content: flex-start;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+Slider #unity-tracker {
+    background-color: rgba(115, 31, 102, 0);
+    flex-grow: 1;
+    position: relative;
+    top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+Slider #unity-dragger {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 30px;
+    height: 30px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 21px;
+    border-bottom-left-radius: 21px;
+    border-top-right-radius: 21px;
+    border-bottom-right-radius: 21px;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+Slider #unity-dragger:hover {
+    scale: 1.1 1.1;
+}
+
+.setting {
+    height: 275px;
+    width: 100%;
 }
