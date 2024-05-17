@@ -30,7 +30,7 @@ public class InspectorController : MonoBehaviour
     public float shiftDistance;
 
     private VisualElement root;
-    private Button xButton;
+    private Button xButton, notInspector;
     private Label objectName, xValue, yValue;
     private VisualElement icon;
 
@@ -38,6 +38,7 @@ public class InspectorController : MonoBehaviour
     public Material defaultMaterial;
 
     public SimulatedObject displayedObject;
+    private int displayedObjectLayer;
 
     [SerializeField] private Sprite defaultSprite;
     private List<VisualElement> componentDisplays = new();
@@ -52,6 +53,7 @@ public class InspectorController : MonoBehaviour
     public bool isDisplaying;
 
     private GameManager gameManager;
+    private InputManager inputManager;
 
     [Header("Audio")]
     [SerializeField] AudioSource toggleComponentSound;
@@ -83,7 +85,7 @@ public class InspectorController : MonoBehaviour
         gameManager.OnPlayerHurt.AddListener(StopDisplaying);
         StopDisplaying();
     }
-    
+
     private void OnEnable() // get ui references B-)
     {
         root = mainUIDocument.rootVisualElement;
@@ -92,7 +94,12 @@ public class InspectorController : MonoBehaviour
         xValue = root.Q<Label>("x_value");
         yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
+        notInspector = root.Q<Button>("not_inspector");
         xButton.clickable.clicked += () =>
+        {
+            StopDisplaying();
+        };
+        notInspector.clickable.clicked += () =>
         {
             StopDisplaying();
         };
@@ -102,7 +109,11 @@ public class InspectorController : MonoBehaviour
     {
         if (displayedObject != null)
         {
-            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer)) targetRenderer.material = defaultMaterial;
+            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer))
+            {
+                targetRenderer.material = defaultMaterial;
+                targetRenderer.sortingOrder -= 1000;
+            }
             displayedObject = null;
         }
 
@@ -124,14 +135,17 @@ public class InspectorController : MonoBehaviour
         {
             followCamera.shift = 0;
         }
-
+        SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+        if (greyBox){
+            greyBox.enabled = false;
+        }
         inspectorCloseSound.Play();
     }
 
     public void RefreshDisplay()
     {
         if (!displayedObject) return;
-        DisplayObject(displayedObject);
+        DisplayObject(displayedObject, false);
         addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
     }
 
@@ -142,7 +156,7 @@ public class InspectorController : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
@@ -179,12 +193,13 @@ public class InspectorController : MonoBehaviour
                 }
 
                 Debug.Log(field.value);
-                
+
             }
         }
 
         // Hello welcome to my code (2)
-        foreach (KeyValuePair<(TextField, TextField), (SimulatedComponent, PropertyInfo)> kvp in vectorArrayBindings){
+        foreach (KeyValuePair<(TextField, TextField), (SimulatedComponent, PropertyInfo)> kvp in vectorArrayBindings)
+        {
             TextField xField = kvp.Key.Item1;
             TextField yField = kvp.Key.Item2;
 
@@ -197,7 +212,7 @@ public class InspectorController : MonoBehaviour
                 {
                     float value = float.Parse(xField.value);
                     lastFrameFieldValues[xField] = xField.value;
-                    property.SetValue(component, new List<Vector2> { new Vector2(value, (property.GetValue(component) as List<Vector2>)[0].y)});
+                    property.SetValue(component, new List<Vector2> { new Vector2(value, (property.GetValue(component) as List<Vector2>)[0].y) });
                 }
                 catch (System.Exception)
                 {
@@ -236,9 +251,9 @@ public class InspectorController : MonoBehaviour
     }
 
 
-    public void DisplayObject(SimulatedObject objectToDisplay)
+    public void DisplayObject(SimulatedObject objectToDisplay, bool playSound = true)
     {
-        inspectorOpenSound.Play();
+        if (playSound) inspectorOpenSound.Play();
         objectHasBeenClicked = true;
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -258,7 +273,7 @@ public class InspectorController : MonoBehaviour
         {
             targetRenderer.material = defaultMaterial;
         }
-        
+
 
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
@@ -279,9 +294,16 @@ public class InspectorController : MonoBehaviour
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
+        SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+        if (greyBox)
+        {
+            greyBox.enabled = true;
+        }
+
         //SET OBJ NAME & IMG
         if (objectToDisplay.TryGetComponent(out SpriteRenderer renderer))
         {
+            renderer.sortingOrder += 1000;
             icon.style.backgroundImage = renderer.sprite.texture;
         }
         else
@@ -292,7 +314,7 @@ public class InspectorController : MonoBehaviour
 
         //Show the inspector
         root.visible = true;
-       // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
+        // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
         //    followCamera.shift = cameraShiftAmount;
 
         this.displayedObject = objectToDisplay;
