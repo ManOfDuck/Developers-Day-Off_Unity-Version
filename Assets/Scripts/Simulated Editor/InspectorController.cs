@@ -101,7 +101,10 @@ public class InspectorController : MonoBehaviour
         };
         notInspector.clickable.clicked += () =>
         {
-            StopDisplaying();
+            if (Camera.main.GetComponentInChildren<SpriteRenderer>())
+            {
+                StopDisplaying();
+            }
         };
     }
 
@@ -109,11 +112,19 @@ public class InspectorController : MonoBehaviour
     {
         if (displayedObject != null)
         {
-            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer))
+            SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+            if (greyBox)
             {
-                targetRenderer.material = defaultMaterial;
-                targetRenderer.sortingOrder -= 1000;
+                Debug.Log(targetRenderer);
+                greyBox.enabled = false;
+                if (displayedObject.GetComponent<Renderer>()) displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
+                if (PlayerSpawn.Player?.GetComponent<Renderer>()) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
             }
+            else
+            {
+                if (targetRenderer) targetRenderer.material = defaultMaterial;
+            }
+
             displayedObject = null;
         }
 
@@ -135,10 +146,7 @@ public class InspectorController : MonoBehaviour
         {
             followCamera.shift = 0;
         }
-        SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
-        if (greyBox){
-            greyBox.enabled = false;
-        }
+
         inspectorCloseSound.Play();
     }
 
@@ -278,9 +286,6 @@ public class InspectorController : MonoBehaviour
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
 
-        targetRenderer = objectToDisplay.GetComponent<Renderer>();
-        targetRenderer.material = highlightMaterial;
-
         // Display the components
         foreach (SimulatedComponent component in components)
         {
@@ -299,11 +304,17 @@ public class InspectorController : MonoBehaviour
         {
             greyBox.enabled = true;
         }
+        else
+        {
+            targetRenderer = objectToDisplay.GetComponent<Renderer>();
+            if (targetRenderer) targetRenderer.material = highlightMaterial;
+        }
 
         //SET OBJ NAME & IMG
         if (objectToDisplay.TryGetComponent(out SpriteRenderer renderer))
         {
             renderer.sortingOrder += 1000;
+            if (PlayerSpawn.Player) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder += 1000;
             icon.style.backgroundImage = renderer.sprite.texture;
         }
         else
