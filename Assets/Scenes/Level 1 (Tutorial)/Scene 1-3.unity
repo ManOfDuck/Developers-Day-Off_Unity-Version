@@ -67505,7 +67505,7 @@ PrefabInstance:
     - target: {fileID: 2037748756094329257, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: sourceAsset
       value: 
-      objectReference: {fileID: 9197481963319205126, guid: 8188e8e8b193847ab9a17630ce9a06ec, type: 3}
+      objectReference: {fileID: 9197481963319205126, guid: bababf37e50569949bbd4e5fd7977379, type: 3}
     - target: {fileID: 2037748756094329258, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
