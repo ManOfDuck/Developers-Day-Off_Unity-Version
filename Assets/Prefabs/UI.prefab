@@ -118,6 +118,7 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: fad52df0dc5322947850b59274b04c41, type: 2}
   defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   displayedObject: {fileID: 0}
+  defaultSprite: {fileID: 21300000, guid: e51e888adad1c704997aa9a6cf4a0562, type: 3}
   objectHasBeenClicked: 0
   isDisplaying: 0
   toggleComponentSound: {fileID: -271129800891353448}

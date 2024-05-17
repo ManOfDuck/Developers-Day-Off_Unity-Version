@@ -32,13 +32,14 @@ public class InspectorController : MonoBehaviour
     private VisualElement root;
     private Button xButton;
     private Label objectName, xValue, yValue;
+    private VisualElement icon;
 
     public Material highlightMaterial;
     public Material defaultMaterial;
 
     public SimulatedObject displayedObject;
 
-    private Sprite globalSpriteDefault, globalSprite1;
+    [SerializeField] private Sprite defaultSprite;
     private List<VisualElement> componentDisplays = new();
     private Dictionary<(VisualElement, Button), SimulatedComponent> toggleBindings = new();
     private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
@@ -86,6 +87,7 @@ public class InspectorController : MonoBehaviour
     private void OnEnable() // get ui references B-)
     {
         root = mainUIDocument.rootVisualElement;
+        icon = root.Q<VisualElement>("image");
         objectName = root.Q<Label>("Object_name");
         xValue = root.Q<Label>("x_value");
         yValue = root.Q<Label>("y_value");
@@ -142,6 +144,12 @@ public class InspectorController : MonoBehaviour
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
             targetRenderer.material = defaultMaterial;
+        }
+
+        if (displayedObject)
+        {
+            xValue.text = displayedObject.gameObject.transform.position.x.ToString("F");
+            yValue.text = displayedObject.gameObject.transform.position.y.ToString("F");
         }
 
         #region Kindly Ignore :)
@@ -240,6 +248,12 @@ public class InspectorController : MonoBehaviour
         toggleBindings = new();
         floatBindings = new();
         vectorArrayBindings = new();
+
+        //Remove existing highlight, if any
+        if (targetRenderer)
+        {
+            targetRenderer.material = defaultMaterial;
+        }
         
 
         componentDisplays = new List<VisualElement>();
@@ -261,10 +275,16 @@ public class InspectorController : MonoBehaviour
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
-        //SET OBJ NAME & TAG
+        //SET OBJ NAME & IMG
+        if (objectToDisplay.TryGetComponent(out SpriteRenderer renderer))
+        {
+            icon.style.backgroundImage = renderer.sprite.texture;
+        }
+        else
+        {
+            icon.style.backgroundImage = defaultSprite.texture;
+        }
         objectName.text = objectToDisplay.gameObject.name.ToString();
-        xValue.text = objectToDisplay.gameObject.transform.position.x.ToString();
-        yValue.text = objectToDisplay.gameObject.transform.position.y.ToString();
 
         //Show the inspector
         root.visible = true;
