@@ -52,6 +52,12 @@ public class InspectorController : MonoBehaviour
 
     private GameManager gameManager;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource toggleComponentSound;
+    [SerializeField] AudioSource addComponentSound;
+    [SerializeField] AudioSource inspectorOpenSound;
+    [SerializeField] AudioSource inspectorCloseSound;
+    [SerializeField] AudioSource misclickSoundSound;
 
     private void Awake()
     {
