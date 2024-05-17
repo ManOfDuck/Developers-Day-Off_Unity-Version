@@ -36,7 +36,7 @@ public class StartMenu : MonoBehaviour
     private void StartClicked()
     {
         Debug.Log("start clicked");
-        SceneManager.LoadScene("Scene 1-1");
+        SceneManager.LoadScene("Map Screen");
     }
 
     private void HideMenu()

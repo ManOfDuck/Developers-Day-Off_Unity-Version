@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Box Collider 2D
   image: {fileID: 21300000, guid: dfd86a529b70782449bee0863b750654, type: 3}
-  description: Allows the object to collide with \nother objects, making it "solid".
+  description: Makes the object "solid" by allowing it to collide with other objects

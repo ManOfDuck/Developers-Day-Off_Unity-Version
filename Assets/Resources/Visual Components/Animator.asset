@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Animator
   image: {fileID: 21300000, guid: 9c9662e05093270489aca65ae4abd6ef, type: 3}
-  description: Swaps between sprites (placeholder)
+  description: Swaps through a series of sprites to make it animate

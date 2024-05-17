@@ -2,19 +2,22 @@
     <Style src="project://database/Assets/newinspectoruss.uss?fileID=7433441132597879392&amp;guid=6b0c3537ae047d9438a81c51b1dcc2a8&amp;type=3#newinspectoruss" />
     <ui:VisualElement name="main" style="height: 1084px; flex-grow: 1; flex-direction: row; transition-duration: 0.3s;">
         <ui:VisualElement style="max-width: none; flex-direction: column-reverse; width: 25%;">
-            <ui:VisualElement name="Toolkit" class="container_element toolkit">
+            <ui:VisualElement name="Toolkit" class="container_element toolkit" style="transform-origin: top; translate: 0 0; transition-duration: 0s;">
                 <ui:Button text="&#10;" display-tooltip-when-elided="true" name="TOP_BAR" style="margin-left: 0; margin-right: 0; margin-top: 5px; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 100%; height: 48px; background-color: rgba(88, 88, 88, 0); flex-direction: row; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;">
                     <ui:Label text="Toolkit" display-tooltip-when-elided="true" name="toolkit_title" class="title" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 375px; -unity-text-align: middle-center; height: 40px;" />
                     <ui:VisualElement style="width: 35px; height: 35px; margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px; background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Mouse@4x.png?fileID=2800000&amp;guid=1918e7bff8ff44878a0003977ca03971&amp;type=3#d_Mouse@4x&apos;);" />
                 </ui:Button>
                 <ui:VisualElement name="Desc_Area" style="border-bottom-width: 2px; border-bottom-color: rgb(34, 34, 34); height: 99px; flex-direction: row;">
-                    <ui:Label text="Your toolkit stores components and scripts that you can use! (yay)" display-tooltip-when-elided="true" name="TK_Desc" style="margin-left: 1%; margin-right: 1%; margin-top: 1%; margin-bottom: 1%; padding-left: 1%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%; font-size: 23px; -unity-font-style: normal; color: rgb(223, 223, 223); white-space: normal; -unity-font: resource(&apos;FlatSkin/Font/Roboto-Regular&apos;); -unity-font-definition: none;" />
+                    <ui:Label text="Stores &lt;b&gt;components&lt;/b&gt; and &lt;b&gt;scripts&lt;/b&gt; that you can add to objects" display-tooltip-when-elided="true" name="TK_Desc" style="margin-left: 1%; margin-right: 1%; margin-top: 1%; margin-bottom: 1%; padding-left: 1%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%; font-size: 23px; -unity-font-style: normal; color: rgb(223, 223, 223); white-space: normal; -unity-font: resource(&apos;FlatSkin/Font/Roboto-Regular&apos;); -unity-font-definition: none; -unity-text-align: upper-center;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="TK_components" />
+                <ui:ScrollView>
+                    <ui:VisualElement name="TK_components" />
+                </ui:ScrollView>
             </ui:VisualElement>
+            <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: auto; opacity: 0; flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="spacer" style="width: 55%;">
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="not_inspector" style="height: 1651px; opacity: 0;" />
+            <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: 100%; opacity: 0;" />
         </ui:VisualElement>
         <ui:VisualElement name="Inspector" class="container_element" style="width: 25%; max-width: 475px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; align-items: stretch; transition-duration: 1s;">
             <ui:VisualElement name="TOP_bar" style="flex-grow: 0; background-color: rgba(34, 34, 34, 0); flex-direction: row; height: 48px; margin-top: 9px; margin-bottom: 9px;">
@@ -23,7 +26,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="OBJ_desc_bar" style="background-color: rgba(60, 60, 60, 0); border-bottom-width: 0; border-bottom-color: rgb(34, 34, 34); height: auto; flex-direction: row; margin-top: 5px; margin-bottom: 19px;">
                 <ui:VisualElement name="Image_box" style="width: 100px; height: 100px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px; border-top-left-radius: 7px; border-bottom-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(34, 34, 34); border-right-color: rgb(34, 34, 34); border-top-color: rgb(34, 34, 34); border-bottom-color: rgb(34, 34, 34); background-color: rgb(34, 34, 34);">
-                    <ui:VisualElement name="image" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/kenney_pixel-platformer/tilemap-characters-resized.png?fileID=-2134126725&amp;guid=f4c5a2298d26ddb4394deea96502e2f3&amp;type=3#tilemap-characters-resized_12&apos;);" />
+                    <ui:VisualElement name="image" style="width: 100%; height: 100%; background-image: none;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Stack" style="flex-grow: 1; align-items: stretch; justify-content: flex-start;">
                     <ui:Label text="Object Name" display-tooltip-when-elided="true" name="Object_name" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(34, 34, 34); border-top-left-radius: 7px; border-bottom-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; margin-left: 3%; margin-right: 3%; margin-top: 3%; margin-bottom: 3%; padding-left: 3%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%; font-size: 23px; -unity-font-style: bold; color: rgb(223, 223, 223); -unity-font: resource(&apos;FlatSkin/Font/Roboto-Light&apos;); -unity-font-definition: none;" />

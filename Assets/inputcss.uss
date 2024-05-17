@@ -1,18 +1,52 @@
 .unity-label {
-    color: rgba(196, 196, 196, 255);
-    font-size: 14px;
+    color: rgb(196, 196, 196);
+    font-size: 20px;
     -unity-text-align: middle-center;
+    -unity-font: resource('FlatSkin/Font/Roboto-Medium');
+    -unity-font-definition: none;
+    -unity-font-style: normal;
 }
 
 .unity-base-text-field__input {
-    font-size: 14px;
+    font-size: 21px;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-font: resource('FlatSkin/Font/Roboto-Light');
+    -unity-font-style: normal;
+    -unity-text-align: upper-center;
+    background-color: rgba(34, 34, 34, 255);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    color: rgba(196, 196, 196, 255);
+    width: auto;
+    margin-left: 20px;
+    margin-right: 49px;
 }
 
-.unity-base-field__input {
-    margin-right: 57px;
-    background-color: rgba(47, 47, 47, 255);
+.unity-base-text-field__input:hover {
+    font-size: 21px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-font: resource('FlatSkin/Font/Roboto-Light');
+    -unity-font-style: normal;
+    -unity-text-align: upper-center;
+    background-color: rgb(34, 34, 34);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    color: rgb(196, 196, 196);
+    width: auto;
+    margin-left: 20px;
+    margin-right: 49px;
+    border-left-color: rgba(104, 104, 104, 255);
+    border-right-color: rgba(104, 104, 104, 255);
+    border-top-color: rgba(104, 104, 104, 255);
+    border-bottom-color: rgba(104, 104, 104, 255);
 }
