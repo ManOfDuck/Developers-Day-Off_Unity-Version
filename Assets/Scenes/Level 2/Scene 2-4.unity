@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 30.890244
+      value: 32.80377
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -192,7 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1718
+      value: -4.129
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499351, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_Size.x
@@ -137068,6 +137068,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712346814925711836, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
+      propertyPath: defaultSpawner
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1712346814925711837, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
       propertyPath: m_Name
       value: PlayerSpawn
@@ -137509,7 +137513,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4741774193269951121, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_RootOrder
@@ -137572,16 +137576,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758917, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5685396654955758917, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: startEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758937, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_Name
       value: Koopa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758937, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6235694413283908679, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: _color
@@ -137591,6 +137595,5 @@ PrefabInstance:
       propertyPath: startEnabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5685396654955758917, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}

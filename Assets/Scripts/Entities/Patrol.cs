@@ -35,13 +35,6 @@ public class Patrol : TraversePath
         }
     }
 
-
-    protected void OnEnable()
-    {
-        StopCoroutine(moveCoroutine);
-        StartCoroutine(DoSetup());
-    }
-
     override protected void Start()
     {
         base.Start();

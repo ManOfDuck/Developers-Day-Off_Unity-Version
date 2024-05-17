@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0bdd9b7b9b641469511085e7bef7dd, type: 3}
+  m_Name: BoxTrigger
+  m_EditorClassIdentifier: 
+  title: Box Trigger
+  image: {fileID: 21300000, guid: dfd86a529b70782449bee0863b750654, type: 3}
+  description: Lets other components know when something's overlapping this object.
+    Used for things like collectibles or checkpoints

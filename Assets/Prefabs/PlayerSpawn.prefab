@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712346814925711837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.49, y: -7.47, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,8 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
-  defaultSpawner: 1
+  defaultSpawner: 0
+  secondarySpawner: 0
   editorRenderer: {fileID: 3772156921593113708}
+  playerDead:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &3772156921593113708
 SpriteRenderer:
   m_ObjectHideFlags: 0

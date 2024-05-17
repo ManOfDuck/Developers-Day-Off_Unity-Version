@@ -73,12 +73,12 @@ public abstract class TraversePath : SimulatedScript
         }
         while (loop);
         Moving = false;
-        Body.bodyType = RigidbodyType2D.Dynamic;
+        //Body.bodyType = RigidbodyType2D.Dynamic;
     }
 
     protected void OnDisable()
     {
-        Body.bodyType = RigidbodyType2D.Dynamic;
+        //Body.bodyType = RigidbodyType2D.Dynamic;
     }
 
     override public SimulatedComponent Copy(ComponentHolder destination)

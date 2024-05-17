@@ -73,9 +73,10 @@ public class InspectorController : MonoBehaviour
         {
             if (overrideUIDoc)
             {
-                Instance.mainUIDocument.visualTreeAsset = this.mainUIDocument.visualTreeAsset;
+                Destroy(Instance.gameObject);
+                _instance = this;
             }
-            Destroy(this.gameObject);
+            else Destroy(this.gameObject);
         }
     }
 

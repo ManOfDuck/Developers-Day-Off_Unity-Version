@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 81.678116
+      value: 105.20958
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalScale.y
@@ -188,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.4235
+      value: 57.1889
       objectReference: {fileID: 0}
     - target: {fileID: 6606793039796499345, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123581,12 +123581,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2540438901232704772, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4887937
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540438901232704772, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
       propertyPath: m_LocalScale.y
       value: 8.576251
       objectReference: {fileID: 0}
     - target: {fileID: 2540438901232704772, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.49
+      value: 15.2457
       objectReference: {fileID: 0}
     - target: {fileID: 2540438901232704772, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123626,7 +123630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3313229483122060501, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4673753129157348734, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
       propertyPath: m_Name
@@ -124216,6 +124220,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712346814925711836, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
+      propertyPath: defaultSpawner
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1712346814925711837, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
       propertyPath: m_Name
       value: PlayerSpawn

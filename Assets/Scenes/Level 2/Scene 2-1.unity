@@ -138272,6 +138272,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712346814925711836, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
+      propertyPath: defaultSpawner
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1712346814925711837, guid: 41987ac2bd83d4e4fbf45a7d6b601ce7, type: 3}
       propertyPath: m_Name
       value: PlayerSpawn

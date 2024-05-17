@@ -31,7 +31,8 @@ public class ToolkitController : ComponentHolder
         {
             if (OverrideComponents)
             {
-                StartCoroutine(DelayDestroy());
+                Destroy(Instance.gameObject);
+                Instance = this;
             }
             else
             {
