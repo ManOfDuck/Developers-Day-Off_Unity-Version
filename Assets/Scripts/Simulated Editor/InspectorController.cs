@@ -58,7 +58,7 @@ public class InspectorController : MonoBehaviour
     [SerializeField] AudioSource addComponentSound;
     [SerializeField] AudioSource inspectorOpenSound;
     [SerializeField] AudioSource inspectorCloseSound;
-    [SerializeField] AudioSource misclickSoundSound;
+    //[SerializeField] AudioSource misclickSoundSound; // Cant do here
 
     private void Awake()
     {
