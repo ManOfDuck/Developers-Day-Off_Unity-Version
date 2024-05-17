@@ -15,6 +15,8 @@ public class SimulatedObject : ComponentHolder
 
 
     public LayerMask Layer { get; private set; }
+    public Collider2D ClickTrigger { get => clickTrigger; private set => clickTrigger = value; }
+
     private readonly Dictionary<System.Type, List<Component>> safeReferences = new();
     private InspectorController inspectorController;
     private InputManager inputManager;
@@ -40,10 +42,10 @@ public class SimulatedObject : ComponentHolder
 
     public void OnClick()
     {
-        if (!Interactable || clickTrigger == null ||
+        if (!Interactable || ClickTrigger == null ||
             (InspectorController.Instance?.displayedObject != null && Camera.main.GetComponentInChildren<SpriteRenderer>() != null) ) return;
 
-        if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
+        if (ClickTrigger.bounds.Contains(inputManager.WorldMousePosition))
         {
             inspectorController?.DisplayObject(this);
         }
