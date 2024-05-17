@@ -317,7 +317,7 @@ public class CharacterController : SimulatedScript
 
         if (isGrounded && groundObject == null)
         {
-            landingSound.Play();
+            landingSound?.Play();
         }
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
