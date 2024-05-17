@@ -143,13 +143,12 @@ public class InspectorController : MonoBehaviour
         if (root != null)
         {
             root.visible = false;
+            inspectorCloseSound.Play();
         }
         if (followCamera != null)
         {
             followCamera.shift = 0;
         }
-
-        inspectorCloseSound.Play();
     }
 
     public void RefreshDisplay()

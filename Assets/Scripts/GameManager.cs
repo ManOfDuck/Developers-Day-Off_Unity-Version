@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
+        inspectorController = InspectorController.Instance;
     }
 
     public void StartGame()
