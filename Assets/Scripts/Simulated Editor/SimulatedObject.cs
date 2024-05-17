@@ -35,7 +35,7 @@ public class SimulatedObject : ComponentHolder
         inspectorController = InspectorController.Instance;
         Layer = gameObject.layer;
         inputManager = InputManager.Instance;
-        inputManager.OnClick.AddListener(OnClick);
+        if (inputManager) inputManager.OnClick.AddListener(OnClick);
 
         AlignZAxis();
     }

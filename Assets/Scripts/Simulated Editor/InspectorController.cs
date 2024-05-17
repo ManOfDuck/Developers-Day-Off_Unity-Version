@@ -30,7 +30,7 @@ public class InspectorController : MonoBehaviour
     public float shiftDistance;
 
     private VisualElement root;
-    private Button xButton, notInspector;
+    private Button xButton, notInspector, alsoNotInspector;
     private Label objectName, xValue, yValue;
     private VisualElement icon;
 
@@ -96,11 +96,19 @@ public class InspectorController : MonoBehaviour
         yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
         notInspector = root.Q<Button>("not_inspector");
+        alsoNotInspector = root.Q<Button>("also_not_inspector");
         xButton.clickable.clicked += () =>
         {
             StopDisplaying();
         };
         notInspector.clickable.clicked += () =>
+        {
+            if (Camera.main.GetComponentInChildren<SpriteRenderer>())
+            {
+                StopDisplaying();
+            }
+        };
+        alsoNotInspector.clickable.clicked += () =>
         {
             if (Camera.main.GetComponentInChildren<SpriteRenderer>())
             {
@@ -127,8 +135,11 @@ public class InspectorController : MonoBehaviour
 
         if (root != null)
         {
+            if (root.visible)
+            {
+                inspectorCloseSound.Play();
+            }
             root.visible = false;
-            inspectorCloseSound.Play();
         }
         if (followCamera != null)
         {
