@@ -124,12 +124,15 @@ public class InspectorController : MonoBehaviour
         {
             followCamera.shift = 0;
         }
+
+        inspectorCloseSound.Play();
     }
 
     public void RefreshDisplay()
     {
         if (!displayedObject) return;
         DisplayObject(displayedObject);
+        addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
     }
 
     void Update()
@@ -235,6 +238,7 @@ public class InspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject objectToDisplay)
     {
+        inspectorOpenSound.Play();
         objectHasBeenClicked = true;
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -342,6 +346,7 @@ public class InspectorController : MonoBehaviour
 
     private void ToggleClicked(VisualElement toggleBG, Button toggleBall)
     {
+        toggleComponentSound.Play();
         toggleBindings[(toggleBG, toggleBall)].ToggleComponent();
         bool enabled = toggleBindings[(toggleBG, toggleBall)].ComponentEnabledStatus;
         if (!enabled)
