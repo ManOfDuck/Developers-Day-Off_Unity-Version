@@ -74,7 +74,10 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            GameManager.Instance.ResetScene();
+            Debug.Log("reseting level");
+            PlayerSpawn.Respawn();
+
+            //GameManager.Instance.ResetScene();
         }
     }
 
