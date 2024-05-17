@@ -71,7 +71,7 @@ Slider Label {
 }
 
 Slider #unity-drag-container {
-    background-color: rgba(81, 81, 81, 255);
+    background-color: rgb(81, 81, 81);
     justify-content: flex-start;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -135,7 +135,7 @@ Slider #unity-dragger {
 }
 
 Slider #unity-dragger:hover {
-    scale: 1.1 1.1;
+    scale: 1.2 1.2;
 }
 
 .setting {
