@@ -325,7 +325,8 @@ public class InspectorController : MonoBehaviour
         //SET OBJ NAME & IMG
         if (objectToDisplay.TryGetComponent(out SpriteRenderer spriteRenderer))
         {
-            icon.style.backgroundImage = spriteRenderer.sprite.texture;
+            icon.style.backgroundImage = new StyleBackground(spriteRenderer.sprite);
+            icon.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
         else
         {
