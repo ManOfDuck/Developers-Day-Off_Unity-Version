@@ -29,6 +29,8 @@ public abstract class TraversePath : SimulatedScript
                 // Wait for references
                 while (!ValidateReferences(Body)) yield return null;
 
+                Body.bodyType = RigidbodyType2D.Kinematic;
+
                 Vector2 target = path[currentPoint];
 
                 Light(20);
@@ -71,6 +73,12 @@ public abstract class TraversePath : SimulatedScript
         }
         while (loop);
         Moving = false;
+        Body.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    protected void OnDisable()
+    {
+        Body.bodyType = RigidbodyType2D.Dynamic;
     }
 
     override public SimulatedComponent Copy(ComponentHolder destination)
