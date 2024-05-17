@@ -67,7 +67,44 @@
     white-space: nowrap;
 }
 
-.toolkitdown {
-    translate: 0 130px;
+.toolkit {
+    margin-left: 4%;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    border-left-color: rgb(37, 37, 37);
+    border-left-width: 0;
+    width: auto;
+    margin-top: 4%;
+    border-right-width: 0;
+    border-right-color: rgb(37, 37, 37);
+    color: rgba(56, 56, 56, 0);
+    margin-right: 4%;
+    margin-bottom: 4%;
+    max-height: 737px;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 475px;
     transition-duration: 0.3s;
+    translate: 0 125px;
+}
+
+.toolkit:hover {
+    margin-left: 4%;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    border-left-color: rgb(37, 37, 37);
+    border-left-width: 0;
+    width: auto;
+    margin-top: 4%;
+    border-right-width: 0;
+    border-right-color: rgb(37, 37, 37);
+    color: rgba(56, 56, 56, 0);
+    margin-right: 4%;
+    margin-bottom: 4%;
+    max-height: 737px;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 475px;
+    transition-duration: 0.3s;
+    translate: 0 0;
 }
