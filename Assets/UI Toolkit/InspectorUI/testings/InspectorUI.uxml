@@ -14,7 +14,7 @@
                     <ui:VisualElement name="TK_components" />
                 </ui:ScrollView>
             </ui:VisualElement>
-            <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: auto; opacity: 0; flex-grow: 1;" />
+            <ui:Button display-tooltip-when-elided="true" name="also_not_inspector" style="height: auto; opacity: 0; flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="spacer" style="width: 55%;">
             <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: 100%; opacity: 0;" />
