@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Destroy on Collision
   image: {fileID: 21300000, guid: cb6651b19ec9511418108db4f3f37b68, type: 3}
-  description: Destroy this game object when colliding with anything else
+  description: Destroy this object when colliding with somethings else

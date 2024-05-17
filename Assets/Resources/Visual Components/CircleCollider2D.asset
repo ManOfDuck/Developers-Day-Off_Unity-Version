@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CircleCollider2D
   m_EditorClassIdentifier: 
   title: Circle Collider 2D
-  image: {fileID: 21300000, guid: e1bacca8efef14ed78c7b2f102eb6db6, type: 3}
-  description: Collide but circle HURRAY!!
+  image: {fileID: 21300000, guid: 0167a2d235421ca4f8095daaa1defd4f, type: 3}
+  description: Makes the object "solid" by allowing it to collide with other objects
