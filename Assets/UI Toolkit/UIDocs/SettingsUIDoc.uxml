@@ -24,6 +24,40 @@
         </ui:VisualElement>
         <ui:VisualElement style="width: 100%; height: 46%; align-items: center; justify-content: flex-end;">
             <ui:Button text="Back" display-tooltip-when-elided="true" name="Quit" class="Button" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&amp;guid=b707aa2e6dfa52b41aa64d7283a38939&amp;type=3#Alphakind&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&amp;guid=0c45bef536dd8bd4c9ba0ef64a01b274&amp;type=2#Alphakind SDF&apos;); -unity-font-style: normal; font-size: 66px; color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 23px; border-bottom-left-radius: 23px; border-top-right-radius: 23px; border-bottom-right-radius: 23px; padding-left: 24px; padding-right: 24px; padding-top: 24px; padding-bottom: 24px; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 15px;" />
+=======
+    <ui:VisualElement style="align-items: center; justify-content: space-around;">
+        <ui:VisualElement name="SettingsParent" class="menu" style="width: 75%; height: 85%;">
+            <ui:Label text="Settings" display-tooltip-when-elided="true" style="font-size: 120px; -unity-text-align: upper-center; margin-top: 3%; -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter%20SDF.asset?fileID=11400000&amp;guid=062172f3068469848a97b2d25f7291c6&amp;type=2#Cracker Winter SDF&apos;); -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Cracker%20Winter.otf?fileID=12800000&amp;guid=23931850f4846e641bb59c035fcbf4a8&amp;type=3#Cracker Winter&apos;); -unity-font-style: normal; color: rgb(255, 255, 255); margin-bottom: 3%;" />
+            <ui:VisualElement style="flex-direction: row; width: 100%; justify-content: space-around; align-items: stretch; margin-top: 17px;">
+                <ui:VisualElement name="L" style="margin-left: 50px; margin-right: 50px;">
+                    <ui:VisualElement name="MasterVol" class="setting" style="flex-direction: column; align-items: center;">
+                        <ui:Label text="Master Volume" display-tooltip-when-elided="true" class="settingsText" style="margin-top: 0;" />
+                        <ui:Slider value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" picking-mode="Ignore" name="MasterVolSlider" label="ywaffs" style="scale: 1 1; width: 100%; height: 75px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MusicVol" class="setting" style="width: 100%; flex-direction: column; align-items: center;">
+                        <ui:Label text="Music Volume" display-tooltip-when-elided="true" class="settingsText" style="margin-top: 0;" />
+                        <ui:Slider picking-mode="Ignore" value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" name="MusicVolSlider" style="scale: 1 1; width: 100%; height: 75px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; min-width: 500px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="SoundVol" class="setting" style="width: 100%; flex-direction: column; align-items: center;">
+                        <ui:Label text="Sound Volume" display-tooltip-when-elided="true" class="settingsText" style="margin-top: 0;" />
+                        <ui:Slider picking-mode="Ignore" value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" name="SoundVolSlider" style="scale: 1 1; width: 100%; height: 75px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="R" style="margin-left: 50px; margin-right: 50px;">
+                    <ui:VisualElement name="TextSize" class="setting" style="width: 100%; flex-direction: column; align-items: center; display: none;">
+                        <ui:Label text="Text Size" display-tooltip-when-elided="true" class="settingsText" style="margin-top: 0;" />
+                        <ui:Slider picking-mode="Ignore" value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" style="scale: 1 1; width: 100%; height: auto; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; min-width: 500px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Option4" style="width: 100%; align-items: center; flex-direction: row; justify-content: center;">
+                        <ui:Label text="Toggle Juice" display-tooltip-when-elided="true" class="settingsText" />
+                        <ui:Toggle style="padding-left: 7px; padding-right: 7px; padding-top: 7px; padding-bottom: 7px; margin-left: 13px; margin-right: 13px; margin-top: 13px; margin-bottom: 13px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="width: 100%; height: auto; align-items: center; justify-content: flex-end; margin-top: 30px; margin-bottom: 30px;">
+                <ui:Button text="Back" display-tooltip-when-elided="true" name="Quit" class="Button" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Alphakind.otf?fileID=12800000&amp;guid=b707aa2e6dfa52b41aa64d7283a38939&amp;type=3#Alphakind&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Alphakind%20SDF.asset?fileID=11400000&amp;guid=0c45bef536dd8bd4c9ba0ef64a01b274&amp;type=2#Alphakind SDF&apos;); -unity-font-style: normal; font-size: 66px; color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 23px; border-bottom-left-radius: 23px; border-top-right-radius: 23px; border-bottom-right-radius: 23px; padding-left: 24px; padding-right: 24px; padding-top: 24px; padding-bottom: 24px; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; width: 208px; height: 124px;" />
+            </ui:VisualElement>
+>>>>>>> Stashed changes
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
