@@ -25,7 +25,7 @@ public abstract class SimulatedScript : SimulatedComponent
     protected bool DoCoroutines => enabled;
 
 
-    protected bool doCollisionEvents = true;
+    protected bool DoCollisionEvents => enabled;
 
 
     protected override void Start()

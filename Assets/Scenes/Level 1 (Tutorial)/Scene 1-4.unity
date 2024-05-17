@@ -27226,11 +27226,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4741774193269951121, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.4736842
+      value: 1.5555556
       objectReference: {fileID: 0}
     - target: {fileID: -4741774193269951121, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.4736842
+      value: 1.5555556
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758914, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_RootOrder
@@ -27322,15 +27322,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758918, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.4736842
+      value: 1.5555556
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758918, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.4736842
+      value: 1.5555556
       objectReference: {fileID: 0}
     - target: {fileID: 5685396654955758937, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
       propertyPath: m_Name
       value: Koopa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685396654955758937, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2ec631d9d5734fe5907641c0f8f434e, type: 3}
@@ -86406,6 +86410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6793022463475628265, guid: 3d8cc0eac80bc4b37b85a6028e86151a, type: 3}
   defaultSpawner: 0
+  secondarySpawner: 0
   editorRenderer: {fileID: 2279677126687861307}
   playerDead:
     m_PersistentCalls:

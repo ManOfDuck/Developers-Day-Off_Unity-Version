@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3226394734520558984}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,13 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfefe079d3734f38bf49458546610e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 0}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  projectileBody: {fileID: 1351136914264556431}
+  visualComponent: {fileID: 0}
+  startEnabled: 1
 --- !u!114 &975301614714355331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,18 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components:
-  - realComponent: {fileID: 7423797810863700267}
-    visualComponent: {fileID: 11400000, guid: 02b3cf9288d03de45ab501d6e004422e, type: 2}
-  - realComponent: {fileID: 551557961773919129}
-    visualComponent: {fileID: 11400000, guid: c99f470f97a479645b8fe8086839bdd1, type: 2}
-  - realComponent: {fileID: 1351136914264556431}
-    visualComponent: {fileID: 11400000, guid: 051cfae5ee5944040af8dad870b960b3, type: 2}
-  - realComponent: {fileID: 5912186647450479061}
-    visualComponent: {fileID: 11400000, guid: f78e31809ea3d41c196f882b75480f33, type: 2}
-  scripts:
-  - {fileID: 1466621181741736270}
-  - {fileID: 5995785365106334769}
+  _components: []
+  _interactable: 1
   clickTrigger: {fileID: 3226394734520558984}
   defaultSprite: {fileID: 0}
   sprite1: {fileID: 0}
@@ -185,10 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844036f106544f5b2c67368175d113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScript: {fileID: 11400000, guid: 25f626f50ec6542fbb511536defb2874, type: 2}
-  doCoroutines: 1
-  doCollisionEvents: 1
-  enemyCollider: {fileID: 5912186647450479061}
+  visualComponent: {fileID: 11400000, guid: 23bd509692f14433887fb5bff61bbcf7, type: 2}
+  startEnabled: 1
 --- !u!58 &3226394734520558984
 CircleCollider2D:
   m_ObjectHideFlags: 0

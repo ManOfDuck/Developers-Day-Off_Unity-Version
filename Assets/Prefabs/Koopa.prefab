@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 107590415666655619}
   m_Layer: 3
   m_Name: Koopa
-  m_TagString: CordBlocking
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: 1
-  clickTrigger: {fileID: -4741774193269951121}
   _components: []
+  _interactable: 1
+  clickTrigger: {fileID: -4741774193269951121}
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 552198496, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
 --- !u!212 &5685396654955758915
