@@ -110,25 +110,9 @@ public class InspectorController : MonoBehaviour
 
     public void StopDisplaying()
     {
-        if (displayedObject != null)
-        {
-            SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
-            if (greyBox)
-            {
-                Debug.Log(targetRenderer);
-                greyBox.enabled = false;
-                if (displayedObject.GetComponent<Renderer>() && displayedObject.GetComponent<Renderer>().sortingOrder > 100)
-                    displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
-                if (PlayerSpawn.Player?.GetComponent<Renderer>() && PlayerSpawn.Player?.GetComponent<Renderer>().sortingOrder > 100)
-                    PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
-            }
-            else
-            {
-                if (targetRenderer) targetRenderer.material = defaultMaterial;
-            }
+        Unfocus();
 
-            displayedObject = null;
-        }
+        displayedObject = null;
 
         try
         {
@@ -154,8 +138,30 @@ public class InspectorController : MonoBehaviour
     public void RefreshDisplay()
     {
         if (!displayedObject) return;
+        Unfocus();
         DisplayObject(displayedObject, false);
         addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
+    }
+
+    private void Unfocus()
+    {
+        if (displayedObject != null)
+        {
+            SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+            if (greyBox)
+            {
+                Debug.Log(targetRenderer);
+                greyBox.enabled = false;
+                if (displayedObject.GetComponent<Renderer>() && displayedObject.GetComponent<Renderer>().sortingOrder > 100)
+                    displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
+                if (PlayerSpawn.Player?.GetComponent<Renderer>() && PlayerSpawn.Player?.GetComponent<Renderer>().sortingOrder > 100)
+                    PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
+            }
+            else
+            {
+                if (targetRenderer) targetRenderer.material = defaultMaterial;
+            }
+        }
     }
 
     void Update()
@@ -262,6 +268,8 @@ public class InspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject objectToDisplay, bool playSound = true)
     {
+        this.displayedObject = objectToDisplay;
+
         if (playSound) inspectorOpenSound.Play();
         objectHasBeenClicked = true;
         // Clear old elements
@@ -329,8 +337,6 @@ public class InspectorController : MonoBehaviour
         root.visible = true;
         // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
         //    followCamera.shift = cameraShiftAmount;
-
-        this.displayedObject = objectToDisplay;
     }
 
     private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)
