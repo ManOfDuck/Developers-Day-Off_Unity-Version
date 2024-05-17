@@ -15,8 +15,10 @@
                 </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="spacer" style="width: 55%;" />
-        <ui:VisualElement name="Inspector" class="container_element" style="width: 25%; max-width: 475px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; align-items: stretch;">
+        <ui:VisualElement name="spacer" style="width: 55%;">
+            <ui:Button text="Button" display-tooltip-when-elided="true" name="not_inspector" style="height: 1651px; opacity: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Inspector" class="container_element" style="width: 25%; max-width: 475px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; align-items: stretch; transition-duration: 1s;">
             <ui:VisualElement name="TOP_bar" style="flex-grow: 0; background-color: rgba(34, 34, 34, 0); flex-direction: row; height: 48px; margin-top: 9px; margin-bottom: 9px;">
                 <ui:Label text="The Inspector" display-tooltip-when-elided="true" name="Inspector_title" class="title" />
                 <ui:Button text="X" display-tooltip-when-elided="true" name="x_button" class="x_button" />

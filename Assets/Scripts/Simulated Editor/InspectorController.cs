@@ -30,15 +30,17 @@ public class InspectorController : MonoBehaviour
     public float shiftDistance;
 
     private VisualElement root;
-    private Button xButton;
+    private Button xButton, notInspector;
     private Label objectName, xValue, yValue;
+    private VisualElement icon;
 
     public Material highlightMaterial;
     public Material defaultMaterial;
 
     public SimulatedObject displayedObject;
+    private int displayedObjectLayer;
 
-    private Sprite globalSpriteDefault, globalSprite1;
+    [SerializeField] private Sprite defaultSprite;
     private List<VisualElement> componentDisplays = new();
     private Dictionary<(VisualElement, Button), SimulatedComponent> toggleBindings = new();
     private Dictionary<TextField, (SimulatedComponent, PropertyInfo)> floatBindings = new();
@@ -51,13 +53,14 @@ public class InspectorController : MonoBehaviour
     public bool isDisplaying;
 
     private GameManager gameManager;
+    private InputManager inputManager;
 
     [Header("Audio")]
     [SerializeField] AudioSource toggleComponentSound;
     [SerializeField] AudioSource addComponentSound;
     [SerializeField] AudioSource inspectorOpenSound;
     [SerializeField] AudioSource inspectorCloseSound;
-    [SerializeField] AudioSource misclickSoundSound;
+    //[SerializeField] AudioSource misclickSoundSound; // Cant do here
 
     private void Awake()
     {
@@ -82,17 +85,26 @@ public class InspectorController : MonoBehaviour
         gameManager.OnPlayerHurt.AddListener(StopDisplaying);
         StopDisplaying();
     }
-    
+
     private void OnEnable() // get ui references B-)
     {
         root = mainUIDocument.rootVisualElement;
+        icon = root.Q<VisualElement>("image");
         objectName = root.Q<Label>("Object_name");
         xValue = root.Q<Label>("x_value");
         yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
+        notInspector = root.Q<Button>("not_inspector");
         xButton.clickable.clicked += () =>
         {
             StopDisplaying();
+        };
+        notInspector.clickable.clicked += () =>
+        {
+            if (Camera.main.GetComponentInChildren<SpriteRenderer>())
+            {
+                StopDisplaying();
+            }
         };
     }
 
@@ -100,7 +112,21 @@ public class InspectorController : MonoBehaviour
     {
         if (displayedObject != null)
         {
-            if (displayedObject.TryGetComponent<Renderer>(out targetRenderer)) targetRenderer.material = defaultMaterial;
+            SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+            if (greyBox)
+            {
+                Debug.Log(targetRenderer);
+                greyBox.enabled = false;
+                if (displayedObject.GetComponent<Renderer>() && displayedObject.GetComponent<Renderer>().sortingOrder > 100)
+                    displayedObject.GetComponent<Renderer>().sortingOrder -= 1000;
+                if (PlayerSpawn.Player?.GetComponent<Renderer>() && PlayerSpawn.Player?.GetComponent<Renderer>().sortingOrder > 100)
+                    PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder -= 1000;
+            }
+            else
+            {
+                if (targetRenderer) targetRenderer.material = defaultMaterial;
+            }
+
             displayedObject = null;
         }
 
@@ -122,12 +148,15 @@ public class InspectorController : MonoBehaviour
         {
             followCamera.shift = 0;
         }
+
+        inspectorCloseSound.Play();
     }
 
     public void RefreshDisplay()
     {
         if (!displayedObject) return;
-        DisplayObject(displayedObject);
+        DisplayObject(displayedObject, false);
+        addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
     }
 
     void Update()
@@ -137,11 +166,17 @@ public class InspectorController : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
             targetRenderer.material = defaultMaterial;
+        }
+
+        if (displayedObject)
+        {
+            xValue.text = displayedObject.gameObject.transform.position.x.ToString("F");
+            yValue.text = displayedObject.gameObject.transform.position.y.ToString("F");
         }
 
         #region Kindly Ignore :)
@@ -168,12 +203,13 @@ public class InspectorController : MonoBehaviour
                 }
 
                 Debug.Log(field.value);
-                
+
             }
         }
 
         // Hello welcome to my code (2)
-        foreach (KeyValuePair<(TextField, TextField), (SimulatedComponent, PropertyInfo)> kvp in vectorArrayBindings){
+        foreach (KeyValuePair<(TextField, TextField), (SimulatedComponent, PropertyInfo)> kvp in vectorArrayBindings)
+        {
             TextField xField = kvp.Key.Item1;
             TextField yField = kvp.Key.Item2;
 
@@ -186,7 +222,7 @@ public class InspectorController : MonoBehaviour
                 {
                     float value = float.Parse(xField.value);
                     lastFrameFieldValues[xField] = xField.value;
-                    property.SetValue(component, new List<Vector2> { new Vector2(value, (property.GetValue(component) as List<Vector2>)[0].y)});
+                    property.SetValue(component, new List<Vector2> { new Vector2(value, (property.GetValue(component) as List<Vector2>)[0].y) });
                 }
                 catch (System.Exception)
                 {
@@ -225,8 +261,9 @@ public class InspectorController : MonoBehaviour
     }
 
 
-    public void DisplayObject(SimulatedObject objectToDisplay)
+    public void DisplayObject(SimulatedObject objectToDisplay, bool playSound = true)
     {
+        if (playSound) inspectorOpenSound.Play();
         objectHasBeenClicked = true;
         // Clear old elements
         while (componentDisplays.Count > 0)
@@ -240,13 +277,16 @@ public class InspectorController : MonoBehaviour
         toggleBindings = new();
         floatBindings = new();
         vectorArrayBindings = new();
-        
+
+        //Remove existing highlight, if any
+        if (targetRenderer)
+        {
+            targetRenderer.material = defaultMaterial;
+        }
+
 
         componentDisplays = new List<VisualElement>();
         List<SimulatedComponent> components = objectToDisplay.Components;
-
-        targetRenderer = objectToDisplay.GetComponent<Renderer>();
-        targetRenderer.material = highlightMaterial;
 
         // Display the components
         foreach (SimulatedComponent component in components)
@@ -261,14 +301,34 @@ public class InspectorController : MonoBehaviour
             root.Q<VisualElement>("components").Add(componentDisplay);
         }
 
-        //SET OBJ NAME & TAG
+        SpriteRenderer greyBox = Camera.main.GetComponentInChildren<SpriteRenderer>();
+        if (greyBox)
+        {
+            greyBox.enabled = true;
+        }
+        else
+        {
+            targetRenderer = objectToDisplay.GetComponent<Renderer>();
+            if (targetRenderer) targetRenderer.material = highlightMaterial;
+        }
+
+        if (PlayerSpawn.Player) PlayerSpawn.Player.GetComponent<Renderer>().sortingOrder += 1000;
+        if (objectToDisplay.TryGetComponent(out Renderer renderer)) renderer.sortingOrder += 1000;
+
+        //SET OBJ NAME & IMG
+        if (objectToDisplay.TryGetComponent(out SpriteRenderer spriteRenderer))
+        {
+            icon.style.backgroundImage = spriteRenderer.sprite.texture;
+        }
+        else
+        {
+            icon.style.backgroundImage = defaultSprite.texture;
+        }
         objectName.text = objectToDisplay.gameObject.name.ToString();
-        xValue.text = objectToDisplay.gameObject.transform.position.x.ToString();
-        yValue.text = objectToDisplay.gameObject.transform.position.y.ToString();
 
         //Show the inspector
         root.visible = true;
-       // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
+        // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
         //    followCamera.shift = cameraShiftAmount;
 
         this.displayedObject = objectToDisplay;
@@ -322,6 +382,7 @@ public class InspectorController : MonoBehaviour
 
     private void ToggleClicked(VisualElement toggleBG, Button toggleBall)
     {
+        toggleComponentSound.Play();
         toggleBindings[(toggleBG, toggleBall)].ToggleComponent();
         bool enabled = toggleBindings[(toggleBG, toggleBall)].ComponentEnabledStatus;
         if (!enabled)

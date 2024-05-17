@@ -40,11 +40,12 @@ public class SimulatedObject : ComponentHolder
 
     public void OnClick()
     {
-        if (!Interactable || clickTrigger == null) return;
+        if (!Interactable || clickTrigger == null ||
+            (InspectorController.Instance?.displayedObject != null && Camera.main.GetComponentInChildren<SpriteRenderer>() != null) ) return;
 
         if (clickTrigger.bounds.Contains(inputManager.WorldMousePosition))
         {
-            inspectorController.DisplayObject(this);
+            inspectorController?.DisplayObject(this);
         }
     }
 
