@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="width: 100%; height: 100%;">
+        <ui:Label text="Press &apos;R&apos; to Reset" display-tooltip-when-elided="true" style="-unity-font: resource(&apos;FlatSkin/Font/Roboto-Medium&apos;); -unity-font-definition: none; font-size: 50px; color: rgb(255, 255, 255); -unity-text-align: upper-left; -unity-font-style: bold; -unity-text-outline-width: 0; -unity-text-outline-color: rgb(0, 0, 0); position: relative; left: 0; top: 0; margin-left: 48px; margin-right: 48px; margin-top: 34px; margin-bottom: 48px;" />
+    </ui:VisualElement>
+</ui:UXML>
