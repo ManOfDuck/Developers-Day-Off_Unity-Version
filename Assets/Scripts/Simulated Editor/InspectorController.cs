@@ -310,6 +310,8 @@ public class InspectorController : MonoBehaviour
         // Display the components
         foreach (SimulatedComponent component in components)
         {
+            if (component is Rigidbody2DWrapper) continue;
+
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
             if (gameManager && gameManager.Upgrades.Contains("Fields"))

@@ -8,6 +8,7 @@ public class Checkpoint : SimulatedScript
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite redFlag;
     [SerializeField] Sprite greenFlag;
+    [SerializeField] private bool visible = true;
 
     protected override string DefaultVisualComponentName => "Checkpoint";
 
@@ -15,9 +16,12 @@ public class Checkpoint : SimulatedScript
     {
         base.Start();
         //change to red flag
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = redFlag;
-        spriteRenderer.enabled = true;
+        if (visible)
+        {
+            spriteRenderer = this.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = redFlag;
+            spriteRenderer.enabled = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +29,7 @@ public class Checkpoint : SimulatedScript
         if (collision.CompareTag("Player"))
         {
             PlayerSpawn.SetSpawnPoint(newSpawn);
-            spriteRenderer.sprite = greenFlag;
+            if (visible) spriteRenderer.sprite = greenFlag;
             //change to green flag
         }
     }

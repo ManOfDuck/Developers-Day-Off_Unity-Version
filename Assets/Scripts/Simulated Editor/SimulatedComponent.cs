@@ -55,7 +55,6 @@ public abstract class SimulatedComponent : MonoBehaviour
         label.text = visualComponent.title;
         description.text = visualComponent.description;
 
-
         return componentDisplay;
     }
 
