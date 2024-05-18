@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Waypoints.cs
   image: {fileID: 21300000, guid: cb6651b19ec9511418108db4f3f37b68, type: 3}
-  description: Moves an object through a list of points, waiting at each point
+  description: Moves an object between its original position and a specified point
