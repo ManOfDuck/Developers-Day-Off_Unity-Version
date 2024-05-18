@@ -88152,10 +88152,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2279677127813084134, guid: 4fceec99678944e5f8965c9f2fb76236, type: 3}
-      propertyPath: newSpawn
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6386024371447006380, guid: 4fceec99678944e5f8965c9f2fb76236, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -88888,7 +88884,7 @@ Transform:
   m_Children:
   - {fileID: 704654227}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512972739
 GameObject:
@@ -89192,7 +89188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8549703111020267617, guid: 8bf756bdd2dcd49258b454280b0c2304, type: 3}
       propertyPath: m_LocalPosition.x
