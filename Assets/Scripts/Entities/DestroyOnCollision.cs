@@ -8,8 +8,10 @@ public class DestroyOnCollision : SimulatedScript
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!doCollisionEvents)
+        if (!DoCollisionEvents)
             return;
+
+        if (collision.gameObject.CompareTag("Player")) return;
 
         Destroy(this.gameObject);
     }

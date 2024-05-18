@@ -30,7 +30,7 @@ public class InspectorController : MonoBehaviour
     public float shiftDistance;
 
     private VisualElement root;
-    private Button xButton, notInspector;
+    private Button xButton, notInspector, alsoNotInspector;
     private Label objectName, xValue, yValue;
     private VisualElement icon;
 
@@ -73,9 +73,10 @@ public class InspectorController : MonoBehaviour
         {
             if (overrideUIDoc)
             {
-                Instance.mainUIDocument.visualTreeAsset = this.mainUIDocument.visualTreeAsset;
+                Destroy(Instance.gameObject);
+                _instance = this;
             }
-            Destroy(this.gameObject);
+            else Destroy(this.gameObject);
         }
     }
 
@@ -95,6 +96,7 @@ public class InspectorController : MonoBehaviour
         yValue = root.Q<Label>("y_value");
         xButton = root.Q<Button>("x_button");
         notInspector = root.Q<Button>("not_inspector");
+        alsoNotInspector = root.Q<Button>("also_not_inspector");
         xButton.clickable.clicked += () =>
         {
             StopDisplaying();
@@ -106,9 +108,54 @@ public class InspectorController : MonoBehaviour
                 StopDisplaying();
             }
         };
+        alsoNotInspector.clickable.clicked += () =>
+        {
+            if (Camera.main.GetComponentInChildren<SpriteRenderer>())
+            {
+                StopDisplaying();
+            }
+        };
     }
 
     public void StopDisplaying()
+    {
+        Unfocus();
+
+        displayedObject = null;
+
+        try
+        {
+            targetRenderer.material = defaultMaterial;
+        }
+        catch
+        {
+            Debug.Log("there is no target renderer");
+        }
+
+
+        if (root != null)
+        {
+            if (root.visible)
+            {
+                inspectorCloseSound.Play();
+            }
+            root.visible = false;
+        }
+        if (followCamera != null)
+        {
+            followCamera.shift = 0;
+        }
+    }
+
+    public void RefreshDisplay()
+    {
+        if (!displayedObject) return;
+        Unfocus();
+        DisplayObject(displayedObject, false);
+        addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
+    }
+
+    private void Unfocus()
     {
         if (displayedObject != null)
         {
@@ -126,37 +173,7 @@ public class InspectorController : MonoBehaviour
             {
                 if (targetRenderer) targetRenderer.material = defaultMaterial;
             }
-
-            displayedObject = null;
         }
-
-        try
-        {
-            targetRenderer.material = defaultMaterial;
-        }
-        catch
-        {
-            Debug.Log("there is no target renderer");
-        }
-
-
-        if (root != null)
-        {
-            root.visible = false;
-        }
-        if (followCamera != null)
-        {
-            followCamera.shift = 0;
-        }
-
-        inspectorCloseSound.Play();
-    }
-
-    public void RefreshDisplay()
-    {
-        if (!displayedObject) return;
-        DisplayObject(displayedObject, false);
-        addComponentSound.Play(); // Not exactly the right spot for this, but it works well enough
     }
 
     void Update()
@@ -263,6 +280,8 @@ public class InspectorController : MonoBehaviour
 
     public void DisplayObject(SimulatedObject objectToDisplay, bool playSound = true)
     {
+        this.displayedObject = objectToDisplay;
+
         if (playSound) inspectorOpenSound.Play();
         objectHasBeenClicked = true;
         // Clear old elements
@@ -291,6 +310,8 @@ public class InspectorController : MonoBehaviour
         // Display the components
         foreach (SimulatedComponent component in components)
         {
+            if (component is Rigidbody2DWrapper) continue;
+
             VisualElement componentDisplay = component.GetComponentDisplay(component, componentTemplate);
             AddComponentToggle(component, componentDisplay);
             if (gameManager && gameManager.Upgrades.Contains("Fields"))
@@ -318,7 +339,8 @@ public class InspectorController : MonoBehaviour
         //SET OBJ NAME & IMG
         if (objectToDisplay.TryGetComponent(out SpriteRenderer spriteRenderer))
         {
-            icon.style.backgroundImage = spriteRenderer.sprite.texture;
+            icon.style.backgroundImage = new StyleBackground(spriteRenderer.sprite);
+            icon.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
         else
         {
@@ -330,8 +352,6 @@ public class InspectorController : MonoBehaviour
         root.visible = true;
         // if (followCamera.controlledCamera.WorldToScreenPoint(objectToDisplay.transform.position).x > shiftDistance)
         //    followCamera.shift = cameraShiftAmount;
-
-        this.displayedObject = objectToDisplay;
     }
 
     private void AddComponentToggle(SimulatedComponent component, VisualElement componentDisplay)

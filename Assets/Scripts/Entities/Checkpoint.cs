@@ -2,19 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : SimulatedScript
 {
     [SerializeField] private PlayerSpawn newSpawn;
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite redFlag;
     [SerializeField] Sprite greenFlag;
+    [SerializeField] private bool visible = true;
 
+    protected override string DefaultVisualComponentName => "Checkpoint";
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         //change to red flag
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = redFlag;
+        if (visible)
+        {
+            spriteRenderer = this.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = redFlag;
+            spriteRenderer.enabled = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,8 +29,14 @@ public class Checkpoint : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerSpawn.SetSpawnPoint(newSpawn);
-            spriteRenderer.sprite = greenFlag;
+            if (visible) spriteRenderer.sprite = greenFlag;
             //change to green flag
         }
+    }
+
+    public override SimulatedComponent Copy(ComponentHolder destination)
+    {
+        // no
+        return null;
     }
 }

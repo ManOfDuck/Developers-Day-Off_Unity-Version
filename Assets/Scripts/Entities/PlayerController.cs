@@ -99,6 +99,9 @@ public class PlayerController : CharacterController
         }
 
         if (groundObject && groundObject.CompareTag("Enemy")) Hurt(1);
+        if (wallObject && wallObject.CompareTag("Enemy")) Hurt(1);
+        if (ceilingObject && ceilingObject.CompareTag("Enemy")) Hurt(1);
+
     }
 
     public void Heal(int healthToAdd)

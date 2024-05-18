@@ -48,6 +48,8 @@ public class Koopa : CharacterController
     {
         base.FixedUpdate();
 
+        if (!ValidateReferences(CharacterBody) || CharacterBody.bodyType == RigidbodyType2D.Kinematic) return;
+
         if (CheckForWall(direction) || (CheckForCliff() && Color == KoopaColor.red))
         {
             ChangeDirection();

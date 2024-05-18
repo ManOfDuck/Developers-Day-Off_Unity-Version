@@ -35,7 +35,6 @@ public class Patrol : TraversePath
         }
     }
 
-
     override protected void Start()
     {
         base.Start();
@@ -56,7 +55,7 @@ public class Patrol : TraversePath
     private void StartMove()
     {
         List<Vector2> adjustedPoints = new(PatrolPoints);
-        if (adjustedPoints[^1] != Vector2.zero)
+        if (adjustedPoints.Count < 1 || adjustedPoints[^1] != Vector2.zero)
         {
             adjustedPoints.Add(Vector2.zero);
         }

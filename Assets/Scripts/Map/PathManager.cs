@@ -45,12 +45,12 @@ public class PathManager : MonoBehaviour
     private Dictionary<TileBase, ConnectionDirections> _connectionsFromTile = new();
     public Dictionary<TileBase, ConnectionDirections> ConnectionsFromTile { get => _connectionsFromTile; private set => _connectionsFromTile = value; }
 
-    public Dictionary<LevelTile, LevelStatus> LevelStatuses { get; private set; } = new();
-
     private static PathManager _instance;
     public static PathManager Instance { get { return _instance; } }
 
     private GameManager gameManager;
+
+    bool mapModeGone = false;
 
     private void Awake()
     {
@@ -64,8 +64,10 @@ public class PathManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void Start()
     {
+        Debug.Log("going map mode");
+        mapModeGone = true;
         gameManager = GameManager.Instance;
 
         AddDirectionFlags(pathData.ConnectedUp, ConnectionDirections.Up);
@@ -77,7 +79,7 @@ public class PathManager : MonoBehaviour
 
         foreach(LevelTile level in pathData.Levels)
         {
-            LevelStatuses.Add(level, LevelStatus.Locked);
+            if(!gameManager.LevelStatuses.ContainsKey(level)) gameManager.LevelStatuses.Add(level, LevelStatus.Locked);
         }
 
         Vector3Int playerStartingCell = Vector3Int.RoundToInt(this.transform.position);
@@ -89,17 +91,17 @@ public class PathManager : MonoBehaviour
 
             if (level == null) continue;
 
-            if (gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName))
+            if (gameManager.CurrentLevel != null && gameManager.CurrentLevel == level.LevelName && gameManager.ClearedLevels.Contains(level.LevelName))
             {
                 // We just cleared this level, lets do an animation
-                LevelStatuses[level] = LevelStatus.Cleared;
+                gameManager.LevelStatuses[level] = LevelStatus.Cleared;
                 UnlockTilesFromPoint(cell, lockedPaths, animatingPaths);
                 StartCoroutine(AnimateTileUnlock(cell));
             }
             else
             {
                 // This level hasn't been cleared, just set it's visual
-                LevelStatuses[level] = LevelStatus.Unlocked;
+                gameManager.LevelStatuses[level] = LevelStatus.Unlocked;
                 levelVisuals.SetTile(cell, unlockedLevelTile);
             }
 
@@ -125,9 +127,9 @@ public class PathManager : MonoBehaviour
 
             if (level == null) continue;
 
-            if (LevelStatuses[level] == LevelStatus.Locked)
+            if (gameManager.LevelStatuses[level] == LevelStatus.Locked)
             {
-                LevelStatuses[level] = LevelStatus.Unlocked;
+                gameManager.LevelStatuses[level] = LevelStatus.Unlocked;
                 levelVisuals.SetTile(cell, unlockedLevelTile);
             }
         }
@@ -145,7 +147,6 @@ public class PathManager : MonoBehaviour
             {
                 ConnectionsFromTile[tile] |= direction;
             }
-            Debug.Log(tile + ", " + ConnectionsFromTile[tile]);
         }
     }
 
@@ -236,7 +237,7 @@ public class PathManager : MonoBehaviour
         if (levels.GetTile(gridPosition) is LevelTile level)
         {
             // If the level is uncleared, stop this path (dont unlock the tile beneath it)
-            if (LevelStatuses[level] != LevelStatus.Cleared)
+            if (gameManager.LevelStatuses[level] != LevelStatus.Cleared)
             {
                 // Add this connection to the level tile
                 ConnectionsFromTile[level] |= DirectionFromVector(-searchingFrom);

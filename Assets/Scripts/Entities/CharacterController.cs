@@ -59,6 +59,8 @@ public class CharacterController : SimulatedScript
 
     protected Vector2 slopeDir;
     protected Rigidbody2D groundObject;
+    protected Rigidbody2D wallObject;
+    protected Rigidbody2D ceilingObject;
     protected bool jumpingThisFrame = false;
     protected int walljumpsRemaining;
     protected float timeSinceGrounded = 0;
@@ -125,6 +127,10 @@ public class CharacterController : SimulatedScript
         if(Mathf.Approximately(CharacterBody.velocity.x, 0) || CheckForWall(CharacterBody.velocity * Vector2.right))
         {
             localVelocity *= Vector2.up;
+        }
+        if (CheckForCeiling())
+        {
+            localVelocity.y = Mathf.Min(localVelocity.y, 0);
         }
     }
 
@@ -311,7 +317,7 @@ public class CharacterController : SimulatedScript
 
         if (isGrounded && groundObject == null)
         {
-            landingSound.Play();
+            landingSound?.Play();
         }
         groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
@@ -335,9 +341,32 @@ public class CharacterController : SimulatedScript
         {
             if (hit.rigidbody != CharacterBody)
             {
+                wallObject = hit.rigidbody;
                 return true;
             }
         }
+        wallObject = null;
+        return false;
+    }
+
+    protected bool CheckForCeiling()
+    {
+        if (!ValidateReferences(CharacterCollider)) return false;
+
+        Vector2 origin = CharacterCollider.bounds.center;
+        Vector2 size = CharacterCollider.bounds.size * 0.95f;
+        float angle = 0f;
+
+        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, Vector2.up, 0.1f, GroundLayer);
+        foreach (RaycastHit2D hit in boxCastHit)
+        {
+            if (hit.rigidbody != CharacterBody)
+            {
+                ceilingObject = hit.rigidbody;
+                return true;
+            }
+        }
+        ceilingObject = null;
         return false;
     }
     #endregion
@@ -345,7 +374,7 @@ public class CharacterController : SimulatedScript
     #region Collisions
     virtual protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!doCollisionEvents)
+        if (!DoCollisionEvents)
             return;
 
         UpdateGroundObject();
@@ -359,7 +388,7 @@ public class CharacterController : SimulatedScript
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!doCollisionEvents)
+        if (!DoCollisionEvents)
             return;
 
         // Slope-handling stuff, ignore for now
@@ -376,7 +405,7 @@ public class CharacterController : SimulatedScript
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (!doCollisionEvents)
+        if (!DoCollisionEvents)
             return;
 
         // Slope-handling stuff, ignore for now

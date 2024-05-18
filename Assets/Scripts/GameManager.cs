@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using static PathManager;
 
 //hi!
 
@@ -13,9 +14,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string mapScreen;
 
     public string CurrentLevel { get; private set; }
-    public List<string> ClearedLevels { get; private set; }
+    public List<string> ClearedLevels { get; private set; } = new();
     [field: SerializeField]
     public List<string> Upgrades { get; private set; } = new();
+    public Dictionary<LevelTile, LevelStatus> LevelStatuses { get; set; } = new();
+
 
     // TODO: PC should control these values
 
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
+        inspectorController = InspectorController.Instance;
     }
 
     public void StartGame()
@@ -146,7 +150,6 @@ public class GameManager : MonoBehaviour
         if (CurrentLevel != null)
         {
             Debug.Log("Level cleared: " + CurrentLevel);
-            ClearedLevels ??= new();
             ClearedLevels.Add(CurrentLevel);
         }
         LoadScene(mapScreen);
