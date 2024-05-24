@@ -10,11 +10,10 @@ public class SimulatedObject : ComponentHolder
 {
     [SerializeField] private bool _interactable = true;
     [SerializeField] private Collider2D clickTrigger;
+
     public bool Interactable { get => _interactable; set => _interactable = value; }
 
 
-
-    public LayerMask Layer { get; private set; }
     public Collider2D ClickTrigger { get => clickTrigger; private set => clickTrigger = value; }
 
     private readonly Dictionary<System.Type, List<Component>> safeReferences = new();
@@ -33,11 +32,15 @@ public class SimulatedObject : ComponentHolder
         base.Start();
 
         inspectorController = InspectorController.Instance;
-        Layer = gameObject.layer;
         inputManager = InputManager.Instance;
         if (inputManager) inputManager.OnClick.AddListener(OnClick);
 
         AlignZAxis();
+    }
+
+    private void Update()
+    {
+        gameObject.layer = Interactable ? inputManager.CursorController.InteractableLayer : inputManager.CursorController.NoninteractableLayer;
     }
 
     public void OnClick()

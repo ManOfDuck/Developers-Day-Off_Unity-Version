@@ -78,9 +78,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6bd2481688436ebf95e4819632ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: 1
-  clickTrigger: {fileID: 6244038403369663774}
   _components: []
+  _interactable: 1
+  clickTrigger: {fileID: 6244038403369663774}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  noninteractableLayer:
+    serializedVersion: 2
+    m_Bits: 512
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
 --- !u!212 &6054564143421115725
@@ -237,7 +243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualComponent: {fileID: 11400000, guid: eb7b3e6df2d9b4928b7b72da6337965b, type: 2}
-  _patrolPoints: []
+  startEnabled: 1
   _speed: 5
   _waitTime: 1
   _body: {fileID: 0}
+  _patrolPoints: []

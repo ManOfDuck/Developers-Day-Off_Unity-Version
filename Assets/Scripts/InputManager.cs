@@ -15,14 +15,17 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
 
-    public Vector2 MousePosition { get; private set; }
-    public Vector2 WorldMousePosition => Camera.main.ScreenToWorldPoint(MousePosition);
+    public Vector2 ScreenMousePosition { get; private set; }
+    public Vector2 WorldMousePosition => Camera.main.ScreenToWorldPoint(ScreenMousePosition);
 
 
     public UnityEvent OnJumpPressed;
     public UnityEvent OnJumpReleased;
     public UnityEvent OnClick;
     public UnityEvent OnInteract;
+
+    [SerializeField] private CursorController _cursorController;
+    public CursorController CursorController => _cursorController;
 
     private void Awake()
     {
@@ -45,7 +48,7 @@ public class InputManager : MonoBehaviour
 
     public void UpdateMousePos(InputAction.CallbackContext context)
     {
-        MousePosition = context.ReadValue<Vector2>();
+        ScreenMousePosition = context.ReadValue<Vector2>();
     }
 
     public void Interact(InputAction.CallbackContext context)

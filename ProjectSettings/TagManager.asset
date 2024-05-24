@@ -12,11 +12,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Test
   - Water
   - UI
-  - Wall
-  - Player
+  - Interactable
+  - Noninteractable
   - 
   - 
   - 

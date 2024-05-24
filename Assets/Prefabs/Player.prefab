@@ -86,6 +86,12 @@ MonoBehaviour:
   _components: []
   _interactable: 0
   clickTrigger: {fileID: -7256860875722512821}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  noninteractableLayer:
+    serializedVersion: 2
+    m_Bits: 512
   defaultSprite: {fileID: 7482667652216324306, guid: 40461cdf500114f7f8dee32c8ae36792, type: 3}
   sprite1: {fileID: 21300000, guid: 31e19a0848556409fa4319e0ac37d3d0, type: 3}
 --- !u!212 &6793022463475628266
