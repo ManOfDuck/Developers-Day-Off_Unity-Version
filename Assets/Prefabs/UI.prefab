@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components: []
   mainUIDocument: {fileID: 2037748756094329257}
-  componentTemplate: {fileID: 9197481963319205126, guid: f37120b21d685754495a561c74d6dd3e, type: 3}
+  componentTemplate: {fileID: 9197481963319205126, guid: 7a594188f67a44fec895c1a7a591d7bc, type: 3}
   _overrideComponents: 0
 --- !u!82 &-271129800891353448
 AudioSource:
