@@ -47,7 +47,6 @@ public class CharacterController : SimulatedScript
     private BoxCollider2D _characterCollider;
     private SpriteRenderer _characterRenderer;
     private Animator _spriteAnimator;
-    public LayerMask GroundLayer { get => _groundLayer; set => _groundLayer = value; }
 
     protected Rigidbody2D CharacterBody => AssignMandatoryReference(ref _characterBody, typeof(Rigidbody2DWrapper));
     protected BoxCollider2D CharacterCollider => TryAssignReference(ref _characterCollider);
@@ -90,8 +89,6 @@ public class CharacterController : SimulatedScript
         copy.VerticalSpeedCap = this.VerticalSpeedCap;
         copy.GroundCheckDistance = this.GroundCheckDistance;
 
-        copy.GroundLayer = this.GroundLayer;
-
         return copy;
     }
 
@@ -106,7 +103,7 @@ public class CharacterController : SimulatedScript
     // Update is called once per frame
     virtual protected void FixedUpdate()
     {
-        UpdateGroundObject();
+        CheckForGround();
 
         if (!ValidateReferences(CharacterBody) || CharacterBody.bodyType == RigidbodyType2D.Kinematic) return;
 
@@ -268,106 +265,48 @@ public class CharacterController : SimulatedScript
     #endregion
 
     #region Helper Functions
-    //Check if the player is grounded
-    virtual protected void UpdateGroundObject()
+    virtual protected bool CheckForObject(Vector2 direction, float distance, ref Rigidbody2D foundObject)
     {
-        // While there is backup code here for not having this reference, it causes the object to either float or fall through the floor, depending on if queries hit triggers.
-        // Both feel very awkward for the player but falling through the floor makes more sense for the code and is accomplished by just never running this function (the only difference being you cant "swim" without it)
-        if (!ValidateReferences(CharacterCollider)) return; 
+        if (!ValidateReferences(CharacterCollider)) return false;
 
-        Vector2 raycastOrigin;
-        if (ValidateReferences(CharacterCollider))
+        ContactFilter2D filter = new()
         {
-            raycastOrigin = CharacterCollider.bounds.min + new Vector3(0, -0.05f, 0);
-        }
-        else
-        {
-            raycastOrigin = transform.position;
-        }
-        Vector2 raycastDirection = Vector2.down;
-        float raycastDistance = GroundCheckDistance;
+            useTriggers = false
+        };
 
-        List<RaycastHit2D> totalHits = new();
+        RaycastHit2D[] hits = new RaycastHit2D[2];
+        Vector2 raycastOrigin = (Vector2)transform.position + CharacterCollider.offset;
+        Vector2 raycastDirection = direction;
+        float raycastDistance = distance;
+        int numHits = Physics2D.BoxCast(raycastOrigin, CharacterCollider.bounds.size, 0, raycastDirection, filter, hits, raycastDistance);
+        Debug.Log(numHits);
 
-        // Check bottom-left
-        RaycastHit2D[] leftHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-        totalHits.AddRange(leftHits);
-        Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
+        bool objectFound = numHits > 1; // We'll always hit ourselves
+        foundObject = objectFound ? hits[1].rigidbody : null;
 
-        if (ValidateReferences(CharacterCollider))
-        {
-            // Check bottom-middle
-            raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
-            RaycastHit2D[] middleHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-            totalHits.AddRange(middleHits);
-            Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
+        return objectFound;
+    }
 
-            // Check bottom-right
-            raycastOrigin += new Vector2(CharacterCollider.bounds.size.x * 0.5f, 0);
-            RaycastHit2D[] rightHits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, raycastDistance, GroundLayer);
-            totalHits.AddRange(rightHits);
-            Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.red);
-        }
-
-        bool isGrounded = totalHits.Count > 0;
-
+    virtual protected void CheckForGround()
+    {
+        bool isGrounded = CheckForObject(Vector2.down, GroundCheckDistance, ref groundObject);
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
-
 
         if (isGrounded && groundObject == null)
         {
             landingSound?.Play();
         }
-        groundObject = isGrounded ? totalHits[0].rigidbody : null;
     }
 
-    private void OnDrawGizmos()
+    virtual protected bool CheckForWall(Vector2 direction)
     {
-
+        return CheckForObject(direction.normalized, WallCheckDistance, ref wallObject); 
     }
 
-    //Check for a wall on the player's left
-    protected bool CheckForWall(Vector2 direction)
+    virtual protected bool CheckForCeiling()
     {
-        if (!ValidateReferences(CharacterCollider)) return false;
-
-        Vector2 origin = CharacterCollider.bounds.center;
-        Vector2 size = CharacterCollider.bounds.size * 0.95f;
-        float angle = 0f;
-
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, direction.normalized, WallCheckDistance, GroundLayer);
-        foreach (RaycastHit2D hit in boxCastHit)
-        {
-            if (hit.rigidbody != CharacterBody)
-            {
-                wallObject = hit.rigidbody;
-                return true;
-            }
-        }
-        wallObject = null;
-        return false;
-    }
-
-    protected bool CheckForCeiling()
-    {
-        if (!ValidateReferences(CharacterCollider)) return false;
-
-        Vector2 origin = CharacterCollider.bounds.center;
-        Vector2 size = CharacterCollider.bounds.size * 0.95f;
-        float angle = 0f;
-
-        RaycastHit2D[] boxCastHit = Physics2D.BoxCastAll(origin, size, angle, Vector2.up, 0.1f, GroundLayer);
-        foreach (RaycastHit2D hit in boxCastHit)
-        {
-            if (hit.rigidbody != CharacterBody)
-            {
-                ceilingObject = hit.rigidbody;
-                return true;
-            }
-        }
-        ceilingObject = null;
-        return false;
+        return CheckForObject(Vector2.up, 0.1f, ref ceilingObject);
     }
     #endregion
 
@@ -377,7 +316,7 @@ public class CharacterController : SimulatedScript
         if (!DoCollisionEvents)
             return;
 
-        UpdateGroundObject();
+        CheckForGround();
 
         //Prevent bouncing
         if (groundObject != null)

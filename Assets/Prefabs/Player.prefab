@@ -290,7 +290,7 @@ MonoBehaviour:
   _fallingGravity: 29.8
   _releaseImpulse: 0
   _verticalSpeedCap: 1000
-  _groundCheckDistance: 0.1
+  _groundCheckDistance: 0.05
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
