@@ -125,7 +125,6 @@ MonoBehaviour:
   addComponentSound: {fileID: 7944673573117063035}
   inspectorOpenSound: {fileID: 5733853032388660310}
   inspectorCloseSound: {fileID: 4123003946225360215}
-  misclickSoundSound: {fileID: 5015701682874152775}
 --- !u!114 &2037748756094329239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +249,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7268390706186319529, guid: e921f5d576ca04039b3d08713efca5ca, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8a81522e23ecf469bacf4095e0e244b9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
