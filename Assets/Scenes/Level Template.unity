@@ -1459,26 +1459,26 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 271125373}
     m_ColliderPaths:
-    - - X: -490000000
-        Y: 260000000
-      - X: -490000000
-        Y: 10000000
-      - X: -440000000
-        Y: 10000000
-      - X: -440000000
-        Y: 30000000
-      - X: -480000000
-        Y: 30000000
-      - X: -480000000
-        Y: 260000000
+    - - X: -489510016
+        Y: 259745008
+      - X: -489510016
+        Y: 9985000
+      - X: -439560000
+        Y: 9985000
+      - X: -439560000
+        Y: 29975000
+      - X: -479520000
+        Y: 29975000
+      - X: -479520000
+        Y: 259745008
   m_CompositePaths:
     m_Paths:
-    - - {x: -44.00003, y: 1}
-      - {x: -44.00003, y: 3}
-      - {x: -48, y: 3.0000293}
-      - {x: -48.00003, y: 26}
-      - {x: -49, y: 25.999971}
-      - {x: -48.999973, y: 1}
+    - - {x: -43.956028, y: 0.9985}
+      - {x: -43.956028, y: 2.9975}
+      - {x: -47.952, y: 2.9975295}
+      - {x: -47.95203, y: 25.9745}
+      - {x: -48.951004, y: 25.974472}
+      - {x: -48.950974, y: 0.9985}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &271125377
@@ -59736,7 +59736,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749859249}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 0.999, y: 0.999, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -59833,17 +59833,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
---- !u!114 &1259530536 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7323458776770634782, guid: b925fc6feac1b480bbf7d0b3cc8a01eb, type: 3}
-  m_PrefabInstance: {fileID: 50097290}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 320c7d0aaf9fd014695915e490eb875a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1352996745
 GameObject:
   m_ObjectHideFlags: 0
@@ -60424,7 +60413,7 @@ PrefabInstance:
     - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: inspectorController
       value: 
-      objectReference: {fileID: 1259530536}
+      objectReference: {fileID: 0}
     - target: {fileID: 8686681478243960497, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: m_Name
       value: GameManager
