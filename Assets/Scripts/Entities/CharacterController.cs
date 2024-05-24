@@ -267,6 +267,11 @@ public class CharacterController : SimulatedScript
     #region Helper Functions
     virtual protected bool CheckForObject(Vector2 direction, float distance, ref Rigidbody2D foundObject)
     {
+        return CheckForObject(direction, distance, Vector2.zero, ref foundObject);
+    }
+
+    virtual protected bool CheckForObject(Vector2 direction, float distance, Vector2 offset, ref Rigidbody2D foundObject)
+    {
         if (!ValidateReferences(CharacterCollider)) return false;
 
         ContactFilter2D filter = new()
@@ -275,11 +280,10 @@ public class CharacterController : SimulatedScript
         };
 
         RaycastHit2D[] hits = new RaycastHit2D[2];
-        Vector2 raycastOrigin = (Vector2)transform.position + CharacterCollider.offset;
+        Vector2 raycastOrigin = (Vector2)transform.position + CharacterCollider.offset + offset;
         Vector2 raycastDirection = direction;
         float raycastDistance = distance;
         int numHits = Physics2D.BoxCast(raycastOrigin, CharacterCollider.bounds.size, 0, raycastDirection, filter, hits, raycastDistance);
-        Debug.Log(numHits);
 
         bool objectFound = numHits > 1; // We'll always hit ourselves
         foundObject = objectFound ? hits[1].rigidbody : null;
