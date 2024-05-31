@@ -130,38 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.size
-      value: 3
+    - target: {fileID: 1286768229687713278, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
+      propertyPath: _showCursor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: inspectorController
       value: 
       objectReference: {fileID: 1464977631}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[0].name
-      value: Level 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[1].name
-      value: Level 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[2].name
-      value: Level 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[0].firstScene
-      value: Scene 1-1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[1].firstScene
-      value: Scene 2-1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4337935686664529149, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
-      propertyPath: levels.Array.data[2].firstScene
-      value: Scene 3-1
-      objectReference: {fileID: 0}
     - target: {fileID: 8686681478243960497, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -8524,6 +8500,10 @@ PrefabInstance:
     - target: {fileID: 2037748756094329256, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: followCamera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037748756094329256, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
+      propertyPath: overrideUIDoc
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2037748756094329258, guid: 9966b7ea93e7a4b80a588bca471244c7, type: 3}
       propertyPath: m_Pivot.x

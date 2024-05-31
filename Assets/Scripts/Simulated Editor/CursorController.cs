@@ -15,8 +15,11 @@ public class CursorController : MonoBehaviour
 
     [SerializeField] private int _interactableLayer;
     [SerializeField] private int _noninteractableLayer;
+
+    [SerializeField] private bool _showCursor = true;
     public int InteractableLayer { get => _interactableLayer;}
     public int NoninteractableLayer { get => _noninteractableLayer;}
+    public bool ShowCursor { get => _showCursor; set => _showCursor = value; }
 
     private InputManager inputManager;
     private InspectorController inspectorController;
@@ -47,5 +50,7 @@ public class CursorController : MonoBehaviour
         {
             Cursor.SetCursor(normalCursor, normalOffset, CursorMode.ForceSoftware);
         }
+
+        Cursor.visible = ShowCursor;
     }
 }

@@ -57,6 +57,7 @@ MonoBehaviour:
   cantSelectOffset: {x: 15, y: 20}
   _interactableLayer: 6
   _noninteractableLayer: 7
+  _showCursor: 1
 --- !u!1 &7067508666422877614
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5c184a428e9439693bfe8f602c2faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectorController: {fileID: 0}
-  levels: []
+  levels:
+  - name: Level 1
+    firstScene: Scene 1-1
+  - name: Level 2
+    firstScene: Scene 2-1
+  - name: Level 3
+    firstScene: Scene 3-1
   mapScreen: Map Screen
   <Upgrades>k__BackingField: []
   OnGameStart:

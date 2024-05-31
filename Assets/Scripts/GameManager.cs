@@ -9,7 +9,7 @@ using static PathManager;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private InspectorController inspectorController;
+    private InspectorController inspectorController => InspectorController.Instance;
     [SerializeField] private List<Level> levels;
     [SerializeField] private string mapScreen;
 
@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
-        inspectorController = InspectorController.Instance;
     }
 
     public void StartGame()
