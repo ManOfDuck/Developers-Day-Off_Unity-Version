@@ -401,7 +401,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1286768229687713278, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: _showCursor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8686681478243960497, guid: 7a6d9315463574e55936af9739c81fc5, type: 3}
       propertyPath: m_Name
