@@ -37,15 +37,15 @@ public class CursorController : MonoBehaviour
 
         if (interactableHits.Length > 0 && inspectorController.displayedObject == null)
         {
-            Cursor.SetCursor(hoverCursor, hoverOffset, CursorMode.Auto);
+            Cursor.SetCursor(hoverCursor, hoverOffset, CursorMode.ForceSoftware);
         }
         else if (noninteractableHits.Length > 0 && inspectorController.displayedObject == null)
         {
-            Cursor.SetCursor(cantSelectCursor, cantSelectOffset, CursorMode.Auto);
+            Cursor.SetCursor(cantSelectCursor, cantSelectOffset, CursorMode.ForceSoftware);
         }
         else
         {
-            Cursor.SetCursor(normalCursor, normalOffset, CursorMode.Auto);
+            Cursor.SetCursor(normalCursor, normalOffset, CursorMode.ForceSoftware);
         }
     }
 }
