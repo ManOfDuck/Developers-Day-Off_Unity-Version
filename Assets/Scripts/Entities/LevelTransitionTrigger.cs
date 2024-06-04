@@ -20,7 +20,17 @@ public class LevelTransitionTrigger : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            gameManager.LoadScene(level, !secondarySpawn);
+            //gameManager.LoadScene(level, !secondarySpawn);
+            StartCoroutine(SceneChange(2));
         }
+    }
+
+    IEnumerator SceneChange(float secondsToWait)
+    {
+        //set boolean playerIsInCutscene
+        //PlayerSpawn.Player.   
+
+        yield return new WaitForSeconds(secondsToWait);
+        gameManager.LoadScene(level, !secondarySpawn);
     }
 }
