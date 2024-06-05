@@ -9,6 +9,7 @@ public class Checkpoint : SimulatedScript
     [SerializeField] Sprite redFlag;
     [SerializeField] Sprite greenFlag;
     [SerializeField] private bool visible = true;
+    [SerializeField] AudioSource audioSource;
 
     protected override string DefaultVisualComponentName => "Checkpoint";
 
@@ -28,6 +29,7 @@ public class Checkpoint : SimulatedScript
     {
         if (collision.CompareTag("Player"))
         {
+            audioSource.Play();
             PlayerSpawn.SetSpawnPoint(newSpawn);
             if (visible) spriteRenderer.sprite = greenFlag;
             //change to green flag
