@@ -8,6 +8,8 @@ public class LevelTransitionTrigger : MonoBehaviour
     [SerializeField] private bool secondarySpawn = false;
     [SerializeField] private Collider2D trigger;
 
+    [SerializeField] CircleShrink circleShrinkScript;
+
 
     GameManager gameManager;
     // Start is called before the first frame update
@@ -21,7 +23,9 @@ public class LevelTransitionTrigger : MonoBehaviour
         if (collider.gameObject.CompareTag("Player"))
         {
             //gameManager.LoadScene(level, !secondarySpawn);
-            StartCoroutine(SceneChange(2));
+            //StartCoroutine(SceneChange(2));
+
+            circleShrinkScript.closeCircle(level);
         }
     }
 

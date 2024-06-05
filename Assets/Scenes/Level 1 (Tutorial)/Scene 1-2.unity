@@ -67870,6 +67870,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 5729829889980466524, guid: d988d672d67b18849bdb02918cbb1f07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6081624785745727141, guid: d988d672d67b18849bdb02918cbb1f07, type: 3}
       propertyPath: m_RootOrder
       value: 20

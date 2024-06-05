@@ -6,19 +6,51 @@ public class CircleShrink : MonoBehaviour
 {
     RectTransform rectTransform;
 
-    [SerializeField] float shrinkValue = 10;
-    float size = 2200;
+    [SerializeField] float changeAmount = 10;
+    [SerializeField] float size = 0;
+    private bool closing = false;
+    private bool opening = true;
+    private string nextScene;
+
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         rectTransform = this.GetComponent<RectTransform>();
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        size -= shrinkValue;
-        rectTransform.sizeDelta = new Vector2(size, size);
+        if(opening)
+        {
+            size += changeAmount;
+            rectTransform.sizeDelta = new Vector2(size, size);
+            if(size >= 2200)
+            {
+                opening = false;
+            }
+
+        }
+
+        if(closing)
+        {
+            size -= changeAmount;
+            rectTransform.sizeDelta = new Vector2(size, size);
+
+            if(size <= 0)
+            {
+                //change scenes
+                gameManager.LoadScene(nextScene, true);
+            }
+        }
+    }
+
+    public void closeCircle(string sceneName)
+    {
+        closing = true;
+        nextScene = sceneName;
     }
 }
