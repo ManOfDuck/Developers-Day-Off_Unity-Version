@@ -6,6 +6,10 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
 
+    private static FollowCamera _instance;
+    public static FollowCamera Instance { get { return _instance; } }
+
+
     [SerializeField] public Camera controlledCamera;
 
     [Tooltip("Offset from the player we'll follow at (based on the camera's position and the player's position)")]
@@ -22,8 +26,21 @@ public class FollowCamera : MonoBehaviour
     private Vector2 target;
 
     private bool bounded = true;
+    public bool isChangingScenes;
 
     public float shift;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +60,10 @@ public class FollowCamera : MonoBehaviour
     void Update()
     {
         //Once the player goes out-of-bounds, they cannot reactivate the bounded camera
-        bounded = bounded && cameraBoundingBox.bounds.Contains((Vector2) PlayerSpawn.Player.transform.position);
+        if(!isChangingScenes)
+        {
+            bounded = bounded && cameraBoundingBox.bounds.Contains((Vector2)PlayerSpawn.Player.transform.position);
+        }
 
         if (bounded)
         {

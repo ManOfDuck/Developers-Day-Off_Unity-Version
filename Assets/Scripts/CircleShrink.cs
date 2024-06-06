@@ -43,6 +43,7 @@ public class CircleShrink : MonoBehaviour
             if(size <= 0)
             {
                 //change scenes
+                FollowCamera.Instance.isChangingScenes = false;
                 gameManager.LoadScene(nextScene, true);
             }
         }
@@ -50,6 +51,7 @@ public class CircleShrink : MonoBehaviour
 
     public void closeCircle(string sceneName)
     {
+        FollowCamera.Instance.isChangingScenes = true;
         closing = true;
         nextScene = sceneName;
     }
