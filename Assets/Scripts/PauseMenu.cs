@@ -71,7 +71,8 @@ public class PauseMenu : MonoBehaviour
     private void MapClicked()
     {
         Debug.Log("map clicked");
-        SceneManager.LoadScene("Map Screen");
+        GameManager.Instance.ResumeGame();
+        GameManager.Instance.ExitLevel();
     }
 
     private void quitClicked()

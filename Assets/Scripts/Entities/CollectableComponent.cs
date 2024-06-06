@@ -15,6 +15,26 @@ public class CollectableComponent : ComponentHolder
         base.Start();
 
         toolkitController = ToolkitController.Instance;
+
+        DestroyIfCollected();
+    }
+
+    private void DestroyIfCollected()
+    {
+        if (toolkitController.Components.Count == 0) return; // There are no components, dont delete
+
+        foreach (SimulatedComponent newComponent in Components)
+        {
+            foreach (SimulatedComponent existingComponent in toolkitController.Components)
+            {
+                if (newComponent.GetType() != existingComponent.GetType())
+                {
+                    return; // We have something new, dont delete
+                }
+            }
+        }
+
+        Destroy(this.gameObject); // You should kill yourself NOW
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,7 +52,7 @@ public class CollectableComponent : ComponentHolder
         {
             c.Copy(toolkitController);
         }
-        Debug.Log("hi");
+  
         Destroy(this.gameObject);
         collectTrigger.enabled = false;
     }

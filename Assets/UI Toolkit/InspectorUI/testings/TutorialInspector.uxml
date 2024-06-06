@@ -5,9 +5,9 @@
             <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: auto; opacity: 0; flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="spacer" style="width: auto; align-items: auto; flex-grow: 1;">
-            <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: 100%; opacity: 0; display: none;" />
+            <ui:Button display-tooltip-when-elided="true" name="not_inspector" style="height: 100%; opacity: 0; display: flex; width: 100%;" />
         </ui:VisualElement>
-        <ui:VisualElement style="width: auto;">
+        <ui:VisualElement name="VisualElement" style="width: auto;">
             <ui:VisualElement style="background-color: rgb(196, 196, 196); height: initial; width: 380px; align-items: auto; border-left-color: rgb(56, 56, 56); border-right-color: rgb(56, 56, 56); border-top-color: rgb(56, 56, 56); border-bottom-color: rgb(56, 56, 56); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; overflow: visible; flex-grow: 0; margin-left: 16px; margin-right: 16px; margin-top: 16px; margin-bottom: 16px; border-top-left-radius: 27px; border-bottom-left-radius: 27px; border-top-right-radius: 27px; border-bottom-right-radius: 27px; padding-left: 16px; padding-right: 16px; padding-top: 16px; padding-bottom: 16px;">
                 <ui:Label text="This is &lt;b&gt;The Inspector&lt;/b&gt;. It&apos;s a helpful tool that shows us the inner workings of &lt;b&gt;objects&lt;/b&gt; when you click on them!" display-tooltip-when-elided="true" style="-unity-font: resource(&apos;FlatSkin/Font/Roboto-Medium&apos;); color: rgb(42, 42, 42); font-size: 24px; -unity-font-style: normal; width: 100%; height: 100%; padding-left: 16px; padding-right: 16px; padding-top: 16px; padding-bottom: 16px; white-space: normal; -unity-text-align: upper-center;" />
             </ui:VisualElement>
