@@ -211,6 +211,7 @@ MonoBehaviour:
   greenFlag: {fileID: -2030445605, guid: d988b846b0fd6d641ba25de6dbacb939, type: 3}
   visible: 1
   audioSource: {fileID: 7384813547354640508}
+  particle: {fileID: 5198335446318970962, guid: 6f3c4c7b17aae1147b0064dd05d2752b, type: 3}
 --- !u!114 &2279677126687861306
 MonoBehaviour:
   m_ObjectHideFlags: 0
