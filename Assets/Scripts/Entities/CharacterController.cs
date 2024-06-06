@@ -105,7 +105,8 @@ public class CharacterController : SimulatedScript
     {
         CheckForGround();
 
-        if (!ValidateReferences(CharacterBody) || CharacterBody.bodyType == RigidbodyType2D.Kinematic) return;
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
+        if (CharacterBody.bodyType != RigidbodyType2D.Dynamic) CharacterBody.bodyType = RigidbodyType2D.Dynamic;
 
         if (groundObject == null)
         {
@@ -196,7 +197,7 @@ public class CharacterController : SimulatedScript
 
     private void Jump()
     {
-        if (!ValidateReferences(CharacterBody)) return;
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
 
         groundObject = null;
         // Cancel out existing vertical velocity, for coyote gamers
@@ -206,8 +207,8 @@ public class CharacterController : SimulatedScript
 
     public void CancelJump()
     {
-        if (!ValidateReferences(CharacterBody)) return;
-
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
+       
         float downwardsForce = localVelocity.magnitude * CancelledJumpImpulseRatio;
         ApplyImpulse(Vector2.down, downwardsForce, VerticalSpeedCap);
     }
@@ -228,7 +229,7 @@ public class CharacterController : SimulatedScript
     #region Forces
     protected void ApplyForce(Vector2 direction, float amount, float cap)
     {
-        if (!ValidateReferences(CharacterBody)) return;
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
 
         direction.Normalize();
         float amountBelowCap = cap - Mathf.Abs((localVelocity * direction).magnitude);
@@ -240,7 +241,7 @@ public class CharacterController : SimulatedScript
 
     protected void ApplyImpulse(Vector2 direction, float amount, float cap)
     {
-        if (!ValidateReferences(CharacterBody)) return;
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
 
         direction.Normalize();
         float amountBelowCap = cap - Mathf.Abs((localVelocity * direction).magnitude);
@@ -252,7 +253,7 @@ public class CharacterController : SimulatedScript
 
     protected void InheritMovement(Rigidbody2D other)
     {
-        if (!ValidateReferences(CharacterBody)) return;
+        if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
         if (other == null)
         {
             CharacterBody.velocity = localVelocity;
@@ -279,16 +280,29 @@ public class CharacterController : SimulatedScript
             useTriggers = false
         };
 
-        RaycastHit2D[] hits = new RaycastHit2D[2];
-        Vector2 raycastOrigin = (Vector2)transform.position + CharacterCollider.offset + offset;
-        Vector2 raycastDirection = direction;
-        float raycastDistance = distance;
-        int numHits = Physics2D.BoxCast(raycastOrigin, CharacterCollider.bounds.size, 0, raycastDirection, filter, hits, raycastDistance);
 
-        bool objectFound = numHits > 1; // We'll always hit ourselves
-        foundObject = objectFound ? hits[1].rigidbody : null;
+        
+        direction = direction.normalized;
+        Vector2 edgePosition = (Vector2) CharacterCollider.transform.position + (CharacterCollider.bounds.size * direction) / 2;
+        Vector2 offsetFromEdge = direction * distance;
+        Vector2 boxSize = CharacterCollider.bounds.size * Vector2.Perpendicular(direction) + direction * distance;
+  
 
-        return objectFound;
+        Collider2D[] hits = new Collider2D[2];
+        Physics2D.OverlapBox(edgePosition + offsetFromEdge, boxSize, 0, filter, hits);
+
+        //Debug.Log(numHits);
+        foreach(Collider2D collider in hits)
+        {
+            if (collider != null && collider != CharacterCollider)
+            {
+                foundObject = collider.attachedRigidbody;
+                return true;
+            }
+        }
+
+        foundObject = null;
+        return false;
     }
 
     virtual protected void CheckForGround()

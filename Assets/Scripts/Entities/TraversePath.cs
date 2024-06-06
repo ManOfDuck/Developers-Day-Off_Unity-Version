@@ -26,11 +26,12 @@ public abstract class TraversePath : SimulatedScript
         {
             for (currentPoint = startingIndex; currentPoint < path.Count; currentPoint++)
             {
-                // Wait for references
+                // Wait for body
                 while (!ValidateReferences(Body)) yield return null;
+                while (!Holder.LockBody(this)) yield return null;
 
-                Body.bodyType = RigidbodyType2D.Kinematic;
 
+                Debug.Log("hi!");
                 Vector2 target = path[currentPoint];
 
                 Light(20);
@@ -42,8 +43,16 @@ public abstract class TraversePath : SimulatedScript
 
                 while (direction.magnitude - traveled.magnitude > 0.01f)
                 {
-                    // Wait for references
+                    // Wait for body (in case reference broke mid-routine)
+                    Debug.Log("hi!");
                     while (!ValidateReferences(Body)) yield return null;
+                    Debug.Log("hi!");
+                    while (!Holder.LockBody(this)) yield return null;
+
+                    Debug.Log("hi!");
+
+                    // Ensure body is correct type
+                    Body.bodyType = RigidbodyType2D.Kinematic;
 
                     // Pause if object is disabled
                     while (!DoCoroutines)
@@ -73,12 +82,13 @@ public abstract class TraversePath : SimulatedScript
         }
         while (loop);
         Moving = false;
-        //Body.bodyType = RigidbodyType2D.Dynamic;
+        Debug.Log("releasing!");
+        Holder.ReleaseBody(this);
     }
 
-    protected void OnDisable()
+    private void OnDisable()
     {
-        //Body.bodyType = RigidbodyType2D.Dynamic;
+        Holder.ReleaseBody(this);
     }
 
     override public SimulatedComponent Copy(ComponentHolder destination)
