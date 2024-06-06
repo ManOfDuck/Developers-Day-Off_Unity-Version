@@ -126,7 +126,7 @@ public class CharacterController : SimulatedScript
         {
             localVelocity *= Vector2.up;
         }
-        if (CheckForCeiling())
+        if (groundObject == null && CheckForCeiling() && localVelocity.y > 0)
         {
             localVelocity.y = Mathf.Min(localVelocity.y, 0);
         }
@@ -232,7 +232,7 @@ public class CharacterController : SimulatedScript
         if (!ValidateReferences(CharacterBody) || !Holder.RequestBody(this)) return;
 
         direction.Normalize();
-        float amountBelowCap = cap - Mathf.Abs((localVelocity * direction).magnitude);
+        float amountBelowCap = cap - localVelocity.magnitude;
         float velocityToAdd = Mathf.Min(amount, amountBelowCap);
 
         localVelocity += velocityToAdd * Time.fixedDeltaTime * direction;
@@ -289,7 +289,7 @@ public class CharacterController : SimulatedScript
   
 
         Collider2D[] hits = new Collider2D[2];
-        Physics2D.OverlapBox(edgePosition + offsetFromEdge, boxSize, 0, filter, hits);
+        Physics2D.OverlapBox(edgePosition + offsetFromEdge + offset, boxSize, 0, filter, hits);
 
         //Debug.Log(numHits);
         foreach(Collider2D collider in hits)

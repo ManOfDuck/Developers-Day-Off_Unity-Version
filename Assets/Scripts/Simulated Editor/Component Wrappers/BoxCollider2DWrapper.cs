@@ -17,7 +17,7 @@ public class BoxCollider2DWrapper : ComponentWrapper<BoxCollider2D>
         if (destination is SimulatedObject o)
         {
             Collider2D trigger = o.ClickTrigger;
-            copy.WrappedComponent.size = trigger.bounds.size;
+            copy.WrappedComponent.size = new Vector3(trigger.bounds.size.x / destination.transform.localScale.x, trigger.bounds.size.y / destination.transform.localScale.y, trigger.bounds.size.z / destination.transform.localScale.z);
             copy.WrappedComponent.offset = trigger.offset;
         }
         return copy;

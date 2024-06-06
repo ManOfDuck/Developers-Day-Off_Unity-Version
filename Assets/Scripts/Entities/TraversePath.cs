@@ -31,7 +31,6 @@ public abstract class TraversePath : SimulatedScript
                 while (!Holder.LockBody(this)) yield return null;
 
 
-                Debug.Log("hi!");
                 Vector2 target = path[currentPoint];
 
                 Light(20);
@@ -44,12 +43,9 @@ public abstract class TraversePath : SimulatedScript
                 while (direction.magnitude - traveled.magnitude > 0.01f)
                 {
                     // Wait for body (in case reference broke mid-routine)
-                    Debug.Log("hi!");
                     while (!ValidateReferences(Body)) yield return null;
-                    Debug.Log("hi!");
                     while (!Holder.LockBody(this)) yield return null;
 
-                    Debug.Log("hi!");
 
                     // Ensure body is correct type
                     Body.bodyType = RigidbodyType2D.Kinematic;

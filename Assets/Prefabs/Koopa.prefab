@@ -85,12 +85,6 @@ MonoBehaviour:
   _components: []
   _interactable: 1
   clickTrigger: {fileID: -4741774193269951121}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  noninteractableLayer:
-    serializedVersion: 2
-    m_Bits: 512
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 552198496, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
 --- !u!212 &5685396654955758915
@@ -218,7 +212,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8359713663651525942
 MonoBehaviour:
@@ -308,8 +302,8 @@ MonoBehaviour:
   _regularGravity: 20.8
   _fallingGravity: 29.8
   _releaseImpulse: 0
-  _verticalSpeedCap: 1000
-  _groundCheckDistance: 0.1
+  _verticalSpeedCap: 20
+  _groundCheckDistance: 0.2
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
