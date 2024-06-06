@@ -121,6 +121,7 @@ public class CharacterController : SimulatedScript
             timeSinceGrounded = 0;
             coyoteJumpConsumed = false;
         }
+        
 
         if(Mathf.Approximately(CharacterBody.velocity.x, 0) || CheckForWall(CharacterBody.velocity * Vector2.right))
         {
@@ -286,10 +287,14 @@ public class CharacterController : SimulatedScript
         Vector2 edgePosition = (Vector2) CharacterCollider.transform.position + (CharacterCollider.bounds.size * direction) / 2;
         Vector2 offsetFromEdge = direction * distance;
         Vector2 boxSize = CharacterCollider.bounds.size * Vector2.Perpendicular(direction) + direction * distance;
-  
 
         Collider2D[] hits = new Collider2D[2];
         Physics2D.OverlapBox(edgePosition + offsetFromEdge + offset, boxSize, 0, filter, hits);
+
+        if (direction == Vector2.down)
+        {
+            Debug.Log(this.gameObject + " " + boxSize);
+        }
 
         //Debug.Log(numHits);
         foreach(Collider2D collider in hits)
