@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c9b5a045e5fc048890bf61086363ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeAmount: 50
+  changeAmount: 6000
   size: 0
 --- !u!1 &7903453448721482814
 GameObject:

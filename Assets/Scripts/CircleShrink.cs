@@ -26,7 +26,7 @@ public class CircleShrink : MonoBehaviour
     {
         if(opening)
         {
-            size += changeAmount;
+            size += changeAmount * Time.deltaTime;
             rectTransform.sizeDelta = new Vector2(size, size);
             if(size >= 2200)
             {
@@ -37,7 +37,7 @@ public class CircleShrink : MonoBehaviour
 
         if(closing)
         {
-            size -= changeAmount;
+            size -= changeAmount * Time.deltaTime;
             rectTransform.sizeDelta = new Vector2(size, size);
 
             if(size <= 0)
