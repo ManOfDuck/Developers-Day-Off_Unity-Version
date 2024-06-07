@@ -110,21 +110,21 @@ public class InspectorController : MonoBehaviour
                 StopDisplaying();
             }
         };
-        alsoNotInspector.clickable.clicked += () =>
+        if (alsoNotInspector != null) alsoNotInspector.clickable.clicked += () =>
         {
             if (Camera.main.GetComponentInChildren<SpriteRenderer>())
             {
                 StopDisplaying();
             }
         };
-        alsoAlsoNotInspector.clickable.clicked += () =>
+        if (alsoAlsoNotInspector != null) alsoAlsoNotInspector.clickable.clicked += () =>
         {
             if (Camera.main.GetComponentInChildren<SpriteRenderer>())
             {
                 StopDisplaying();
             }
         };
-        alsoAlsoAlsoNotInspector.clickable.clicked += () =>
+        if (alsoAlsoAlsoNotInspector != null) alsoAlsoAlsoNotInspector.clickable.clicked += () =>
         {
             if (Camera.main.GetComponentInChildren<SpriteRenderer>())
             {
