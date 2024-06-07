@@ -7,6 +7,7 @@ public class LevelEnd : MonoBehaviour
     [SerializeField] Collider2D trigger;
     [SerializeField] CircleShrink circleShrinkScript;
     public bool isSecondLevel;
+    public bool doFakeFall;
     [SerializeField] AudioSource secondLevelFallingSound;
 
     private void Start()
@@ -18,12 +19,12 @@ public class LevelEnd : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            if(isSecondLevel)
+            if(isSecondLevel || doFakeFall)
             {
                 //play audio clip before doing clear level
                 FollowCamera.Instance.isChangingScenes = true;
                 secondLevelFallingSound.Play();
-                StartCoroutine(EndSecondLevel());
+                if (isSecondLevel) StartCoroutine(EndSecondLevel());
             }
 
             else

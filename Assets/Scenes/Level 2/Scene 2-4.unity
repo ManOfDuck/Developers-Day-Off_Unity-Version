@@ -42873,16 +42873,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -10, y: -25, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 10, y: -25, z: 0}
     second:
       serializedVersion: 2
@@ -42921,7 +42911,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 323
+  - m_RefCount: 322
     m_Data: {fileID: 11400000, guid: bf5a803bc37a34928b03fb8626bae31c, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -42940,10 +42930,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 323
+  - m_RefCount: 322
     m_Data: {fileID: 2107802116, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 323
+  - m_RefCount: 322
     m_Data:
       e00: 1
       e01: 0
@@ -42998,7 +42988,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 323
+  - m_RefCount: 322
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -79148,6 +79138,7 @@ MonoBehaviour:
   trigger: {fileID: 684802804}
   circleShrinkScript: {fileID: 1046062151}
   isSecondLevel: 1
+  doFakeFall: 0
   secondLevelFallingSound: {fileID: 684802811}
 --- !u!82 &684802811
 AudioSource:
