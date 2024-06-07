@@ -15,18 +15,18 @@
     margin-right: 5px;
     margin-top: 0;
     margin-bottom: 2px;
-    -unity-text-align: upper-right;
+    -unity-text-align: middle-right;
     font-size: 18px;
     padding-left: 0;
     padding-right: 10px;
     color: rgb(196, 196, 196);
-    -unity-font: resource('FlatSkin/Font/Roboto-Medium');
-    -unity-font-definition: none;
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/OpenSauceOne-Medium%20SDF.asset?fileID=11400000&guid=d8fb8d5bf63b9c04f82e49595460a5f0&type=2#OpenSauceOne-Medium SDF');
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/OpenSauceOne-Medium.ttf?fileID=12800000&guid=944cdf71cbbcea94fae0248a7b9973b9&type=3#OpenSauceOne-Medium');
+    -unity-font-style: normal;
 }
 
 .unity-text-field__input {
     background-color: rgb(34, 34, 34);
-    -unity-font: resource('FlatSkin/Font/Roboto-Light');
     -unity-font-style: normal;
     color: rgb(196, 196, 196);
     -unity-text-align: middle-center;
@@ -43,6 +43,8 @@
     padding-right: 6px;
     padding-top: 6px;
     padding-bottom: 6px;
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/OpenSauceOne-Medium%20SDF.asset?fileID=11400000&guid=d8fb8d5bf63b9c04f82e49595460a5f0&type=2#OpenSauceOne-Medium SDF');
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/OpenSauceOne-Medium.ttf?fileID=12800000&guid=944cdf71cbbcea94fae0248a7b9973b9&type=3#OpenSauceOne-Medium');
 }
 
 .unity-text-field__input:hover {
@@ -59,9 +61,9 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(81, 81, 81, 255);
-    border-right-color: rgba(81, 81, 81, 255);
-    border-top-color: rgba(81, 81, 81, 255);
-    border-bottom-color: rgba(81, 81, 81, 255);
+    border-left-color: rgb(81, 81, 81);
+    border-right-color: rgb(81, 81, 81);
+    border-top-color: rgb(81, 81, 81);
+    border-bottom-color: rgb(81, 81, 81);
     font-size: 18px;
 }
