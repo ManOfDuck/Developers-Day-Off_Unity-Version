@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
     // Call this to reset everything
     public void ResetScene()
     {
+        if (currentScene == mapScreen) return;
         LoadScene(currentScene);
     }
 
