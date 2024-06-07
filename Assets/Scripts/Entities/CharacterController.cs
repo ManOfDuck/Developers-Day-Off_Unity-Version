@@ -307,6 +307,18 @@ public class CharacterController : SimulatedScript
     virtual protected void CheckForGround()
     {
         bool isGrounded = CheckForObject(Vector2.down, GroundCheckDistance, ref groundObject);
+
+        if (isGrounded) // Ok, but are you REALLY??
+        {
+            Collider2D[] groundColliders = new Collider2D[1];
+            groundObject.GetAttachedColliders(groundColliders);
+            isGrounded = isGrounded && CharacterCollider.IsTouching(groundColliders[0]);
+        }
+
+        Debug.Log(isGrounded);
+
+        if (!isGrounded) groundObject = null;
+
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
