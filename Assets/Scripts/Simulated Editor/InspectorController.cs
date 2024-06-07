@@ -83,6 +83,7 @@ public class InspectorController : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        root.style.visibility = Visibility.Hidden;
         gameManager.OnPlayerHurt.AddListener(StopDisplaying);
         StopDisplaying();
     }
