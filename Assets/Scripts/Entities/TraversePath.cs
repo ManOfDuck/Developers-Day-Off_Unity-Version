@@ -51,11 +51,15 @@ public abstract class TraversePath : SimulatedScript
                     Body.bodyType = RigidbodyType2D.Kinematic;
 
                     // Pause if object is disabled
+                    if (!DoCoroutines) Body.velocity = Vector2.zero;
                     while (!DoCoroutines)
                     {
-                        Body.velocity = Vector2.zero;
+                        Holder.ReleaseBody(this);
                         yield return null;
                     }
+
+                    while (!ValidateReferences(Body)) yield return null;
+                    while (!Holder.LockBody(this)) yield return null;
 
                     float distanceRemaining = direction.magnitude - traveled.magnitude;
                     float speedToAdd = Mathf.Min(Speed, (distanceRemaining) / Time.fixedDeltaTime);
