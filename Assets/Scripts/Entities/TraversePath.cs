@@ -26,10 +26,10 @@ public abstract class TraversePath : SimulatedScript
         {
             for (currentPoint = startingIndex; currentPoint < path.Count; currentPoint++)
             {
-                // Wait for references
+                // Wait for body
                 while (!ValidateReferences(Body)) yield return null;
+                while (!Holder.LockBody(this)) yield return null;
 
-                Body.bodyType = RigidbodyType2D.Kinematic;
 
                 Vector2 target = path[currentPoint];
 
@@ -42,15 +42,24 @@ public abstract class TraversePath : SimulatedScript
 
                 while (direction.magnitude - traveled.magnitude > 0.01f)
                 {
-                    // Wait for references
+                    // Wait for body (in case reference broke mid-routine)
                     while (!ValidateReferences(Body)) yield return null;
+                    while (!Holder.LockBody(this)) yield return null;
+
+
+                    // Ensure body is correct type
+                    Body.bodyType = RigidbodyType2D.Kinematic;
 
                     // Pause if object is disabled
+                    if (!DoCoroutines) Body.velocity = Vector2.zero;
                     while (!DoCoroutines)
                     {
-                        Body.velocity = Vector2.zero;
+                        Holder.ReleaseBody(this);
                         yield return null;
                     }
+
+                    while (!ValidateReferences(Body)) yield return null;
+                    while (!Holder.LockBody(this)) yield return null;
 
                     float distanceRemaining = direction.magnitude - traveled.magnitude;
                     float speedToAdd = Mathf.Min(Speed, (distanceRemaining) / Time.fixedDeltaTime);
@@ -73,12 +82,13 @@ public abstract class TraversePath : SimulatedScript
         }
         while (loop);
         Moving = false;
-        //Body.bodyType = RigidbodyType2D.Dynamic;
+        Debug.Log("releasing!");
+        Holder.ReleaseBody(this);
     }
 
-    protected void OnDisable()
+    private void OnDisable()
     {
-        //Body.bodyType = RigidbodyType2D.Dynamic;
+        Holder.ReleaseBody(this);
     }
 
     override public SimulatedComponent Copy(ComponentHolder destination)

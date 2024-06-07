@@ -105066,7 +105066,7 @@ GameObject:
   - component: {fileID: 1358777301}
   - component: {fileID: 1358777300}
   m_Layer: 0
-  m_Name: Isometric Diamond
+  m_Name: Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110070,7 +110070,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -18, y: 1, z: 0}
@@ -110102,7 +110102,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -14, y: 1, z: 0}
@@ -110294,7 +110294,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -1990990166, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 81545918, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 11
+      m_AnimationSpeed: 11.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -29, y: 11, z: 0}
@@ -110374,7 +110374,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -22, y: 15, z: 0}

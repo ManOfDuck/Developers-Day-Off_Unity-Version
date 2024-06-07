@@ -22,6 +22,8 @@ public class SimulatedObject : ComponentHolder
     public Sprite defaultSprite;
     public Sprite sprite1;
 
+    private SimulatedScript bodyOwner = null;
+
     public void Awake()
     {
         
@@ -152,4 +154,30 @@ public class SimulatedObject : ComponentHolder
 
         return component;
     }
+
+    #region body control
+    public override bool RequestBody(SimulatedScript requestingScript)
+    {
+        return bodyOwner == null || bodyOwner == requestingScript;
+    }
+    public override bool LockBody(SimulatedScript newOwner)
+    {
+        if (bodyOwner == newOwner) return true;
+        if (bodyOwner != null) return false;
+
+        Debug.Log("locked by : " + newOwner);
+
+        bodyOwner = newOwner;
+        return true;
+    }
+
+    public override void ReleaseBody(SimulatedScript currentOwner)
+    {
+        if (bodyOwner != currentOwner) return;
+
+        Debug.Log("released!");
+
+        bodyOwner = null;
+    }
+    #endregion
 }

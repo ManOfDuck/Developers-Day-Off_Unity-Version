@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class StartMenu : MonoBehaviour
 {
     [SerializeField] private UIDocument UIDoc;
+    [SerializeField] private SettingsMenu settingsMenu;
 
 
     private VisualElement root;
@@ -25,9 +26,13 @@ public class StartMenu : MonoBehaviour
         root.style.visibility = Visibility.Visible;
 
         startButton = UIDoc.rootVisualElement.Q<Button>("Start");
+        creditsButton = UIDoc.rootVisualElement.Q<Button>("Credits");
+        settingsButton = UIDoc.rootVisualElement.Q<Button>("Settings");
         //quitButton = UIDoc.rootVisualElement.Q<Button>("Quit");
 
         startButton.clicked += StartClicked;
+        creditsButton.clicked += CreditsClicked;
+        settingsButton.clicked += SettingsClicked;
         
         //quitButton.clicked += quitClicked;
         //root.style.visibility = Visibility.Hidden;
@@ -37,6 +42,16 @@ public class StartMenu : MonoBehaviour
     {
         Debug.Log("start clicked");
         SceneManager.LoadScene("Map Screen");
+    }
+
+    private void CreditsClicked()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+
+    private void SettingsClicked()
+    {
+        settingsMenu.showMenu();
     }
 
     private void HideMenu()
