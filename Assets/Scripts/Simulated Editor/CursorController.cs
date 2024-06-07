@@ -35,6 +35,7 @@ public class CursorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("hi");
         Collider2D[] interactableHits = Physics2D.OverlapPointAll(inputManager.WorldMousePosition, 1 << InteractableLayer);
         Collider2D[] noninteractableHits = Physics2D.OverlapPointAll(inputManager.WorldMousePosition, 1 << NoninteractableLayer);
 
