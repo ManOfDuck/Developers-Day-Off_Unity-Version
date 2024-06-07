@@ -34,9 +34,9 @@ public class Checkpoint : SimulatedScript
             {
                 ParticleSystem instantiatedDeathParticle = Instantiate<ParticleSystem>(particle);
                 instantiatedDeathParticle.transform.position = this.transform.position;
+                audioSource.Play();
             }
 
-            audioSource.Play();
             PlayerSpawn.SetSpawnPoint(newSpawn);
             if (visible) spriteRenderer.sprite = greenFlag;
             //change to green flag
