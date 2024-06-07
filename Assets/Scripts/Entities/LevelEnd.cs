@@ -9,6 +9,7 @@ public class LevelEnd : MonoBehaviour
     public bool isSecondLevel;
     [SerializeField] AudioSource secondLevelFallingSound;
     [SerializeField] ParticleSystem particle;
+    [SerializeField] AudioSource audioSource;
 
 
     private void Start()
@@ -32,6 +33,7 @@ public class LevelEnd : MonoBehaviour
             {
                 ParticleSystem instantiatedDeathParticle = Instantiate<ParticleSystem>(particle);
                 instantiatedDeathParticle.transform.position = this.transform.position;
+                audioSource.Play();
 
                 Debug.Log("level cleared");
                 //GameManager.Instance.ClearLevel();

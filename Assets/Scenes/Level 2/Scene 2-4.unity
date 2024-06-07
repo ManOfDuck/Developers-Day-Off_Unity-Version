@@ -79150,6 +79150,7 @@ MonoBehaviour:
   isSecondLevel: 1
   secondLevelFallingSound: {fileID: 684802811}
   particle: {fileID: 5198335446318970962, guid: 606f0d0291ac0094da404afc3c9442f9, type: 3}
+  audioSource: {fileID: 684802811}
 --- !u!82 &684802811
 AudioSource:
   m_ObjectHideFlags: 0
