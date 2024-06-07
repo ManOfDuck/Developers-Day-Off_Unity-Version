@@ -18,7 +18,7 @@ public class Koopa : CharacterController
     private Direction StartingDirection { get => _startingDirection; set => _startingDirection = value; }
 
     [SerializeField] private float _cliffCheckDistance;
-    public float CliffCheckDistance { get => _cliffCheckDistance; private set => _cliffCheckDistance = value; }
+    private float CliffCheckDistance { get => _cliffCheckDistance; set => _cliffCheckDistance = value; }
 
     private Vector2 direction;
 

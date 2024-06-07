@@ -37,11 +37,12 @@
     margin-top: 8px;
     margin-bottom: 8px;
     rotate: 3deg;
+    scale: 1.2 1.2;
 }
 
 .addbutton:active {
     color: rgb(223, 223, 223);
-    background-color: rgb(95, 95, 95);
+    background-color: rgb(81, 81, 81);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;

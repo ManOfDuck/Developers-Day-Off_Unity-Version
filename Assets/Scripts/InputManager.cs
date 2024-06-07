@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log("reseting level");
             //PlayerSpawn.Respawn();
-
+            GameManager.Instance.ResumeGame();
             GameManager.Instance.ResetScene();
         }
     }
