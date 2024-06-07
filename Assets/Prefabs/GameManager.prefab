@@ -49,12 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd9c44a7aa3941a6b99ab2bc942e739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalCursor: {fileID: 2800000, guid: 1d856fe236a11d14b89dd8d57006b6cc, type: 3}
-  normalOffset: {x: 15, y: 10}
-  hoverCursor: {fileID: 2800000, guid: 7eb79f55f90f4f64fa9b972a663a0bba, type: 3}
-  hoverOffset: {x: 10, y: 10}
-  cantSelectCursor: {fileID: 2800000, guid: afd8ed79bb5bae140a36a716aac315ed, type: 3}
-  cantSelectOffset: {x: 20, y: 10}
+  normalCursor: {fileID: 2800000, guid: 0a7049abce806437b83a0e90c7962f30, type: 3}
+  normalOffset: {x: 0, y: 0}
+  hoverCursor: {fileID: 2800000, guid: 442a3c66c1896457ea35182861a49361, type: 3}
+  hoverOffset: {x: 10, y: 0}
+  cantSelectCursor: {fileID: 2800000, guid: b1f1acb4fc3f148148487647573f6bd1, type: 3}
+  cantSelectOffset: {x: 15, y: 20}
   _interactableLayer: 6
   _noninteractableLayer: 7
   _showCursor: 1

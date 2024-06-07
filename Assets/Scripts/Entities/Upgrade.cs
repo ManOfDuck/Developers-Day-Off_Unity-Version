@@ -6,7 +6,6 @@ public class Upgrade : MonoBehaviour
 {
     [SerializeField] private string upgradeName;
     [SerializeField] private Collider2D trigger;
-    [SerializeField] private AudioSource audiosource;
 
     private bool collected = false;
 
@@ -22,8 +21,6 @@ public class Upgrade : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !collected)
         {
-            Debug.Log("playing audio");
-            audiosource.Play();
             collected = true;
             Collect();
         }

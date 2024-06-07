@@ -12,8 +12,6 @@ public class Checkpoint : SimulatedScript
     [SerializeField] AudioSource audioSource;
     [SerializeField] ParticleSystem particle;
 
-    bool touched = false;
-
     protected override string DefaultVisualComponentName => "Checkpoint";
 
     protected override void Start()
@@ -32,7 +30,7 @@ public class Checkpoint : SimulatedScript
     {
         if (collision.CompareTag("Player"))
         {
-            if(!touched)
+            if(spriteRenderer.sprite != greenFlag)
             {
                 ParticleSystem instantiatedDeathParticle = Instantiate<ParticleSystem>(particle);
                 instantiatedDeathParticle.transform.position = this.transform.position;
@@ -40,7 +38,6 @@ public class Checkpoint : SimulatedScript
             }
 
             PlayerSpawn.SetSpawnPoint(newSpawn);
-            touched = true;
             if (visible) spriteRenderer.sprite = greenFlag;
             //change to green flag
         }
