@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,9 @@ public class ToolkitController : ComponentHolder
     private VisualElement toolkitRoot;
     private VisualElement componentArea;
     private readonly List<VisualElement> componentDisplays = new();
+
+    //for toolkit slidee
+    private Button tkSpacer;
 
     private void Awake()
     {
@@ -71,6 +75,7 @@ public class ToolkitController : ComponentHolder
         root = mainUIDocument.rootVisualElement;
         toolkitRoot = root.Q<VisualElement>("Toolkit");
         componentArea = toolkitRoot.Q<VisualElement>("TK_components");
+        tkSpacer = root.Q<Button>("also_not_inspector");
     }
 
     public void AddComponent(SimulatedComponent component)
@@ -86,5 +91,26 @@ public class ToolkitController : ComponentHolder
         Button button = componentDisplay.Q<Button>("Button");
 
         button.clicked += () => component.Copy(inspectorController.displayedObject);
+    }
+
+    private void Update()
+    {
+        if (IsInsideElement(toolkitRoot, Input.mousePosition))
+        {
+            Debug.Log("mouse over tk");
+            tkSpacer.RemoveFromClassList("tk_spacer_closed");
+            tkSpacer.AddToClassList("tk_spacer_open");
+        }
+        else
+        {
+            tkSpacer.RemoveFromClassList("tk_spacer_open");
+            tkSpacer.AddToClassList("tk_spacer_closed");
+        }
+    }
+
+    private bool IsInsideElement(VisualElement v, Vector2 pos)
+    {
+        Debug.Log("yeah: " + v.worldBound.Contains(pos));
+        return v.worldBound.Contains(pos);
     }
 }
