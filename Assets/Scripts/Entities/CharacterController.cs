@@ -291,11 +291,6 @@ public class CharacterController : SimulatedScript
         Collider2D[] hits = new Collider2D[2];
         Physics2D.OverlapBox(edgePosition + offsetFromEdge + offset, boxSize, 0, filter, hits);
 
-        if (direction == Vector2.down)
-        {
-            Debug.Log(this.gameObject + " " + edgePosition);
-        }
-
         foreach(Collider2D collider in hits)
         {
             if (collider != null && collider != CharacterCollider)
