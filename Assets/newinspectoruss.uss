@@ -90,7 +90,7 @@
 }
 
 .tk_spacer_closed {
-    height: 35%;
+    height: 47%;
     transition-duration: 0.3s;
 }
 

@@ -101,7 +101,7 @@ public class ToolkitController : ComponentHolder
         pointerScreenPos = Input.mousePosition;
         pointerUiPos = new Vector2 { x = pointerScreenPos.x, y = Screen.height - pointerScreenPos.y };
 
-        //Debug.Log("picked : " + mainUIDocument.rootVisualElement.panel.Pick(pointerUiPos)); //this is so evil unity why would u make me do this
+        Debug.Log("picked : " + mainUIDocument.rootVisualElement.panel.Pick(pointerUiPos)); //this is so evil unity why would u make me do this
 
         if (mainUIDocument.rootVisualElement.panel.Pick(pointerUiPos) == toolkitRoot)
         {
