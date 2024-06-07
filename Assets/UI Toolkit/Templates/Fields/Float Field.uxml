@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/inputcss.uss?fileID=7433441132597879392&amp;guid=ae382a84232bc8b4698c9014535457f2&amp;type=3#inputcss" />
-    <ui:VisualElement name="input_space" class="editing_field" style="height: 39px; margin-left: 7px; margin-right: 7px; margin-top: 7px; margin-bottom: 7px; justify-content: center; width: 336px;">
-        <ui:TextField picking-mode="Ignore" label="Text Field" value="0" text="filler text" name="input" readonly="false" multiline="false" style="width: 340px; align-items: center; justify-content: center; margin-left: 5px; height: 32px;" />
+    <ui:VisualElement name="input_space" class="editing_field" style="height: 35px; margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; justify-content: center; width: 100%;">
+        <ui:TextField picking-mode="Ignore" label="Text Field" value="0" text="filler text" name="input" readonly="false" multiline="false" style="height: auto; -unity-text-align: upper-center; color: rgb(223, 223, 223); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; justify-content: center; -unity-font: resource(&apos;FlatSkin/Font/Roboto-Medium&apos;); -unity-font-definition: none; align-items: center; width: 100%;" />
     </ui:VisualElement>
 </ui:UXML>

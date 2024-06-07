@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components: []
-  _interactable: 0
+  _interactable: 1
   clickTrigger: {fileID: 3226394734520558984}
   defaultSprite: {fileID: 0}
   sprite1: {fileID: 0}
