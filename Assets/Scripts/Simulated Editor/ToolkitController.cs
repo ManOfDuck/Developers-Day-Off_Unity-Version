@@ -95,7 +95,7 @@ public class ToolkitController : ComponentHolder
 
     private void Update()
     {
-        if (IsInsideElement(toolkitRoot, Input.mousePosition))
+        /*if (IsInsideElement(toolkitRoot, Input.mousePosition))
         {
             Debug.Log("mouse over tk");
             tkSpacer.RemoveFromClassList("tk_spacer_closed");
@@ -105,12 +105,12 @@ public class ToolkitController : ComponentHolder
         {
             tkSpacer.RemoveFromClassList("tk_spacer_open");
             tkSpacer.AddToClassList("tk_spacer_closed");
-        }
+        }*/
     }
 
-    private bool IsInsideElement(VisualElement v, Vector2 pos)
+    /*private bool IsInsideElement(VisualElement v, Vector2 pos) //yeah thhis doesnt work :(
     {
         Debug.Log("yeah: " + v.worldBound.Contains(pos));
         return v.worldBound.Contains(pos);
-    }
+    }*/
 }
