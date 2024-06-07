@@ -88,3 +88,13 @@
     translate: 0 136px;
     transform-origin: center;
 }
+
+.tk_spacer_closed {
+    height: 47%;
+    transition-duration: 0.3s;
+}
+
+.tk_spacer_open {
+    height: 20%;
+    transition-duration: 0.3s;
+}
