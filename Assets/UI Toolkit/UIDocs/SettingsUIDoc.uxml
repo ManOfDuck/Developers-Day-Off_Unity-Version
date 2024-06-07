@@ -19,11 +19,11 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="R" style="width: 100%; margin-left: 50px; margin-right: 50px;">
-                    <ui:VisualElement name="TextSize" style="width: 100%; flex-direction: column; align-items: center; display: flex;">
+                    <ui:VisualElement name="TextSize" style="width: 100%; flex-direction: column; align-items: center; display: none;">
                         <ui:Label text="Text Size" display-tooltip-when-elided="true" class="settingsText" style="margin-top: 0;" />
                         <ui:Slider picking-mode="Ignore" value="42" high-value="100" page-size="0" inverted="false" tooltip="SLIDER TOOLTIP?" focusable="false" style="scale: 1 1; width: 100%; height: 75px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Option4" style="width: 100%; align-items: center; flex-direction: row; justify-content: center; display: flex;">
+                    <ui:VisualElement name="Option4" style="width: 100%; align-items: center; flex-direction: row; justify-content: center; display: none;">
                         <ui:Label text="Toggle Juice" display-tooltip-when-elided="true" class="settingsText" />
                         <ui:Toggle style="padding-left: 7px; padding-right: 7px; padding-top: 7px; padding-bottom: 7px; margin-left: 13px; margin-right: 13px; margin-top: 13px; margin-bottom: 13px;" />
                     </ui:VisualElement>
