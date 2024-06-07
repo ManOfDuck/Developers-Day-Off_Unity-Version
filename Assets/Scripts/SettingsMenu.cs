@@ -57,19 +57,19 @@ public class SettingsMenu : MonoBehaviour
     public void OnMasterSliderValueChange(ChangeEvent<float> evt)
     {
         masterVolume = evt.newValue;
-        masterMixerGroup.audioMixer.SetFloat("MasterVolParam", evt.newValue);
+        masterMixerGroup.audioMixer.SetFloat("MasterVolParam", evt.newValue - 70);
         Debug.Log("new master volume is " + evt.newValue);
     }
     public void OnMusicSliderValueChange(ChangeEvent<float> evt)
     {
         musicVolume = evt.newValue;
-        musicMixerGroup.audioMixer.SetFloat("MusicVolParam", evt.newValue);
+        musicMixerGroup.audioMixer.SetFloat("MusicVolParam", evt.newValue - 70);
         Debug.Log("new music volume is " + evt.newValue);
     }
     public void OnSfxSliderValueChange(ChangeEvent<float> evt)
     {
         sfxVolume = evt.newValue;
-        sfxMixerGroup.audioMixer.SetFloat("SfxVolParam", evt.newValue);
+        sfxMixerGroup.audioMixer.SetFloat("SfxVolParam", evt.newValue - 70);
         Debug.Log("new sfx volume is " + evt.newValue);
     }
 }
