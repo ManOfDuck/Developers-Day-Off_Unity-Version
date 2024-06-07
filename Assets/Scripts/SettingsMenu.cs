@@ -42,6 +42,12 @@ public class SettingsMenu : MonoBehaviour
         musicVolSlider.RegisterValueChangedCallback(OnMusicSliderValueChange);
         sfxVolSlider.RegisterValueChangedCallback(OnSfxSliderValueChange);
 
+        masterMixerGroup.audioMixer.GetFloat("MasterVolParam", out masterVolume);
+        masterVolSlider.value = masterVolume + 70;
+        musicMixerGroup.audioMixer.GetFloat("MusicVolParam", out musicVolume);
+        musicVolSlider.value = musicVolume + 70;
+        sfxMixerGroup.audioMixer.GetFloat("SfxVolParam", out sfxVolume);
+        sfxVolSlider.value = sfxVolume + 70;
     }
 
     public void showMenu()
