@@ -282,7 +282,7 @@ public class CharacterController : SimulatedScript
         };
 
 
-        
+
         direction = direction.normalized;
         Vector2 edgePosition = (Vector2) CharacterCollider.transform.position + (CharacterCollider.bounds.size * direction) / 2;
         Vector2 offsetFromEdge = direction * distance;
@@ -312,7 +312,7 @@ public class CharacterController : SimulatedScript
 
     virtual protected void CheckForGround()
     {
-        bool isGrounded = CheckForObject(Vector2.down, GroundCheckDistance, ref groundObject);
+        bool isGrounded = CheckForObject(Vector2.down * transform.localScale.y, GroundCheckDistance, ref groundObject);
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
