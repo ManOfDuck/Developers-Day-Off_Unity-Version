@@ -183,12 +183,14 @@ public class InspectorController : MonoBehaviour
             return;
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("mouse clicked");
             root.style.visibility = Visibility.Hidden;
             targetRenderer.material = defaultMaterial;
         }
+        */
 
         if (displayedObject)
         {

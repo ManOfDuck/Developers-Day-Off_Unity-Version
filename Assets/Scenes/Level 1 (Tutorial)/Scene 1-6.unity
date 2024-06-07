@@ -24215,6 +24215,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454761588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2989198829652403714, guid: d110a8bd61c3a441694b0854438cf852, type: 3}
+  m_PrefabInstance: {fileID: 1046062150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c9b5a045e5fc048890bf61086363ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &475366563
 GameObject:
   m_ObjectHideFlags: 0
@@ -83778,6 +83789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 1046062152}
+  circleShrinkScript: {fileID: 454761588}
+  isSecondLevel: 0
+  secondLevelFallingSound: {fileID: 0}
 --- !u!1001 &1239923089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87490,7 +87504,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -14, y: -1, z: 0}
@@ -87506,7 +87520,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -1, z: 0}
@@ -87946,7 +87960,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -1990990166, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 81545918, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 11.000001
+      m_AnimationSpeed: 11
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -20, y: 9, z: 0}
