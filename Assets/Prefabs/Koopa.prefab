@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 107590415666655619}
   m_Layer: 3
   m_Name: Koopa
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.049776852}
+  m_Offset: {x: -0.026302397, y: -0.18215415}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -68,7 +68,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.1004463}
+  m_Size: {x: 0.7935257, y: 0.84699637}
   m_EdgeRadius: 0
 --- !u!114 &6335500864271608466
 MonoBehaviour:
@@ -85,12 +85,6 @@ MonoBehaviour:
   _components: []
   _interactable: 1
   clickTrigger: {fileID: -4741774193269951121}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  noninteractableLayer:
-    serializedVersion: 2
-    m_Bits: 512
   defaultSprite: {fileID: 7482667652216324306, guid: 4899b7927753b8e4d91dd3988d34ce82, type: 3}
   sprite1: {fileID: 552198496, guid: 403ba6aa0eedd4611add1af119fc0877, type: 3}
 --- !u!212 &5685396654955758915
@@ -218,7 +212,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8359713663651525942
 MonoBehaviour:
@@ -308,8 +302,8 @@ MonoBehaviour:
   _regularGravity: 20.8
   _fallingGravity: 29.8
   _releaseImpulse: 0
-  _verticalSpeedCap: 1000
-  _groundCheckDistance: 0.1
+  _verticalSpeedCap: 20
+  _groundCheckDistance: 0.2
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8

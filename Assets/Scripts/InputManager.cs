@@ -29,7 +29,6 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (Instance == null)
         {
             _instance = this;
@@ -37,6 +36,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
+            Instance.CursorController.ShowCursor = this.CursorController.ShowCursor;
             Destroy(this.gameObject);
         }
     }

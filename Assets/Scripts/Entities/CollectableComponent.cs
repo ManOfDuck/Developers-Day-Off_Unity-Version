@@ -23,14 +23,21 @@ public class CollectableComponent : ComponentHolder
     {
         if (toolkitController.Components.Count == 0) return; // There are no components, dont delete
 
+        bool alreadyHave = false;
+
         foreach (SimulatedComponent newComponent in Components)
         {
             foreach (SimulatedComponent existingComponent in toolkitController.Components)
             {
-                if (newComponent.GetType() != existingComponent.GetType())
+                if (newComponent.GetType() == existingComponent.GetType())
                 {
-                    return; // We have something new, dont delete
+                    Debug.Log("we got " + newComponent.GetType());
+                    alreadyHave = true;
                 }
+            }
+            if (!alreadyHave)
+            {
+                return; // We have something new! Persist
             }
         }
 

@@ -29,4 +29,19 @@ public abstract class ComponentHolder : MonoBehaviour
     {
         return component;
     }
+
+    public virtual bool RequestBody(SimulatedScript requestingScript)
+    {
+        return false;
+    }
+
+    public virtual bool LockBody(SimulatedScript newOwner)
+    {
+        return false;
+    }
+
+    public virtual void ReleaseBody(SimulatedScript currentOwner)
+    {
+        return;
+    }
 }
