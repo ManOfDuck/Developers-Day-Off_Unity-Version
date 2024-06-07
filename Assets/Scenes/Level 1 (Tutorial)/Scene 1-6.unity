@@ -83792,6 +83792,7 @@ MonoBehaviour:
   circleShrinkScript: {fileID: 454761588}
   isSecondLevel: 0
   secondLevelFallingSound: {fileID: 0}
+  particle: {fileID: 5198335446318970962, guid: 606f0d0291ac0094da404afc3c9442f9, type: 3}
 --- !u!1001 &1239923089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87520,7 +87521,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -1, z: 0}
@@ -87672,7 +87673,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 117161072, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 492896567, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 10, y: -1, z: 0}
@@ -87880,7 +87881,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -1990990166, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
       - {fileID: 81545918, guid: 62eaf63391add4cebaf07d800a7e3704, type: 3}
-      m_AnimationSpeed: 11
+      m_AnimationSpeed: 11.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -20, y: 4, z: 0}

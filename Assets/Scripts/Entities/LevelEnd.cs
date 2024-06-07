@@ -8,6 +8,8 @@ public class LevelEnd : MonoBehaviour
     [SerializeField] CircleShrink circleShrinkScript;
     public bool isSecondLevel;
     [SerializeField] AudioSource secondLevelFallingSound;
+    [SerializeField] ParticleSystem particle;
+
 
     private void Start()
     {
@@ -28,6 +30,9 @@ public class LevelEnd : MonoBehaviour
 
             else
             {
+                ParticleSystem instantiatedDeathParticle = Instantiate<ParticleSystem>(particle);
+                instantiatedDeathParticle.transform.position = this.transform.position;
+
                 Debug.Log("level cleared");
                 //GameManager.Instance.ClearLevel();
                 circleShrinkScript.ClearLevel();
