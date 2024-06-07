@@ -281,22 +281,21 @@ public class CharacterController : SimulatedScript
             useTriggers = false
         };
 
-
-
         direction = direction.normalized;
-        Vector2 edgePosition = (Vector2) CharacterCollider.transform.position + (CharacterCollider.bounds.size * direction) / 2;
+        Vector2 edgePosition = (Vector2)transform.position + CharacterCollider.offset + (CharacterCollider.bounds.size / 2 * direction) + ((transform.localScale - Vector3.one) * 0.09f * direction);
         Vector2 offsetFromEdge = direction * distance;
-        Vector2 boxSize = CharacterCollider.bounds.size * Vector2.Perpendicular(direction) + direction * distance;
+        Vector2 boxSize = (CharacterCollider.bounds.size * Vector2.Perpendicular(direction) * 0.99f + direction * distance);
+        boxSize.x = Mathf.Abs(boxSize.x);
+        boxSize.y = Mathf.Abs(boxSize.y);
 
         Collider2D[] hits = new Collider2D[2];
         Physics2D.OverlapBox(edgePosition + offsetFromEdge + offset, boxSize, 0, filter, hits);
 
         if (direction == Vector2.down)
         {
-            Debug.Log(this.gameObject + " " + boxSize);
+            Debug.Log(this.gameObject + " " + edgePosition);
         }
 
-        //Debug.Log(numHits);
         foreach(Collider2D collider in hits)
         {
             if (collider != null && collider != CharacterCollider)
@@ -312,7 +311,7 @@ public class CharacterController : SimulatedScript
 
     virtual protected void CheckForGround()
     {
-        bool isGrounded = CheckForObject(Vector2.down * transform.localScale.y, GroundCheckDistance, ref groundObject);
+        bool isGrounded = CheckForObject(Vector2.down, GroundCheckDistance, ref groundObject);
         if (ValidateReferences(SpriteAnimator))
             SpriteAnimator.SetBool("IsGrounded", isGrounded);
 
