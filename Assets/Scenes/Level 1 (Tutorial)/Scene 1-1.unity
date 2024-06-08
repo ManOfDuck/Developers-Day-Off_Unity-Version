@@ -67725,7 +67725,7 @@ PrefabInstance:
       objectReference: {fileID: 1667212545}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: timeDelay
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2581674208171075820, guid: 36cf770658522094f9b2ebbb28725b8c, type: 3}
       propertyPath: speakerName

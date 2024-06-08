@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class ToolkitController : ComponentHolder
@@ -24,7 +23,6 @@ public class ToolkitController : ComponentHolder
 
     //for toolkit slidee
     private Button tkSpacer;
-    Vector2 pointerScreenPos, pointerUiPos;
 
     private void Awake()
     {
@@ -97,25 +95,22 @@ public class ToolkitController : ComponentHolder
 
     private void Update()
     {
-        //open tk on hover
-        pointerScreenPos = Input.mousePosition;
-        pointerUiPos = new Vector2 { x = pointerScreenPos.x, y = Screen.height - pointerScreenPos.y };
-
-        Debug.Log("picked : " + mainUIDocument.rootVisualElement.panel.Pick(pointerUiPos)); //this is so evil unity why would u make me do this
-
-        if (mainUIDocument.rootVisualElement.panel.Pick(pointerUiPos) == toolkitRoot)
+        /*if (IsInsideElement(toolkitRoot, Input.mousePosition))
         {
-            //open the TK
+            Debug.Log("mouse over tk");
             tkSpacer.RemoveFromClassList("tk_spacer_closed");
             tkSpacer.AddToClassList("tk_spacer_open");
-            tkSpacer.RemoveFromClassList("tk_spacer_hidden");
         }
         else
         {
-            //close the TK
             tkSpacer.RemoveFromClassList("tk_spacer_open");
             tkSpacer.AddToClassList("tk_spacer_closed");
-            tkSpacer.RemoveFromClassList("tk_spacer_hidden");
-        }
+        }*/
     }
+
+    /*private bool IsInsideElement(VisualElement v, Vector2 pos) //yeah thhis doesnt work :(
+    {
+        Debug.Log("yeah: " + v.worldBound.Contains(pos));
+        return v.worldBound.Contains(pos);
+    }*/
 }
