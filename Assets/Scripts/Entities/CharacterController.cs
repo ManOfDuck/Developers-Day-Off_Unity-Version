@@ -310,9 +310,16 @@ public class CharacterController : SimulatedScript
 
         if (isGrounded) // Ok, but are you REALLY??
         {
-            Collider2D[] groundColliders = new Collider2D[1];
+            Collider2D[] groundColliders = new Collider2D[4];
             groundObject.GetAttachedColliders(groundColliders);
-            isGrounded = isGrounded && CharacterCollider.IsTouching(groundColliders[0]);
+
+            bool touchingACollider = false;
+            foreach (Collider2D c in groundColliders)
+            {
+                if (c == null) continue;
+                touchingACollider = touchingACollider || CharacterCollider.IsTouching(c);
+            }
+            isGrounded = isGrounded && touchingACollider;
         }
 
         Debug.Log(isGrounded);
@@ -330,7 +337,7 @@ public class CharacterController : SimulatedScript
 
     virtual protected bool CheckForWall(Vector2 direction)
     {
-        return CheckForObject(direction.normalized, WallCheckDistance, ref wallObject); 
+        return CheckForObject(direction.normalized, WallCheckDistance, Vector2.up * 0.1f, ref wallObject);; 
     }
 
     virtual protected bool CheckForCeiling()
