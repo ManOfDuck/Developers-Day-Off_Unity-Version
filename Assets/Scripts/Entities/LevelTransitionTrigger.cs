@@ -25,7 +25,7 @@ public class LevelTransitionTrigger : MonoBehaviour
             //gameManager.LoadScene(level, !secondarySpawn);
             //StartCoroutine(SceneChange(2));
 
-            circleShrinkScript.closeCircle(level);
+            circleShrinkScript.closeCircle(level, secondarySpawn);
         }
     }
 

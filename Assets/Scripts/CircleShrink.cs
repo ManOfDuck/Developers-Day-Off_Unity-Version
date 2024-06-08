@@ -12,6 +12,7 @@ public class CircleShrink : MonoBehaviour
     private bool opening = true;
     private bool clearLevel = false;
     private string nextScene;
+    private bool isSecondarySpawn = false;
 
     GameManager gameManager;
 
@@ -45,7 +46,8 @@ public class CircleShrink : MonoBehaviour
             {
                 //change scenes
                 FollowCamera.Instance.isChangingScenes = false;
-                gameManager.LoadScene(nextScene, true);
+                Debug.Log("closed circle, isSecondarySpawn = " + isSecondarySpawn);
+                gameManager.LoadScene(nextScene, !isSecondarySpawn);
             }
             else if(size <= 0 && clearLevel == true)
             {
@@ -54,8 +56,9 @@ public class CircleShrink : MonoBehaviour
         }
     }
 
-    public void closeCircle(string sceneName)
+    public void closeCircle(string sceneName, bool secondarySpawn)
     {
+        isSecondarySpawn = secondarySpawn;
         FollowCamera.Instance.isChangingScenes = true;
         closing = true;
         nextScene = sceneName;
